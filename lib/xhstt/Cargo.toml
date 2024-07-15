@@ -1,0 +1,9 @@
+[package]
+name = "xhstt"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+
+[lints]
+workspace = true

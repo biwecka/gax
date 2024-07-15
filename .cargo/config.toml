@@ -1,0 +1,48 @@
+# Cargo aliases ################################################################
+[alias]
+# Main crate
+r   = "run"                         # run
+rr  = "run --release"               # run (release mode)
+
+b   = "build"                       # build
+br  = "build --release"             # build (release mode)
+
+c   = "check"                       # check
+
+wr  = "watch -q -c -x r"            # watch run
+wb  = "watch -q -c -x b"            # watch build
+wc  = "watch -q -c -x c"            # watch check
+
+# Whole workspace
+bw  = "build --workspace"           # build workspace
+bwr = "build --workspace --release" # build workspace (release mode)
+
+cw  = "check --workspace"           # check workspace
+
+wbw = "watch -q -c -x bw"           # watch build workspace
+wcw = "watch -q -c -x cw"           # watch check workspace
+
+
+# Misc
+clp = "clippy --all-targets --all-features -- -D warnings"
+wdoc= "watch -q -c -x doc"
+
+
+# Configure Compiler Options ###################################################
+[build]
+rustflags = [
+    "-Z", "threads=8",                  # enable parallel compiler frontend
+]
+
+[target.x86_64-unknown-linux-gnu]
+rustflags = [
+    "-Z", "threads=8",                  # enable parallel compiler frontend
+    "-C", "link-arg=-fuse-ld=mold",     # set linker to "mold"
+]
+
+# Linker driver (clang is only needed here, if gcc version is too old)
+# linker = "clang"
+# For more information about the mold linker see:
+# https://github.com/rui314/mold?tab=readme-ov-file#how-to-use
+
+################################################################################
