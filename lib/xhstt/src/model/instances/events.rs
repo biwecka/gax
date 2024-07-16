@@ -82,7 +82,7 @@ structstruck::strike!(
             pub list: Vec<pub struct Resource {
                 // Attributes
                 #[serde(rename = "@Reference", skip_serializing_if = "Option::is_none")]
-                pub id: Option<String>,
+                pub reference: Option<String>,
 
                 // Children
                 #[serde(rename = "Role", skip_serializing_if = "Option::is_none")]

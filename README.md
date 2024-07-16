@@ -99,14 +99,20 @@ HighSchoolTimetableArchive [+Id]
                 Name
                 Required
                 ...
-                AppliesTo
+
+                AppliesTo (events; both)
                     + EventGroups
                         * EventGroup [Reference]
 
                     + Events
                         * Event [Reference]
 
-                AppliesTo (event pair)
+                AppliesTo (events; groups only)
+                    EventGroups
+                        * EventGroup [Reference]
+
+
+                AppliesTo (events; pairs)
                     EventPairs
                         * EventPair
                             FirstEvent [Reference]
@@ -114,8 +120,51 @@ HighSchoolTimetableArchive [+Id]
                             + MinSeparation
                             + MaxSeparation
 
+                AppliesTo (resources; both)
+                    + ResourceGroups
+                        * ResourceGroup [Reference]
+
+                    + Resources
+                        * Resource [Reference]
+
     + SolutionGroups
-        * SolutionGroup
+        * SolutionGroup [Id]
+            MetaData
+                Contributor
+                Date
+                Description
+                + Publication
+                + Remarks
+
+            * Solution [Reference]
+                + Description
+                + RunningTime
+                + Events
+                    * Event [Reference]
+                        + Duration
+                        + Time [Reference]
+                        + Ressources
+                            * Resource [Reference]
+                                Role
+                + Report
+                    InfeasibilityValue
+                    ObjectiveValue
+                    + Resources
+                        * Resource [Reference]
+                            * Constraint [Reference]
+                                Cost
+                                + Description
+                    + Events
+                        * Event [Reference]
+                            * Constraint [Reference]
+                                Cost
+                                + Description
+
+                    + EventGroups
+                        * EventGroup [Reference]
+                            * Constraint [Reference]
+                                Cost
+                                + Description
 
 ```
 

@@ -1,4 +1,4 @@
-// Helper Macro
+// Helper Macro ////////////////////////////////////////////////////////////////
 macro_rules! load_asset {
     ($file:expr) => {
         include_str!(concat!("../../../../assets/", $file)).to_owned()
@@ -12,8 +12,6 @@ structstruck::strike!(
             Abramson15,
             All11,
         }),
-
-        Test
     }
 );
 
@@ -24,8 +22,6 @@ impl Instances {
                 X2014a::Abramson15 => load_asset!("xhstt-2014a/Abramson15.xml"),
                 X2014a::All11 => load_asset!("xhstt-2014a/All11.xml"),
             },
-
-            Self::Test => load_asset!("test.xml"),
         }
     }
 }
