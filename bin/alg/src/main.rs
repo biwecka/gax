@@ -21,11 +21,6 @@ fn main() {
     );
 
     dbg!(xml_formatted.eq(&parsed_str));
-
-
-    // let xml_new = quick_xml::se::to_string_with_root("HighSchoolTimetableArchive", &parsed).unwrap();
-    // let formatted = xhstt::tools::format_xml(&xml_new);
-    // std::fs::write("./new.xml", formatted).unwrap();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
