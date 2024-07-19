@@ -1,9 +1,9 @@
 // Modules /////////////////////////////////////////////////////////////////////
-pub mod metadata;
-pub mod times;
-pub mod resources;
-pub mod events;
 pub mod constraints;
+pub mod events;
+pub mod metadata;
+pub mod resources;
+pub mod times;
 
 // Structs /////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
@@ -34,6 +34,5 @@ pub struct Instance {
     #[serde(rename = "Constraints")]
     pub constraints: constraints::Constraints,
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////

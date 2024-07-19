@@ -14,6 +14,12 @@ pub struct Times {
 structstruck::strike!(
     #[strikethrough[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]]
     pub struct TimeGroups {
+        /// Weeks allow display software to determine how the times of an
+        /// instance are grouped into weeks.
+        /// **Specifying weeks is optional.**
+        ///
+        /// Weeks are usually only specified, if schedules change for example
+        /// on a two-weekly basis.
         #[serde(rename = "Week", default)]
         pub weeks: Vec<pub struct Week {
             // Attributes
@@ -26,6 +32,11 @@ structstruck::strike!(
             pub name: String,
         }>,
 
+        /// Days allow display software to determine how the times of an
+        /// instance are grouped into days.
+        /// **Specifying days is optional.**
+        ///
+        /// Days are usually specified, to define the days of the week.
         #[serde(rename = "Day", default)]
         pub days: Vec<pub struct Day {
             // Attributes
@@ -38,6 +49,13 @@ structstruck::strike!(
             pub name: String,
         }>,
 
+
+        /// Time groups define generic groups of times. Even though days and
+        /// weeks are also time groups, they are usually defined in the
+        /// respective, separate property (above).
+        ///
+        /// An example for the usage of the generic time groups is splitting
+        /// a day in "before lunch" and "after lunch".
         #[serde(rename = "TimeGroup", default)]
         pub time_groups: Vec<pub struct TimeGroup {
             // Attributes

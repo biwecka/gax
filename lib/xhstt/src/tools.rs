@@ -19,7 +19,7 @@ pub fn format_xml(xml: &str) -> String {
 
                 Err(e) => panic!("errof: {e:?}"),
             }
-        },
+        }
 
         Err(e) => panic!("error: {e:?}"),
     }

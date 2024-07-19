@@ -25,7 +25,6 @@ impl Instances {
             // Self::X2014(val) => match val {
             //     X2014::AustraliaBGHS98 => load_asset!("xhstt-2014/AustraliaBGHS98.xml")
             // },
-
             Self::X2014a(val) => match val {
                 X2014a::Abramson15 => load_asset!("xhstt-2014a/Abramson15.xml"),
                 X2014a::All11 => load_asset!("xhstt-2014a/All11.xml"),

@@ -9,7 +9,6 @@ pub struct Solution {
     #[serde(rename = "@Reference")]
     pub reference: String,
 
-
     // Children
     #[serde(rename = "Description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -19,11 +18,8 @@ pub struct Solution {
 
     #[serde(rename = "Events", skip_serializing_if = "Option::is_none")]
     pub events: Option<events::Events>,
-
     // #[serde(rename = "Report", skip_serializing_if = "Option::is_none")]
     // pub report: Option<report::Report>,
-
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////

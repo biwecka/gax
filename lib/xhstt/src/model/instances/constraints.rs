@@ -70,7 +70,6 @@ structstruck::strike!(
     }
 );
 
-
 // Sub Sub /////////////////////////////////////////////////////////////////////
 
 // Const Function
@@ -106,7 +105,6 @@ structstruck::strike!(
         }>,
     }
 );
-
 
 // AppliesToEventGroups (event groups only)
 #[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
@@ -148,7 +146,6 @@ structstruck::strike!(
     }
 );
 
-
 // AppliesToResourcesAndGroups (resource groups and events)
 structstruck::strike!(
     #[strikethrough[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]]
@@ -174,8 +171,5 @@ structstruck::strike!(
         }>,
     }
 );
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
