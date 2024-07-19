@@ -120,6 +120,14 @@ structstruck::strike!(
                 // Children
 
                 /// Must be set, if `reference` is not set.
+                /// The main goal of roles is to describe what resource has to
+                /// be assigned to an event.
+                /// The role property describes what this resource "is" for
+                /// this event. It therefore is often "equal" or similar to
+                /// the resource_type.
+                ///
+                /// Within an event a role can only be assigned to one resource,
+                /// as this role "identifies" the resource on the event.
                 #[serde(rename = "Role", skip_serializing_if = "Option::is_none")]
                 pub role: Option<pub struct Role {
                     #[serde(rename = "$text")]
