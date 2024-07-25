@@ -1,0 +1,10 @@
+max_width               = 80                    # default = 100
+reorder_modules         = true                  # default = true
+tab_spaces              = 4                     # default = 4
+use_small_heuristics    = "Max"
+
+#comment_width           = 80                    # default = 80
+#error_on_line_overflow  = true                  # default = false; unstable
+#imports_granularity     = "Module"              # default = "Preserve"; unstable
+#group_imports           = "StdExternalCrate"    # default = "Preserve"; unstable
+#trailing_semicolon      = true                  # default = true; unstable

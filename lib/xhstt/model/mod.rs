@@ -17,7 +17,10 @@ pub struct XhsttArchive {
     #[serde(rename = "Instances", skip_serializing_if = "Option::is_none")]
     pub instances: Option<instances::Instances>,
 
-    #[serde(rename = "SolutionGroups", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "SolutionGroups",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub solution_groups: Option<solution_groups::SolutionGroups>,
 }
 
@@ -58,17 +61,11 @@ impl XhsttArchive {
 
         let times = instance.times.times.len();
 
-        let weeks = instance
-            .times
-            .time_groups
-            .as_ref()
-            .map_or(0, |v| v.weeks.len());
+        let weeks =
+            instance.times.time_groups.as_ref().map_or(0, |v| v.weeks.len());
 
-        let days = instance
-            .times
-            .time_groups
-            .as_ref()
-            .map_or(0, |v| v.days.len());
+        let days =
+            instance.times.time_groups.as_ref().map_or(0, |v| v.days.len());
 
         let generic_time_groups = instance
             .times
@@ -90,10 +87,7 @@ impl XhsttArchive {
             .as_ref()
             .map_or(0, |x| x.list.len());
 
-
-        let events = instance
-            .events
-            .events.len();
+        let events = instance.events.events.len();
 
         let mut predefined_event_resources = 0;
         let mut not_predefined_event_resources = 0;
@@ -116,8 +110,6 @@ impl XhsttArchive {
                 predefined_event_times += 1;
             }
         }
-
-
 
         Some(Stats {
             instance_id,

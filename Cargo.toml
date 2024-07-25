@@ -7,13 +7,17 @@ members = [
 ]
 
 # exclude = []
-default-members = [ "bin/alg" ]
+default-members = [ "bin/solver" ]
 
 
 ################################################################################
 [workspace.dependencies]
 #> lib
 xhstt = { path = "lib/xhstt" }
+alg_1 = { path = "lib/alg_1" }
+
+#> remote
+rand = { version = "0.8.5" }
 
 
 ################################################################################

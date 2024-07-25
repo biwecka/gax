@@ -6,7 +6,10 @@ pub struct Resources {
     #[serde(rename = "ResourceTypes", skip_serializing_if = "Option::is_none")]
     pub resource_types: Option<ResourceTypes>,
 
-    #[serde(rename = "ResourceGroups", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "ResourceGroups",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub resource_groups: Option<ResourceGroups>,
 
     #[serde(rename = "Resource", default)]

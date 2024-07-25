@@ -1,15 +1,19 @@
 [package]
-name = "alg"
+name = "solver"
 version = "0.1.0"
 edition = "2021"
+
+[[bin]]
+name = "solver"
+path = "main.rs"
 
 [dependencies]
 #> libs
 xhstt = { workspace = true }
+alg_1 = { workspace = true }
 
 #> remote
-serde = { version = "1.0.204", features = ["derive"] }
-quick-xml = { version = "0.36.0", features = ["serialize"] }
+rand = { workspace = true }
 
 [lints]
 workspace = true

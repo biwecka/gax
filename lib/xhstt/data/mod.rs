@@ -1,7 +1,7 @@
 // Helper Macro ////////////////////////////////////////////////////////////////
 macro_rules! load_asset {
     ($file:expr) => {
-        include_str!(concat!("../../../../assets/", $file)).to_owned()
+        include_str!(concat!("../../../assets/", $file)).to_owned()
     };
 }
 

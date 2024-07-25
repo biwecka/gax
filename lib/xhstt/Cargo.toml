@@ -3,6 +3,9 @@ name = "xhstt"
 version = "0.0.0"
 edition = "2021"
 
+[lib]
+path = "lib.rs"
+
 [dependencies]
 structstruck = "0.4.1"
 serde = { version = "1.0.204", features = ["derive"] }

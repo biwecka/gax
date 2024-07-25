@@ -28,8 +28,11 @@ mod tests {
         let data = crate::parse(&xml);
 
         // Data to string
-        let data_str =
-            quick_xml::se::to_string_with_root("HighSchoolTimetableArchive", &data).unwrap();
+        let data_str = quick_xml::se::to_string_with_root(
+            "HighSchoolTimetableArchive",
+            &data,
+        )
+        .unwrap();
 
         // Format
         let data_str_formatted = tools::format_xml(&data_str);
@@ -50,8 +53,11 @@ mod tests {
         let data = crate::parse(&xml);
 
         // Data to string
-        let data_str =
-            quick_xml::se::to_string_with_root("HighSchoolTimetableArchive", &data).unwrap();
+        let data_str = quick_xml::se::to_string_with_root(
+            "HighSchoolTimetableArchive",
+            &data,
+        )
+        .unwrap();
 
         // Format
         let data_str_formatted = tools::format_xml(&data_str);
