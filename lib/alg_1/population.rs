@@ -3,7 +3,8 @@ use crate::stats::Stats;
 use rand::distributions::{Distribution, Uniform};
 
 // Structs /////////////////////////////////////////////////////////////////////
-/// A gene is a random number in the interval [0; times).
+/// A gene is a random number in the interval [0; times) which specifies
+/// the time (by index) for an event.
 pub struct Gene(pub usize);
 impl From<usize> for Gene {
     fn from(value: usize) -> Self {
@@ -11,7 +12,8 @@ impl From<usize> for Gene {
     }
 }
 
-/// A chromosome is an array of genes
+/// A chromosome is an array of genes.
+/// The gene index (locus) specifies the event.
 pub struct Chromosome(pub Vec<Gene>);
 impl From<Vec<Gene>> for Chromosome {
     fn from(value: Vec<Gene>) -> Self {
@@ -36,8 +38,8 @@ pub fn initialize(size: usize, stats: &Stats) -> Vec<Chromosome> {
     // Create population
     let mut population = Vec::with_capacity(size);
     for _ in 0..size {
-        let mut chromosome = Vec::<usize>::with_capacity(stats.event_count);
-        for _ in 0..stats.event_count {
+        let mut chromosome = Vec::<usize>::with_capacity(stats.events.len());
+        for _ in 0..stats.events.len() {
             chromosome.push(random_gene_values.sample(&mut rng));
         }
 

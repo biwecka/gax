@@ -80,19 +80,22 @@ pub enum CostFunction {
     Step,
 }
 
+// TODO: Remove this
 impl CostFunction {
     pub fn calc(&self, value: usize) -> usize {
         match self {
             CostFunction::Linear => value,
             CostFunction::Quadratic => value * value,
             CostFunction::Step => {
-                if value != 0 { 1 }
-                else { 0 }
+                if value != 0 {
+                    1
+                } else {
+                    0
+                }
             }
         }
     }
 }
-
 
 // AppliesToEventsAndGroups (event groups and events)
 structstruck::strike!(

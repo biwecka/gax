@@ -1,10 +1,11 @@
 // Modules /////////////////////////////////////////////////////////////////////
-pub mod data;
 pub mod model;
+pub mod parser;
 pub mod tools;
+pub mod xml;
 
 // Functions ///////////////////////////////////////////////////////////////////
-pub fn parse(xml: &str) -> model::XhsttArchive {
+pub fn parse(xml: &str) -> parser::XhsttArchive {
     quick_xml::de::from_str(xml).unwrap()
 }
 
@@ -12,14 +13,14 @@ pub fn parse(xml: &str) -> model::XhsttArchive {
 #[cfg(test)]
 mod tests {
     use crate::{
-        data::{Instances, X2014a},
         tools,
+        xml::{Archives, X2014a},
     };
 
     #[test]
     fn parse_abramson_15() {
         // XML string
-        let xml = Instances::X2014a(X2014a::Abramson15).xml();
+        let xml = Archives::X2014a(X2014a::Abramson15).xml();
 
         // Format original xml
         let orig_formatted = tools::format_xml(&xml);
@@ -44,7 +45,7 @@ mod tests {
     #[test]
     fn parse_all_11() {
         // XML string
-        let xml = Instances::X2014a(X2014a::All11).xml();
+        let xml = Archives::X2014a(X2014a::All11).xml();
 
         // Format original xml
         let orig_formatted = tools::format_xml(&xml);
@@ -69,7 +70,7 @@ mod tests {
     // #[test]
     // fn parse_australia_bghs_98() {
     //     // XML string
-    //     let xml = Instances::X2014(X2014::AustraliaBGHS98).xml();
+    //     let xml = Archives::X2014(X2014::AustraliaBGHS98).xml();
 
     //     // Format original xml
     //     let orig_formatted = tools::format_xml(&xml);

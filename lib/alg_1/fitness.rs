@@ -1,9 +1,11 @@
+use std::time::Instant;
+
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::{population::Chromosome, stats::Stats};
-use xhstt::model::instances::{
+use xhstt::model::{
     constraints::{AssignTimeConstraint, AvoidClashesConstraint, Constraint},
-    events::TimeRef,
-    Instance,
+    events::EventId,
+    Constraints, Data,
 };
 
 // Structs /////////////////////////////////////////////////////////////////////
@@ -20,41 +22,39 @@ impl From<usize> for Fitness {
 /// Evaluates the fitness of a chromosome.
 pub fn eval(
     chromosome: &Chromosome,
-    instancex: &Instance,
+    data: &Data,
+    cstr: &Constraints,
     stats: &Stats,
 ) -> Fitness {
     // Clone instance (TODO: this might be not very smart)
-    let mut instance = instancex.clone();
-
+    let mut data: Data = data.clone();
     // Apply chromosome to instance
-    for (gene_index, gene) in chromosome.0.iter().enumerate() {
+    for (locus, gene) in chromosome.0.iter().enumerate() {
+        // Translate locus and gene
+        let event_index = locus;
+        let time_index = gene.0;
+
         // Get event_id by gene_index
-        let event_id = stats.event_ids.get(gene_index).unwrap();
+        let event_id = stats.events.get(event_index).unwrap();
 
         // Get time reference by gene
-        let time = instance.times.times.get(gene.0).unwrap();
+        let time = data.get_time_by_idx(time_index).clone();
 
         // Apply time to event
-        let event = instance
-            .events
-            .events
-            .iter_mut()
-            .find(|e| e.id.eq(event_id))
-            .unwrap();
-        event.time = Some(TimeRef { reference: time.id.to_owned() });
+        let event = data.get_event_by_id_mut(event_id);
+        event.time = Some(time.id.clone());
     }
 
     let mut total_fitness: usize = 0;
 
-    for constraint in &instance.constraints.list {
+    for constraint in cstr.all() {
         match constraint {
             Constraint::AssignTimeConstraint(params) => {
-                total_fitness += eval_assign_time_constraint(params, &instance);
+                total_fitness += eval_assign_time_constraint(params, &data);
             }
 
             Constraint::AvoidClashesConstraint(params) => {
-                total_fitness +=
-                    eval_avoid_clashes_constraint(params, &instance);
+                total_fitness += eval_avoid_clashes_constraint(params, &data);
             }
         }
     }
@@ -65,48 +65,24 @@ pub fn eval(
 
 // Helpers /////////////////////////////////////////////////////////////////////
 fn eval_assign_time_constraint(
-    params: &AssignTimeConstraint,
-    instance: &Instance,
+    params: AssignTimeConstraint,
+    data: &Data,
 ) -> usize {
     // Event IDs this constraint applies to
-    let mut event_ids: Vec<String> = vec![];
+    let mut event_ids: Vec<EventId> = params.applies_to.events;
 
-    // Collect event IDs
-    if let Some(constraint_applies_to_events) = &params.applies_to.events {
-        event_ids.append(
-            &mut constraint_applies_to_events.list
-                .iter()
-                .map(|e| e.reference.clone())
-                .collect()
-            );
-    }
-
-    // Collect event IDs from event groups
-    if let Some(constraint_applies_to_event_groups) = &params.applies_to.event_groups {
-        for event_group in &constraint_applies_to_event_groups.list {
-            // Get events of this event group
-            let mut events = instance.events.events
-                .iter()
-                .filter(|e| match e.event_groups {
-                    Some(ref event_groups) => event_groups.list
-                        .iter()
-                        .map(|eg| eg.reference.clone())
-                        .collect::<Vec<String>>()
-                        .contains(&event_group.reference),
-                    None => false,
-                })
-                .map(|event| event.id.clone())
-                .collect::<Vec<String>>();
-
-            event_ids.append(&mut events);
-        }
+    // Add event_ids from event groups
+    for event_group in &params.applies_to.event_groups {
+        let ids = data.get_events_by_event_group(&event_group);
+        event_ids.extend_from_slice(ids);
     }
 
     // Check constraint for events
     let mut deviation: usize = 0;
     for event_id in event_ids {
         // Get event
-        let event = instance.events.events.iter().find(|e| e.id.eq(&event_id)).unwrap();
+        let event = data.get_event_by_id(&event_id);
+
         if event.time.is_none() {
             deviation += event.duration as usize;
         }
@@ -120,8 +96,8 @@ fn eval_assign_time_constraint(
 }
 
 fn eval_avoid_clashes_constraint(
-    params: &AvoidClashesConstraint,
-    instance: &Instance,
+    params: AvoidClashesConstraint,
+    data: &Data,
 ) -> usize {
     0
 }

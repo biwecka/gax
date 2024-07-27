@@ -7,7 +7,7 @@ macro_rules! load_asset {
 
 // Instances Enum //////////////////////////////////////////////////////////////
 structstruck::strike!(
-    pub enum Instances {
+    pub enum Archives {
         // X2014(pub enum {
         //     AustraliaBGHS98,
         // }),
@@ -19,7 +19,7 @@ structstruck::strike!(
     }
 );
 
-impl Instances {
+impl Archives {
     pub fn xml(&self) -> String {
         match self {
             // Self::X2014(val) => match val {

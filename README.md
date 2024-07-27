@@ -36,11 +36,11 @@ HighSchoolTimetableArchive [+Id]
                 + TimeGroups
                     * Week [Id]
                         Name
-                        + TimeGroup ???
+                        # + TimeGroup ???
 
                     * Day [Id]
                         Name
-                        + TimeGroup ???
+                        # + TimeGroup ???
 
                     * TimeGroup [Id]
                         Name
@@ -72,7 +72,7 @@ HighSchoolTimetableArchive [+Id]
                 + EventGroups
                     * Course [Id]
                         Name
-                        + EventGroup ??? (similar to week, day and timegroup)
+                        # + EventGroup ??? (similar to week, day and timegroup)
 
                     * EventGroup [Id]
                         Name
