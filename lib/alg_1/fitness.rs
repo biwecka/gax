@@ -2,11 +2,11 @@
 use crate::{population::Chromosome, stats::Stats};
 use hashbrown::HashSet;
 use xhstt::model::{
-    constraints::{AssignTimeConstraint, AvoidClashesConstraint, Constraint}, events::{Event, EventId}, resources::ResourceId, times::TimeId, Constraints, Data
+    constraints::{AssignTimeConstraint, AvoidClashesConstraint, Constraint}, events::EventId, resources::ResourceId, times::TimeId, Constraints, Data
 };
 
 // Structs /////////////////////////////////////////////////////////////////////
-#[derive(Debug)]
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Fitness(pub usize);
 impl From<usize> for Fitness {
     fn from(value: usize) -> Self {
@@ -14,15 +14,23 @@ impl From<usize> for Fitness {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Cost(pub usize);
+impl From<usize> for Cost {
+    fn from(value: usize) -> Self {
+        Self(value)
+    }
+}
+
 // Functions ///////////////////////////////////////////////////////////////////
 
-/// Evaluates the fitness of a chromosome.
+/// Evaluates the fitness/cost of a chromosome.
 pub fn eval(
     chromosome: &Chromosome,
     data: &Data,
     cstr: &Constraints,
     stats: &Stats,
-) -> Fitness {
+) -> Cost {
     // Clone instance (TODO: this might be not very smart)
     let mut data: Data = data.clone();
     // Apply chromosome to instance
@@ -42,22 +50,22 @@ pub fn eval(
         event.time = Some(time.id.clone());
     }
 
-    let mut total_fitness: usize = 0;
+    let mut total_cost: usize = 0;
 
     for constraint in cstr.all() {
         match constraint {
             Constraint::AssignTimeConstraint(params) => {
-                total_fitness += eval_assign_time_constraint(params, &data);
+                total_cost += eval_assign_time_constraint(params, &data);
             }
 
             Constraint::AvoidClashesConstraint(params) => {
-                total_fitness += eval_avoid_clashes_constraint(params, &data);
+                total_cost += eval_avoid_clashes_constraint(params, &data);
             }
         }
     }
 
     // Return
-    total_fitness.into()
+    total_cost.into()
 }
 
 // Helpers /////////////////////////////////////////////////////////////////////
