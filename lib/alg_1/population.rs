@@ -5,6 +5,7 @@ use rand::distributions::{Distribution, Uniform};
 // Structs /////////////////////////////////////////////////////////////////////
 /// A gene is a random number in the interval [0; times) which specifies
 /// the time (by index) for an event.
+#[derive(Clone, Debug)]
 pub struct Gene(pub usize);
 impl From<usize> for Gene {
     fn from(value: usize) -> Self {
@@ -14,6 +15,7 @@ impl From<usize> for Gene {
 
 /// A chromosome is an array of genes.
 /// The gene index (locus) specifies the event.
+#[derive(Clone, Debug)]
 pub struct Chromosome(pub Vec<Gene>);
 impl From<Vec<Gene>> for Chromosome {
     fn from(value: Vec<Gene>) -> Self {

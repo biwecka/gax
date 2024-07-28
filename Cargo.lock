@@ -18,6 +18,7 @@ dependencies = [
 name = "alg_1"
 version = "0.0.0"
 dependencies = [
+ "hashbrown",
  "rand",
  "xhstt",
 ]

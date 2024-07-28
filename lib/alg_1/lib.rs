@@ -8,6 +8,8 @@ mod population;
 mod selection;
 mod stats;
 
+use fitness::Fitness;
+use population::Chromosome;
 // Imports /////////////////////////////////////////////////////////////////////
 use xhstt::parser::instances::Instance;
 
@@ -23,23 +25,23 @@ pub fn run(instance: Instance) {
     let stats = stats::calc(&data);
 
     // Initialize population
-    let population = population::initialize(100, &stats);
+    let mut population = population::initialize(100, &stats);
 
-    let start = std::time::Instant::now();
+    for generation in 1..=2 {
+        let start = std::time::Instant::now();
 
-    let mut f = None;
+        // Evaluate population
+        let evalpop: Vec<(Chromosome, Fitness)> = population.clone()
+            .into_iter()
+            .map(|chromosome| {
+                let fitness = fitness::eval(&chromosome, &data, &cstr, &stats);
+                (chromosome, fitness)
+            })
+            .collect();
 
-    for chromosome in population {
-        let val = fitness::eval(&chromosome, &data, &cstr, &stats);
-        if f.is_none() {
-            f = Some(val);
-        }
+        // Print time
+        println!("Generation {} took {:?}", generation, start.elapsed());
     }
-
-    let elapsed = start.elapsed();
-
-    println!("{f:?}",);
-    println!("elapsed = {elapsed:?}");
 }
 
 ////////////////////////////////////////////////////////////////////////////////

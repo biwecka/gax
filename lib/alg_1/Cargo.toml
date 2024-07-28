@@ -12,6 +12,7 @@ xhstt = { workspace = true }
 
 #> remote
 rand = { workspace = true }
+hashbrown = { workspace = true }
 
 [lints]
 workspace = true

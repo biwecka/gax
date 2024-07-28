@@ -1,16 +1,13 @@
-use std::time::Instant;
-
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::{population::Chromosome, stats::Stats};
+use hashbrown::HashSet;
 use xhstt::model::{
-    constraints::{AssignTimeConstraint, AvoidClashesConstraint, Constraint},
-    events::EventId,
-    Constraints, Data,
+    constraints::{AssignTimeConstraint, AvoidClashesConstraint, Constraint}, events::{Event, EventId}, resources::ResourceId, times::TimeId, Constraints, Data
 };
 
 // Structs /////////////////////////////////////////////////////////////////////
 #[derive(Debug)]
-pub struct Fitness(usize);
+pub struct Fitness(pub usize);
 impl From<usize> for Fitness {
     fn from(value: usize) -> Self {
         Self(value)
@@ -99,7 +96,41 @@ fn eval_avoid_clashes_constraint(
     params: AvoidClashesConstraint,
     data: &Data,
 ) -> usize {
-    0
+    // Collect resources this constraint applies to
+    let mut resource_ids = params.applies_to.resources;
+
+    // Add resource_ids from resource groups
+    for resource_group in &params.applies_to.resource_groups {
+        let ids = data.get_resources_by_resource_group(resource_group);
+        resource_ids.extend_from_slice(ids);
+    }
+
+    // Ensure uniqueness
+    let set: HashSet<ResourceId> = HashSet::from_iter(resource_ids);
+    resource_ids = set.into_iter().collect();
+
+    // Get events for every resource and check if constraint is violated
+    let mut deviation: usize = 0;
+    for resource_id in resource_ids {
+        // Get events by resource_id
+        let events = data.get_events_by_resource(&resource_id);
+        if events.len() < 2 { continue; }
+
+        let times: HashSet<TimeId> = HashSet::from_iter(
+            events.iter().map(|e| e.time.clone().unwrap())
+        );
+
+        // TODO: this only works if all events have duration = 1 !!!
+        if times.len() < events.len() {
+            deviation += events.len() - 1;
+        }
+    }
+
+    // Calculate cost
+    let cost = (params.weight as usize) * params.cost_function.calc(deviation);
+
+    // Return
+    cost
 }
 
 ////////////////////////////////////////////////////////////////////////////////

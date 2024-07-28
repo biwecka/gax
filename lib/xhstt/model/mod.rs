@@ -52,6 +52,8 @@ pub struct Indices {
         HashMap<ResourceTypeId, Vec<ResourceGroupId>>,
     resource_type_2_resources: HashMap<ResourceTypeId, Vec<ResourceId>>,
 
+    resource_2_events: HashMap<ResourceId, Vec<EventId>>,
+
     // Events
     course_2_events: HashMap<CourseId, Vec<EventId>>,
     event_group_2_events: HashMap<EventGroupId, Vec<EventId>>,
@@ -229,6 +231,15 @@ impl Data {
                 .or_default()
                 .push(e.id.clone());
         }
+
+        for resource in e.assigned_resources {
+            self.indices.resource_2_events
+                .entry(resource.id)
+                .or_default()
+                .push(e.id.clone());
+        }
+
+        // TODO: what's with the resources assigned through resource groups?
     }
 }
 
@@ -261,6 +272,23 @@ impl Data {
         id: &EventGroupId,
     ) -> &Vec<EventId> {
         self.indices.event_group_2_events.get(id).unwrap()
+    }
+
+    pub fn get_resources_by_resource_group(
+        &self,
+        id: &ResourceGroupId,
+    ) -> &Vec<ResourceId> {
+        self.indices.resource_group_2_resources.get(id).unwrap()
+    }
+
+    pub fn get_events_by_resource(
+        &self,
+        id: &ResourceId,
+    ) -> Vec<&Event> {
+        self.indices.resource_2_events.get(id).unwrap()
+            .iter()
+            .map(|event_id| self.events.get(event_id).unwrap())
+            .collect()
     }
 }
 
