@@ -15,6 +15,7 @@ structstruck::strike!(
         X2014a(pub enum {
             Abramson15,
             All11,
+            Hdtt4,
         }),
     }
 );
@@ -28,6 +29,7 @@ impl Archives {
             Self::X2014a(val) => match val {
                 X2014a::Abramson15 => load_asset!("xhstt-2014a/Abramson15.xml"),
                 X2014a::All11 => load_asset!("xhstt-2014a/All11.xml"),
+                X2014a::Hdtt4 => load_asset!("xhstt-2014a/Hdtt4.xml"),
             },
         }
     }

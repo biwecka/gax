@@ -5,7 +5,7 @@ use rand::prelude::Distribution;
 // Functions ///////////////////////////////////////////////////////////////////
 pub fn roulette_wheel(
     pair_count: usize,
-    current_generation: Vec<(Chromosome, Cost)>,
+    current_generation: &Vec<(Chromosome, Cost)>,
 ) -> Vec<((Chromosome, Cost), (Chromosome, Cost))> {
     // Calculate total cost
     let total_cost: usize = current_generation.iter().map(|(_, c)| c.0).sum();
@@ -15,7 +15,7 @@ pub fn roulette_wheel(
         Vec::<f32>::with_capacity(current_generation.len());
 
     // ...by first calculating the cost relative to the populations total cost.
-    for chromosome in &current_generation {
+    for chromosome in current_generation {
         roulette_wheel.push(chromosome.1 .0 as f32 / total_cost as f32);
     }
 

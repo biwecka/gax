@@ -9,7 +9,7 @@ br  = "build --release"             # build (release mode)
 
 c   = "check"                       # check
 
-wr  = "watch -q -c -x r"            # watch run
+wr  = "watch -q -c --ignore assets -x r"            # watch run
 wb  = "watch -q -c -x b"            # watch build
 wc  = "watch -q -c -x c"            # watch check
 

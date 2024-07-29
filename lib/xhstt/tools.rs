@@ -1,3 +1,14 @@
+use crate::parser::XhsttArchive;
+
+
+pub fn xhstt_to_xml_string(xhstt: &XhsttArchive) -> String {
+    quick_xml::se::to_string_with_root(
+        "HighSchoolTimetableArchive",
+        xhstt,
+    )
+    .unwrap()
+}
+
 pub fn format_xml(xml: &str) -> String {
     match xmltree::Element::parse(xml.as_bytes()) {
         Ok(element) => {

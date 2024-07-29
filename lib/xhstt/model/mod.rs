@@ -36,27 +36,27 @@ pub struct Data {
     events: HashMap<EventId, Event>,
 
     // Indices
-    indices: Indices,
+    pub indices: Indices,
 }
 
 #[derive(Clone, Debug, Default)]
 pub struct Indices {
     // Times
-    week_2_times: HashMap<WeekId, Vec<TimeId>>,
-    day_2_times: HashMap<DayId, Vec<TimeId>>,
-    time_group_2_times: HashMap<TimeGroupId, Vec<TimeId>>,
+    pub week_2_times: HashMap<WeekId, Vec<TimeId>>,
+    pub day_2_times: HashMap<DayId, Vec<TimeId>>,
+    pub time_group_2_times: HashMap<TimeGroupId, Vec<TimeId>>,
 
     // Resources
-    resource_group_2_resources: HashMap<ResourceGroupId, Vec<ResourceId>>,
-    resource_type_2_resource_groups:
+    pub resource_group_2_resources: HashMap<ResourceGroupId, Vec<ResourceId>>,
+    pub resource_type_2_resource_groups:
         HashMap<ResourceTypeId, Vec<ResourceGroupId>>,
-    resource_type_2_resources: HashMap<ResourceTypeId, Vec<ResourceId>>,
+    pub resource_type_2_resources: HashMap<ResourceTypeId, Vec<ResourceId>>,
 
-    resource_2_events: HashMap<ResourceId, Vec<EventId>>,
+    pub resource_2_events: HashMap<ResourceId, Vec<EventId>>,
 
     // Events
-    course_2_events: HashMap<CourseId, Vec<EventId>>,
-    event_group_2_events: HashMap<EventGroupId, Vec<EventId>>,
+    pub course_2_events: HashMap<CourseId, Vec<EventId>>,
+    pub event_group_2_events: HashMap<EventGroupId, Vec<EventId>>,
 }
 
 // Methods for adding time information into the Data.

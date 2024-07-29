@@ -121,22 +121,35 @@ fn eval_avoid_clashes_constraint(
     let set: HashSet<ResourceId> = HashSet::from_iter(resource_ids);
     resource_ids = set.into_iter().collect();
 
+    // dbg!(&resource_ids.len());
+
+
     // Get events for every resource and check if constraint is violated
     let mut deviation: usize = 0;
+
+    // let mut first = true;
     for resource_id in resource_ids {
         // Get events by resource_id
         let events = data.get_events_by_resource(&resource_id);
+
         if events.len() < 2 {
             continue;
         }
 
+        // if first { dbg!(&events); }
+
         let times: HashSet<TimeId> =
             HashSet::from_iter(events.iter().map(|e| e.time.clone().unwrap()));
 
+        // if first { dbg!(times.len()); }
+
         // TODO: this only works if all events have duration = 1 !!!
         if times.len() < events.len() {
-            deviation += events.len() - 1;
+            // deviation += events.len() - 1;
+            deviation += events.len() - times.len();
         }
+
+        // first = false;
     }
 
     // Calculate cost
