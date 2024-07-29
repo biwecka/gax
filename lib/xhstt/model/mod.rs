@@ -233,7 +233,8 @@ impl Data {
         }
 
         for resource in e.assigned_resources {
-            self.indices.resource_2_events
+            self.indices
+                .resource_2_events
                 .entry(resource.id)
                 .or_default()
                 .push(e.id.clone());
@@ -281,11 +282,11 @@ impl Data {
         self.indices.resource_group_2_resources.get(id).unwrap()
     }
 
-    pub fn get_events_by_resource(
-        &self,
-        id: &ResourceId,
-    ) -> Vec<&Event> {
-        self.indices.resource_2_events.get(id).unwrap()
+    pub fn get_events_by_resource(&self, id: &ResourceId) -> Vec<&Event> {
+        self.indices
+            .resource_2_events
+            .get(id)
+            .unwrap()
             .iter()
             .map(|event_id| self.events.get(event_id).unwrap())
             .collect()

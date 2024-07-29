@@ -2,7 +2,11 @@
 use crate::{population::Chromosome, stats::Stats};
 use hashbrown::HashSet;
 use xhstt::model::{
-    constraints::{AssignTimeConstraint, AvoidClashesConstraint, Constraint}, events::EventId, resources::ResourceId, times::TimeId, Constraints, Data
+    constraints::{AssignTimeConstraint, AvoidClashesConstraint, Constraint},
+    events::EventId,
+    resources::ResourceId,
+    times::TimeId,
+    Constraints, Data,
 };
 
 // Structs /////////////////////////////////////////////////////////////////////
@@ -122,11 +126,12 @@ fn eval_avoid_clashes_constraint(
     for resource_id in resource_ids {
         // Get events by resource_id
         let events = data.get_events_by_resource(&resource_id);
-        if events.len() < 2 { continue; }
+        if events.len() < 2 {
+            continue;
+        }
 
-        let times: HashSet<TimeId> = HashSet::from_iter(
-            events.iter().map(|e| e.time.clone().unwrap())
-        );
+        let times: HashSet<TimeId> =
+            HashSet::from_iter(events.iter().map(|e| e.time.clone().unwrap()));
 
         // TODO: this only works if all events have duration = 1 !!!
         if times.len() < events.len() {
