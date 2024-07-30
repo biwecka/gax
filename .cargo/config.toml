@@ -32,12 +32,14 @@ wdoc= "watch -q -c -x doc"
 [build]
 rustflags = [
     "-Z", "threads=8",                  # enable parallel compiler frontend
+    "-C", "target-cpu=native",          # native CPU instructions
 ]
 
 [target.x86_64-unknown-linux-gnu]
 rustflags = [
     "-Z", "threads=8",                  # enable parallel compiler frontend
     "-C", "link-arg=-fuse-ld=mold",     # set linker to "mold"
+    "-C", "target-cpu=native",          # native CPU instructions
 ]
 
 # Linker driver (clang is only needed here, if gcc version is too old)

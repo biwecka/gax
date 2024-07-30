@@ -18,8 +18,8 @@ use xhstt::parser::instances::Instance;
 use xhstt::parser::solution_groups::solution::events::Event as SolutionEvent;
 
 // Constants ///////////////////////////////////////////////////////////////////
-const POPULATION_SIZE: usize = 4;
-const GENERATIONS: usize = 2;
+const POPULATION_SIZE: usize = 64;
+const GENERATIONS: usize = 50_000;
 
 // Algorithm ///////////////////////////////////////////////////////////////////
 
@@ -54,27 +54,46 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         // curr_gen.sort_by_key(|(_, cost)| std::cmp::Reverse(cost.0));
 
         // Print best cost
-        println!("current best = {}", curr_gen.first().unwrap().1.0);
-        println!("current last = {}", curr_gen.last().unwrap().1.0);
+        let curr_best = curr_gen.first().unwrap().1.0;
+        let curr_worst = curr_gen.last().unwrap().1.0;
+        // println!("current best = {}", curr_best);
+        // println!("current last = {}", curr_worst);
 
         // Selection
-        let parent_pairs =
-            selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen);
+        let parent_pairs = {
+            if curr_best > curr_worst && curr_best - curr_worst < 50 {
+                selection::rank(POPULATION_SIZE / 2, &curr_gen)
+            } else {
+                selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen)
+            }
+        };
 
         // Crossover
-        let mut children = crossover::changing_single_point(parent_pairs, &stats);
+        let mut children = crossover::changing_multi_point(parent_pairs, &stats);
 
         // Mutation
-        children = mutation::random_single(children, &stats, 0.05);
+        children = mutation::random_single(children, &stats, 0.5);
+
+
+        // Evaluate and sort children
+        let mut children_eval: Vec<(Chromosome, Cost)> = children
+            .clone()
+            .into_iter()
+            .map(|chromosome| {
+                let fitness = fitness::eval(&chromosome, &data, &cstr, &stats);
+                (chromosome, fitness)
+            })
+            .collect();
+
+        // Sort current generation (sort is always ascendingly)
+        children_eval.sort_by_key(|(_, cost)| cost.0);
+
 
         // Replace
-        population = replace::elite_1(
-            curr_gen.into_iter().map(|(chr, _)| chr).collect(),
-            children
-        );
+        population = replace::elite_best_n(8, curr_gen, children_eval);
 
         // Print time
-        println!("Generation {} took {:?}\n", gen_count, start.elapsed());
+        println!("Generation {} took {:?}: best={}, worst={}", gen_count, start.elapsed(), curr_best, curr_worst);
     }
 
     // Get best individual
