@@ -19,7 +19,7 @@ use xhstt::parser::solution_groups::solution::events::Event as SolutionEvent;
 
 // Constants ///////////////////////////////////////////////////////////////////
 const POPULATION_SIZE: usize = 64;
-const GENERATIONS: usize = 50_000;
+const GENERATIONS: usize = 1_000_000;
 
 // Algorithm ///////////////////////////////////////////////////////////////////
 
