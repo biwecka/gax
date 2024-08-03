@@ -15,6 +15,7 @@ default-members = [ "bin/solver" ]
 #> lib
 xhstt = { path = "lib/xhstt" }
 alg_1 = { path = "lib/alg_1" }
+alg_2 = { path = "lib/alg_2" }
 
 #> remote
 rand = { version = "0.8.5" }

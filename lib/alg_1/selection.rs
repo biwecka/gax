@@ -80,7 +80,7 @@ pub fn rank(
     let probability = |rank: usize, pop_size: usize| -> f32 {
         let p = pop_size as f32;
         let r = rank as f32;
-        ( 2.*(p - r) ) / ( p * (p + 1.))
+        (2. * (p - r)) / (p * (p + 1.))
     };
 
     // Create the rank-weighted "roulette_wheel

@@ -24,6 +24,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "alg_2"
+version = "0.0.0"
+dependencies = [
+ "rand",
+ "xhstt",
+]
+
+[[package]]
 name = "allocator-api2"
 version = "0.2.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -185,6 +193,7 @@ name = "solver"
 version = "0.1.0"
 dependencies = [
  "alg_1",
+ "alg_2",
  "rand",
  "xhstt",
 ]

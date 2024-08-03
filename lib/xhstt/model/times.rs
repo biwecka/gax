@@ -1,7 +1,16 @@
 // Week ////////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
-pub struct WeekId(String);
-pub type WeekRef = WeekId;
+pub struct WeekId(pub String);
+impl From<String> for WeekId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for WeekId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct Week {
@@ -20,8 +29,17 @@ impl From<crate::parser::instances::times::Week> for Week {
 
 // Day /////////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
-pub struct DayId(String);
-pub type DayRef = DayId;
+pub struct DayId(pub String);
+impl From<String> for DayId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for DayId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct Day {
@@ -40,8 +58,17 @@ impl From<crate::parser::instances::times::Day> for Day {
 
 // Time Group //////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
-pub struct TimeGroupId(String);
-pub type TimeGroupRef = TimeGroupId;
+pub struct TimeGroupId(pub String);
+impl From<String> for TimeGroupId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for TimeGroupId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct TimeGroup {
@@ -61,16 +88,25 @@ impl From<crate::parser::instances::times::TimeGroup> for TimeGroup {
 // Time ////////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
 pub struct TimeId(pub String);
-pub type TimeRef = TimeId;
+impl From<String> for TimeId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for TimeId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct Time {
     pub id: TimeId,
     pub name: String,
 
-    pub week: Option<WeekRef>,
-    pub day: Option<DayRef>,
-    pub time_groups: Vec<TimeGroupRef>,
+    pub week: Option<WeekId>,
+    pub day: Option<DayId>,
+    pub time_groups: Vec<TimeGroupId>,
 }
 
 impl From<crate::parser::instances::times::Time> for Time {

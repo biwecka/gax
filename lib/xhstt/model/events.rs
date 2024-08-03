@@ -1,13 +1,20 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use super::{
-    ResourceGroupId, ResourceId, ResourceRef, ResourceTypeId, ResourceTypeRef,
-    TimeId, TimeRef,
-};
+use super::{ResourceGroupId, ResourceId, ResourceTypeId, TimeId};
 
 // Course //////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
-pub struct CourseId(String);
-pub type CourseRef = CourseId;
+pub struct CourseId(pub String);
+
+impl From<String> for CourseId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for CourseId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct Course {
@@ -27,7 +34,17 @@ impl From<crate::parser::instances::events::Course> for Course {
 // Course //////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
 pub struct EventGroupId(pub String);
-pub type EventGroupRef = EventGroupId;
+
+impl From<String> for EventGroupId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for EventGroupId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct EventGroup {
@@ -47,7 +64,17 @@ impl From<crate::parser::instances::events::EventGroup> for EventGroup {
 // Event ///////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
 pub struct EventId(pub String);
-pub type EventRef = EventId;
+
+impl From<String> for EventId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for EventId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct Event {
@@ -57,14 +84,14 @@ pub struct Event {
     pub duration: u32,
     pub workload: Option<u32>,
 
-    pub course: Option<CourseRef>,
-    pub time: Option<TimeRef>,
+    pub course: Option<CourseId>,
+    pub time: Option<TimeId>,
 
     pub absent_resources: Vec<AbsentResource>,
     pub assigned_resources: Vec<AssignedResource>,
     pub resource_groups: Vec<super::resources::ResourceGroupRef>,
 
-    pub event_groups: Vec<EventGroupRef>,
+    pub event_groups: Vec<EventGroupId>,
 }
 
 impl From<crate::parser::instances::events::Event> for Event {
@@ -145,15 +172,15 @@ impl From<crate::parser::instances::events::Event> for Event {
 
 #[derive(Clone, Debug)]
 pub struct AssignedResource {
-    pub id: ResourceRef,
+    pub id: ResourceId,
     pub role: Option<String>,
-    pub resource_type: Option<ResourceTypeRef>,
+    pub resource_type: Option<ResourceTypeId>,
 }
 
 #[derive(Clone, Debug)]
 pub struct AbsentResource {
     pub role: String,
-    pub resource_type: ResourceTypeRef,
+    pub resource_type: ResourceTypeId,
 }
 
 ////////////////////////////////////////////////////////////////////////////////

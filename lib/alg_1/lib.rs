@@ -7,9 +7,9 @@ mod crossover;
 mod fitness;
 mod mutation;
 mod population;
+mod replace;
 mod selection;
 mod stats;
-mod replace;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use fitness::Cost;
@@ -54,8 +54,8 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         // curr_gen.sort_by_key(|(_, cost)| std::cmp::Reverse(cost.0));
 
         // Print best cost
-        let curr_best = curr_gen.first().unwrap().1.0;
-        let curr_worst = curr_gen.last().unwrap().1.0;
+        let curr_best = curr_gen.first().unwrap().1 .0;
+        let curr_worst = curr_gen.last().unwrap().1 .0;
         // println!("current best = {}", curr_best);
         // println!("current last = {}", curr_worst);
 
@@ -69,11 +69,11 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         };
 
         // Crossover
-        let mut children = crossover::changing_multi_point(parent_pairs, &stats);
+        let mut children =
+            crossover::changing_multi_point(parent_pairs, &stats);
 
         // Mutation
         children = mutation::random_single(children, &stats, 0.5);
-
 
         // Evaluate and sort children
         let mut children_eval: Vec<(Chromosome, Cost)> = children
@@ -88,12 +88,17 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         // Sort current generation (sort is always ascendingly)
         children_eval.sort_by_key(|(_, cost)| cost.0);
 
-
         // Replace
         population = replace::elite_best_n(8, curr_gen, children_eval);
 
         // Print time
-        println!("Generation {} took {:?}: best={}, worst={}", gen_count, start.elapsed(), curr_best, curr_worst);
+        println!(
+            "Generation {} took {:?}: best={}, worst={}",
+            gen_count,
+            start.elapsed(),
+            curr_best,
+            curr_worst
+        );
     }
 
     // Get best individual
@@ -109,7 +114,7 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
     final_gen.sort_by_key(|(_, cost)| cost.0);
 
     let best_solution = final_gen.first().unwrap();
-    println!("final best = {}", best_solution.1.0);
+    println!("final best = {}", best_solution.1 .0);
 
     println!(">>> END <<<");
 
@@ -142,8 +147,8 @@ fn convert_to_solution(
             resources: None,
             time: Some(
                 xhstt::parser::solution_groups::solution::events::TimeRef {
-                    reference:time.id.0
-                }
+                    reference: time.id.0,
+                },
             ),
         })
     }

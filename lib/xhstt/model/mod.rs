@@ -375,4 +375,399 @@ impl Constraints {
     }
 }
 
+// Database ////////////////////////////////////////////////////////////////////
+pub struct Database {
+    pub times: TimeDb,
+    pub resources: ResourceDb,
+    pub events: EventDb,
+}
+
+pub struct TimeDb {
+    weeks: Vec<Week>,
+    days: Vec<Day>,
+    groups: Vec<TimeGroup>,
+    times: Vec<Time>,
+}
+
+impl TimeDb {
+    // Weeks ///////////////////////////////////////////////////////////////////
+    pub fn weeks(&self) -> &[Week] {
+        &self.weeks
+    }
+
+    pub fn week_ids(&self) -> Vec<String> {
+        self.weeks.iter().map(|w| w.id.0.clone()).collect()
+    }
+
+    pub fn times_of_week(&self, week_id: &WeekId) -> Vec<Time> {
+        self.times
+            .clone()
+            .into_iter()
+            .filter_map(|t| {
+                if let Some(wid) = t.week.clone() {
+                    if wid.eq(week_id) {
+                        Some(t)
+                    } else {
+                        None
+                    }
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    pub fn time_() {}
+
+    // Days ////////////////////////////////////////////////////////////////////
+    pub fn days(&self) -> &[Day] {
+        &self.days
+    }
+
+    pub fn day_ids(&self) -> Vec<String> {
+        self.days.iter().map(|d| d.id.0.clone()).collect()
+    }
+
+    pub fn times_of_day(&self, day_id: &DayId) -> Vec<Time> {
+        self.times
+            .clone()
+            .into_iter()
+            .filter_map(|t| {
+                if let Some(did) = t.day.clone() {
+                    if did.eq(day_id) {
+                        Some(t)
+                    } else {
+                        None
+                    }
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    // Groups //////////////////////////////////////////////////////////////////
+    pub fn groups(&self) -> &[TimeGroup] {
+        &self.groups
+    }
+
+    pub fn group_ids(&self) -> Vec<String> {
+        self.groups.iter().map(|g| g.id.0.clone()).collect()
+    }
+
+    pub fn times_of_group(&self, time_group_id: &TimeGroupId) -> Vec<Time> {
+        self.times
+            .clone()
+            .into_iter()
+            .filter_map(|t| {
+                if t.time_groups.contains(time_group_id) {
+                    Some(t)
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    // Times ///////////////////////////////////////////////////////////////////
+    pub fn get(&self) -> &[Time] {
+        &self.times
+    }
+
+    pub fn ids(&self) -> Vec<String> {
+        self.times.iter().map(|t| t.id.0.clone()).collect()
+    }
+}
+
+pub struct ResourceDb {
+    types: Vec<ResourceType>,
+    groups: Vec<ResourceGroup>,
+    resources: Vec<Resource>,
+}
+
+impl ResourceDb {
+    pub fn types(&self) -> &[ResourceType] {
+        &self.types
+    }
+
+    pub fn type_ids(&self) -> Vec<String> {
+        self.types.iter().map(|t| t.id.0.clone()).collect()
+    }
+
+    pub fn groups(&self) -> &[ResourceGroup] {
+        &self.groups
+    }
+
+    pub fn group_ids(&self) -> Vec<String> {
+        self.groups.iter().map(|g| g.id.0.clone()).collect()
+    }
+
+    pub fn get(&self) -> &[Resource] {
+        &self.resources
+    }
+
+    pub fn ids(&self) -> Vec<String> {
+        self.resources.iter().map(|r| r.id.0.clone()).collect()
+    }
+
+    pub fn resources_of_group(
+        &self,
+        resource_group_id: &ResourceGroupId,
+    ) -> Vec<Resource> {
+        self.resources
+            .clone()
+            .into_iter()
+            .filter_map(|r| {
+                if r.resource_groups.contains(resource_group_id) {
+                    Some(r)
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    pub fn groups_of_type(
+        &self,
+        resource_type_id: &ResourceTypeId,
+    ) -> Vec<ResourceGroup> {
+        self.groups
+            .clone()
+            .into_iter()
+            .filter_map(|g| {
+                if g.resource_type.eq(resource_type_id) {
+                    Some(g)
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    pub fn resources_of_type(
+        &self,
+        resource_type_id: &ResourceTypeId,
+    ) -> Vec<Resource> {
+        self.resources
+            .clone()
+            .into_iter()
+            .filter_map(|r| {
+                if r.resource_type.eq(resource_type_id) {
+                    Some(r)
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    pub fn classes(&self) -> Vec<Resource> {
+        self.resources
+            .clone()
+            .into_iter()
+            .filter_map(|r| {
+                if r.resource_type.eq(&"Class".into()) {
+                    Some(r)
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    pub fn teachers(&self) -> Vec<Resource> {
+        self.resources
+            .clone()
+            .into_iter()
+            .filter_map(|r| {
+                if r.resource_type.eq(&"Teacher".into()) {
+                    Some(r)
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    pub fn rooms(&self) -> Vec<Resource> {
+        self.resources
+            .clone()
+            .into_iter()
+            .filter_map(|r| {
+                if r.resource_type.eq(&"Room".into()) {
+                    Some(r)
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+}
+
+pub struct EventDb {
+    courses: Vec<Course>,
+    groups: Vec<EventGroup>,
+    events: Vec<Event>,
+}
+
+impl EventDb {
+    pub fn courses(&self) -> &[Course] {
+        &self.courses
+    }
+
+    pub fn course_ids(&self) -> Vec<String> {
+        self.courses.iter().map(|c| c.id.0.clone()).collect()
+    }
+
+    pub fn groups(&self) -> &[EventGroup] {
+        &self.groups
+    }
+
+    pub fn group_ids(&self) -> Vec<String> {
+        self.groups.iter().map(|g| g.id.0.clone()).collect()
+    }
+
+    pub fn get(&self) -> &[Event] {
+        &self.events
+    }
+
+    pub fn ids(&self) -> Vec<String> {
+        self.events.iter().map(|e| e.id.0.clone()).collect()
+    }
+
+    pub fn events_of_course(&self, course_id: &CourseId) -> Vec<Event> {
+        self.events
+            .clone()
+            .into_iter()
+            .filter_map(|e| {
+                if let Some(course) = e.course.clone() {
+                    if course.eq(course_id) {
+                        Some(e)
+                    } else {
+                        None
+                    }
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    pub fn events_of_group(&self, event_group_id: &EventGroupId) -> Vec<Event> {
+        self.events
+            .clone()
+            .into_iter()
+            .filter_map(|e| {
+                if e.event_groups.contains(event_group_id) {
+                    Some(e)
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+}
+
+impl Database {
+    pub fn init(instance: &crate::parser::instances::Instance) -> Self {
+        // Time information
+        let mut weeks: Vec<Week> = vec![];
+        let mut days: Vec<Day> = vec![];
+        let mut t_groups: Vec<TimeGroup> = vec![];
+        let mut times: Vec<Time> = vec![];
+
+        if let Some(time_groups) = &instance.times.time_groups {
+            time_groups
+                .weeks
+                .clone()
+                .into_iter()
+                .for_each(|week| weeks.push(week.into()));
+
+            time_groups
+                .days
+                .clone()
+                .into_iter()
+                .for_each(|day| days.push(day.into()));
+
+            time_groups
+                .time_groups
+                .clone()
+                .into_iter()
+                .for_each(|tg| t_groups.push(tg.into()));
+        }
+
+        instance
+            .times
+            .times
+            .clone()
+            .into_iter()
+            .for_each(|t| times.push(t.into()));
+
+        // Resource information
+        let mut r_types: Vec<ResourceType> = vec![];
+        let mut r_groups: Vec<ResourceGroup> = vec![];
+        let mut resources: Vec<Resource> = vec![];
+
+        if let Some(resource_types) = &instance.resources.resource_types {
+            resource_types
+                .list
+                .clone()
+                .into_iter()
+                .for_each(|rt| r_types.push(rt.into()));
+        }
+
+        if let Some(resource_groups) = &instance.resources.resource_groups {
+            resource_groups
+                .list
+                .clone()
+                .into_iter()
+                .for_each(|rg| r_groups.push(rg.into()));
+        }
+
+        instance
+            .resources
+            .resources
+            .clone()
+            .into_iter()
+            .for_each(|r| resources.push(r.into()));
+
+        // Event information
+        let mut courses: Vec<Course> = vec![];
+        let mut e_groups: Vec<EventGroup> = vec![];
+        let mut events: Vec<Event> = vec![];
+
+        if let Some(event_groups) = &instance.events.event_groups {
+            event_groups
+                .courses
+                .clone()
+                .into_iter()
+                .for_each(|c| courses.push(c.into()));
+
+            event_groups
+                .event_groups
+                .clone()
+                .into_iter()
+                .for_each(|eg| e_groups.push(eg.into()));
+        }
+
+        instance
+            .events
+            .events
+            .clone()
+            .into_iter()
+            .for_each(|e| events.push(e.into()));
+
+        // Return
+        Self {
+            times: TimeDb { weeks, days, groups: t_groups, times },
+            resources: ResourceDb {
+                types: r_types,
+                groups: r_groups,
+                resources,
+            },
+            events: EventDb { courses, groups: e_groups, events },
+        }
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////

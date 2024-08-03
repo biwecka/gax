@@ -11,6 +11,7 @@ path = "main.rs"
 #> libs
 xhstt = { workspace = true }
 alg_1 = { workspace = true }
+alg_2 = { workspace = true }
 
 #> remote
 rand = { workspace = true }

@@ -1,0 +1,17 @@
+[package]
+name = "alg_2"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+#> lib
+xhstt = { workspace = true }
+
+#> remote
+rand = { workspace = true }
+
+[lints]
+workspace = true

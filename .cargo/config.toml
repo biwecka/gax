@@ -1,17 +1,18 @@
 # Cargo aliases ################################################################
 [alias]
 # Main crate
-r   = "run"                         # run
-rr  = "run --release"               # run (release mode)
+r   = "run -p"                      # run
+rr  = "run --release -p"            # run (release mode)
 
-b   = "build"                       # build
-br  = "build --release"             # build (release mode)
+b   = "build -p"                    # build
+br  = "build --release -p"          # build (release mode)
 
-c   = "check"                       # check
+c   = "check -p"                    # check
 
-wr  = "watch -q -c --ignore assets -x r"            # watch run
-wb  = "watch -q -c -x b"            # watch build
-wc  = "watch -q -c -x c"            # watch check
+wr-solver = ["watch", "-q", "-c", "--ignore", "assets", "-x", "run -p solver"]
+wb-solver = ["watch", "-q", "-c", "--ignore", "assets", "-x", "build -p solver"]
+wc-solver = ["watch", "-q", "-c", "--ignore", "assets", "-x", "check -p solver"]
+
 
 # Whole workspace
 bw  = "build --workspace"           # build workspace
@@ -25,7 +26,8 @@ wcw = "watch -q -c -x cw"           # watch check workspace
 
 # Misc
 clp = "clippy --all-targets --all-features -- -D warnings"
-wdoc= "watch -q -c -x doc"
+docw= "doc --workspace --no-deps"
+wdoc= ["watch", "-q", "-c", "-x", "doc --workspace --no-deps"]
 
 
 # Configure Compiler Options ###################################################

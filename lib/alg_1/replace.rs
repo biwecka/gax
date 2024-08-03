@@ -5,7 +5,7 @@ use crate::{fitness::Cost, population::Chromosome};
 pub fn elite_best_n(
     n: usize,
     population: Vec<(Chromosome, Cost)>,
-    children: Vec<(Chromosome, Cost)>
+    children: Vec<(Chromosome, Cost)>,
 ) -> Vec<Chromosome> {
     // Get elite
     let mut elite = population[0..n]
@@ -26,6 +26,5 @@ pub fn elite_best_n(
     // Return
     new_pop
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////

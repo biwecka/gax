@@ -1,8 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use super::{
-    EventGroupId, EventGroupRef, EventId, EventRef, ResourceGroupId,
-    ResourceGroupRef, ResourceId, ResourceRef,
-};
+use super::{EventGroupId, EventId, ResourceGroupId, ResourceId};
 
 // Constraints /////////////////////////////////////////////////////////////////
 structstruck::strike!(
@@ -78,8 +75,8 @@ impl From<crate::parser::instances::constraints::Constraint> for Constraint {
 // ... Events and Event Groups
 #[derive(Clone, Debug)]
 pub struct AppliesToEventsAndGroups {
-    pub event_groups: Vec<EventGroupRef>,
-    pub events: Vec<EventRef>,
+    pub event_groups: Vec<EventGroupId>,
+    pub events: Vec<EventId>,
 }
 
 impl From<crate::parser::instances::constraints::AppliesToEventsAndGroups>
@@ -112,7 +109,7 @@ impl From<crate::parser::instances::constraints::AppliesToEventsAndGroups>
 // ... Event Groups
 #[derive(Clone, Debug)]
 pub struct AppliesToEventGroups {
-    pub event_groups: Vec<EventGroupRef>,
+    pub event_groups: Vec<EventGroupId>,
 }
 
 impl From<crate::parser::instances::constraints::AppliesToEventGroups>
@@ -137,8 +134,8 @@ structstruck::strike!(
     #[strikethrough[derive(Clone, Debug)]]
     pub struct AppliesToEventPairs {
         pub event_pairs: Vec<pub struct EventPair {
-            pub first_event: EventRef,
-            pub second_event: EventRef,
+            pub first_event: EventId,
+            pub second_event: EventId,
 
             pub min_separation: Option<u32>,
             pub max_separation: Option<u32>,
@@ -173,8 +170,8 @@ impl From<crate::parser::instances::constraints::EventPair> for EventPair {
 // ... Resources and Groups
 #[derive(Clone, Debug)]
 pub struct AppliesToResourcesAndGroups {
-    pub resource_groups: Vec<ResourceGroupRef>,
-    pub resources: Vec<ResourceRef>,
+    pub resource_groups: Vec<ResourceGroupId>,
+    pub resources: Vec<ResourceId>,
 }
 
 impl From<crate::parser::instances::constraints::AppliesToResourcesAndGroups>

@@ -3,6 +3,17 @@
 pub struct ResourceTypeId(pub String);
 pub type ResourceTypeRef = ResourceTypeId;
 
+impl From<String> for ResourceTypeId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for ResourceTypeId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct ResourceType {
     pub id: ResourceTypeId,
@@ -22,6 +33,17 @@ impl From<crate::parser::instances::resources::ResourceType> for ResourceType {
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
 pub struct ResourceGroupId(pub String);
 pub type ResourceGroupRef = ResourceGroupId;
+
+impl From<String> for ResourceGroupId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for ResourceGroupId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct ResourceGroup {
@@ -48,6 +70,17 @@ impl From<crate::parser::instances::resources::ResourceGroup>
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
 pub struct ResourceId(pub String);
 pub type ResourceRef = ResourceId;
+
+impl From<String> for ResourceId {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}
+impl From<&str> for ResourceId {
+    fn from(value: &str) -> Self {
+        Self(value.to_owned())
+    }
+}
 
 #[derive(Clone, Debug)]
 pub struct Resource {

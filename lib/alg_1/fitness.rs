@@ -123,7 +123,6 @@ fn eval_avoid_clashes_constraint(
 
     // dbg!(&resource_ids.len());
 
-
     // Get events for every resource and check if constraint is violated
     let mut deviation: usize = 0;
 
