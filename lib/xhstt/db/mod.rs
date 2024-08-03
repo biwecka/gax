@@ -292,7 +292,7 @@ impl Database {
     }
 
     /// Get a week by id.
-    pub fn week_by_id(&self, id: WeekId) -> &Week {
+    pub fn week_by_id(&self, id: &WeekId) -> &Week {
         self.weeks.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -303,7 +303,7 @@ impl Database {
     }
 
     /// Get the list of time indices, which belong to the week.
-    pub fn week_time_ids(&self, id: WeekId) -> Vec<usize> {
+    pub fn week_time_ids(&self, id: &WeekId) -> Vec<usize> {
         let mut time_idxs = vec![];
         for (i, time) in self.times.iter().enumerate() {
             if let Some(wid) = &time.week {
@@ -325,7 +325,7 @@ impl Database {
     }
 
     /// Get a day by id.
-    pub fn day_by_id(&self, id: DayId) -> &Day {
+    pub fn day_by_id(&self, id: &DayId) -> &Day {
         self.days.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -336,7 +336,7 @@ impl Database {
     }
 
     /// Get the list of time indices, which belong to the day.
-    pub fn day_time_ids(&self, id: DayId) -> Vec<usize> {
+    pub fn day_time_ids(&self, id: &DayId) -> Vec<usize> {
         let mut time_idxs = vec![];
         for (i, time) in self.times.iter().enumerate() {
             if let Some(did) = &time.day {
@@ -358,7 +358,7 @@ impl Database {
     }
 
     /// Get a time-group by id.
-    pub fn time_group_by_id(&self, id: TimeGroupId) -> &TimeGroup {
+    pub fn time_group_by_id(&self, id: &TimeGroupId) -> &TimeGroup {
         self.time_groups.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -369,7 +369,7 @@ impl Database {
     }
 
     /// Get the list of time indices, which belong to the time group.
-    pub fn time_group_time_ids(&self, id: TimeGroupId) -> Vec<usize> {
+    pub fn time_group_time_ids(&self, id: &TimeGroupId) -> Vec<usize> {
         let mut time_idxs = vec![];
         for (i, time) in self.times.iter().enumerate() {
             if time.time_groups.contains(&id) {
@@ -389,7 +389,7 @@ impl Database {
     }
 
     /// Get a time by id.
-    pub fn time_by_id(&self, id: TimeId) -> &Time {
+    pub fn time_by_id(&self, id: &TimeId) -> &Time {
         self.times.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -400,7 +400,7 @@ impl Database {
     }
 
     /// Resolve id to index.
-    pub fn time_id_to_idx(&self, id: TimeId) -> usize {
+    pub fn time_id_to_idx(&self, id: &TimeId) -> usize {
         self.times.iter().position(|x| x.id.eq(&id)).unwrap()
     }
 }
@@ -415,7 +415,7 @@ impl Database {
     }
 
     /// Get a resource type by id.
-    pub fn resource_type_by_id(&self, id: ResourceTypeId) -> &ResourceType {
+    pub fn resource_type_by_id(&self, id: &ResourceTypeId) -> &ResourceType {
         self.resource_types.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -449,7 +449,7 @@ impl Database {
     }
 
     /// Get a resource-group by id.
-    pub fn resource_group_by_id(&self, id: ResourceGroupId) -> &ResourceGroup {
+    pub fn resource_group_by_id(&self, id: &ResourceGroupId) -> &ResourceGroup {
         self.resource_groups.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -462,7 +462,7 @@ impl Database {
     /// Get list of resource indices, which belong to this resource group.
     pub fn resource_group_resource_idxs(
         &self,
-        id: ResourceGroupId,
+        id: &ResourceGroupId,
     ) -> Vec<usize> {
         let mut resource_idxs = vec![];
         for (i, resource) in self.resources.iter().enumerate() {
@@ -483,7 +483,7 @@ impl Database {
     }
 
     /// Get a resource by id.
-    pub fn resource_by_id(&self, id: ResourceId) -> &Resource {
+    pub fn resource_by_id(&self, id: &ResourceId) -> &Resource {
         self.resources.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -494,7 +494,7 @@ impl Database {
     }
 
     /// Resolve id to index.
-    pub fn resource_id_to_idx(&self, id: ResourceId) -> usize {
+    pub fn resource_id_to_idx(&self, id: &ResourceId) -> usize {
         self.resources.iter().position(|x| x.id.eq(&id)).unwrap()
     }
 }
@@ -508,7 +508,7 @@ impl Database {
     }
 
     /// Get a course by id.
-    pub fn course_by_id(&self, id: CourseId) -> &Course {
+    pub fn course_by_id(&self, id: &CourseId) -> &Course {
         self.courses.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -519,7 +519,7 @@ impl Database {
     }
 
     /// Get the list of event indices, which belong to the course.
-    pub fn course_event_idxs(&self, id: CourseId) -> Vec<usize> {
+    pub fn course_event_idxs(&self, id: &CourseId) -> Vec<usize> {
         let mut event_idxs = vec![];
         for (i, event) in self.events.iter().enumerate() {
             if let Some(cid) = &event.course {
@@ -541,7 +541,7 @@ impl Database {
     }
 
     /// Get a event-group by id.
-    pub fn event_group_by_id(&self, id: EventGroupId) -> &EventGroup {
+    pub fn event_group_by_id(&self, id: &EventGroupId) -> &EventGroup {
         self.event_groups.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -552,7 +552,7 @@ impl Database {
     }
 
     /// Get the list of event indices, which belong to the event group.
-    pub fn event_group_event_idxs(&self, id: EventGroupId) -> Vec<usize> {
+    pub fn event_group_event_idxs(&self, id: &EventGroupId) -> Vec<usize> {
         let mut event_idxs = vec![];
         for (i, event) in self.events.iter().enumerate() {
             if event.event_groups.contains(&id) {
@@ -561,6 +561,19 @@ impl Database {
         }
 
         event_idxs
+    }
+
+    /// Check which events don't have a time allocated, and return a list of
+    /// their indices.
+    pub fn events_with_no_time(&self) -> Vec<usize> {
+        self.events
+            .iter()
+            .enumerate()
+            .filter_map(|(i, x)| match x.time {
+                Some(_) => None,
+                None => Some(i),
+            })
+            .collect()
     }
 }
 
@@ -572,7 +585,7 @@ impl Database {
     }
 
     /// Get a event by id.
-    pub fn event_by_id(&self, id: EventId) -> &Event {
+    pub fn event_by_id(&self, id: &EventId) -> &Event {
         self.events.iter().find(|x| x.id.eq(&id)).unwrap()
     }
 
@@ -583,7 +596,7 @@ impl Database {
     }
 
     /// Resolve id to index.
-    pub fn event_id_to_idx(&self, id: EventId) -> usize {
+    pub fn event_id_to_idx(&self, id: &EventId) -> usize {
         self.events.iter().position(|x| x.id.eq(&id)).unwrap()
     }
 }

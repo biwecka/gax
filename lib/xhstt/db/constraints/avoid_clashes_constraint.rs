@@ -1,5 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use super::{AppliesToResourcesAndGroups, CostFunction};
+use super::utils::{AppliesToResourcesAndGroups, CostFunction};
 use crate::parser::instances::constraints::AvoidClashesConstraint as IAvoidClashesConstraint;
 
 // Struct //////////////////////////////////////////////////////////////////////

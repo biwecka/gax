@@ -1,5 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use super::{AppliesToEventsAndGroups, CostFunction};
+use super::utils::{AppliesToEventsAndGroups, CostFunction};
 use crate::parser::instances::constraints::AssignTimeConstraint as IAssignTimeConstraint;
 
 // Struct //////////////////////////////////////////////////////////////////////
