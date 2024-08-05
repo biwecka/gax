@@ -18,7 +18,7 @@ pub fn roulette_wheel(
 
     // ...by first calculating the cost relative to the populations total cost.
     for chromosome in current_generation {
-        roulette_wheel.push(chromosome.1 as f32 / total_cost as f32);
+        roulette_wheel.push((chromosome.1 as f32 / total_cost as f32));
     }
 
     // ...and then accumulate the values
@@ -82,7 +82,8 @@ pub fn rank(
     let probability = |rank: usize, pop_size: usize| -> f32 {
         let p = pop_size as f32;
         let r = rank as f32;
-        (2. * (p - r)) / (p * (p + 1.))
+        (2. * (p - r + 1.)) / (p * (p + 1.))
+        // 0.01 * ((1. - 0.01) as f32).powi(rank as i32 - 1)
     };
 
     // Create the rank-weighted "roulette_wheel
@@ -90,8 +91,6 @@ pub fn rank(
     for (i, _chromosome) in current_generation.iter().enumerate() {
         selector.push(probability(i, pop_size));
     }
-    let last = selector.last_mut().unwrap();
-    *last = 1.;
 
     // Now selection can begin
     let mut rng = rand::thread_rng();

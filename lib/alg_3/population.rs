@@ -14,9 +14,8 @@ pub fn initialize(size: usize, db: &Database) -> Vec<Chromosome> {
     // Create population
     let mut population = Vec::with_capacity(size);
     for _ in 0..size {
-        let mut chromosome: Vec<u16> = (0..db.events().len())
-            .map(|x| x as u16)
-            .collect();
+        let mut chromosome: Vec<u16> =
+            (0..db.events().len()).map(|x| x as u16).collect();
         chromosome.shuffle(&mut rng);
 
         population.push(chromosome.into());

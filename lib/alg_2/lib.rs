@@ -81,6 +81,9 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         // Stats
         let curr_best = curr_gen.first().unwrap().1;
         let curr_worst = curr_gen.last().unwrap().1;
+        let curr_avg = curr_gen.iter().map(|(_, cost)| cost).sum::<usize>()
+            as f32
+            / (POPULATION_SIZE as f32);
 
         // Selection
         let parent_pairs = {
@@ -93,6 +96,12 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
             }
         };
         // let parent_pairs = selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen);
+
+        let selected_avg = parent_pairs
+            .iter()
+            .map(|((_, c0), (_, c1))| c0 + c1)
+            .sum::<usize>() as f32
+            / (POPULATION_SIZE as f32);
 
         // Crossover
         let mut children = crossover::static_single_point(parent_pairs, &db);
@@ -126,11 +135,14 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         // Print time
         // if gen_count % 1_000 == 0 {
         println!(
-            "Generation {} took {:?}: best={}, worst={}",
+            "Generation {} took {:.4?}: best={}, worst={} | f(selected)' = {} | f' = {} | selection_differential = {}",
             gen_count,
             start.elapsed(),
             curr_best,
-            curr_worst
+            curr_worst,
+            selected_avg,
+            curr_avg,
+            selected_avg - curr_avg
         );
         // }
     }

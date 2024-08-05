@@ -31,7 +31,6 @@ pub fn pre_calc_constraints(
     result
 }
 
-
 /// This function calculates the cost of an allocation under the given
 /// constraints.
 pub fn calculate_cost(
@@ -43,7 +42,8 @@ pub fn calculate_cost(
     for (constraint, indices) in constraints {
         match constraint {
             Constraint::AssignTimeConstraint(params) => {
-                total_cost += assign_time_constraint(allocation, params, indices);
+                total_cost +=
+                    assign_time_constraint(allocation, params, indices);
             }
             Constraint::AvoidClashesConstraint(_params) => {}
         }
@@ -73,21 +73,19 @@ fn assign_time_constraint(
                 .filter(|x| *x > 0)
                 .sum::<i8>();
 
-            // If no time was allocated, a cost of 1 is added to the deviation.
+            // If no time was allocated, a cost of "event.duration" is added to
+            // the deviation.
             if allocated_times == 0 {
-                1
-
+                allocation.event_duration(*event_idx) as usize
             } else {
                 0
             }
-
         })
         .sum();
 
     // Calc cost and return
     (params.weight as usize) * params.cost_function.calc(deviation)
 }
-
 
 /// Calculates the cost of the AvoidClashesConstraint.
 /// This constraint checks if the allocation contains clashes of resources.

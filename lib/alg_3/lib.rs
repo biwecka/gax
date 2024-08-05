@@ -8,12 +8,12 @@
 
 // Modules /////////////////////////////////////////////////////////////////////
 mod crossover;
-mod mutation;
-mod population;
-mod selection;
-mod replace;
 mod encoding;
 mod fitness;
+mod mutation;
+mod population;
+mod replace;
+mod selection;
 mod utils;
 
 // Imports /////////////////////////////////////////////////////////////////////
@@ -25,8 +25,8 @@ use xhstt::parser::{
 };
 
 // Constants ///////////////////////////////////////////////////////////////////
-const POPULATION_SIZE: usize = 500;
-const GENERATIONS: usize = 20_000;
+const POPULATION_SIZE: usize = 50;
+const GENERATIONS: usize = 50_000;
 
 // Algorithm ///////////////////////////////////////////////////////////////////
 
@@ -37,7 +37,7 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
 
     // Check if the instance complies with the algorithms limitations.
     assert!(utils::limitations::only_time_allocation_needed(&db));
-    assert!(utils::limitations::only_duration_of_1(&db));
+    assert!(utils::limitations::allocation_and_chromosome_same_length(&db));
     assert!(utils::limitations::only_hard_constraints(&db));
 
     // --- Prelude --- //
@@ -74,6 +74,9 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         // Stats
         let curr_best = curr_gen.first().unwrap().1;
         let curr_worst = curr_gen.last().unwrap().1;
+        let curr_avg = curr_gen.iter().map(|(_, cost)| cost).sum::<usize>()
+            as f32
+            / (POPULATION_SIZE as f32);
 
         // Selection
         // #[allow(unused_assignments)]
@@ -91,17 +94,24 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         // };
 
         let selection_method: String = "roulette (fixed)".into();
-        let parent_pairs = selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen);
+        let parent_pairs =
+            selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen);
+
+        let selected_avg = parent_pairs
+            .iter()
+            .map(|((_, c0), (_, c1))| c0 + c1)
+            .sum::<usize>() as f32
+            / (POPULATION_SIZE as f32);
 
         // Crossover
-        let mut children = crossover::pmx(parent_pairs, &db);
+        let children = crossover::pmx(parent_pairs, &db);
         // let mut children = crossover::shift(parent_pairs, &db);
 
         // Mutation
-        children = mutation::random_multi_swap(children, 0.05, &db);
+        // children = mutation::random_multi_swap(children, 0.2, &db);
 
         // Inversion
-        children = mutation::inversion(children, 0.01);
+        // children = mutation::inversion(children, 0.01);
 
         // Evaluate and sort children
         let mut children_eval: Vec<(Chromosome, usize)> = children
@@ -130,12 +140,15 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
 
         // Print time
         if gen_count % 10 == 0 {
-        println!(
-            "Generation {} took {:.4?}: best={}, worst={} | {selection_method}",
+            println!(
+            "Generation {} took {:.4?}: best={}, worst={} | {selection_method} | f(selected)' = {} | f' = {} | selection_differential = {}",
             gen_count,
             start.elapsed(),
             curr_best,
-            curr_worst
+            curr_worst,
+            selected_avg,
+            curr_avg,
+            selected_avg - curr_avg
         );
         }
     }
@@ -159,7 +172,6 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
     println!("final best = {}", best.1);
 
     println!(">>> END <<<");
-
 
     // Return
     utils::solution::create_from(&best.0, &allocation, &db)

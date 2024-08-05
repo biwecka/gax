@@ -37,7 +37,6 @@ pub fn random_single_swap(
     // // Return
     // children
 
-
     children
         .into_par_iter()
         .map(|mut c| {
@@ -95,7 +94,6 @@ pub fn random_multi_swap(
     // // Return
     // children
 
-
     children
         .into_par_iter()
         .map(|mut c| {
@@ -122,7 +120,6 @@ pub fn random_multi_swap(
         .collect()
 }
 
-
 #[allow(unused)]
 pub fn inversion(
     children: Vec<Chromosome>,
@@ -130,7 +127,6 @@ pub fn inversion(
     // db: &Database,
 ) -> Vec<Chromosome> {
     // Randomness
-
 
     children
         .into_par_iter()

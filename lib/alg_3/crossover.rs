@@ -71,7 +71,7 @@ pub fn static_single_point(
 #[allow(unused)]
 pub fn pmx(
     parent_pairs: Vec<((Chromosome, usize), (Chromosome, usize))>,
-    db: &Database
+    db: &Database,
 ) -> Vec<Chromosome> {
     let mut children = Vec::with_capacity(parent_pairs.len() * 2);
 
@@ -114,18 +114,22 @@ pub fn pmx(
         let matcher = PmxMatcher::new(p0_m, p1_m);
 
         // Create child 0
-        let c0_l = p0_l.iter().map(|x| matcher.calc_x_to_y(*x)).collect::<Vec<_>>();
+        let c0_l =
+            p0_l.iter().map(|x| matcher.calc_x_to_y(*x)).collect::<Vec<_>>();
         let c0_m = p1_m;
-        let c0_r = p0_r.iter().map(|x| matcher.calc_x_to_y(*x)).collect::<Vec<_>>();
+        let c0_r =
+            p0_r.iter().map(|x| matcher.calc_x_to_y(*x)).collect::<Vec<_>>();
 
         let mut c0 = c0_l.to_vec();
         c0.extend(c0_m);
         c0.extend(c0_r);
 
         // Create child 1
-        let c1_l = p1_l.iter().map(|x| matcher.calc_y_to_x(*x)).collect::<Vec<_>>();
+        let c1_l =
+            p1_l.iter().map(|x| matcher.calc_y_to_x(*x)).collect::<Vec<_>>();
         let c1_m = p0_m;
-        let c1_r = p1_r.iter().map(|x| matcher.calc_y_to_x(*x)).collect::<Vec<_>>();
+        let c1_r =
+            p1_r.iter().map(|x| matcher.calc_y_to_x(*x)).collect::<Vec<_>>();
 
         let mut c1 = c1_l.to_vec();
         c1.extend(c1_m);
@@ -141,7 +145,7 @@ pub fn pmx(
 #[allow(unused)]
 pub fn shift(
     parent_pairs: Vec<((Chromosome, usize), (Chromosome, usize))>,
-    db: &Database
+    db: &Database,
 ) -> Vec<Chromosome> {
     parent_pairs
         .into_iter()
@@ -164,7 +168,6 @@ pub fn shift(
 struct PmxMatcher {
     // x: Vec<i32>,
     // y: Vec<i32>,
-
     x_to_y: HashMap<u16, u16>,
     y_to_x: HashMap<u16, u16>,
 }
@@ -183,7 +186,6 @@ impl PmxMatcher {
             x_to_y.insert(b, a);
             y_to_x.insert(a, b);
         }
-
 
         Self { x_to_y, y_to_x }
     }

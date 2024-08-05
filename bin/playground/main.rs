@@ -42,7 +42,6 @@
 
 use std::collections::HashMap;
 
-
 fn main() {
     let a = vec![1, 3, 0, 4, 7, 2, 9, 6, 5, 8];
     let b = vec![9, 4, 6, 2, 1, 0, 7, 5, 3, 8];
@@ -70,7 +69,6 @@ fn main() {
     a2.extend(a2_m);
     a2.extend(a2_r);
 
-
     // Child two
     let b2_l = b_l.iter().map(|x| matcher.calc_y_to_x(*x)).collect::<Vec<_>>();
     let b2_m = a_m.to_vec();
@@ -88,7 +86,6 @@ fn main() {
 struct Matcher {
     // x: Vec<i32>,
     // y: Vec<i32>,
-
     x_to_y: HashMap<i32, i32>,
     y_to_x: HashMap<i32, i32>,
 }
@@ -107,7 +104,6 @@ impl Matcher {
             x_to_y.insert(b, a);
             y_to_x.insert(a, b);
         }
-
 
         Self { x_to_y, y_to_x }
     }
@@ -132,4 +128,3 @@ impl Matcher {
         result
     }
 }
-

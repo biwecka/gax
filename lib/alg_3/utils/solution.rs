@@ -18,16 +18,11 @@ pub fn create_from(
     let mut events = vec![];
 
     for (i, event) in db.events().iter().enumerate() {
-        let time_idx_opt = allocation.times_by_event(i)
+        let time_idx_opt = allocation
+            .times_by_event(i)
             .iter()
             .enumerate()
-            .filter_map(|(i, val)| {
-                if *val == 1 {
-                    Some(i)
-                } else {
-                    None
-                }
-            })
+            .filter_map(|(i, val)| if *val == 1 { Some(i) } else { None })
             .collect::<Vec<usize>>()
             .first()
             .cloned();
