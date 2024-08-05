@@ -1,7 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::encoding::chromosome::Chromosome;
 use rand::prelude::Distribution;
-// use rayon::iter::IntoParallelRefMutIterator;
 use rayon::prelude::*;
 
 // Functions ///////////////////////////////////////////////////////////////////
@@ -113,7 +112,8 @@ pub fn rank(
 
     // Create pairs from parents
     let pairs = parents
-        .chunks(2)
+        // .chunks(2)
+        .par_chunks(2)
         .filter_map(|chunk| {
             if chunk.len() == 2 {
                 Some((

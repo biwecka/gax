@@ -13,6 +13,10 @@ wr-solver = ["watch", "-q", "-c", "--ignore", "assets", "-x", "run -p solver"]
 wb-solver = ["watch", "-q", "-c", "--ignore", "assets", "-x", "build -p solver"]
 wc-solver = ["watch", "-q", "-c", "--ignore", "assets", "-x", "check -p solver"]
 
+wr-playground = ["watch", "-q", "-c", "--ignore", "assets", "-x", "run -p playground"]
+wb-playground = ["watch", "-q", "-c", "--ignore", "assets", "-x", "build -p playground"]
+wc-playground = ["watch", "-q", "-c", "--ignore", "assets", "-x", "check -p playground"]
+
 
 # Whole workspace
 bw  = "build --workspace"           # build workspace

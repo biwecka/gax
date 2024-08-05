@@ -1,6 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::encoding::allocation::Allocation;
-use rayon::prelude::*;
+// use rayon::prelude::*;
 use xhstt::db::constraints::{
     assign_time_constraint::AssignTimeConstraint,
     avoid_clashes_constraint::AvoidClashesConstraint, Constraint,
@@ -31,6 +31,7 @@ pub fn pre_calc_constraints(
     result
 }
 
+
 /// This function calculates the cost of an allocation under the given
 /// constraints.
 pub fn calculate_cost(
@@ -41,11 +42,10 @@ pub fn calculate_cost(
 
     for (constraint, indices) in constraints {
         match constraint {
-            Constraint::AssignTimeConstraint(_) => {}
-            Constraint::AvoidClashesConstraint(params) => {
-                total_cost +=
-                    avoid_clashes_constraint(allocation, params, indices);
+            Constraint::AssignTimeConstraint(params) => {
+                total_cost += assign_time_constraint(allocation, params, indices);
             }
+            Constraint::AvoidClashesConstraint(_params) => {}
         }
     }
 
@@ -54,67 +54,52 @@ pub fn calculate_cost(
 
 // Helper Functions ////////////////////////////////////////////////////////////
 /// Calculate the cost of the assign time constraint.
-/// This constraint checks if every event has a time assigned to it.
-/// The allocation/encoding ensures that this is the case. No calculation
-/// needed.
 #[allow(unused)]
 fn assign_time_constraint(
     allocation: &Allocation,
     params: &AssignTimeConstraint,
     event_idxs: &[usize],
 ) -> usize {
-    0
+    let mut deviation = event_idxs
+        .iter()
+        // .par_iter()
+        .map(|event_idx| {
+            // Get time allocation for event
+            let times = allocation.times_by_event(*event_idx);
+
+            let allocated_times = times
+                .into_iter()
+                // .into_par_iter()
+                .filter(|x| *x > 0)
+                .sum::<i8>();
+
+            // If no time was allocated, a cost of 1 is added to the deviation.
+            if allocated_times == 0 {
+                1
+
+            } else {
+                0
+            }
+
+        })
+        .sum();
+
+    // Calc cost and return
+    (params.weight as usize) * params.cost_function.calc(deviation)
 }
 
+
+/// Calculates the cost of the AvoidClashesConstraint.
+/// This constraint checks if the allocation contains clashes of resources.
+/// The allocation/encoding ensures that this is never the case. Therefore,
+/// no calculation is needed.
+#[allow(unused)]
 fn avoid_clashes_constraint(
     allocation: &Allocation,
     params: &AvoidClashesConstraint,
     resource_idxs: &[usize],
 ) -> usize {
-    // Deviation
-    let deviation: usize = resource_idxs
-        .par_iter()
-        .map(|resource_idx| {
-            // Get events by resource
-            let event_idxs = allocation.events_by_resource(*resource_idx);
-
-            if event_idxs.len() < 2 {
-                return 0;
-            }
-
-            // Get all times allocated to the events
-            let times = allocation.times_by_events(&event_idxs);
-
-            // If the times list is shorter than the event list, this means that
-            // some events have the same time assigned.
-            if times.len() < event_idxs.len() {
-                event_idxs.len() - times.len()
-            } else {
-                0
-            }
-        })
-        .sum();
-
-    // for resource_idx in resource_idxs {
-    //     // Get events by resource
-    //     let event_idxs = allocation.events_by_resource(*resource_idx);
-
-    //     if event_idxs.len() < 2 {
-    //         continue;
-    //     }
-
-    //     // Get all times allocated to the events
-    //     let times = allocation.times_by_events(&event_idxs);
-
-    //     // If the times list is shorter than the event list, this means that
-    //     // some events have the same time assigned.
-    //     if times.len() < event_idxs.len() {
-    //         deviation += event_idxs.len() - times.len();
-    //     }
-    // }
-
-    // Calc cost and return
-    (params.weight as usize) * params.cost_function.calc(deviation)
+    0
 }
 
 ////////////////////////////////////////////////////////////////////////////////

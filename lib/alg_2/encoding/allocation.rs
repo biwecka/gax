@@ -1,6 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use std::collections::HashSet;
 use super::chromosome::Chromosome;
+use std::collections::HashSet;
 
 // Structs /////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug)]
@@ -80,6 +80,7 @@ impl Matrix2D {
         Self { rows, columns, data: vec![false; rows * columns] }
     }
 
+    #[allow(unused)]
     pub fn get(&self, row: usize, column: usize) -> bool {
         assert!(row < self.rows);
         assert!(column < self.columns);
@@ -90,6 +91,7 @@ impl Matrix2D {
         self.data[index]
     }
 
+    #[allow(unused)]
     pub fn set(&mut self, row: usize, column: usize, value: bool) {
         assert!(row < self.rows);
         assert!(column < self.columns);
@@ -100,6 +102,7 @@ impl Matrix2D {
         self.data[index] = value;
     }
 
+    #[allow(unused)]
     pub fn get_row(&self, row: usize) -> &[bool] {
         assert!(row < self.rows);
 
@@ -109,11 +112,12 @@ impl Matrix2D {
         &self.data[offset..=end]
     }
 
+    #[allow(unused)]
     pub fn get_col(&self, column: usize) -> Vec<bool> {
         assert!(column < self.columns);
 
         let mut indices = vec![];
-        for i in (0..).step_by(4) {
+        for i in (column..).step_by(self.columns) {
             if i >= self.data.len() {
                 break;
             }

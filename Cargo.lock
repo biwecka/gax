@@ -33,6 +33,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "alg_3"
+version = "0.0.0"
+dependencies = [
+ "hashbrown",
+ "rand",
+ "rayon",
+ "xhstt",
+]
+
+[[package]]
 name = "allocator-api2"
 version = "0.2.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -237,6 +247,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3fdb12b2476b595f9358c5161aa467c2438859caa136dec86c26fdd2efe17b92"
 
 [[package]]
+name = "playground"
+version = "0.1.0"
+dependencies = [
+ "rand",
+]
+
+[[package]]
 name = "ppv-lite86"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -346,6 +363,7 @@ version = "0.1.0"
 dependencies = [
  "alg_1",
  "alg_2",
+ "alg_3",
  "rand",
  "xhstt",
 ]

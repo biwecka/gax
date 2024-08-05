@@ -1,0 +1,17 @@
+[package]
+name = "playground"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "playground"
+path = "main.rs"
+
+[dependencies]
+#> libs
+
+#> remote
+rand = { workspace = true }
+
+[lints]
+workspace = true

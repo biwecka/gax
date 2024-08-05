@@ -12,9 +12,11 @@ path = "main.rs"
 xhstt = { workspace = true }
 alg_1 = { workspace = true }
 alg_2 = { workspace = true }
+alg_3 = { workspace = true }
 
 #> remote
 rand = { workspace = true }
+# rayon = { workspace = true }
 
 [lints]
 workspace = true

@@ -1,5 +1,5 @@
 [package]
-name = "alg_2"
+name = "alg_3"
 version = "0.0.0"
 edition = "2021"
 
@@ -13,7 +13,7 @@ xhstt = { workspace = true }
 #> remote
 rand = { workspace = true }
 rayon = { workspace = true }
-# hashbrown = { workspace = true }
+hashbrown = { workspace = true }
 
 [lints]
 workspace = true

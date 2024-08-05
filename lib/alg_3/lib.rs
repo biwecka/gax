@@ -1,25 +1,19 @@
-//! Algorithm V2
+//! Algorithm V3
 //!
 //! Limitations:
 //! 1. Only event-time allocation is missing (event resources are pre-defined).
 //! 2. Events can only have a duration of 1.
-//! 3. Allocation's "event_2_time" map is exactly as long as the chromosome.
-//! 4. All constraints are requred (hard constraints).
-//! 5. No OrderEventsConstraint (because AppliesToEventPair can't be pre-calced)
 //!
-//! Results:
-//! -   V1 had a runtime per generation (population size = 64) of 50ms
-//!     V2 reduced it to 7ms (without rayon) and ~2ms with rayon.
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
 mod crossover;
-mod encoding;
-mod fitness;
 mod mutation;
 mod population;
-mod replace;
 mod selection;
+mod replace;
+mod encoding;
+mod fitness;
 mod utils;
 
 // Imports /////////////////////////////////////////////////////////////////////
@@ -31,8 +25,8 @@ use xhstt::parser::{
 };
 
 // Constants ///////////////////////////////////////////////////////////////////
-const POPULATION_SIZE: usize = 64;
-const GENERATIONS: usize = 500_000;
+const POPULATION_SIZE: usize = 500;
+const GENERATIONS: usize = 20_000;
 
 // Algorithm ///////////////////////////////////////////////////////////////////
 
@@ -44,7 +38,6 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
     // Check if the instance complies with the algorithms limitations.
     assert!(utils::limitations::only_time_allocation_needed(&db));
     assert!(utils::limitations::only_duration_of_1(&db));
-    assert!(utils::limitations::allocation_and_chromosome_same_length(&db));
     assert!(utils::limitations::only_hard_constraints(&db));
 
     // --- Prelude --- //
@@ -67,7 +60,7 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
             // .into_iter()
             .into_par_iter()
             .map(|chromosome| {
-                let allocation = allocation.derive(chromosome.clone());
+                let allocation = allocation.derive(&chromosome);
                 let cost = fitness::calculate_cost(&allocation, &constraints);
                 (chromosome, cost)
             })
@@ -83,29 +76,40 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         let curr_worst = curr_gen.last().unwrap().1;
 
         // Selection
-        let parent_pairs = {
-            if curr_best > curr_worst
-                && curr_best - curr_worst < (POPULATION_SIZE)
-            {
-                selection::rank(POPULATION_SIZE / 2, &curr_gen)
-            } else {
-                selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen)
-            }
-        };
-        // let parent_pairs = selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen);
+        // #[allow(unused_assignments)]
+        // let mut selection_method: String = "".into();
+        // let parent_pairs = {
+        //     if curr_best < curr_worst
+        //         && curr_worst - curr_best < POPULATION_SIZE //(POPULATION_SIZE / 5)
+        //     {
+        //         selection_method = "rank".into();
+        //         selection::rank(POPULATION_SIZE / 2, &curr_gen)
+        //     } else {
+        //         selection_method = "roulette".into();
+        //         selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen)
+        //     }
+        // };
+
+        let selection_method: String = "roulette (fixed)".into();
+        let parent_pairs = selection::roulette_wheel(POPULATION_SIZE / 2, &curr_gen);
 
         // Crossover
-        let mut children = crossover::static_single_point(parent_pairs, &db);
+        let mut children = crossover::pmx(parent_pairs, &db);
+        // let mut children = crossover::shift(parent_pairs, &db);
 
         // Mutation
-        children = mutation::random_single(children, 0.4, &db);
+        children = mutation::random_multi_swap(children, 0.05, &db);
+
+        // Inversion
+        children = mutation::inversion(children, 0.01);
 
         // Evaluate and sort children
         let mut children_eval: Vec<(Chromosome, usize)> = children
             .clone()
             .into_par_iter()
+            // .into_iter()
             .map(|chromosome| {
-                let allocation = allocation.derive(chromosome.clone());
+                let allocation = allocation.derive(&chromosome);
                 let cost = fitness::calculate_cost(&allocation, &constraints);
                 (chromosome, cost)
             })
@@ -118,42 +122,47 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
 
         // Replace
         population = replace::elite_best_n(
-            POPULATION_SIZE / 10,
+            // POPULATION_SIZE / 10,
+            1,
             curr_gen,
             children_eval,
         );
 
         // Print time
-        // if gen_count % 1_000 == 0 {
+        if gen_count % 10 == 0 {
         println!(
-            "Generation {} took {:?}: best={}, worst={}",
+            "Generation {} took {:.4?}: best={}, worst={} | {selection_method}",
             gen_count,
             start.elapsed(),
             curr_best,
             curr_worst
         );
-        // }
+        }
     }
 
     // Get best individual
     let mut final_gen: Vec<(Chromosome, usize)> = population
         .clone()
-        .into_iter()
+        // .into_iter()
+        .into_par_iter()
         .map(|chromosome| {
-            let allocation = allocation.derive(chromosome.clone());
+            let allocation = allocation.derive(&chromosome);
             let cost = fitness::calculate_cost(&allocation, &constraints);
             (chromosome, cost)
         })
         .collect();
-    final_gen.sort_by_key(|(_, cost)| *cost);
+    final_gen
+        // .sort_by_key(|(_, cost)| *cost);
+        .par_sort_by_key(|(_, cost)| *cost);
 
     let best = final_gen.first().unwrap();
     println!("final best = {}", best.1);
 
     println!(">>> END <<<");
 
+
     // Return
-    utils::solution::create_from(&best.0, &db)
+    utils::solution::create_from(&best.0, &allocation, &db)
 }
 
 ////////////////////////////////////////////////////////////////////////////////

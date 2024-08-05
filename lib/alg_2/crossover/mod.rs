@@ -1,11 +1,10 @@
+// Imports /////////////////////////////////////////////////////////////////////
+use crate::encoding::chromosome::Chromosome;
 use rand::{distributions::Uniform, prelude::Distribution};
 use xhstt::db::Database;
 
-use crate::encoding::chromosome::Chromosome;
-
-
-
-
+// Functions ///////////////////////////////////////////////////////////////////
+#[allow(unused)]
 pub fn dynamic_single_point(
     parent_pairs: Vec<((Chromosome, usize), (Chromosome, usize))>,
     db: &Database,
@@ -39,6 +38,7 @@ pub fn dynamic_single_point(
     children
 }
 
+#[allow(unused)]
 pub fn static_single_point(
     parent_pairs: Vec<((Chromosome, usize), (Chromosome, usize))>,
     db: &Database,
@@ -66,3 +66,5 @@ pub fn static_single_point(
     // Return
     children
 }
+
+////////////////////////////////////////////////////////////////////////////////
