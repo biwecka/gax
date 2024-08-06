@@ -1,130 +1,246 @@
-// use std::i8;
+//! How to detect the features of the current CPU:
+//! `rustc --print cfg -C target-cpu=native`.
+//!
+//! You can also use `is_x86_feature_detected!("avx2")` at runtime, to check
+//! if the CPU supports a certain feature.
+//!
 
-// fn main() {
-//     let x: u8 = 0b10110100;
-//     println!("x    = {x:08b}");
-
-//     let y: u8 = 2;
-//     // println!("y = {y:#010b}");
-
-//     let _z = x | y;
-//     // println!("z = {z:#010b}");
-
-//     let n0 = x >> 6;
-//     println!("x[0] = {:02b}", n0);
-
-//     let n1 = (x & 0b00110000) >> 4;
-//     println!("x[1] =   {:02b}", n1);
-
-//     let n2 = (x & 0b00001100) >> 2;
-//     println!("x[2] =     {:02b}", n2);
-
-//     let n3 = x & 0b00000011;
-//     println!("x[3] =       {:02b}", n3);
-
-//     println!();
-
-//     let e: i8 = i8::MIN;
-//     println!("e = {e:08b} ({e})");
-
-//     let d: i8 = -1;
-//     println!("d = {d:08b} ({d})");
-
-//     let c: i8 = 0;
-//     println!("c = {c:08b} ({c})");
-
-//     let a: i8 = 1;
-//     println!("a = {a:08b} ({a})");
-
-//     let b: i8 = i8::MAX;
-//     println!("b = {b:08b} ({b})");
-// }
-
-use std::collections::HashMap;
+#![feature(portable_simd)]
+use std::simd::prelude::*;
 
 fn main() {
-    let a = vec![1, 3, 0, 4, 7, 2, 9, 6, 5, 8];
-    let b = vec![9, 4, 6, 2, 1, 0, 7, 5, 3, 8];
+    let vec: Vec<i8> = vec![-1, 0, 0, 1, 0, -1];
+    let (prefix, simd, suffix) = vec.as_simd::<2>();
+    println!("prefix    = {:?}", prefix);
+    println!("simd      = {:?}", simd);
+    println!("suffix    = {:?}", suffix);
 
-    let i0 = 3; // [
-    let i1 = 6; // )
+    let prefix_ =
+        prefix.iter().map(|x| if *x < 0 { 0 } else { *x }).collect::<Vec<i8>>();
+    let simd_ = simd
+        .iter()
+        .copied()
+        .map(|x| {
+            let mask = x.simd_eq(Simd::splat(-1));
 
-    let a_l = &a[0..i0];
-    let a_m = &a[i0..i1];
-    let a_r = &a[i1..];
+            mask.select(Simd::splat(0), x)
+        })
+        .collect::<Vec<Simd<i8, 2>>>();
+    let suffix_ =
+        suffix.iter().map(|x| if *x < 0 { 0 } else { *x }).collect::<Vec<i8>>();
 
-    let b_l = &b[0..i0];
-    let b_m = &b[i0..i1];
-    let b_r = &b[i1..];
+    println!("prefix'   = {:?}", prefix_);
+    println!("simd'     = {:?}", simd_);
+    println!("suffix'   = {:?}", suffix_);
 
-    let matcher = Matcher::new(a_m.to_vec(), b_m.to_vec());
+    let line = Line(vec![
+        1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1,
+        -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0,
+        -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1,
+        1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0,
+        1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1,
+        -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1,
+        1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1,
+        -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0,
+        -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1,
+        1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0,
+        1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1,
+        -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1,
+        1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1,
+        -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0,
+        -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1,
+        1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0,
+        1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1,
+        -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1,
+        1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1,
+        -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0,
+        -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1,
+        1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0,
+        1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1,
+        -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1,
+    ]);
+    let line2 = Line(vec![
+        1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1,
+        -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0,
+        -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1,
+        1, 1, 1, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0,
+        1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1,
+        -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1,
+        1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1,
+        -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0,
+        -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1,
+        1, 1, 0, -1, -1, -1, -1, 1, 0, 0, 1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0,
+        1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1,
+        -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1,
+        1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1,
+        -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 1, 1, 0, 1, 1, 1, 0,
+        -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1,
+        1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0,
+        1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, -1, -1, -1, 1, 0, 1, 0, -1, 1,
+        -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1,
+        1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0, 1, 1, 1, 0, -1, -1,
+        -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 1, -1, 1, 0, 1, 1, 1,
+        0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, -1, 1, -1, 0, 0, 1, 0,
+        1, 1, 1, 1, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, 1, 1, 1, 1, 1,
+        1, 0, 1, 1, 1, 0, -1, 1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1, 0, 1, 1, -1,
+        0, 0, 1, 0, 1, 1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, 1, 0, 1,
+    ]);
 
-    // Child one
-    let a2_l = a_l.iter().map(|x| matcher.calc_x_to_y(*x)).collect::<Vec<_>>();
-    let a2_m = b_m.to_vec();
-    let a2_r = a_r.iter().map(|x| matcher.calc_x_to_y(*x)).collect::<Vec<_>>();
-
-    let mut a2 = vec![];
-    a2.extend(a2_l);
-    a2.extend(a2_m);
-    a2.extend(a2_r);
-
-    // Child two
-    let b2_l = b_l.iter().map(|x| matcher.calc_y_to_x(*x)).collect::<Vec<_>>();
-    let b2_m = a_m.to_vec();
-    let b2_r = b_r.iter().map(|x| matcher.calc_y_to_x(*x)).collect::<Vec<_>>();
-
-    let mut b2 = vec![];
-    b2.extend(b2_l);
-    b2.extend(b2_m);
-    b2.extend(b2_r);
-
-    println!("a = {a2:?}");
-    println!("b = {b2:?}");
-}
-
-struct Matcher {
-    // x: Vec<i32>,
-    // y: Vec<i32>,
-    x_to_y: HashMap<i32, i32>,
-    y_to_x: HashMap<i32, i32>,
-}
-
-impl Matcher {
-    pub fn new(x: Vec<i32>, y: Vec<i32>) -> Self {
-        assert_eq!(x.len(), y.len());
-
-        let mut x_to_y = HashMap::new();
-        let mut y_to_x = HashMap::new();
-
-        for i in 0..x.len() {
-            let a = x[i];
-            let b = y[i];
-
-            x_to_y.insert(b, a);
-            y_to_x.insert(a, b);
-        }
-
-        Self { x_to_y, y_to_x }
+    let start = std::time::Instant::now();
+    // let mut results = vec![];
+    for _ in 0..1_000_000 {
+        let x = line.remove_negative_1_simd();
+        let y = line2.remove_negative_1_simd();
+        let _z = x.or_simd(&y);
     }
 
-    pub fn calc_x_to_y(&self, input: i32) -> i32 {
-        let mut result = input;
+    // println!("results = {results:?}");
 
-        while let Some(x) = self.x_to_y.get(&result) {
-            result = *x;
-        }
+    let elapsed = start.elapsed();
+    println!("elapsed = {:?}", elapsed);
+}
 
-        result
+#[allow(unused)]
+struct Matrix {
+    rows: u16,
+    columns: u16,
+    data: Vec<i8>,
+}
+
+impl Matrix {
+    #[allow(unused)]
+    pub fn init(rows: u16, columns: u16) -> Self {
+        Self { rows, columns, data: vec![0; rows as usize * columns as usize] }
     }
 
-    pub fn calc_y_to_x(&self, input: i32) -> i32 {
-        let mut result = input;
+    #[allow(unused)]
+    pub fn get(&self, row: u16, column: u16) -> i8 {
+        assert!(row < self.rows);
+        assert!(column < self.columns);
 
-        while let Some(x) = self.y_to_x.get(&result) {
-            result = *x;
+        let offset = row * self.columns;
+        let index = offset + column;
+
+        self.data[index as usize]
+    }
+
+    #[allow(unused)]
+    pub fn get_row(&self, row: u16) -> &[i8] {
+        assert!(row < self.rows);
+
+        let offset = row as usize * self.columns as usize;
+        let end = offset + self.columns as usize - 1;
+
+        &self.data[offset..=end]
+    }
+
+    #[allow(unused)]
+    pub fn get_col(&self, column: u16) -> Line {
+        assert!(column < self.columns);
+
+        let mut indices = vec![];
+        for i in
+            (column..).step_by(self.columns as usize).take(self.rows as usize)
+        {
+            indices.push(i);
         }
 
-        result
+        let mut result = vec![];
+        for i in indices {
+            result.push(self.data[i as usize]);
+        }
+
+        Line(result)
+    }
+}
+
+#[allow(unused)]
+struct LineRef<'a>(pub &'a [i8]);
+
+#[derive(Debug)]
+struct Line(pub Vec<i8>);
+
+impl Line {
+    #[allow(unused)]
+    #[inline(always)]
+    pub fn remove_negative_1_simd(&self) -> Self {
+        let (prefix, simd, suffix) = self.0.as_simd::<32>();
+
+        let prefix_new = prefix
+            .iter()
+            .map(|x| if *x <= 0 { 0 } else { *x })
+            .collect::<Vec<i8>>();
+
+        let suffix_new = suffix
+            .iter()
+            .map(|x| if *x <= 0 { 0 } else { *x })
+            .collect::<Vec<i8>>();
+
+        let simd_new = simd
+            .iter()
+            .map(|x| {
+                // Create a mask with "1" at the position of each "-1".
+                let mask_negative_1 = x.simd_eq(Simd::splat(-1));
+
+                // Select 0 for each "1" in the mask, otherwise take value from x.
+                mask_negative_1.select(Simd::splat(0), *x)
+            })
+            .collect::<Vec<Simd<i8, 32>>>();
+
+        Self(
+            [
+                prefix_new,
+                simd_new.into_iter().map(|x| x.to_array()).flatten().collect(),
+                suffix_new,
+            ]
+            .concat(),
+        )
+    }
+
+    pub fn remove_negative_1(&self) -> Self {
+        let result = self
+            .0
+            .iter()
+            .map(|x| if *x <= 0 { 0 } else { *x })
+            .collect::<Vec<i8>>();
+
+        Self(result)
+    }
+
+    #[allow(unused)]
+    #[inline(always)]
+    pub fn or_simd(&self, other: &Self) -> Self {
+        let (p0, simd0, s0) = self.0.as_simd::<32>();
+        let (p1, simd1, s1) = other.0.as_simd::<32>();
+
+        let p_res =
+            p0.iter().zip(p1.iter()).map(|(a, b)| a | b).collect::<Vec<i8>>();
+        let s_res =
+            s0.iter().zip(s1.iter()).map(|(a, b)| a | b).collect::<Vec<i8>>();
+        let simd_res = simd0
+            .iter()
+            .zip(simd1.iter())
+            .map(|(a, b)| a | b)
+            .collect::<Vec<Simd<i8, 32>>>();
+
+        Self(
+            [
+                p_res,
+                simd_res.into_iter().map(|x| x.to_array()).flatten().collect(),
+                s_res,
+            ]
+            .concat(),
+        )
+    }
+
+    pub fn or(&self, other: &Self) -> Self {
+        let result = self
+            .0
+            .iter()
+            .zip(other.0.iter())
+            .map(|(a, b)| a | b)
+            .collect::<Vec<i8>>();
+
+        Self(result)
     }
 }
