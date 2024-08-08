@@ -72,7 +72,7 @@
                     # unstable.diesel-cli
 
                     # To find system libraries to link against (e.g. libpqxx)
-                    # pkg-config
+                    pkg-config
 
                     # GNU "make" to execute makefiles
                     gnumake
@@ -85,13 +85,16 @@
 
                     # Pre-Commit (Framework for managing pre-commit hooks)
                     # pre-commit
+
+
+                    # Rerun
+                    unstable.rerun
                 ];
 
                 ################################################################
                 # Runtime dependencies
                 buildInputs = # with pkgs;
                 [
-                    # openssl
                 ];
 
                 ################################################################
@@ -100,6 +103,22 @@
             {
                 devShells.default = mkShell {
                     inherit nativeBuildInputs buildInputs;
+
+                    # LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
+                    #     # Dependencies of "plotters"
+                    #     freetype
+                    #     fontconfig
+
+                    #     libxkbcommon
+                    #     libGL
+
+                    #     wayland
+
+                    #     xorg.libXcursor
+                    #     xorg.libXrandr
+                    #     xorg.libXi
+                    #     xorg.libX11
+                    # ];
                 };
             }
         );

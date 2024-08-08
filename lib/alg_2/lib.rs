@@ -1,4 +1,10 @@
 //! Algorithm V2
+//! This algorithm improves on V1 by storing the data/allocations in a matrix,
+//! represented as vector. This improves cache locality and therefore boosts
+//! performance by a lot.
+//! In addition o that `rayon` is used to fully utilize multi-core CPUs.
+//!
+//! The chosen encoding is the same as in V1: a simple time-to-event allocation
 //!
 //! Limitations:
 //! 1. Only event-time allocation is missing (event resources are pre-defined).

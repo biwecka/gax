@@ -1,5 +1,10 @@
-//! TODO: write crate documentation.
+//! Algorithm V1
+//! This algorithm chooses a very primitiva approach of storing the
+//! allocation data in multiple hash maps. The goal of this algorithm was to
+//! simply implement a genetic algorithm to get a feeling of how it behaves
+//! and performs.
 //!
+//! The encoding is a simple vector, which assigns random times to events.
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////

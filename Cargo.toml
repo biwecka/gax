@@ -21,14 +21,23 @@ alg_4 = { path = "lib/alg_4" }
 
 #> remote
 rand = { version = "0.8.5" }
+rayon = "1.10.0"
+
+ndarray = { version = "0.16.0", features = ["rayon"] }
+ndarray_stats = { version = "0.5.1" }
+
 hashbrown = "0.14.5"
 indexmap = "2.2.6"
-structstruck = "0.4.1"
 chrono = "0.4.38"
-rayon = "1.10.0"
-bitvec = "1.0.1"
 
+# xhstt
+structstruck = "0.4.1"
+
+# alg_4
 genevo = "0.7"
+
+# data log
+rerun = "0.13.0"
 
 
 

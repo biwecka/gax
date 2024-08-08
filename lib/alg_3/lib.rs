@@ -1,4 +1,13 @@
 //! Algorithm V3
+//! This algorithm adopts the cache-locality-improving data structures and
+//! parallelization concepts from V2, but chooses a different encoding.
+//!
+//! The encoding is a permutation of events, which represents the order in which
+//! the events are scheduled.
+//! The algorithm then applies times to these events in the order given by the
+//! chromosome.
+//! During the assignment of times to events a heuristic is applied to
+//! eliminate resource conflicts and to optimize the chosen time.
 //!
 //! Limitations:
 //! 1. Only event-time allocation is missing (event resources are pre-defined).

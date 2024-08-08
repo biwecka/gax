@@ -29,9 +29,9 @@ fn main() {
         .expect("No problem instance found.");
 
     // Call algorithm
-    let solution_events = alg_2::run(instance.clone());
+    // let solution_events = alg_2::run(instance.clone());
     // let solution_events = alg_3::run(instance.clone());
-    // let solution_events = alg_4::run(instance.clone());
+    let solution_events = alg_4::run(instance.clone());
 
     // Write result
     let solution = xhstt::tools::create_solution(

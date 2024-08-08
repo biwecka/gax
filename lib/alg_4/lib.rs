@@ -1,4 +1,5 @@
 //! Algorithm V4
+//! This algorithm uses the "genevo" genetic-algorithm-framework
 //!
 //! Limitations:
 //!
