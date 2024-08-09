@@ -8,16 +8,16 @@ name = "solver"
 path = "main.rs"
 
 [dependencies]
-#> libs
+#> libs <#
 xhstt = { workspace = true }
 alg_1 = { workspace = true }
 alg_2 = { workspace = true }
 alg_3 = { workspace = true }
 alg_4 = { workspace = true }
+alg_5 = { workspace = true }
 
-#> remote
+#> remote <#
 rand = { workspace = true }
-# rayon = { workspace = true }
 
 [lints]
 workspace = true

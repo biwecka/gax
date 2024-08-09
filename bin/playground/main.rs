@@ -20,7 +20,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         let _ = rec.log("x", &rerun::Points3D::new(arr.to_owned()));
 
-
         println!("took = {:?}", start.elapsed());
 
         std::thread::sleep(std::time::Duration::from_millis(2));

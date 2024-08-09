@@ -18,9 +18,11 @@ alg_1 = { path = "lib/alg_1" }
 alg_2 = { path = "lib/alg_2" }
 alg_3 = { path = "lib/alg_3" }
 alg_4 = { path = "lib/alg_4" }
+alg_5 = { path = "lib/alg_5" }
 
 #> remote
-rand = { version = "0.8.5" }
+# rand = { version = "0.8.5" }
+rand = { version = "0.7.0", features = ["small_rng"] }
 rayon = "1.10.0"
 
 ndarray = { version = "0.16.0", features = ["rayon"] }
@@ -35,6 +37,9 @@ structstruck = "0.4.1"
 
 # alg_4
 genevo = "0.7"
+
+# alg_5
+oxigen = "2.2.2"
 
 # data log
 rerun = "0.13.0"
