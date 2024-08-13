@@ -55,7 +55,7 @@ impl Genotype {
 // Phenotype ///////////////////////////////////////////////////////////////////
 
 /// The phenotype represents the applied genotype.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Phenotype {
     board: Array2<u8>,
 }
@@ -118,20 +118,25 @@ impl Phenotype {
         // Small diagonals ( \ )
         for offset in 1..size {
             let mut sum_lower = 0;
-            for m in offset..size {
-                for n in 0..(size - offset) {
-                    sum_lower += self.board[[m, n]];
-                }
+
+
+            let mut m = offset..size;
+            let mut n = 0..(size - offset);
+
+            for (m, n) in m.zip(n) {
+                sum_lower += self.board[[m, n]];
             }
+
             if sum_lower > 1 {
                 errors += sum_lower - 1;
+
             }
 
             let mut sum_upper = 0;
-            for m in 0..(size - offset) {
-                for n in offset..size {
-                    sum_upper += self.board[[m, n]];
-                }
+            m = 0..(size - offset);
+            n = offset .. size;
+            for (m, n) in m.zip(n) {
+                sum_upper += self.board[[m, n]];
             }
             if sum_upper > 1 {
                 errors += sum_upper - 1;
@@ -141,21 +146,24 @@ impl Phenotype {
         // Small diagonals ( / )
         for offset in 1..size {
             let mut sum_lower = 0;
-            for m in (offset..size).rev() {
-                for n in offset..size {
-                    sum_lower += self.board[[m, n]];
-                }
+            let mut m = (offset..size).rev();
+            let mut n = offset..size;
+
+            for (m, n) in m.zip(n) {
+                sum_lower += self.board[[m, n]];
             }
+
             if sum_lower > 1 {
                 errors += sum_lower - 1;
             }
 
             let mut sum_upper = 0;
-            for m in (0..(size - offset)).rev() {
-                for n in 0..(size - offset) {
-                    sum_upper += self.board[[m, n]];
-                }
+            m = (0..(size - offset)).rev();
+            n = 0..(size - offset);
+            for (m, n) in m.zip(n) {
+                sum_upper += self.board[[m, n]];
             }
+
             if sum_upper > 1 {
                 errors += sum_upper - 1;
             }
@@ -163,6 +171,57 @@ impl Phenotype {
 
         // Return
         errors.into()
+    }
+}
+
+
+#[cfg(test)]
+mod test {
+    use super::{Genotype, Phenotype};
+
+    #[test]
+    fn eval_rows() {
+        let p = Phenotype::init(2);
+        let g = Genotype(vec![0, 0]);
+
+        let p_ = p.derive(&g);
+        let evaluation = p_.evaluate();
+
+        assert_eq!(evaluation, 1);
+    }
+
+    #[test]
+    fn eval_diag_1() {
+        let p = Phenotype::init(2);
+        let g = Genotype(vec![0, 1]);
+
+        let p_ = p.derive(&g);
+        let evaluation = p_.evaluate();
+
+        assert_eq!(evaluation, 1);
+    }
+
+    #[test]
+    fn eval_diag_2() {
+        let p = Phenotype::init(2);
+        let g = Genotype(vec![1, 0]);
+
+        let p_ = p.derive(&g);
+        let evaluation = p_.evaluate();
+
+        assert_eq!(evaluation, 1);
+    }
+
+    #[test]
+    fn eval_ok() {
+        let p = Phenotype::init(4);
+        let g = Genotype(vec![2, 0, 3, 1]);
+
+        let p_ = p.derive(&g);
+        dbg!(&p_);
+        let evaluation = p_.evaluate();
+
+        assert_eq!(evaluation, 0);
     }
 }
 

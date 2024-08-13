@@ -191,11 +191,17 @@ impl GeneticAlgorithm {
             // Sort
             population.sort_by_key(|(_, x)| *x);
 
-            // println!("[{}] current best = {:?}", stats.generation, population.first().unwrap());
+            // println!("replaced pop + sorted");
+            // for p in &population {
+            //     println!("{p:?}");
+            // }
 
-            // println!("--------------------------------");
+            println!("[{}] current best = {:?}", stats.generation, population.first().unwrap());
+
+            // println!("-------------------------------------------------------");
 
             // Update stats (TODO)
+            stats.current_best = population.first().unwrap().1;
         }
 
         population
@@ -206,22 +212,22 @@ impl GeneticAlgorithm {
 pub fn run() {
     let ga = GeneticAlgorithm {
         params: Parameters {
-            population_size: 1000,
-            crossover_rate: 0.5,
-            mutation_rate: 0.9,
+            population_size: 2_000,
+            crossover_rate: 1.,
+            mutation_rate: 0.1,
 
             crossover: Crossover::VariableSinglePoint,
-            mutation: Mutation::RandomizeBits(1),
+            mutation: Mutation::RandomizeBits(8),
             rejection: Rejection::None,
 
             selection: Selection::RouletteWheel,
-            replacement: Replace::Full,
-            // termination: Termination::ObjectiveValue(2),
-            termination: Termination::Generations(100_000),
+            replacement: Replace::Elite(0.01),
+            termination: Termination::ObjectiveValue(0),
+            // termination: Termination::Generations(100_000),
         },
 
-        context: Context::init(8),
-        phenotype: Phenotype::init(8),
+        context: Context::init(16),
+        phenotype: Phenotype::init(16),
     };
 
     let solutions = ga.run();
