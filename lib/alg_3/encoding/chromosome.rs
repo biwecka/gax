@@ -7,6 +7,7 @@
 #[derive(Clone, Debug)]
 pub struct Chromosome(pub Vec<u16>);
 impl Chromosome {
+    #[allow(unused)]
     pub fn init(size: usize) -> Self {
         Self(Vec::with_capacity(size))
     }

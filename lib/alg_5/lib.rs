@@ -10,7 +10,7 @@
 use oxigen::{
     AgeFunctions, CrossoverFunctions, MutationRates,
     PopulationRefitnessFunctions, SelectionFunctions, SelectionRates,
-    SlopeParams, StopCriteria, SurvivalPressureFunctions,
+    StopCriteria, SurvivalPressureFunctions,
 };
 // Imports /////////////////////////////////////////////////////////////////////
 use xhstt::{
@@ -57,8 +57,8 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
             )
             .run();
 
-    // println!("generation = {generation}");
-    // println!("population = {:?}", population.iter().map(|x| x.fitness.unwrap()).collect::<Vec<_>>());
+    println!("generation = {generation}");
+    println!("population = {:?}", population.iter().map(|x| x.fitness.unwrap()).collect::<Vec<_>>());
 
     vec![]
 }

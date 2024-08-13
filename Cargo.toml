@@ -13,12 +13,17 @@ default-members = [ "bin/solver" ]
 ################################################################################
 [workspace.dependencies]
 #> lib
-xhstt = { path = "lib/xhstt" }
-alg_1 = { path = "lib/alg_1" }
-alg_2 = { path = "lib/alg_2" }
-alg_3 = { path = "lib/alg_3" }
-alg_4 = { path = "lib/alg_4" }
-alg_5 = { path = "lib/alg_5" }
+xhstt   = { path = "lib/xhstt" }
+ga      = { path = "lib/ga" }
+
+alg_1   = { path = "lib/alg_1" }
+alg_2   = { path = "lib/alg_2" }
+alg_3   = { path = "lib/alg_3" }
+alg_4   = { path = "lib/alg_4" }
+alg_5   = { path = "lib/alg_5" }
+
+n_queens = { path = "lib/n_queens" }
+
 
 #> remote
 # rand = { version = "0.8.5" }
@@ -49,7 +54,7 @@ rerun = "0.13.0"
 ################################################################################
 # Clippy Configuration
 [workspace.lints.rust]
-unsafe_code = "forbid"
+# unsafe_code = "forbid"
 
 [workspace.lints.clippy]
 unwrap_used = "forbid"

@@ -79,6 +79,7 @@ impl<T: Copy + Default> Matrix2D<T> {
 
 impl Matrix2D<bool> {
     /// Combines all rows by applying the "and" operation.
+    #[allow(unused)]
     pub fn and_rows(&self) -> Vec<bool> {
         let mut result = self.get_row(0).to_vec();
 
@@ -91,6 +92,7 @@ impl Matrix2D<bool> {
         result
     }
 
+    #[allow(unused)]
     pub fn or_rows(&self) -> Vec<bool> {
         let mut result = self.get_row(0).to_vec();
 

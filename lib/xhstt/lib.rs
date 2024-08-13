@@ -3,6 +3,7 @@ pub mod db;
 pub mod model;
 pub mod parser;
 pub mod tools;
+pub mod utils;
 pub mod xml;
 
 // Functions ///////////////////////////////////////////////////////////////////

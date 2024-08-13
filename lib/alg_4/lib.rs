@@ -241,7 +241,7 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
                 println!();
             }
 
-            Ok(SimResult::Final(step, time, duration, stop_reason)) => {
+            Ok(SimResult::Final(step, _time, _duration, _stop_reason)) => {
                 print!("gen: {: >6} | ", step.iteration);
                 print!("time: {:.4?} ms | ", step.duration.num_milliseconds());
                 print!(
