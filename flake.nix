@@ -93,8 +93,10 @@
 
                 ################################################################
                 # Runtime dependencies
-                buildInputs = # with pkgs;
+                buildInputs = with pkgs;
                 [
+                    freetype
+                    fontconfig
                 ];
 
                 ################################################################
@@ -104,21 +106,21 @@
                 devShells.default = mkShell {
                     inherit nativeBuildInputs buildInputs;
 
-                    # LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
-                    #     # Dependencies of "plotters"
-                    #     freetype
-                    #     fontconfig
+                    LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
+                        # Dependencies of "plotters"
+                        freetype
+                        fontconfig
 
-                    #     libxkbcommon
-                    #     libGL
+                        libxkbcommon
+                        libGL
 
-                    #     wayland
+                        wayland
 
-                    #     xorg.libXcursor
-                    #     xorg.libXrandr
-                    #     xorg.libXi
-                    #     xorg.libX11
-                    # ];
+                        xorg.libXcursor
+                        xorg.libXrandr
+                        xorg.libXi
+                        xorg.libX11
+                    ];
                 };
             }
         );

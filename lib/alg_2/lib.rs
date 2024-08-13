@@ -113,7 +113,7 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
         let mut children = crossover::static_single_point(parent_pairs, &db);
 
         // Mutation
-        children = mutation::random_single(children, 0.4, &db);
+        children = mutation::random_single(children, 0.30, &db);
 
         // Evaluate and sort children
         let mut children_eval: Vec<(Chromosome, usize)> = children

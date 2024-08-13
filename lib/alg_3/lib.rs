@@ -11,7 +11,8 @@
 //!
 //! Limitations:
 //! 1. Only event-time allocation is missing (event resources are pre-defined).
-//! 2. Events can only have a duration of 1.
+//! 
+//! 2. [NOT VALID ANYMORE] Events can only have a duration of 1.
 //!
 //!
 
@@ -34,8 +35,8 @@ use xhstt::parser::{
 };
 
 // Constants ///////////////////////////////////////////////////////////////////
-const POPULATION_SIZE: usize = 50;
-const GENERATIONS: usize = 50_000;
+const POPULATION_SIZE: usize = 200;
+const GENERATIONS: usize = 40_000;
 
 // Algorithm ///////////////////////////////////////////////////////////////////
 
@@ -113,14 +114,14 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
             / (POPULATION_SIZE as f32);
 
         // Crossover
-        let children = crossover::pmx(parent_pairs, &db);
+        let mut children = crossover::pmx(parent_pairs, &db);
         // let mut children = crossover::shift(parent_pairs, &db);
 
         // Mutation
-        // children = mutation::random_multi_swap(children, 0.2, &db);
+        children = mutation::random_multi_swap(children, 0.3, &db);
 
         // Inversion
-        // children = mutation::inversion(children, 0.01);
+        children = mutation::inversion(children, 0.01);
 
         // Evaluate and sort children
         let mut children_eval: Vec<(Chromosome, usize)> = children
