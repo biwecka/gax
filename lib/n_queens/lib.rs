@@ -191,7 +191,7 @@ impl GeneticAlgorithm {
             // Sort
             population.sort_by_key(|(_, x)| *x);
 
-            println!("[{}] current best = {:?}", stats.generation, population.first().unwrap());
+            // println!("[{}] current best = {:?}", stats.generation, population.first().unwrap());
 
             // println!("--------------------------------");
 
@@ -215,9 +215,9 @@ pub fn run() {
             rejection: Rejection::None,
 
             selection: Selection::RouletteWheel,
-            replacement: Replace::Elite(0.01),
-            // termination: Termination::ObjectiveValue(0),
-            termination: Termination::Generations(10_000),
+            replacement: Replace::Full,
+            // termination: Termination::ObjectiveValue(2),
+            termination: Termination::Generations(100_000),
         },
 
         context: Context::init(8),

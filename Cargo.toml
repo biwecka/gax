@@ -14,7 +14,6 @@ default-members = [ "bin/solver" ]
 [workspace.dependencies]
 #> lib
 xhstt   = { path = "lib/xhstt" }
-ga      = { path = "lib/ga" }
 
 alg_1   = { path = "lib/alg_1" }
 alg_2   = { path = "lib/alg_2" }

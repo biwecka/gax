@@ -2073,16 +2073,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ga"
-version = "0.0.0"
-dependencies = [
- "hashbrown 0.14.5",
- "rand 0.7.3",
- "rayon",
- "xhstt",
-]
-
-[[package]]
 name = "generic-array"
 version = "0.14.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3053,7 +3043,6 @@ dependencies = [
 name = "n_queens"
 version = "0.0.0"
 dependencies = [
- "ga",
  "hashbrown 0.14.5",
  "ndarray 0.16.0",
  "rand 0.7.3",
