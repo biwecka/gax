@@ -13,16 +13,17 @@ default-members = [ "bin/solver" ]
 ################################################################################
 [workspace.dependencies]
 #> lib
-xhstt   = { path = "lib/xhstt" }
+alg_1               = { path = "lib/alg_1" }
+alg_2               = { path = "lib/alg_2" }
+alg_3               = { path = "lib/alg_3" }
+alg_4               = { path = "lib/alg_4" }
+alg_5               = { path = "lib/alg_5" }
 
-alg_1   = { path = "lib/alg_1" }
-alg_2   = { path = "lib/alg_2" }
-alg_3   = { path = "lib/alg_3" }
-alg_4   = { path = "lib/alg_4" }
-alg_5   = { path = "lib/alg_5" }
+n_queens            = { path = "lib/n_queens" }
 
-n_queens = { path = "lib/n_queens" }
-
+plot_utils          = { path = "lib/plot_utils"}
+plotters_piston     = { path = "lib/plotters_piston" }
+xhstt               = { path = "lib/xhstt" }
 
 #> remote
 # rand = { version = "0.8.5" }
@@ -30,7 +31,7 @@ rand = { version = "0.7.0", features = ["small_rng"] }
 rayon = "1.10.0"
 
 ndarray = { version = "0.16.0", features = ["rayon"] }
-ndarray_stats = { version = "0.5.1" }
+ndarray-stats = { version = "0.5.1" }
 
 hashbrown = "0.14.5"
 indexmap = "2.2.6"
@@ -48,6 +49,10 @@ oxigen = "2.2.2"
 # data log
 rerun = "0.13.0"
 
+# plots
+plotters = "0.3.6"
+plotters-backend = "0.3.6"
+piston_window = "0.132.0"
 
 
 ################################################################################

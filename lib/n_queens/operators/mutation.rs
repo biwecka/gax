@@ -8,7 +8,12 @@ pub enum Mutation {
 }
 
 impl Mutation {
-    pub fn exec(&self, individual: &mut Genotype, rate: f32, context: &Context) {
+    pub fn exec(
+        &self,
+        individual: &mut Genotype,
+        rate: f32,
+        context: &Context,
+    ) {
         match self {
             Self::RandomizeBits(amount) => {
                 randomize_bits(*amount, individual, rate, context)
@@ -29,7 +34,9 @@ fn randomize_bits(
 
     // Check
     let probabilty = rand::distributions::Uniform::new_inclusive(0., 1.);
-    if probabilty.sample(&mut rng) > rate { return };
+    if probabilty.sample(&mut rng) > rate {
+        return;
+    };
 
     // Perform mutation
     let interval = rand::distributions::Uniform::new(0, chromosome.0.len());

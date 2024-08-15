@@ -1,6 +1,5 @@
 use crate::{encoding::Cost, Stats};
 
-
 /// An implementation of the [`TerminationStrategies`] trait, which provides
 /// commonly used termination strategies.
 pub enum Termination {
@@ -13,16 +12,18 @@ pub enum Termination {
 }
 
 impl Termination {
-    pub fn check(&self, stats: &Stats) -> bool {
+    pub fn check(&self, generation_num: usize, stats: &Stats) -> bool {
         match self {
-            Self::Generations(max) => generations(*max, stats),
-            Self::ObjectiveValue(threshold) => objective_value(*threshold, stats)
+            Self::Generations(max) => generations(*max, generation_num),
+            Self::ObjectiveValue(threshold) => {
+                objective_value(*threshold, stats)
+            }
         }
     }
 }
 
-fn generations(max: usize, stats: &Stats) -> bool {
-    if stats.generation >= max {
+fn generations(max: usize, generation_num: usize) -> bool {
+    if generation_num >= max {
         true
     } else {
         false
@@ -30,7 +31,7 @@ fn generations(max: usize, stats: &Stats) -> bool {
 }
 
 fn objective_value(threshold: Cost, stats: &Stats) -> bool {
-    if stats.current_best <= threshold {
+    if *stats.best.last().unwrap() <= threshold {
         true
     } else {
         false

@@ -7,32 +7,25 @@ use rayon::prelude::*;
 #[allow(unused)]
 pub fn roulette_wheel(
     pair_count: usize,
-    current_generation: &Vec<(Chromosome, usize)>
+    current_generation: &Vec<(Chromosome, usize)>,
 ) -> Vec<((Chromosome, usize), (Chromosome, usize))> {
     // Extract cost
-    let costs: Vec<usize> = current_generation
-        .iter()
-        .map(|(_, c)| *c)
-        .collect();
+    let costs: Vec<usize> =
+        current_generation.iter().map(|(_, c)| *c).collect();
 
     // Calculate max
     let max_cost: usize = *costs.iter().max().unwrap();
 
     // Invert
-    let inverted_costs: Vec<usize> = costs
-        .iter()
-        .map(|x| max_cost - x)
-        .collect();
-
+    let inverted_costs: Vec<usize> =
+        costs.iter().map(|x| max_cost - x).collect();
 
     // Calc total cost and highest cost
     let total_cost: usize = inverted_costs.iter().map(|x| x).sum();
 
     // Calculate proportion
-    let proportions: Vec<f32> = inverted_costs
-        .iter()
-        .map(|x| *x as f32 / total_cost as f32)
-        .collect();
+    let proportions: Vec<f32> =
+        inverted_costs.iter().map(|x| *x as f32 / total_cost as f32).collect();
 
     // Accumulate
     let mut acc: f32 = 0.;
@@ -70,9 +63,7 @@ pub fn roulette_wheel(
     // (selection, selected_indices.len())
     selection
         .chunks(2)
-        .map(|chunk| {
-            (chunk[0].clone(), chunk[1].clone())
-        })
+        .map(|chunk| (chunk[0].clone(), chunk[1].clone()))
         .collect::<Vec<_>>()
 }
 

@@ -58,7 +58,10 @@ pub fn run(instance: Instance) -> Vec<SolutionEvent> {
             .run();
 
     println!("generation = {generation}");
-    println!("population = {:?}", population.iter().map(|x| x.fitness.unwrap()).collect::<Vec<_>>());
+    println!(
+        "population = {:?}",
+        population.iter().map(|x| x.fitness.unwrap()).collect::<Vec<_>>()
+    );
 
     vec![]
 }

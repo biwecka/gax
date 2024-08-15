@@ -18,12 +18,10 @@ pub struct Context {
 
 impl Context {
     pub fn init(board_size: usize) -> Self {
-        let random_position = rand::distributions::Uniform::<usize>::new(0, board_size);
+        let random_position =
+            rand::distributions::Uniform::<usize>::new(0, board_size);
 
-        Self {
-            board_size,
-            random_position,
-        }
+        Self { board_size, random_position }
     }
 }
 
@@ -62,9 +60,7 @@ pub struct Phenotype {
 
 impl Phenotype {
     pub fn init(board_size: usize) -> Self {
-        Self {
-            board: Array2::default((board_size, board_size))
-        }
+        Self { board: Array2::default((board_size, board_size)) }
     }
 
     pub fn derive(&self, chromosome: &Genotype) -> Self {
@@ -114,11 +110,9 @@ impl Phenotype {
         }
         // temp = 0;
 
-
         // Small diagonals ( \ )
         for offset in 1..size {
             let mut sum_lower = 0;
-
 
             let mut m = offset..size;
             let mut n = 0..(size - offset);
@@ -129,12 +123,11 @@ impl Phenotype {
 
             if sum_lower > 1 {
                 errors += sum_lower - 1;
-
             }
 
             let mut sum_upper = 0;
             m = 0..(size - offset);
-            n = offset .. size;
+            n = offset..size;
             for (m, n) in m.zip(n) {
                 sum_upper += self.board[[m, n]];
             }
@@ -173,7 +166,6 @@ impl Phenotype {
         errors.into()
     }
 }
-
 
 #[cfg(test)]
 mod test {

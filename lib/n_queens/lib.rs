@@ -4,35 +4,138 @@
 // Modules /////////////////////////////////////////////////////////////////////
 mod encoding;
 mod operators;
-mod termination;
-mod selection;
 mod replacement;
+mod selection;
+mod termination;
+mod utils;
 
-
-use std::usize;
+use std::sync::mpsc::Sender;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use encoding::{Context, Cost, Genotype, Phenotype};
-use operators::{crossover::Crossover, mutation::Mutation, rejection::Rejection};
+use ndarray::Array2;
+use operators::{
+    crossover::Crossover, mutation::Mutation, rejection::Rejection,
+};
+use rayon::prelude::*;
 use replacement::Replace;
-use termination::Termination;
 use selection::Selection;
+use termination::Termination;
+use utils::plotter::Plotter;
 
 // Struct //////////////////////////////////////////////////////////////////////
+#[derive(Clone, Default)]
 struct Stats {
-    pub generation: usize,
-    pub current_best: Cost,
-}
+    pub population_size: Vec<usize>,
+    pub best: Vec<usize>,
+    pub worst: Vec<usize>,
+    pub distinct_selections: Vec<usize>,
+    pub cache_hits: Vec<usize>,
 
-impl std::default::Default for Stats {
-    fn default() -> Self {
-        Self {
-            generation: 0,
-            current_best: usize::MAX,
+    pub best_derived: Vec<usize>,
+
+    // >0, when avg. fitness of selection is better than avg. fitness of popul.
+    pub selection_differential: Vec<f32>,
+    pub selection_differential_derived: Vec<f32>,
+
+    // Chromosome heatmap
+    pub chromosome_heatmap: Array2<usize>,
+
+    // Generations since last increase in fitness
+    pub gens_since_increase: usize,
+
+    pub ov_distribution: Vec<(usize, usize)>,
+}
+impl Stats {
+    pub fn set_initial_population(
+        &mut self,
+        ctx: &Context,
+        population: &[(Genotype, Cost)],
+    ) {
+        self.population_size = vec![population.len()];
+        self.best = vec![population.first().unwrap().1];
+        self.worst = vec![population.last().unwrap().1];
+        self.distinct_selections = vec![0];
+        self.cache_hits = vec![0];
+
+        self.best_derived = vec![0];
+        self.selection_differential = vec![0.];
+        self.selection_differential_derived = vec![0.];
+        self.chromosome_heatmap =
+            Array2::zeros((ctx.board_size, ctx.board_size));
+
+        // for x in 0..=self.worst.last().unwrap().clone() {
+        //     self.ov_distribution.insert(x, 0);
+        // }
+
+        // for p in population {
+        //     self.ov_distribution
+        //         .entry(p.1)
+        //         .or_default()
+        //         .add_assign(1);
+        // }
+        self.ov_distribution =
+            population.par_iter().map(|(_, x)| (*x, 1)).collect();
+    }
+
+    pub fn update(
+        &mut self,
+        population: &[(Genotype, Cost)],
+        distinct_selections: usize,
+        offspring_avg: f32,
+        cache_hits: usize,
+    ) {
+        self.population_size.push(population.len());
+        self.best.push(population.first().unwrap().1);
+        self.worst.push(population.last().unwrap().1);
+        self.distinct_selections.push(distinct_selections);
+        self.cache_hits.push(cache_hits);
+
+        let gen = self.best.len() - 1;
+        let curr_best = self.best[gen];
+        let prev_best = self.best[gen - 1];
+
+        self.best_derived.push(curr_best - prev_best);
+
+        if curr_best < prev_best {
+            self.gens_since_increase = 0;
+        } else {
+            self.gens_since_increase += 1;
         }
+
+        let population_avg: f32 =
+            population.iter().map(|(_, x)| *x).sum::<usize>() as f32
+                / population.len() as f32;
+        self.selection_differential.push(offspring_avg - population_avg);
+
+        for (chromosome, _) in population {
+            let arr = &chromosome.0;
+            for (row, col) in arr.iter().enumerate() {
+                self.chromosome_heatmap[[row, *col]] += 1;
+            }
+        }
+
+        // for x in 0..=self.worst.last().unwrap().clone() {
+        //     self.ov_distribution.insert(x, 0);
+        // }
+
+        // for p in population {
+        //     self.ov_distribution
+        //         .entry(p.1)
+        //         .or_default()
+        //         .add_assign(1);
+        // }
+
+        self.ov_distribution =
+            population.par_iter().map(|(_, x)| (*x, 1)).collect();
     }
 }
 
+// impl std::default::Default for Stats {
+//     fn default() -> Self {
+//         Self { generation: 0, current_best: usize::MAX }
+//     }
+// }
 
 struct Parameters {
     // Numbers
@@ -61,16 +164,18 @@ struct GeneticAlgorithm {
 }
 
 impl GeneticAlgorithm {
-    pub fn run(self) -> Vec<(Genotype, Cost)> {
+    pub fn run(
+        mut self,
+        stats_ch: Option<Sender<Stats>>,
+    ) -> Vec<(Genotype, Cost)> {
         // Init population
-        let individuals: Vec<Genotype> = Genotype::gnerate(
-            self.params.population_size,
-            &self.context
-        );
+        let individuals: Vec<Genotype> =
+            Genotype::gnerate(self.params.population_size, &self.context);
 
         // Evaluate individuals to create initial population
         let mut population: Vec<(Genotype, Cost)> = individuals
-            .into_iter()
+            // .into_iter()
+            .into_par_iter()
             .map(|chromosome| {
                 // Derive Phenotype from chromosome/genotype
                 let ph = self.phenotype.derive(&chromosome);
@@ -80,25 +185,26 @@ impl GeneticAlgorithm {
             })
             .collect();
 
-
         // Sort population
-        population.sort_by_key(|(_, x)| *x);
-
-        // println!("population:");
-        // for p in &population {
-        //     println!("{p:?}");
-        // }
+        population
+            // .sort_by_key(|(_, x)| *x);
+            .par_sort_by_key(|(_, x)| *x);
 
         println!("start = {}", population.first().unwrap().1);
 
         // Genetic evolution
         let mut stats = Stats::default();
+        stats.set_initial_population(&self.context, &population);
 
-        while !self.params.termination.check(&stats) {
-            stats.generation += 1;
+        let mut generation = 0;
+        while !self.params.termination.check(generation, &stats) {
+            // Increment generation counter
+            generation += 1;
 
             // Calculate selection and elite size
-            let mut selection_size = self.params.replacement
+            let mut selection_size = self
+                .params
+                .replacement
                 .selection_size(self.params.population_size);
 
             if selection_size % 2 != 0 {
@@ -106,40 +212,35 @@ impl GeneticAlgorithm {
             }
 
             // Selection
-            let (parents, _distinct_selections) = self.params.selection
-                .exec(selection_size, &population);
-
-            // println!("distinct selection = {}", distinct_selections);
-
-            // println!("parents:");
-            // for p in &parents {
-            //     println!("{p:?}");
-            // }
+            let (parents, distinct_selections) =
+                self.params.selection.exec(selection_size, &population);
 
             // Crossover + Mutation
             let mut offspring: Vec<(Genotype, Cost)> = parents
-                .chunks(2)
+                // .chunks(2)
+                .par_chunks(2)
                 .map(|asdf| {
-                    // println!("{:?}", parents);
-                    // if asdf.len() < 2 {
-                    //     dbg!(population.len());
-                    //     dbg!(self.params.replacement.selection_size(self.params.population_size));
-                    //     dbg!(selection_size);
-                    //     dbg!(parents.len());
-                    // }
-
                     let a = asdf[0];
                     let b = asdf[1];
 
                     // Crossover
-                    let (mut x, mut y) = self.params.crossover
-                        .exec(&a.0, &b.0, self.params.crossover_rate);
+                    let (mut x, mut y) = self.params.crossover.exec(
+                        &a.0,
+                        &b.0,
+                        self.params.crossover_rate,
+                    );
 
                     // Mutation
-                    self.params.mutation
-                        .exec(&mut x, self.params.mutation_rate, &self.context);
-                    self.params.mutation
-                        .exec(&mut y, self.params.mutation_rate, &self.context);
+                    self.params.mutation.exec(
+                        &mut x,
+                        self.params.mutation_rate,
+                        &self.context,
+                    );
+                    self.params.mutation.exec(
+                        &mut y,
+                        self.params.mutation_rate,
+                        &self.context,
+                    );
 
                     // Evaluation
                     let x_ph = self.phenotype.derive(&x);
@@ -153,13 +254,12 @@ impl GeneticAlgorithm {
                     let child1 = (y, y_ov);
 
                     // Offspring Rejection
-                    let (o0, o1) = self.params.rejection
-                        .exec(a.clone(), b.clone(), child0, child1);
-
-                        // println!("a = {a:?}");
-                        // println!("b = {b:?}");
-                        // println!("o0= {o0:?}");
-                        // println!("o1= {o1:?}");
+                    let (o0, o1) = self.params.rejection.exec(
+                        a.clone(),
+                        b.clone(),
+                        child0,
+                        child1,
+                    );
 
                     // Return
                     vec![o0, o1]
@@ -167,41 +267,71 @@ impl GeneticAlgorithm {
                 .flatten()
                 .collect();
 
-            // println!("offspring:");
-            // for o in &offspring {
-            //     println!("{o:?}");
-            // }
-
             // let len_before = offspring.len();
-            offspring.truncate(self.params.replacement.selection_size(self.params.population_size));
+            offspring.truncate(
+                self.params
+                    .replacement
+                    .selection_size(self.params.population_size),
+            );
 
-            // let len_after = offspring.len();
-            // println!("offspring truncated {} element(s)", len_before-len_after);
+            let offspring_avg = offspring
+                // .iter()
+                .par_iter()
+                .map(|(_, x)| *x)
+                .sum::<usize>() as f32
+                / offspring.len() as f32;
 
             // Replace (population sorted; offspring not)
             self.params.replacement.exec(&mut population, offspring);
 
-            // println!("elite size = {}", self.params.replacement.elite_size(self.params.population_size));
-
-            // println!("replaced pop");
-            // for p in &population {
-            //     println!("{p:?}");
-            // }
-
             // Sort
-            population.sort_by_key(|(_, x)| *x);
+            population
+                // .sort_by_key(|(_, x)| *x);
+                .par_sort_by_key(|(_, x)| *x);
 
-            // println!("replaced pop + sorted");
-            // for p in &population {
-            //     println!("{p:?}");
-            // }
-
-            println!("[{}] current best = {:?}", stats.generation, population.first().unwrap());
+            println!(
+                "[{}] current best = {:?}",
+                generation,
+                population.first().unwrap()
+            );
 
             // println!("-------------------------------------------------------");
 
-            // Update stats (TODO)
-            stats.current_best = population.first().unwrap().1;
+            // Update stats
+            stats.update(&population, distinct_selections, offspring_avg, 0);
+
+            if let Some(sender) = &stats_ch {
+                let _ = sender.send(stats.clone());
+            }
+
+            // Adaption
+            // if generation > 0 && generation % 8_000 == 0 {
+            //     self.params.selection = Selection::RouletteWheel;
+            // }
+            // if generation > 0 && generation % 6_000 == 0 && generation % 8_000 != 0 {
+            //     self.params.selection = Selection::Random;
+            // }
+
+            if generation == 10_000 {
+                // self.params.mutation_rate = 0.4;
+                // self.params.rejection = Rejection::BetterThanWorseParent;
+                self.params.population_size = 1_000;
+                self.params.selection = Selection::Random;
+            } else if generation == 12_000 {
+                self.params.population_size = 1_400;
+                self.params.selection = Selection::Tournament(4);
+            } else if generation == 14_000 {
+                self.params.population_size = 1_800;
+                self.params.selection = Selection::Random;
+            } else if generation == 16_000 {
+                self.params.population_size = 1_900;
+                self.params.selection = Selection::Tournament(4);
+            } else if generation == 18_000 {
+                self.params.population_size = 2_000;
+                self.params.selection = Selection::Random;
+            } else if generation == 20_000 {
+                self.params.selection = Selection::Tournament(8);
+            }
         }
 
         population
@@ -210,13 +340,15 @@ impl GeneticAlgorithm {
 
 // Run /////////////////////////////////////////////////////////////////////////
 pub fn run() {
+    let (plotter, stats_ch) = Plotter::init();
+
     let ga = GeneticAlgorithm {
         params: Parameters {
-            population_size: 2_000,
+            population_size: 500,
             crossover_rate: 1.,
-            mutation_rate: 0.1,
+            mutation_rate: 0.2,
 
-            crossover: Crossover::VariableSinglePoint,
+            crossover: Crossover::VariableMultiPoint(8),
             mutation: Mutation::RandomizeBits(8),
             rejection: Rejection::None,
 
@@ -226,17 +358,21 @@ pub fn run() {
             // termination: Termination::Generations(100_000),
         },
 
-        context: Context::init(16),
-        phenotype: Phenotype::init(16),
+        context: Context::init(128),
+        phenotype: Phenotype::init(128),
     };
 
-    let solutions = ga.run();
+    let join_handle = std::thread::spawn(move || {
+        let solutions = ga.run(Some(stats_ch));
+        solutions
+    });
 
-    let best_solution = if let Some(best) = solutions.first() {
-        best
-    } else {
-        unreachable!()
-    };
+    plotter.start();
+
+    let solutions = join_handle.join().unwrap();
+
+    let best_solution =
+        if let Some(best) = solutions.first() { best } else { unreachable!() };
 
     println!("best cost = {}", best_solution.1);
     println!("genotype  = {:?}", best_solution.0);

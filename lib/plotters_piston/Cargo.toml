@@ -1,0 +1,20 @@
+[package]
+name = "plotters_piston"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+path = "lib.rs"
+
+[features]
+default = []
+
+[dependencies]
+#> lib
+
+#> remote
+plotters-backend = { workspace = true }
+piston_window = { workspace = true }
+
+[lints]
+workspace = true

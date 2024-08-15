@@ -7,7 +7,9 @@ edition = "2021"
 path = "lib.rs"
 
 [dependencies]
+#> lib
 
+#> remote
 serde = { version = "1.0.204", features = ["derive"] }
 quick-xml = { version = "0.36.0", features = ["serialize"] }
 xmltree = "0.10.3"

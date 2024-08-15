@@ -11,7 +11,7 @@
 //!
 //! Limitations:
 //! 1. Only event-time allocation is missing (event resources are pre-defined).
-//! 
+//!
 //! 2. [NOT VALID ANYMORE] Events can only have a duration of 1.
 //!
 //!

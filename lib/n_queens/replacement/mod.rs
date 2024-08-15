@@ -1,7 +1,5 @@
 use crate::encoding::{Cost, Genotype};
 
-
-
 pub enum Replace {
     Full,
     Elite(f32),
@@ -25,7 +23,8 @@ impl Replace {
             Self::Full => 0,
             Self::Elite(rate) => {
                 // Calculate elite size
-                let mut elite_size = (population_size as f32 * rate).floor() as usize;
+                let mut elite_size =
+                    (population_size as f32 * rate).floor() as usize;
 
                 // If elite size is 0, set it to 1. This ensures to always have
                 // at least one elitist chromosome to be taken over to the new
@@ -40,10 +39,11 @@ impl Replace {
         }
     }
 
-    pub fn exec(&self, population: &mut Vec<(Genotype, Cost)>, offspring: Vec<(Genotype, Cost)>) {
-        population.splice(
-            self.elite_size(population.len())..,
-            offspring
-        );
+    pub fn exec(
+        &self,
+        population: &mut Vec<(Genotype, Cost)>,
+        offspring: Vec<(Genotype, Cost)>,
+    ) {
+        population.splice(self.elite_size(population.len()).., offspring);
     }
 }
