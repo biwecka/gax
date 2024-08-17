@@ -4,6 +4,7 @@ use hashbrown::HashSet;
 use rand::prelude::Distribution;
 
 // Enum ////////////////////////////////////////////////////////////////////////
+#[allow(unused)]
 pub enum Selection {
     RouletteWheel,
     Tournament(usize),

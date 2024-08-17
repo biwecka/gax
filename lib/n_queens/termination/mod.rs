@@ -2,6 +2,7 @@ use crate::{encoding::Cost, Stats};
 
 /// An implementation of the [`TerminationStrategies`] trait, which provides
 /// commonly used termination strategies.
+#[allow(unused)]
 pub enum Termination {
     /// Stop the GA after the given amount of generations
     Generations(usize),

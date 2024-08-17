@@ -1,5 +1,5 @@
 [package]
-name = "n_queens"
+name = "ga"
 version = "0.0.0"
 edition = "2021"
 
@@ -7,13 +7,12 @@ edition = "2021"
 path = "lib.rs"
 
 [features]
-default = []
+default = ["log"]
+log = ["rerun"]
 
 [dependencies]
 #> lib
 xhstt = { workspace = true }
-plot_utils = { workspace = true }
-
 
 #> remote
 rand = { workspace = true }
@@ -21,11 +20,7 @@ rayon = { workspace = true }
 ndarray = { workspace = true }
 hashbrown = { workspace = true }
 
-plotters = { workspace = true }
-plotters_piston = { workspace = true }
-piston_window = { workspace = true }
-
-rerun = { workspace = true }
+rerun = { workspace = true, optional = true }
 
 [lints]
 workspace = true

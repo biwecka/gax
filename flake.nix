@@ -62,6 +62,9 @@
                     # unstable.cargo-depgraph     # -- " --
                     # unstable.cargo-deny         # -- " --
 
+                    # Terminal Code Checker
+                    unstable.bacon
+
                     # Graphviz: Graph visualization library
                     # graphviz                    # for use with "cargo-depgraph"
 
@@ -88,7 +91,7 @@
 
 
                     # Rerun
-                    # unstable.rerun
+                    rerun
                 ];
 
                 ################################################################

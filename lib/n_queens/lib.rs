@@ -19,9 +19,10 @@ use operators::{
 };
 use rayon::prelude::*;
 use replacement::Replace;
+// use rerun::{external::log::Log, Logger};
 use selection::Selection;
 use termination::Termination;
-use utils::plotter::Plotter;
+// use utils::plotter::Plotter;
 
 // Struct //////////////////////////////////////////////////////////////////////
 #[derive(Clone, Default)]
@@ -95,7 +96,8 @@ impl Stats {
         let curr_best = self.best[gen];
         let prev_best = self.best[gen - 1];
 
-        self.best_derived.push(curr_best - prev_best);
+        // self.best_derived.push(curr_best - prev_best);
+        self.best_derived.push(prev_best - curr_best);
 
         if curr_best < prev_best {
             self.gens_since_increase = 0;
@@ -167,6 +169,7 @@ impl GeneticAlgorithm {
     pub fn run(
         mut self,
         stats_ch: Option<Sender<Stats>>,
+        logger: Option<utils::rerun::Logger>,
     ) -> Vec<(Genotype, Cost)> {
         // Init population
         let individuals: Vec<Genotype> =
@@ -195,6 +198,10 @@ impl GeneticAlgorithm {
         // Genetic evolution
         let mut stats = Stats::default();
         stats.set_initial_population(&self.context, &population);
+
+        if let Some(logger) = &logger {
+            logger.log(&stats);
+        }
 
         let mut generation = 0;
         while !self.params.termination.check(generation, &stats) {
@@ -304,6 +311,11 @@ impl GeneticAlgorithm {
                 let _ = sender.send(stats.clone());
             }
 
+            if let Some(logger) = &logger {
+                logger.log(&stats);
+            }
+
+
             // Adaption
             // if generation > 0 && generation % 8_000 == 0 {
             //     self.params.selection = Selection::RouletteWheel;
@@ -340,7 +352,9 @@ impl GeneticAlgorithm {
 
 // Run /////////////////////////////////////////////////////////////////////////
 pub fn run() {
-    let (plotter, stats_ch) = Plotter::init();
+    // let (plotter, stats_ch) = Plotter::init();
+    let logger = utils::rerun::Logger::connect();
+    std::thread::sleep(std::time::Duration::from_secs(1));
 
     let ga = GeneticAlgorithm {
         params: Parameters {
@@ -362,14 +376,14 @@ pub fn run() {
         phenotype: Phenotype::init(128),
     };
 
-    let join_handle = std::thread::spawn(move || {
-        let solutions = ga.run(Some(stats_ch));
-        solutions
-    });
+    // let join_handle = std::thread::spawn(move || {
+        let solutions = ga.run(None /*Some(stats_ch)*/, Some(logger));
+        // solutions
+    // });
 
-    plotter.start();
+    // plotter.start();
 
-    let solutions = join_handle.join().unwrap();
+    // let solutions = join_handle.join().unwrap();
 
     let best_solution =
         if let Some(best) = solutions.first() { best } else { unreachable!() };

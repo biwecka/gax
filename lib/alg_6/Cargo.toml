@@ -1,5 +1,5 @@
 [package]
-name = "alg_5"
+name = "alg_6"
 version = "0.0.0"
 edition = "2021"
 
@@ -8,13 +8,11 @@ path = "lib.rs"
 
 [dependencies]
 #> lib
+ga = { workspace = true }
 xhstt = { workspace = true }
 
 #> remote
-rand = "0.7.3"
-# rayon = { workspace = true }
-# hashbrown = { workspace = true }
-oxigen = { workspace = true }
+rand = { workspace = true }
 ndarray = { workspace = true }
 
 [lints]

@@ -2,6 +2,7 @@
 use crate::encoding::{Cost, Genotype};
 
 // Enum ////////////////////////////////////////////////////////////////////////
+#[allow(unused)]
 pub enum Rejection {
     None,
     // Bias should be configured in the rejection method

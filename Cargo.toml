@@ -8,6 +8,7 @@ members = [
 
 # exclude = []
 default-members = [ "bin/solver" ]
+# default-members = [ "bin/playground" ]
 
 
 ################################################################################
@@ -18,7 +19,9 @@ alg_2               = { path = "lib/alg_2" }
 alg_3               = { path = "lib/alg_3" }
 alg_4               = { path = "lib/alg_4" }
 alg_5               = { path = "lib/alg_5" }
+alg_6               = { path = "lib/alg_6" }
 
+ga                  = { path = "lib/ga" }
 n_queens            = { path = "lib/n_queens" }
 
 plot_utils          = { path = "lib/plot_utils"}
@@ -26,8 +29,7 @@ plotters_piston     = { path = "lib/plotters_piston" }
 xhstt               = { path = "lib/xhstt" }
 
 #> remote
-# rand = { version = "0.8.5" }
-rand = { version = "0.7.0", features = ["small_rng"] }
+rand = { version = "0.8.5", features = ["small_rng"] }
 rayon = "1.10.0"
 
 ndarray = { version = "0.16.0", features = ["rayon"] }

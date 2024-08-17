@@ -1,5 +1,6 @@
 use crate::encoding::{Cost, Genotype};
 
+#[allow(unused)]
 pub enum Replace {
     Full,
     Elite(f32),

@@ -1,8 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use std::marker::PhantomData;
 
-// mod main_plotters_examples;
-
 ////////////////////////////////////////////////////////////////////////////////
 
 pub struct Algorithm<M, T>
@@ -30,8 +28,6 @@ where
 
             std::thread::sleep(std::time::Duration::from_secs(2));
         }
-
-        Ok(())
     }
 }
 
@@ -53,7 +49,7 @@ impl Multiplier<i32> for Mul {
         }
     }
 
-    fn x(t: i32) {}
+    fn x(_t: i32) {}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

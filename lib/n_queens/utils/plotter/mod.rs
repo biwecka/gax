@@ -1,11 +1,10 @@
+#![allow(unused)]
+
 // Imports /////////////////////////////////////////////////////////////////////
 use piston_window::{EventLoop, PistonWindow, WindowSettings};
 use plotters::prelude::*;
 use plotters_piston::draw_piston_window;
-use std::{
-    sync::mpsc::{self, Receiver, Sender},
-    thread::{self, JoinHandle},
-};
+use std::sync::mpsc::{self, Receiver, Sender};
 
 use crate::Stats;
 
