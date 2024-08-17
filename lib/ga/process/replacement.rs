@@ -8,10 +8,13 @@
 /// mutation are finished, to ensure certain features in the offspring
 /// chromosomes (e.g. better than either of the parents).
 ///
-pub trait Replacement<T> {
+pub trait Replacement<T>: Send + Sync {
     fn elite_size(&self, population_size: usize) -> usize;
 
-    fn selection_size(&self, population_size: usize) -> usize;
+    /// Returns the raw selection size, and also the corrected. The correction
+    /// is needed to ensure the selected number of parents is even, to perform
+    /// crossover with pairs of parents.
+    fn selection_size(&self, population_size: usize) -> (usize, usize);
 
     fn exec(&self, population: &mut Vec<T>, offspring: Vec<T>);
 }
@@ -45,11 +48,18 @@ impl<T> Replacement<T> for Replace {
         }
     }
 
-    fn selection_size(&self, population_size: usize) -> usize {
+    fn selection_size(&self, population_size: usize) -> (usize, usize) {
         let elite_size =
             <Replace as Replacement<T>>::elite_size(self, population_size);
 
-        population_size - elite_size
+        let diff = population_size - elite_size;
+
+        // Ensure selection size is a multiple of two
+        if diff % 2 != 0 {
+            (diff, diff + 1)
+        } else {
+            (diff, diff)
+        }
     }
 
     fn exec(&self, population: &mut Vec<T>, offspring: Vec<T>) {

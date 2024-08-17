@@ -19,10 +19,11 @@ alg_2               = { path = "lib/alg_2" }
 alg_3               = { path = "lib/alg_3" }
 alg_4               = { path = "lib/alg_4" }
 alg_5               = { path = "lib/alg_5" }
-alg_6               = { path = "lib/alg_6" }
+# alg_6               = { path = "lib/alg_6" }
 
 ga                  = { path = "lib/ga" }
 n_queens            = { path = "lib/n_queens" }
+n_queens_2          = { path = "lib/n_queens_2" }
 
 plot_utils          = { path = "lib/plot_utils"}
 plotters_piston     = { path = "lib/plotters_piston" }

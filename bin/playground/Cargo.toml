@@ -10,9 +10,11 @@ path = "main.rs"
 [dependencies]
 #> libs
 n_queens = { workspace = true }
+n_queens_2 = { workspace = true }
 
 #> remote
 rand = { workspace = true }
+rayon = { workspace = true }
 # rerun = "0.13.0"
 ndarray = { workspace = true }
 

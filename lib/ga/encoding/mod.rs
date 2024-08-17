@@ -17,8 +17,9 @@ use std::fmt::Debug;
 /// traits for the struct accordingly.
 ///
 pub trait ObjectiveValue:
-    Clone + Debug + PartialEq + Eq + PartialOrd + Ord
+    Clone + Debug + PartialEq + Eq + PartialOrd + Ord + Send + Sync
 {
+    fn calc_average(values: &[Self]) -> f32;
 }
 
 // Context /////////////////////////////////////////////////////////////////////
@@ -33,12 +34,14 @@ pub trait ObjectiveValue:
 /// The genetic algorithm runtime will make the context accessible at certain
 /// function calls.
 ///
-pub trait Context {}
+pub trait Context: Send + Sync {}
 
 // Genotype ////////////////////////////////////////////////////////////////////
 
 /// TODO: docs
-pub trait Genotype<Ctx: Context>: Clone + Debug + PartialEq + Eq {
+pub trait Genotype<Ctx: Context>:
+    Clone + Debug + PartialEq + Eq + Send + Sync
+{
     /// The generate method of the genotype is used to create the initial
     /// population for the genetic algorithm.
     /// The `amount` parameter specifies how many individuals/chromosomes
@@ -54,7 +57,7 @@ pub trait Genotype<Ctx: Context>: Clone + Debug + PartialEq + Eq {
 /// TODO: docs
 /// TODO: type-state pattern
 pub trait Phenotype<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>:
-    Clone + Debug
+    Clone + Debug + Send + Sync
 {
     fn derive(&self, chromsome: &Ge) -> Self;
 

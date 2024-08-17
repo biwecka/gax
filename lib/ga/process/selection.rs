@@ -19,7 +19,7 @@ pub trait Selection<
     Ctx: Context,
     Ge: Genotype<Ctx>,
     T,
->
+>: Send + Sync
 {
     fn exec<'a>(
         &self,

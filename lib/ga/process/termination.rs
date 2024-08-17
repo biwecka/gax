@@ -7,7 +7,7 @@ use crate::encoding::ObjectiveValue;
 /// termination methods. The termination methods are used after each iteration
 /// of the genetic algorithm to decide if the algorithm should halt.
 ///
-pub trait Termination<Ov: ObjectiveValue> {
+pub trait Termination<Ov: ObjectiveValue>: Send + Sync {
     fn stop(&self, generation_num: usize, current_best: &Ov) -> bool;
 }
 

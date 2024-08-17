@@ -1,5 +1,6 @@
-//! Algorithm V5
-//! This algorithm uses the "oxigen" genetic-algorithm-framework
+//! Algorithm n_queens_2
+//! This is a re-implementation of the n_queens algorithm, but using my own
+//! genetic algorithm framwork.
 //!
 //! Limitations:
 //!
@@ -20,8 +21,8 @@ use operators::{Crossover, Mutation};
 
 // Algorithm ///////////////////////////////////////////////////////////////////
 pub fn run() {
-    let ctx = Context::init(16);
-    let phenotype = Phenotype::blueprint(16);
+    let ctx = Context::init(128);
+    let phenotype = Phenotype::blueprint(128);
 
     let encoding = ga::encoding::Builder::new()
         .set_context(ctx)
@@ -29,12 +30,12 @@ pub fn run() {
         .build();
 
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
-        .set_population_size(10)
+        .set_population_size(500)
         .set_selection(Select::RouletteWheel)
-        .set_crossover(Crossover::VariableSinglePoint(0.9))
-        .set_mutation(Mutation::RandomizeNGenes(0.01, 8))
+        .set_crossover(Crossover::VariableNPoint(1., 8))
+        .set_mutation(Mutation::RandomizeNGenes(0.2, 8))
         .set_rejection(Reject::None)
-        .set_replacement(Replace::EliteAbsolute(1))
+        .set_replacement(Replace::EliteRelative(0.01))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
@@ -42,6 +43,8 @@ pub fn run() {
         .set_encoding(encoding)
         .set_parameters(parameters)
         .build();
+
+    let _solutions = alg.run();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

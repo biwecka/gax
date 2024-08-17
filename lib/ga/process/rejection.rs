@@ -8,7 +8,9 @@ use crate::encoding::{Context, Genotype, ObjectiveValue};
 /// mutation are finished, to ensure certain features in the offspring
 /// chromosomes (e.g. better than either of the parents).
 ///
-pub trait Rejection<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>> {
+pub trait Rejection<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>:
+    Send + Sync
+{
     fn exec<'a>(
         &self,
         parent_0: &'a (Ge, Ov),

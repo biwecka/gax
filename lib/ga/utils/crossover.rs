@@ -64,8 +64,9 @@ pub fn variable_multi_point<'a, T>(
     let split_points =
         rand::distributions::Uniform::new_inclusive(1, (a.len() - 1) / 2);
 
+    // Generating the same value twice will result in fewer splits.
     let mut splits_set = HashSet::new();
-    while splits_set.len() < points {
+    for _ in 0..points {
         let new_split = split_points.sample(&mut rng) * 2;
         splits_set.insert(new_split);
     }

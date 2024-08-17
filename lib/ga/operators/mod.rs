@@ -14,7 +14,7 @@ use crate::encoding::{Context, Genotype};
 /// This is because the crossover rate should be defined with the crossover
 /// method and should therefore be part of the crossover method (e.g. a
 /// parameter for an enum variant which represents one crossover method).
-pub trait Crossover<Ctx: Context, Ge: Genotype<Ctx>> {
+pub trait Crossover<Ctx: Context, Ge: Genotype<Ctx>>: Send + Sync {
     fn exec(&self, parent_0: &Ge, parent_1: &Ge, context: &Ctx) -> (Ge, Ge);
 }
 
@@ -31,7 +31,7 @@ pub trait Crossover<Ctx: Context, Ge: Genotype<Ctx>> {
 /// the crossover rate should be defined with the crossover method and should
 /// therefore be part of the crossover method (e.g. a parameter for an enum
 /// variant which represents one crossover method).
-pub trait Mutation<Ctx: Context, Ge: Genotype<Ctx>> {
+pub trait Mutation<Ctx: Context, Ge: Genotype<Ctx>>: Send + Sync {
     fn exec(&self, chromosome: &mut Ge, context: &Ctx);
 }
 
