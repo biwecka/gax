@@ -6,6 +6,12 @@ use rand::prelude::Distribution;
 pub struct Cost(usize);
 impl ga::encoding::ObjectiveValue for Cost {}
 
+impl From<usize> for Cost {
+    fn from(value: usize) -> Self {
+        Self(value)
+    }
+}
+
 impl From<Cost> for usize {
     fn from(value: Cost) -> Self {
         value.0
