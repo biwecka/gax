@@ -1,5 +1,10 @@
+// Modules /////////////////////////////////////////////////////////////////////
+#[rustfmt::skip] mod builder;
+pub use builder::*;
+
 // Imports /////////////////////////////////////////////////////////////////////
 use std::fmt::Debug;
+
 // Objective Value /////////////////////////////////////////////////////////////
 
 /// This trait must be implemented by a struct which represents the objective
@@ -11,8 +16,10 @@ use std::fmt::Debug;
 /// the genetic search, make sure to implement the [`PartialOrd`] and [`Ord`]
 /// traits for the struct accordingly.
 ///
-pub trait ObjectiveValue: Clone + Debug + PartialEq + Eq + PartialOrd + Ord {}
-
+pub trait ObjectiveValue:
+    Clone + Debug + PartialEq + Eq + PartialOrd + Ord
+{
+}
 
 // Context /////////////////////////////////////////////////////////////////////
 
@@ -27,7 +34,6 @@ pub trait ObjectiveValue: Clone + Debug + PartialEq + Eq + PartialOrd + Ord {}
 /// function calls.
 ///
 pub trait Context {}
-
 
 // Genotype ////////////////////////////////////////////////////////////////////
 
@@ -47,16 +53,12 @@ pub trait Genotype<Ctx: Context>: Clone + Debug + PartialEq + Eq {
 
 /// TODO: docs
 /// TODO: type-state pattern
-pub trait Phenotype<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>: Clone + Debug {
+pub trait Phenotype<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>:
+    Clone + Debug
+{
     fn derive(&self, chromsome: &Ge) -> Self;
 
     fn evaluate(&self) -> Ov;
 }
 
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////
-

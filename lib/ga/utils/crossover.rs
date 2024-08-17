@@ -18,21 +18,27 @@ pub fn variable_single_point<'a, T>(
     };
 
     // Split Index
-    let interval =
-        rand::distributions::Uniform::new_inclusive(1, a.len() - 2);
+    let interval = rand::distributions::Uniform::new_inclusive(1, a.len() - 2);
     let split_index = interval.sample(&mut rng);
 
     // Perform Crossover
     let mut switch_genes = false;
-    let zip = a.iter().zip(b.iter())
+    let zip = a
+        .iter()
+        .zip(b.iter())
         .enumerate()
         .map(|(index, (a, b))| {
             // Check if genes must be switched
-            if index == split_index { switch_genes = !switch_genes; }
+            if index == split_index {
+                switch_genes = !switch_genes;
+            }
 
             // Switch genes or not
-            if switch_genes { (b, a) }
-            else { (a, b) }
+            if switch_genes {
+                (b, a)
+            } else {
+                (a, b)
+            }
         })
         .collect::<Vec<(&T, &T)>>();
 
@@ -48,7 +54,7 @@ pub fn variable_multi_point<'a, T>(
     a: &'a [T],
     b: &'a [T],
     rate: f32,
-) -> (Vec<&'a T>, Vec<&'a T>){
+) -> (Vec<&'a T>, Vec<&'a T>) {
     let mut rng = rand::thread_rng();
 
     if rng.gen_range(0. ..=1.) > rate {
@@ -65,22 +71,22 @@ pub fn variable_multi_point<'a, T>(
     }
 
     let mut switch = false;
-    let zip =
-        a.iter()
-            .zip(b.iter())
-            .enumerate()
-            .map(|(i, (a, b))| {
-                if splits_set.contains(&i) {
-                    switch = !switch;
-                }
+    let zip = a
+        .iter()
+        .zip(b.iter())
+        .enumerate()
+        .map(|(i, (a, b))| {
+            if splits_set.contains(&i) {
+                switch = !switch;
+            }
 
-                if switch {
-                    (b, a)
-                } else {
-                    (a, b)
-                }
-            })
-            .collect::<Vec<(&T, &T)>>();
+            if switch {
+                (b, a)
+            } else {
+                (a, b)
+            }
+        })
+        .collect::<Vec<(&T, &T)>>();
 
     let x = zip.iter().map(|(x, _)| *x).collect::<Vec<_>>();
     let y = zip.iter().map(|(_, y)| *y).collect::<Vec<_>>();

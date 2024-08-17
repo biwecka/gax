@@ -20,7 +20,8 @@ pub fn randomize_n_genes<'a, T, D: rand::distributions::Distribution<T>>(
     };
 
     // Perform mutation
-    let random_gene_index = rand::distributions::Uniform::new(0, chromosome.len());
+    let random_gene_index =
+        rand::distributions::Uniform::new(0, chromosome.len());
 
     for _ in 0..amount {
         let index = random_gene_index.sample(&mut rng);

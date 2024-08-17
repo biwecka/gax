@@ -1,4 +1,3 @@
-
 use ndarray::Array2;
 use rand::prelude::Distribution;
 
@@ -18,7 +17,6 @@ impl From<Cost> for usize {
     }
 }
 
-
 pub struct Context {
     pub board_size: usize,
     pub random_position: rand::distributions::Uniform<usize>,
@@ -32,7 +30,6 @@ impl Context {
         Self { board_size, random_position }
     }
 }
-
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Chromosome(Vec<usize>);
@@ -72,7 +69,6 @@ impl ga::encoding::Genotype<Context> for Chromosome {
     }
 }
 
-
 #[derive(Clone, Debug)]
 pub struct Phenotype {
     board: Array2<u8>,
@@ -93,4 +89,3 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
         todo!()
     }
 }
-

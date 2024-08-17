@@ -1,7 +1,7 @@
 // Imports /////////////////////////////////////////////////////////////////////
+use crate::encoding::{Context, Genotype, ObjectiveValue};
 use hashbrown::HashSet;
 use rand::prelude::Distribution;
-use crate::encoding::{Context, Genotype, ObjectiveValue};
 
 // Trait ///////////////////////////////////////////////////////////////////////
 
@@ -14,7 +14,13 @@ use crate::encoding::{Context, Genotype, ObjectiveValue};
 ///
 /// The amount of distinct selections is part of the genetic algorithms metrics.
 ///
-pub trait Selection<Ov: ObjectiveValue + Into<T>, Ctx: Context, Ge: Genotype<Ctx>, T> {
+pub trait Selection<
+    Ov: ObjectiveValue + Into<T>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    T,
+>
+{
     fn exec<'a>(
         &self,
         amount: usize,
@@ -30,7 +36,9 @@ pub enum Select {
     LinearRank,
 }
 
-impl<Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>> Selection<Ov, Ctx, Ge, usize> for Select {
+impl<Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>>
+    Selection<Ov, Ctx, Ge, usize> for Select
+{
     fn exec<'a>(
         &self,
         amount: usize,
@@ -45,9 +53,13 @@ impl<Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>> Selectio
     }
 }
 
-
 // Functions ///////////////////////////////////////////////////////////////////
-fn roulette_wheel_usize<'a, Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>>(
+fn roulette_wheel_usize<
+    'a,
+    Ov: ObjectiveValue + Into<usize>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+>(
     amount: usize,
     individuals: &'a [(Ge, Ov)],
 ) -> (Vec<&'a (Ge, Ov)>, usize) {
@@ -107,7 +119,12 @@ fn roulette_wheel_usize<'a, Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: 
     (selection, selected_indices.len())
 }
 
-fn tournament_usize<'a, Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>>(
+fn tournament_usize<
+    'a,
+    Ov: ObjectiveValue + Into<usize>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+>(
     tournament_size: usize,
     amount: usize,
     individuals: &'a [(Ge, Ov)],
@@ -141,7 +158,12 @@ fn tournament_usize<'a, Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Geno
     (selection, selected_indices.len())
 }
 
-fn random_usize<'a, Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>>(
+fn random_usize<
+    'a,
+    Ov: ObjectiveValue + Into<usize>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+>(
     amount: usize,
     individuals: &'a [(Ge, Ov)],
 ) -> (Vec<&'a (Ge, Ov)>, usize) {
@@ -161,7 +183,12 @@ fn random_usize<'a, Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype
     (selection, selected_indices.len())
 }
 
-fn linear_rank_usize<'a, Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>>(
+fn linear_rank_usize<
+    'a,
+    Ov: ObjectiveValue + Into<usize>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+>(
     amount: usize,
     individuals: &'a [(Ge, Ov)],
 ) -> (Vec<&'a (Ge, Ov)>, usize) {
@@ -217,6 +244,5 @@ fn linear_rank_usize<'a, Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Gen
     // Return
     (selection, selected_indices.len())
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////

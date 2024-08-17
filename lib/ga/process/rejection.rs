@@ -11,12 +11,12 @@ use crate::encoding::{Context, Genotype, ObjectiveValue};
 pub trait Rejection<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>> {
     fn exec<'a>(
         &self,
-        parent_0: &'a(Ge, Ov),
-        parent_1: &'a(Ge, Ov),
-        child_0: &'a(Ge, Ov),
-        child_1: &'a(Ge, Ov),
-        context: &Ctx
-    ) -> (&'a(Ge, Ov), &'a(Ge, Ov));
+        parent_0: &'a (Ge, Ov),
+        parent_1: &'a (Ge, Ov),
+        child_0: &'a (Ge, Ov),
+        child_1: &'a (Ge, Ov),
+        context: &Ctx,
+    ) -> (&'a (Ge, Ov), &'a (Ge, Ov));
 }
 
 // Implementation //////////////////////////////////////////////////////////////
@@ -25,31 +25,39 @@ pub enum Reject {
     BetterThanWorstParent,
 }
 
-impl<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>> Rejection<Ov, Ctx, Ge> for Reject {
+impl<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>> Rejection<Ov, Ctx, Ge>
+    for Reject
+{
     fn exec<'a>(
         &self,
         parent_0: &'a (Ge, Ov),
         parent_1: &'a (Ge, Ov),
         child_0: &'a (Ge, Ov),
         child_1: &'a (Ge, Ov),
-        _context: &Ctx
+        _context: &Ctx,
     ) -> (&'a (Ge, Ov), &'a (Ge, Ov)) {
         match self {
             Self::None => (child_0, child_1),
-            Self::BetterThanWorstParent => better_than_worst_parent(parent_0, parent_1, child_0, child_1),
+            Self::BetterThanWorstParent => {
+                better_than_worst_parent(parent_0, parent_1, child_0, child_1)
+            }
         }
     }
 }
 
-
 // Functions ///////////////////////////////////////////////////////////////////
 
-fn better_than_worst_parent<'a, Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>(
+fn better_than_worst_parent<
+    'a,
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+>(
     parent0: &'a (Ge, Ov),
     parent1: &'a (Ge, Ov),
     child0: &'a (Ge, Ov),
     child1: &'a (Ge, Ov),
-) -> (&'a (Ge, Ov),&'a (Ge, Ov)) {
+) -> (&'a (Ge, Ov), &'a (Ge, Ov)) {
     let better;
     let worse;
     if parent0.1 < parent1.1 {

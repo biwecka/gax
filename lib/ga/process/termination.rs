@@ -27,16 +27,14 @@ impl<Ov: ObjectiveValue> Termination<Ov> for Terminate<Ov> {
             Self::Generations(generation_limit) => {
                 if generation_num >= *generation_limit {
                     true
-
                 } else {
                     false
                 }
-            },
+            }
 
             Self::ObjectiveValue(target) => {
                 if *current_best <= *target {
                     true
-
                 } else {
                     false
                 }
@@ -46,7 +44,5 @@ impl<Ov: ObjectiveValue> Termination<Ov> for Terminate<Ov> {
 }
 
 // Functions ///////////////////////////////////////////////////////////////////
-
-
 
 ////////////////////////////////////////////////////////////////////////////////

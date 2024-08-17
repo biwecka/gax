@@ -315,7 +315,6 @@ impl GeneticAlgorithm {
                 logger.log(&stats);
             }
 
-
             // Adaption
             // if generation > 0 && generation % 8_000 == 0 {
             //     self.params.selection = Selection::RouletteWheel;
@@ -377,8 +376,8 @@ pub fn run() {
     };
 
     // let join_handle = std::thread::spawn(move || {
-        let solutions = ga.run(None /*Some(stats_ch)*/, Some(logger));
-        // solutions
+    let solutions = ga.run(None /*Some(stats_ch)*/, Some(logger));
+    // solutions
     // });
 
     // plotter.start();

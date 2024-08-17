@@ -28,22 +28,22 @@ impl ga::operators::Crossover<Context, Chromosome> for Crossover {
                 let (a, b) = ga::utils::crossover::variable_single_point(
                     parent_0.as_slice(),
                     parent_1.as_slice(),
-                    *rate
+                    *rate,
                 );
 
                 (a.into(), b.into())
-            },
+            }
 
             Crossover::VariableNPoint(rate, num_points) => {
                 let (a, b) = ga::utils::crossover::variable_multi_point(
                     *num_points,
                     parent_0.as_slice(),
                     parent_1.as_slice(),
-                    *rate
+                    *rate,
                 );
 
                 (a.into(), b.into())
-            },
+            }
         }
     }
 }
@@ -60,11 +60,7 @@ pub enum Mutation {
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
-    fn exec(
-        &self,
-        chromosome: &mut Chromosome,
-        context: &Context
-    ) {
+    fn exec(&self, chromosome: &mut Chromosome, context: &Context) {
         match self {
             Mutation::RandomizeNGenes(rate, n) => {
                 ga::utils::mutation::randomize_n_genes(
@@ -73,7 +69,7 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
                     *rate,
                     context.random_position,
                 );
-            },
+            }
         }
     }
 }
