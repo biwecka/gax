@@ -3,7 +3,7 @@
 pub use builder::*;
 
 // Imports /////////////////////////////////////////////////////////////////////
-use std::fmt::Debug;
+use std::{fmt::Debug, hash::Hash};
 
 // Objective Value /////////////////////////////////////////////////////////////
 
@@ -40,7 +40,7 @@ pub trait Context: Send + Sync {}
 
 /// TODO: docs
 pub trait Genotype<Ctx: Context>:
-    Clone + Debug + PartialEq + Eq + Send + Sync
+    Clone + Debug + PartialEq + Eq + Send + Sync + Hash
 {
     /// The generate method of the genotype is used to create the initial
     /// population for the genetic algorithm.

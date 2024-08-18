@@ -40,7 +40,7 @@ impl Context {
 }
 
 // Genotype /////////////////////////////////////////////////////////////////////
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct Chromosome(Vec<usize>);
 
 impl Chromosome {
