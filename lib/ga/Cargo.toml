@@ -7,9 +7,13 @@ edition = "2021"
 path = "lib.rs"
 
 [features]
-default = ["cache"]
+# default = []
+# default = ["cache"]
+default = ["cache", "rerun-log"]
+# default = ["rerun-log"]
+
 cache = []
-log = ["rerun"]
+rerun-log = []
 
 [dependencies]
 #> lib
@@ -20,8 +24,7 @@ rand = { workspace = true }
 rayon = { workspace = true }
 ndarray = { workspace = true }
 hashbrown = { workspace = true }
-
-rerun = { workspace = true, optional = true }
+rerun = { workspace = true }
 
 [lints]
 workspace = true

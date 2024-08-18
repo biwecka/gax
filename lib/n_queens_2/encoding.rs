@@ -1,14 +1,37 @@
+use std::{collections::HashMap, ops::AddAssign};
+
 // Imports /////////////////////////////////////////////////////////////////////
 use ndarray::Array2;
 use rand::prelude::Distribution;
 
 // Objective Value /////////////////////////////////////////////////////////////
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Cost(usize);
 impl ga::encoding::ObjectiveValue for Cost {
     fn calc_average(values: &[Self]) -> f32 {
         let sum: usize = values.iter().map(|x| x.0).sum();
         sum as f32 / values.len() as f32
+    }
+
+    fn calc_distribution(values: &[Self]) -> Vec<usize> {
+        // Calc worst objective value
+        let max = values.iter().map(|x| x.0).max().unwrap();
+
+        // Initialize array
+        let mut arr = vec![0; max + 1];
+
+        // Evaluate distribution
+        for val in values {
+            assert!(val.0 < arr.len());
+            arr[val.0] += 1;
+        }
+
+        // Return
+        arr
+    }
+
+    fn to_usize(&self) -> usize {
+        self.0
     }
 }
 
@@ -79,6 +102,21 @@ impl ga::encoding::Genotype<Context> for Chromosome {
 
         // Return
         chromosomes
+    }
+
+    fn calc_diversity<Ov: ga::encoding::ObjectiveValue>(
+        population: &[(Self, Ov)],
+    ) -> Vec<usize> {
+        let mut map = HashMap::<(Self, Ov), usize>::new();
+        for i in population {
+            map.entry(i.clone()).or_default().add_assign(1);
+        }
+
+        let mut arr: Vec<((Self, Ov), usize)> = map.into_iter().collect();
+        arr.sort_by_key(|((_, x), _)| x.clone());
+
+        // Return
+        arr.into_iter().map(|(_, x)| x).collect()
     }
 }
 

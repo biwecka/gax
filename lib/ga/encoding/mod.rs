@@ -17,9 +17,21 @@ use std::{fmt::Debug, hash::Hash};
 /// traits for the struct accordingly.
 ///
 pub trait ObjectiveValue:
-    Clone + Debug + PartialEq + Eq + PartialOrd + Ord + Send + Sync
+    Clone + Debug + PartialEq + Eq + PartialOrd + Ord + Send + Sync + Hash
 {
     fn calc_average(values: &[Self]) -> f32;
+
+    /// This function calculates the objective value distribution for the passed
+    /// objective values.
+    /// The passed objective values must therefore be sorted into buckets of
+    /// equal value and then counted.
+    ///
+    /// In the resulting array the INDEX represents the OBJECTIVE VALUE,
+    /// and the value at an index represents the amount of times this objecive
+    /// value occured.
+    fn calc_distribution(values: &[Self]) -> Vec<usize>;
+
+    fn to_usize(&self) -> usize;
 }
 
 // Context /////////////////////////////////////////////////////////////////////
@@ -50,6 +62,15 @@ pub trait Genotype<Ctx: Context>:
     /// which may contain pre-defined random value generators/distributions
     /// that help with generating lots of chromosomes.
     fn generate(amount: usize, ctx: &Ctx) -> Vec<Self>;
+
+    /// This function calculates the diversity data of the population.
+    /// Therefore equal chromosomes are grouped and counted.
+    /// Afterwards they are sorted by their fitness and returned.
+    /// Therefore `result[i]` should contain the amount of times, the fittest
+    /// chromosome occured.
+    fn calc_diversity<Ov: ObjectiveValue>(
+        population: &[(Self, Ov)],
+    ) -> Vec<usize>;
 }
 
 // Phenotype ///////////////////////////////////////////////////////////////////

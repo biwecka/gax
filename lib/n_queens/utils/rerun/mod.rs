@@ -1,10 +1,8 @@
-use std::ops::AddAssign;
-
-use hashbrown::HashMap;
-use ndarray::Array2;
-
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::Stats;
+use hashbrown::HashMap;
+use ndarray::Array2;
+use std::ops::AddAssign;
 
 // Constants ///////////////////////////////////////////////////////////////////
 const GENERATION_TIME_SEQ: &'static str = "generation";

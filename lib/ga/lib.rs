@@ -5,13 +5,13 @@ pub mod process;
 pub mod utils;
 #[rustfmt::skip] pub mod parameters;
 #[rustfmt::skip] mod builder;
+mod tools;
 
 // Re-Exports //////////////////////////////////////////////////////////////////
 pub use builder::*;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype};
-use hashbrown::HashMap;
 use operators::{Crossover, Mutation};
 use parameters::Parameters;
 use process::{
@@ -20,8 +20,8 @@ use process::{
 };
 use rayon::prelude::*;
 
-// #[cfg(feature = "log")]
-// use rerun::Archetype;
+#[cfg(feature = "cache")]
+use hashbrown::HashMap;
 
 // Algorithm ///////////////////////////////////////////////////////////////////
 
@@ -84,7 +84,6 @@ impl<
                 .collect();
 
             // Sort the vector and return it as population
-            // TODO: try cached and unstable sorting for better performance
             population.par_sort_by_key(|(_, x)| x.clone());
 
             // Return
@@ -93,6 +92,16 @@ impl<
 
         // Initialize runtime data
         let mut rtd = RuntimeData::init(&population);
+
+        // Initialize rerun logger
+        let rerun_logger = if cfg!(feature = "rerun-log") {
+            let logger = tools::rerun::RerunLogger::connect("ga");
+            logger.log(&rtd);
+            Some(logger)
+        } else {
+            None
+        };
+
         // Start loop
         while !self.params.termination.stop(rtd.generation, &rtd.current_best.1)
         {
@@ -100,6 +109,7 @@ impl<
             rtd.inc_generation();
 
             // Select
+            let now = std::time::Instant::now();
             let (selection_size_raw, selection_size_corrected) = self
                 .params
                 .replacement
@@ -110,7 +120,10 @@ impl<
                 .selection
                 .exec(selection_size_corrected, &population);
 
+            let duration_select = now.elapsed();
+
             // Crossover, Mutation, Rejection
+            let now = std::time::Instant::now();
             let mut offspring: Vec<(Ge, Ov)> = parents
                 .par_chunks(2)
                 .map(|parents| {
@@ -161,22 +174,34 @@ impl<
                 .flatten()
                 .collect();
 
+            let duration_cx_mu_re = now.elapsed();
+
             // Correct offspring length (might be off by one, because of
             // selection size correction to get PAIRS of parents).
+            let now = std::time::Instant::now();
             offspring.truncate(selection_size_raw);
 
+            let duration_truncate = now.elapsed();
+
             // Calculate the average mean objective value of the offspring
+            let now = std::time::Instant::now();
             let offspring_mean: f32 = Ov::calc_average(
                 &offspring.iter().map(|(_, ov)| ov.clone()).collect::<Vec<_>>(),
             );
+            let duration_calc_mean = now.elapsed();
 
             // Replace (population must be sorted; offspring is not).
+            let now = std::time::Instant::now();
             self.params.replacement.exec(&mut population, offspring);
+            let duration_replace = now.elapsed();
 
             // Sort the new population
+            let now = std::time::Instant::now();
             population.par_sort_by_key(|(_, x)| x.clone());
+            let duration_sort = now.elapsed();
 
             // Update runtime data
+            let now = std::time::Instant::now();
             rtd.update(
                 &population,
                 self.params.replacement.elite_size(self.params.population_size),
@@ -185,15 +210,35 @@ impl<
                 offspring_mean,
                 0,
             );
+            let duration_rtd_update = now.elapsed();
 
-            // Log
-            println!(
-                "[{}] best = {:?}, mean = {}, worst = {:?}",
-                rtd.generation,
-                rtd.current_best.1,
-                rtd.current_mean,
-                rtd.current_worst.1,
-            );
+            rtd.update_execution_times(vec![
+                duration_select,
+                duration_cx_mu_re,
+                duration_truncate,
+                duration_calc_mean,
+                duration_replace,
+                duration_sort,
+                std::time::Duration::from_millis(0), // Cache update
+                duration_rtd_update,
+            ]);
+
+            // Log (to 'rerun' or 'console')
+            if cfg!(feature = "rerun-log") {
+                if let Some(logger) = &rerun_logger {
+                    logger.log(&rtd);
+                } else {
+                    unreachable!();
+                }
+            } else {
+                println!(
+                    "[{}] best = {:?}, mean = {}, worst = {:?}",
+                    rtd.generation,
+                    rtd.current_best.1,
+                    rtd.current_mean,
+                    rtd.current_worst.1,
+                );
+            }
         }
 
         // Return
@@ -228,18 +273,27 @@ impl<
                 .collect();
 
             // Sort the vector and return it as population
-            // TODO: try cached and unstable sorting for better performance
             population.par_sort_by_key(|(_, x)| x.clone());
 
             // Return
             population
         };
 
-        // Populate cache
-        let mut cache = HashMap::<Ge, Ov>::from_iter(population.clone());
-
         // Initialize runtime data
         let mut rtd = RuntimeData::init(&population);
+
+        // Create and populate cache
+        let mut cache = HashMap::<Ge, Ov>::from_iter(population.clone());
+
+        // Initialize rerun logger
+        let rerun_logger = if cfg!(feature = "rerun-log") {
+            let logger = tools::rerun::RerunLogger::connect("ga");
+            logger.log(&rtd);
+            Some(logger)
+        } else {
+            None
+        };
+
         // Start loop
         while !self.params.termination.stop(rtd.generation, &rtd.current_best.1)
         {
@@ -247,6 +301,7 @@ impl<
             rtd.inc_generation();
 
             // Select
+            let now = std::time::Instant::now();
             let (selection_size_raw, selection_size_corrected) = self
                 .params
                 .replacement
@@ -257,7 +312,10 @@ impl<
                 .selection
                 .exec(selection_size_corrected, &population);
 
+            let duration_select = now.elapsed();
+
             // Crossover, Mutation, Rejection
+            let now = std::time::Instant::now();
             let cx_mu_re: Vec<(((Ge, Ov), (Ge, Ov)), usize)> = parents
                 .par_chunks(2)
                 .map(|parents| {
@@ -327,27 +385,41 @@ impl<
                 .flatten()
                 .collect();
 
+            let duration_cx_mu_re = now.elapsed();
+
             // Correct offspring length (might be off by one, because of
             // selection size correction to get PAIRS of parents).
+            let now = std::time::Instant::now();
             offspring.truncate(selection_size_raw);
 
+            let duration_truncate = now.elapsed();
+
             // Calculate the average mean objective value of the offspring
+            let now = std::time::Instant::now();
             let offspring_mean: f32 = Ov::calc_average(
                 &offspring.iter().map(|(_, ov)| ov.clone()).collect::<Vec<_>>(),
             );
+            let duration_calc_mean = now.elapsed();
 
             // Replace (population must be sorted; offspring is not).
+            let now = std::time::Instant::now();
             self.params.replacement.exec(&mut population, offspring);
+            let duration_replace = now.elapsed();
 
             // Sort the new population
+            let now = std::time::Instant::now();
             population.par_sort_by_key(|(_, x)| x.clone());
+            let duration_sort = now.elapsed();
 
             // Update cache
+            let now = std::time::Instant::now();
             population.iter().for_each(|(ge, ov)| {
                 cache.insert(ge.clone(), ov.clone());
             });
+            let duration_cache_update = now.elapsed();
 
             // Update runtime data
+            let now = std::time::Instant::now();
             rtd.update(
                 &population,
                 self.params.replacement.elite_size(self.params.population_size),
@@ -356,17 +428,47 @@ impl<
                 offspring_mean,
                 cache_hits,
             );
+            let duration_rtd_update = now.elapsed();
 
-            // Log
-            println!(
-                "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",
-                rtd.generation,
-                rtd.current_best.1,
-                rtd.current_mean,
-                rtd.current_worst.1,
-                rtd.cache_hits,
-            );
+            rtd.update_execution_times(vec![
+                duration_select,
+                duration_cx_mu_re,
+                duration_truncate,
+                duration_calc_mean,
+                duration_replace,
+                duration_sort,
+                duration_cache_update,
+                duration_rtd_update,
+            ]);
+
+            // Log (to 'rerun' or 'console')
+            if cfg!(feature = "rerun-log") {
+                if let Some(logger) = &rerun_logger {
+                    logger.log(&rtd);
+                } else {
+                    unreachable!();
+                }
+            } else {
+                println!(
+                    "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",
+                    rtd.generation,
+                    rtd.current_best.1,
+                    rtd.current_mean,
+                    rtd.current_worst.1,
+                    rtd.cache_hits,
+                );
+            }
         }
+
+        // Print result to console
+        println!(
+            "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",
+            rtd.generation,
+            rtd.current_best.1,
+            rtd.current_mean,
+            rtd.current_worst.1,
+            rtd.cache_hits,
+        );
 
         // Return
         population
@@ -386,6 +488,11 @@ pub struct RuntimeData<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>> {
     pub distinct_selections: usize,
     pub offspring_mean: f32,
     pub cache_hits: usize,
+
+    pub execution_times: Vec<u128>,
+
+    pub objective_value_distribution: Vec<usize>,
+    pub population_diversity_distribution: Vec<usize>,
 
     // PhantomData
     context: std::marker::PhantomData<Ctx>,
@@ -426,6 +533,10 @@ impl<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>
             offspring_mean: 0.,
             cache_hits: 0,
 
+            execution_times: vec![],
+            objective_value_distribution: vec![],
+            population_diversity_distribution: vec![],
+
             context: std::marker::PhantomData,
         }
     }
@@ -443,6 +554,10 @@ impl<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>
         offspring_mean: f32,
         cache_hits: usize,
     ) {
+        // Pre-calculate filtered list with objective values only
+        let objective_values =
+            population.iter().map(|(_, ov)| ov.clone()).collect::<Vec<_>>();
+
         self.population_size = population.len();
         self.current_best = match population.first() {
             Some(x) => x.clone(),
@@ -452,14 +567,34 @@ impl<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>
             Some(x) => x.clone(),
             None => unreachable!(),
         };
-        self.current_mean = Ov::calc_average(
-            &population.iter().map(|(_, ov)| ov.clone()).collect::<Vec<_>>(),
-        );
+        self.current_mean = Ov::calc_average(&objective_values);
         self.elite = elite;
         self.selection_corrected = selection_corrected;
         self.distinct_selections = distinct_selections;
         self.offspring_mean = offspring_mean;
         self.cache_hits = cache_hits;
+
+        // Calculate objective value distribution
+        self.objective_value_distribution =
+            Ov::calc_distribution(&objective_values);
+
+        // Calculate population diversity
+        self.population_diversity_distribution =
+            Ge::calc_diversity(&population);
+    }
+
+    fn update_execution_times(
+        &mut self,
+        execution_times: Vec<std::time::Duration>,
+    ) {
+        // Convert
+        let times_in_nanoseconds = execution_times
+            .into_iter()
+            .map(|t| t.as_nanos())
+            .collect::<Vec<u128>>();
+
+        // Set
+        self.execution_times = times_in_nanoseconds;
     }
 }
 
