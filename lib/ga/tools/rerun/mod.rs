@@ -1,7 +1,7 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::{
     encoding::{Context, Genotype, ObjectiveValue},
-    RuntimeData,
+    runtime_data::RuntimeData,
 };
 use rerun::{BarChart, RecordingStream, RecordingStreamBuilder, Scalar};
 
