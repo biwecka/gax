@@ -82,7 +82,7 @@ pub trait Phenotype<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>:
 {
     fn derive(&self, chromsome: &Ge) -> Self;
 
-    fn evaluate(&self) -> Ov;
+    fn evaluate(&self, ctx: &Ctx) -> Ov;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

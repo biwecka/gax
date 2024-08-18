@@ -12,11 +12,9 @@ use xhstt::{
 
 // Main ////////////////////////////////////////////////////////////////////////
 fn main() {
-    // rayon::ThreadPoolBuilder::new().num_threads(6).build_global().unwrap();
-
     // Load XHSTT XML content.
-    // let xml = Archives::X2014a(X2014a::Abramson15).xml();
-    let xml = Archives::X2014a(X2014a::Hdtt4).xml();
+    let xml = Archives::X2014a(X2014a::Abramson15).xml();
+    // let xml = Archives::X2014a(X2014a::Hdtt4).xml();
 
     // Parse XHSTT XML
     let xhstt = xhstt::parse(&xml);
@@ -31,10 +29,10 @@ fn main() {
 
     // Call algorithm
     // let solution_events = alg_2::run(instance.clone());
-    let solution_events = alg_3::run(instance.clone());
+    // let solution_events = alg_3::run(instance.clone());
     // let solution_events = alg_4::run(instance.clone());
     // let solution_events = alg_5::run(instance.clone());
-    // let solution_events = alg_6::run(instance.clone());
+    let solution_events = alg_6::run(instance.clone());
 
     // Write result
     let solution = xhstt::tools::create_solution(

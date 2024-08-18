@@ -5,8 +5,8 @@ pub mod process;
 pub mod utils;
 #[rustfmt::skip] pub mod parameters;
 #[rustfmt::skip] mod builder;
-mod tools;
 mod runtime_data;
+mod tools;
 
 // Re-Exports //////////////////////////////////////////////////////////////////
 pub use builder::*;
@@ -19,8 +19,8 @@ use process::{
     rejection::Rejection, replacement::Replacement, selection::Selection,
     termination::Termination,
 };
-use runtime_data::RuntimeData;
 use rayon::prelude::*;
+use runtime_data::RuntimeData;
 
 #[cfg(feature = "cache")]
 use hashbrown::HashMap;
@@ -77,7 +77,8 @@ impl<
                         self.encoding.phenotype.derive(&chromosome);
 
                     // Evaluate the derivative
-                    let evaluation = derivative.evaluate();
+                    let evaluation =
+                        derivative.evaluate(&self.encoding.context);
                     drop(derivative);
 
                     // Return
@@ -147,7 +148,7 @@ impl<
                     // Evaluation
                     let y0: (Ge, Ov) = {
                         let ph = self.encoding.phenotype.derive(&x0);
-                        let ov = ph.evaluate();
+                        let ov = ph.evaluate(&self.encoding.context);
                         drop(ph);
 
                         (x0, ov)
@@ -155,7 +156,7 @@ impl<
 
                     let y1: (Ge, Ov) = {
                         let ph = self.encoding.phenotype.derive(&x1);
-                        let ov = ph.evaluate();
+                        let ov = ph.evaluate(&self.encoding.context);
                         drop(ph);
 
                         (x1, ov)
@@ -232,6 +233,16 @@ impl<
                 } else {
                     unreachable!();
                 }
+
+                // Minimal console log
+                println!(
+                    "[{:>7}] best:{:>4} mean: {:>4.2} worst:{:>4}",
+                    rtd.generation,
+                    rtd.current_best.1.to_usize(),
+                    rtd.current_mean,
+                    rtd.current_worst.1.to_usize(),
+                );
+
             } else {
                 println!(
                     "[{}] best = {:?}, mean = {}, worst = {:?}",
@@ -266,7 +277,8 @@ impl<
                         self.encoding.phenotype.derive(&chromosome);
 
                     // Evaluate the derivative
-                    let evaluation = derivative.evaluate();
+                    let evaluation =
+                        derivative.evaluate(&self.encoding.context);
                     drop(derivative);
 
                     // Return
@@ -345,7 +357,7 @@ impl<
                             cached_ov.clone()
                         } else {
                             let ph = self.encoding.phenotype.derive(&x0);
-                            ph.evaluate()
+                            ph.evaluate(&self.encoding.context)
                         };
 
                         (x0, ov)
@@ -357,7 +369,7 @@ impl<
                             cached_ov.clone()
                         } else {
                             let ph = self.encoding.phenotype.derive(&x1);
-                            ph.evaluate()
+                            ph.evaluate(&self.encoding.context)
                         };
 
                         (x1, ov)
@@ -450,6 +462,16 @@ impl<
                 } else {
                     unreachable!();
                 }
+
+                // Minimal console log
+                println!(
+                    "[{:>7}] best:{:>4} mean: {:>4.2} worst:{:>4}",
+                    rtd.generation,
+                    rtd.current_best.1.to_usize(),
+                    rtd.current_mean,
+                    rtd.current_worst.1.to_usize(),
+                );
+
             } else {
                 println!(
                     "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",

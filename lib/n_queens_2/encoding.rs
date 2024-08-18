@@ -62,7 +62,7 @@ impl Context {
     }
 }
 
-// Genotype /////////////////////////////////////////////////////////////////////
+// Genotype ////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct Chromosome(Vec<usize>);
 
@@ -144,7 +144,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
         Self { board }
     }
 
-    fn evaluate(&self) -> Cost {
+    fn evaluate(&self, _ctx: &Context) -> Cost {
         let mut errors: u8 = 0;
 
         // Check rows

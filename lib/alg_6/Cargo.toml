@@ -1,0 +1,20 @@
+[package]
+name = "alg_6"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+#> lib
+xhstt = { workspace = true }
+ga = { workspace = true }
+
+#> remote
+rand = "0.8.5"
+ndarray = { workspace = true }
+hashbrown = { workspace = true }
+
+[lints]
+workspace = true

@@ -3,7 +3,7 @@
 /// to the time index.
 ///
 /// Example:
-/// -   there are 4 events with not time: [ e0, e1, e2, e3 ]
+/// -   there are 4 events with no time: [ e0, e1, e2, e3 ]
 /// -   there are 6 times: [ t0, t1, t2, t3, t4, t5 ]
 ///
 /// A chromosome then looks like this: [ 2, 5, 1, 5 ]
