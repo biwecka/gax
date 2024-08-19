@@ -56,6 +56,7 @@ impl RerunLogger {
             &self.rec,
             rtd.generation,
             rtd.cache_hits,
+            rtd.selection_corrected - rtd.cache_hits,
             rtd.execution_times.clone(),
         );
     }
@@ -155,11 +156,14 @@ fn internals(
     rec: &RecordingStream,
     generation: usize,
     cache_hits: usize,
+    cache_misses: usize,
     execution_times: Vec<u128>,
 ) {
     rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
     let _ = rec.log("internal/cache_hits", &Scalar::new(cache_hits as f64));
+
+    let _ = rec.log("internal/cache_misses", &Scalar::new(cache_misses as f64));
 
     let _ = rec.log(
         "internal/execution_times",

@@ -242,7 +242,6 @@ impl<
                     rtd.current_mean,
                     rtd.current_worst.1.to_usize(),
                 );
-
             } else {
                 println!(
                     "[{}] best = {:?}, mean = {}, worst = {:?}",
@@ -471,7 +470,6 @@ impl<
                     rtd.current_mean,
                     rtd.current_worst.1.to_usize(),
                 );
-
             } else {
                 println!(
                     "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",

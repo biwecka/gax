@@ -5,6 +5,7 @@ use xhstt::db::constraints::Constraint;
 // Context /////////////////////////////////////////////////////////////////////
 pub struct Context {
     /// Number of "times" in this XHSTT instance.
+    #[allow(unused)]
     pub num_times: usize,
 
     /// Number of "events" in this XHSTT instance.
@@ -17,6 +18,7 @@ pub struct Context {
     pub rand_time: rand::distributions::Uniform<usize>,
 
     /// Random event generator
+    #[allow(unused)]
     pub rand_event: rand::distributions::Uniform<usize>,
 
     /// Constraints (with pre-calculated affected IDs)

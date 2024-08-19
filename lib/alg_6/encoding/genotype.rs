@@ -17,6 +17,7 @@ impl Chromosome {
         self.0.as_mut_slice()
     }
 
+    #[allow(unused)]
     pub fn iter(&self) -> std::slice::Iter<'_, usize> {
         self.0.iter()
     }

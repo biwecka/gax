@@ -35,6 +35,7 @@ pub fn pre_calc(db: &xhstt::db::Database) -> Vec<(Constraint, Vec<usize>)> {
 /// This constraint checks if every event has a time assigned to it.
 /// The allocation/encoding ensures that this is the case. No calculation
 /// needed.
+#[allow(unused)]
 pub fn assign_time_constraint(
     phenotype: &Phenotype,
     params: &AssignTimeConstraint,
