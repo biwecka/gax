@@ -133,7 +133,7 @@ impl Phenotype {
 }
 
 impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
-    fn derive(&self, chromosome: &Chromosome) -> Self {
+    fn derive(&self, chromosome: &Chromosome, _ctx: &Context) -> Self {
         let Phenotype { mut board, .. } = self.clone();
 
         for (i, pos) in chromosome.iter().enumerate() {

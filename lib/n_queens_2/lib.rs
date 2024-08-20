@@ -42,6 +42,7 @@ pub fn run() {
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
+        .set_dynamics(vec![()])
         .build();
 
     let _solutions = alg.run();

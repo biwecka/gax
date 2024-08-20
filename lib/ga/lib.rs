@@ -5,6 +5,7 @@ pub mod process;
 pub mod utils;
 #[rustfmt::skip] pub mod parameters;
 #[rustfmt::skip] mod builder;
+pub mod dynamics;
 mod runtime_data;
 mod tools;
 
@@ -12,6 +13,7 @@ mod tools;
 pub use builder::*;
 
 // Imports /////////////////////////////////////////////////////////////////////
+use dynamics::Dynamic;
 use encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype};
 use operators::{Crossover, Mutation};
 use parameters::Parameters;
@@ -39,9 +41,11 @@ pub struct Algorithm<
     Re: Rejection<Ov, Ctx, Ge>,
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
+    Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
 > {
     encoding: Encoding<Ov, Ctx, Ge, Ph>,
     params: Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    dynamics: Vec<Dy>,
 }
 
 impl<
@@ -56,10 +60,11 @@ impl<
         Re: Rejection<Ov, Ctx, Ge>,
         Rp: Replacement<(Ge, Ov)>,
         Te: Termination<Ov>,
-    > Algorithm<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te>
+        Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    > Algorithm<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy>
 {
     #[cfg(not(feature = "cache"))]
-    pub fn run(self) -> Vec<(Ge, Ov)> {
+    pub fn run(mut self) -> Vec<(Ge, Ov)> {
         // Create initial population
         let mut population: Vec<(Ge, Ov)> = {
             // Generate individuals
@@ -73,8 +78,10 @@ impl<
                 .into_iter()
                 .map(|chromosome| {
                     // Create derived phenotype from blueprint.
-                    let derivative =
-                        self.encoding.phenotype.derive(&chromosome);
+                    let derivative = self
+                        .encoding
+                        .phenotype
+                        .derive(&chromosome, &self.encoding.context);
 
                     // Evaluate the derivative
                     let evaluation =
@@ -147,7 +154,10 @@ impl<
 
                     // Evaluation
                     let y0: (Ge, Ov) = {
-                        let ph = self.encoding.phenotype.derive(&x0);
+                        let ph = self
+                            .encoding
+                            .phenotype
+                            .derive(&x0, &self.encoding.context);
                         let ov = ph.evaluate(&self.encoding.context);
                         drop(ph);
 
@@ -155,7 +165,10 @@ impl<
                     };
 
                     let y1: (Ge, Ov) = {
-                        let ph = self.encoding.phenotype.derive(&x1);
+                        let ph = self
+                            .encoding
+                            .phenotype
+                            .derive(&x1, &self.encoding.context);
                         let ov = ph.evaluate(&self.encoding.context);
                         drop(ph);
 
@@ -251,6 +264,11 @@ impl<
                     rtd.current_worst.1,
                 );
             }
+
+            // Execute dynamics
+            for dyn_exe in &self.dynamics {
+                dyn_exe.exec(&mut self.params, &rtd);
+            }
         }
 
         // Return
@@ -258,7 +276,7 @@ impl<
     }
 
     #[cfg(feature = "cache")]
-    pub fn run(self) -> Vec<(Ge, Ov)> {
+    pub fn run(mut self) -> Vec<(Ge, Ov)> {
         // Create initial population
         let mut population: Vec<(Ge, Ov)> = {
             // Generate individuals
@@ -272,8 +290,10 @@ impl<
                 .into_iter()
                 .map(|chromosome| {
                     // Create derived phenotype from blueprint.
-                    let derivative =
-                        self.encoding.phenotype.derive(&chromosome);
+                    let derivative = self
+                        .encoding
+                        .phenotype
+                        .derive(&chromosome, &self.encoding.context);
 
                     // Evaluate the derivative
                     let evaluation =
@@ -355,7 +375,10 @@ impl<
                             cache_hits += 1;
                             cached_ov.clone()
                         } else {
-                            let ph = self.encoding.phenotype.derive(&x0);
+                            let ph = self
+                                .encoding
+                                .phenotype
+                                .derive(&x0, &self.encoding.context);
                             ph.evaluate(&self.encoding.context)
                         };
 
@@ -367,7 +390,10 @@ impl<
                             cache_hits += 1;
                             cached_ov.clone()
                         } else {
-                            let ph = self.encoding.phenotype.derive(&x1);
+                            let ph = self
+                                .encoding
+                                .phenotype
+                                .derive(&x1, &self.encoding.context);
                             ph.evaluate(&self.encoding.context)
                         };
 
@@ -479,6 +505,11 @@ impl<
                     rtd.current_worst.1,
                     rtd.cache_hits,
                 );
+            }
+
+            // Execute dynamics
+            for dyn_exe in &self.dynamics {
+                dyn_exe.exec(&mut self.params, &rtd);
             }
         }
 

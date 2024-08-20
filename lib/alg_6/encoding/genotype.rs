@@ -21,11 +21,21 @@ impl Chromosome {
     pub fn iter(&self) -> std::slice::Iter<'_, usize> {
         self.0.iter()
     }
+
+    pub fn clone_inner(&self) -> Vec<usize> {
+        self.0.clone()
+    }
 }
 
 impl From<Vec<&usize>> for Chromosome {
     fn from(value: Vec<&usize>) -> Self {
         Self(value.into_iter().cloned().collect())
+    }
+}
+
+impl From<Vec<usize>> for Chromosome {
+    fn from(value: Vec<usize>) -> Self {
+        Self(value)
     }
 }
 
@@ -36,8 +46,16 @@ impl ga::encoding::Genotype<Context> for Chromosome {
 
         for _ in 0..amount {
             let mut chromosome = Vec::<usize>::with_capacity(ctx.num_events);
-            for _ in 0..ctx.num_events {
-                chromosome.push(ctx.rand_time.sample(&mut rng));
+            for event_idx in 0..ctx.num_events {
+                // First get the events duration
+                let duration = ctx.durations[event_idx] as usize;
+
+                // Then get the correct random number generator for this
+                // duration.
+                let rand_time = ctx.rand_times_by_duration[duration - 1];
+
+                // Generate random time and add it to the chromosome
+                chromosome.push(rand_time.sample(&mut rng));
             }
 
             chromosomes.push(Self(chromosome))

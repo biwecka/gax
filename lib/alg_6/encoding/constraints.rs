@@ -1,10 +1,11 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use xhstt::db::constraints::{
-    assign_time_constraint::AssignTimeConstraint,
-    avoid_clashes_constraint::AvoidClashesConstraint, Constraint,
+    // assign_time_constraint::AssignTimeConstraint,
+    avoid_clashes_constraint::AvoidClashesConstraint,
+    Constraint,
 };
 
-use super::Phenotype;
+use super::{Context, Phenotype};
 
 // Functions ///////////////////////////////////////////////////////////////////
 
@@ -31,52 +32,20 @@ pub fn pre_calc(db: &xhstt::db::Database) -> Vec<(Constraint, Vec<usize>)> {
 
 // Constraint Cost Functions ///////////////////////////////////////////////////
 
-/// Calculate the cost of the assign time constraint.
-/// This constraint checks if every event has a time assigned to it.
-/// The allocation/encoding ensures that this is the case. No calculation
-/// needed.
-#[allow(unused)]
-pub fn assign_time_constraint(
-    phenotype: &Phenotype,
-    params: &AssignTimeConstraint,
-    event_idxs: &[usize],
-) -> usize {
-    0
-}
-
 pub fn avoid_clashes_constraint(
     phenotype: &Phenotype,
+    ctx: &Context,
     params: &AvoidClashesConstraint,
     resource_idxs: &[usize],
 ) -> usize {
     // Deviation
     let deviation: usize = resource_idxs
         .iter()
-        .map(|resource_idx| {
-            // Get events by resource
-            let event_idxs = phenotype.events_by_resource(*resource_idx);
-
-            if event_idxs.len() < 2 {
-                return 0;
-            }
-
-            // Get all times allocated to the events
-            let times = phenotype.times_by_events(&event_idxs);
-
-            // If the times list is shorter than the event list, this means that
-            // some events have the same time assigned.
-            if times.len() < event_idxs.len() {
-                event_idxs.len() - times.len()
-            } else {
-                0
-            }
-        })
+        .map(|resource_idx| phenotype.calc_clashes(*resource_idx, ctx))
         .sum();
 
     // Calc cost and return
     (params.weight as usize) * params.cost_function.calc(deviation)
 }
-
-////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -12,6 +12,15 @@ pub enum Crossover {
     /// 1) f32      representing the crossover rate
     /// 2) usize    representing the amount of crossover points
     VariableNPoint(f32, usize),
+
+    /// Uniform crossover. Arguments:
+    /// 1) f32      representing the crossover rate
+    Uniform(f32),
+    // PMX or Ordered Crossover cannot be used with this encoding, because
+    // due to the duration of an event moving a time assignment from one
+    // event to another could make the chromosome invalid, because the changed
+    // time assignment and the potentially longer duration of the new event
+    // it got assigned to, will lead to an "array out of bounds" error.
 }
 
 impl ga::operators::Crossover<Context, Chromosome> for Crossover {
@@ -40,6 +49,15 @@ impl ga::operators::Crossover<Context, Chromosome> for Crossover {
                     *rate,
                 );
 
+                (a.into(), b.into())
+            }
+
+            Crossover::Uniform(rate) => {
+                let (a, b) = ga::utils::crossover::uniform(
+                    parent_0.as_slice(),
+                    parent_1.as_slice(),
+                    *rate,
+                );
                 (a.into(), b.into())
             }
         }

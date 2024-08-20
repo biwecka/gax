@@ -13,8 +13,8 @@ use xhstt::{
 // Main ////////////////////////////////////////////////////////////////////////
 fn main() {
     // Load XHSTT XML content.
-    let xml = Archives::X2014a(X2014a::Abramson15).xml();
-    // let xml = Archives::X2014a(X2014a::Hdtt4).xml();
+    // let xml = Archives::X2014a(X2014a::Abramson15).xml();
+    let xml = Archives::X2014a(X2014a::Hdtt4).xml();
 
     // Parse XHSTT XML
     let xhstt = xhstt::parse(&xml);

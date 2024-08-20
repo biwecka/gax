@@ -599,6 +599,12 @@ impl Database {
     pub fn event_id_to_idx(&self, id: &EventId) -> usize {
         self.events.iter().position(|x| x.id.eq(&id)).unwrap()
     }
+
+    /// Get the maximal duration present in the events.
+    pub fn events_max_duration(&self) -> usize {
+        self.events.iter().map(|x| x.duration).max().unwrap_or_default()
+            as usize
+    }
 }
 
 // Constraint Data Methods /////////////////////////////////////////////////////

@@ -1,4 +1,21 @@
 //! Algorithm V6
+//! This algorithm is the successor of "alg_2".
+//! It now supports durations >1 and is implemented using my own
+//! genetic algorithm "framework" called `ga`.
+//!
+//! Limitations:
+//! 1. Only event-time allocation is missing (event resources are pre-defined).
+//!
+//!
+//! Best result on "hdtt4" was 8 (after > 600k generations) with the following
+//! parameters:
+//! - population_size: 1000
+//! - Select::LinearRank
+//! - Crossover::VariableNPoint(1., 3)
+//! - Mutation::RandomizeNGenes(0.5, 4)
+//! - Reject::None
+//! - Replace::EliteAbsolute(1)
+//! - Terminate::ObjectiveValue(0.into())
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
@@ -7,10 +24,13 @@ mod operators;
 mod utils;
 
 // Imports /////////////////////////////////////////////////////////////////////
-use encoding::{Context, Phenotype};
-use ga::process::{
-    rejection::Reject, replacement::Replace, selection::Select,
-    termination::Terminate,
+use encoding::{Chromosome, Context, Phenotype};
+use ga::{
+    encoding::Phenotype as _,
+    process::{
+        rejection::Reject, replacement::Replace, selection::Select,
+        termination::Terminate,
+    },
 };
 use operators::{Crossover, Mutation};
 use xhstt::{
@@ -31,29 +51,37 @@ pub fn run(instance: Instance) -> Vec<Event> {
     let ph = Phenotype::blueprint(&db, &ctx);
 
     // Create encoding and parameters
-    let encoding =
-        ga::encoding::Builder::new().set_context(ctx).set_phenotype(ph).build();
+    let encoding = ga::encoding::Builder::new()
+        .set_context(ctx.clone())
+        .set_phenotype(ph.clone())
+        .build();
 
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
         .set_population_size(2_000)
-        .set_selection(Select::Tournament(2))
-        .set_crossover(Crossover::VariableNPoint(1., 10))
-        .set_mutation(Mutation::RandomizeNGenes(0.6, 1))
+        .set_selection(Select::RouletteWheel)
+        .set_crossover(Crossover::VariableNPoint(1., 3))
+        .set_mutation(Mutation::Conventional(0.01))
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteAbsolute(1))
-        .set_termination(Terminate::Generations(500_000))
+        .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
+
+    let dynamics = vec![()];
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
+        .set_dynamics(dynamics)
         .build();
 
-    let _results = alg.run();
+    let results = alg.run();
 
-    // TODO: Ergebnis ausgeben und online checken, ob das passt!
-    vec![]
+    // Get the best result and convert it to a list of solution events.
+    let best: &Chromosome = &results.first().unwrap().0;
+    let timetable: Phenotype = ph.derive(&best, &ctx);
+
+    timetable.to_solution_events(&db, &ctx)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
