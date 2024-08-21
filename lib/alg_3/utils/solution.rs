@@ -14,7 +14,7 @@ pub fn create_from(
     allocation: &Allocation,
     db: &Database,
 ) -> Vec<SolutionEvent> {
-    let allocation = allocation.derive(&chromosome);
+    let allocation = allocation.derive(chromosome);
     let mut events = vec![];
 
     for (i, event) in db.events().iter().enumerate() {

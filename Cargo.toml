@@ -4,30 +4,31 @@ resolver = "2"
 members = [
     "bin/*",
     "lib/*",
+
+    "archive/*",
 ]
 
-# exclude = []
+# exclude = [""]
 default-members = [ "bin/solver" ]
-# default-members = [ "bin/playground" ]
-
 
 ################################################################################
 [workspace.dependencies]
 #> lib
-alg_1               = { path = "lib/alg_1" }
 alg_2               = { path = "lib/alg_2" }
 alg_3               = { path = "lib/alg_3" }
-alg_4               = { path = "lib/alg_4" }
-alg_5               = { path = "lib/alg_5" }
 alg_6               = { path = "lib/alg_6" }
-
-ga                  = { path = "lib/ga" }
-n_queens            = { path = "lib/n_queens" }
 n_queens_2          = { path = "lib/n_queens_2" }
 
-plot_utils          = { path = "lib/plot_utils"}
-plotters_piston     = { path = "lib/plotters_piston" }
+ga                  = { path = "lib/ga" }
 xhstt               = { path = "lib/xhstt" }
+
+alg_1               = { path = "archive/alg_1" }
+alg_4               = { path = "archive/alg_4" }
+alg_5               = { path = "archive/alg_5" }
+n_queens            = { path = "archive/n_queens" }
+plot_utils          = { path = "archive/plot_utils"}
+plotters_piston     = { path = "archive/plotters_piston" }
+
 
 #> remote
 rand = { version = "0.8.5", features = ["small_rng"] }
@@ -67,7 +68,8 @@ simple_moving_average = "1.0.2"
 # unsafe_code = "forbid"
 
 [workspace.lints.clippy]
-unwrap_used = "forbid"
-expect_used = "forbid"
+# unwrap_used = "forbid"
+# expect_used = "forbid"
+type_complexity = "allow"
 
 ################################################################################

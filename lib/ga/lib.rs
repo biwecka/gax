@@ -502,7 +502,7 @@ impl<
             let cache_hits: usize = ch_num.into_iter().sum();
 
             let mut offspring: Vec<(Ge, Ov)> =
-                offspr.into_iter().map(|(a, b)| vec![a, b]).flatten().collect();
+                offspr.into_iter().flat_map(|(a, b)| vec![a, b]).collect();
 
             measure_runtime_end!(self);
 

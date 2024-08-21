@@ -219,23 +219,23 @@ impl Database {
         // Check references
         let mut report: Vec<String> = vec![];
         for week_id in week_ids {
-            if db.weeks().iter().find(|x| x.id.eq(week_id)).is_none() {
+            if !db.weeks().iter().any(|x| x.id.eq(week_id)) {
                 report.push(format!("Week ID \"{}\" not found.", week_id.0));
             }
         }
         for day_id in day_ids {
-            if db.days().iter().find(|x| x.id.eq(day_id)).is_none() {
+            if !db.days().iter().any(|x| x.id.eq(day_id)) {
                 report.push(format!("Day ID \"{}\" not found.", day_id.0));
             }
         }
         for tg_id in time_group_ids {
-            if db.time_groups().iter().find(|x| x.id.eq(tg_id)).is_none() {
+            if !db.time_groups().iter().any(|x| x.id.eq(tg_id)) {
                 report.push(format!("TimeGroup ID \"{}\" not found.", tg_id.0));
             }
         }
 
         for rt_id in resource_type_ids {
-            if db.resource_types().iter().find(|x| x.id.eq(&rt_id)).is_none() {
+            if !db.resource_types().iter().any(|x| x.id.eq(&rt_id)) {
                 report.push(format!(
                     "ResourceType ID \"{}\" not found.",
                     rt_id.0
@@ -243,7 +243,7 @@ impl Database {
             }
         }
         for rg_id in resource_group_ids {
-            if db.resource_groups().iter().find(|x| x.id.eq(&rg_id)).is_none() {
+            if !db.resource_groups().iter().any(|x| x.id.eq(rg_id)) {
                 report.push(format!(
                     "ResourceGroup ID \"{}\" not found.",
                     rg_id.0
@@ -252,22 +252,22 @@ impl Database {
         }
 
         for c_id in course_ids {
-            if db.courses().iter().find(|x| x.id.eq(c_id)).is_none() {
+            if !db.courses().iter().any(|x| x.id.eq(c_id)) {
                 report.push(format!("Course ID \"{}\" not found.", c_id.0));
             }
         }
         for t_id in time_ids {
-            if db.times().iter().find(|x| x.id.eq(t_id)).is_none() {
+            if !db.times().iter().any(|x| x.id.eq(t_id)) {
                 report.push(format!("Time ID \"{}\" not found.", t_id.0));
             }
         }
         for r_id in resource_ids {
-            if db.resources().iter().find(|x| x.id.eq(&r_id)).is_none() {
+            if !db.resources().iter().any(|x| x.id.eq(&r_id)) {
                 report.push(format!("Resource ID \"{}\" not found.", r_id.0));
             }
         }
         for eg_id in event_group_ids {
-            if db.event_groups().iter().find(|x| x.id.eq(eg_id)).is_none() {
+            if !db.event_groups().iter().any(|x| x.id.eq(eg_id)) {
                 report
                     .push(format!("EventGroup ID \"{}\" not found.", eg_id.0));
             }
@@ -293,7 +293,7 @@ impl Database {
 
     /// Get a week by id.
     pub fn week_by_id(&self, id: &WeekId) -> &Week {
-        self.weeks.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.weeks.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a week by index.
@@ -307,7 +307,7 @@ impl Database {
         let mut time_idxs = vec![];
         for (i, time) in self.times.iter().enumerate() {
             if let Some(wid) = &time.week {
-                if wid.eq(&id) {
+                if wid.eq(id) {
                     time_idxs.push(i);
                 }
             }
@@ -326,7 +326,7 @@ impl Database {
 
     /// Get a day by id.
     pub fn day_by_id(&self, id: &DayId) -> &Day {
-        self.days.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.days.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a day by index.
@@ -340,7 +340,7 @@ impl Database {
         let mut time_idxs = vec![];
         for (i, time) in self.times.iter().enumerate() {
             if let Some(did) = &time.day {
-                if did.eq(&id) {
+                if did.eq(id) {
                     time_idxs.push(i);
                 }
             }
@@ -359,7 +359,7 @@ impl Database {
 
     /// Get a time-group by id.
     pub fn time_group_by_id(&self, id: &TimeGroupId) -> &TimeGroup {
-        self.time_groups.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.time_groups.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a time_group by index.
@@ -372,7 +372,7 @@ impl Database {
     pub fn time_group_time_ids(&self, id: &TimeGroupId) -> Vec<usize> {
         let mut time_idxs = vec![];
         for (i, time) in self.times.iter().enumerate() {
-            if time.time_groups.contains(&id) {
+            if time.time_groups.contains(id) {
                 time_idxs.push(i);
             }
         }
@@ -390,7 +390,7 @@ impl Database {
 
     /// Get a time by id.
     pub fn time_by_id(&self, id: &TimeId) -> &Time {
-        self.times.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.times.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a time by index.
@@ -401,7 +401,7 @@ impl Database {
 
     /// Resolve id to index.
     pub fn time_id_to_idx(&self, id: &TimeId) -> usize {
-        self.times.iter().position(|x| x.id.eq(&id)).unwrap()
+        self.times.iter().position(|x| x.id.eq(id)).unwrap()
     }
 }
 
@@ -416,7 +416,7 @@ impl Database {
 
     /// Get a resource type by id.
     pub fn resource_type_by_id(&self, id: &ResourceTypeId) -> &ResourceType {
-        self.resource_types.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.resource_types.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a resource type by index.
@@ -450,7 +450,7 @@ impl Database {
 
     /// Get a resource-group by id.
     pub fn resource_group_by_id(&self, id: &ResourceGroupId) -> &ResourceGroup {
-        self.resource_groups.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.resource_groups.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a resource-group by index.
@@ -466,7 +466,7 @@ impl Database {
     ) -> Vec<usize> {
         let mut resource_idxs = vec![];
         for (i, resource) in self.resources.iter().enumerate() {
-            if resource.resource_groups.contains(&id) {
+            if resource.resource_groups.contains(id) {
                 resource_idxs.push(i);
             }
         }
@@ -484,7 +484,7 @@ impl Database {
 
     /// Get a resource by id.
     pub fn resource_by_id(&self, id: &ResourceId) -> &Resource {
-        self.resources.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.resources.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a resource by index.
@@ -495,7 +495,7 @@ impl Database {
 
     /// Resolve id to index.
     pub fn resource_id_to_idx(&self, id: &ResourceId) -> usize {
-        self.resources.iter().position(|x| x.id.eq(&id)).unwrap()
+        self.resources.iter().position(|x| x.id.eq(id)).unwrap()
     }
 }
 
@@ -509,7 +509,7 @@ impl Database {
 
     /// Get a course by id.
     pub fn course_by_id(&self, id: &CourseId) -> &Course {
-        self.courses.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.courses.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a course by index.
@@ -523,7 +523,7 @@ impl Database {
         let mut event_idxs = vec![];
         for (i, event) in self.events.iter().enumerate() {
             if let Some(cid) = &event.course {
-                if cid.eq(&id) {
+                if cid.eq(id) {
                     event_idxs.push(i);
                 }
             }
@@ -542,7 +542,7 @@ impl Database {
 
     /// Get a event-group by id.
     pub fn event_group_by_id(&self, id: &EventGroupId) -> &EventGroup {
-        self.event_groups.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.event_groups.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a event-group by index.
@@ -555,7 +555,7 @@ impl Database {
     pub fn event_group_event_idxs(&self, id: &EventGroupId) -> Vec<usize> {
         let mut event_idxs = vec![];
         for (i, event) in self.events.iter().enumerate() {
-            if event.event_groups.contains(&id) {
+            if event.event_groups.contains(id) {
                 event_idxs.push(i);
             }
         }
@@ -586,7 +586,7 @@ impl Database {
 
     /// Get a event by id.
     pub fn event_by_id(&self, id: &EventId) -> &Event {
-        self.events.iter().find(|x| x.id.eq(&id)).unwrap()
+        self.events.iter().find(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get a event by index.
@@ -597,7 +597,7 @@ impl Database {
 
     /// Resolve id to index.
     pub fn event_id_to_idx(&self, id: &EventId) -> usize {
-        self.events.iter().position(|x| x.id.eq(&id)).unwrap()
+        self.events.iter().position(|x| x.id.eq(id)).unwrap()
     }
 
     /// Get the maximal duration present in the events.

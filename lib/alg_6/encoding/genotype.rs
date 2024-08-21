@@ -22,9 +22,9 @@ impl Chromosome {
         self.0.iter()
     }
 
-    pub fn clone_inner(&self) -> Vec<usize> {
-        self.0.clone()
-    }
+    // pub fn clone_inner(&self) -> Vec<usize> {
+    //     self.0.clone()
+    // }
 }
 
 impl From<Vec<&usize>> for Chromosome {

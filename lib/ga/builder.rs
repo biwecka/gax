@@ -95,6 +95,30 @@ impl<
     }
 }
 
+impl<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    Ph: Phenotype<Ov, Ctx, Ge>,
+    Cr: Crossover<Ctx, Ge>,
+    Mu: Mutation<Ctx, Ge>,
+    T: From<Ov>,
+    Se: Selection<Ov, Ctx, Ge, T>,
+    Re: Rejection<Ov, Ctx, Ge>,
+    Rp: Replacement<(Ge, Ov)>,
+    Te: Termination<Ov>,
+    // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    //
+    // TsEn: TS_Encoding,
+    // TsPa: TS_Parameters,
+> std::default::Default for Builder<
+    Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), (), (),
+> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 // build -----------------------------------------------------------------------
 impl<
     Ov: ObjectiveValue,

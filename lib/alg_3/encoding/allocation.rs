@@ -110,10 +110,8 @@ impl Allocation {
                 for time_idx in &time_group {
                     // Get row of the current time_idx from the time matrix
                     let time_row = a.times.get_row(*time_idx as usize);
-                    let time_alloc = time_row
-                        .iter()
-                        .map(|x| if *x <= 0 { false } else { true })
-                        .collect::<Vec<bool>>();
+                    let time_alloc =
+                        time_row.iter().map(|x| *x <= 0).collect::<Vec<bool>>();
 
                     matrix.set_row(0, &time_alloc);
                     matrix.set_row(1, &collision_vector);
@@ -128,10 +126,8 @@ impl Allocation {
 
                     // Calculate the efficiency of the allocation in this
                     // timeslot.
-                    let time_blocked_slots = time_row
-                        .iter()
-                        .map(|x| if *x < 0 { true } else { false })
-                        .collect::<Vec<bool>>();
+                    let time_blocked_slots =
+                        time_row.iter().map(|x| *x < 0).collect::<Vec<bool>>();
 
                     // Re-use the matrix from above
                     matrix.set_row(0, &time_blocked_slots);
@@ -375,6 +371,7 @@ impl Matrix2D<bool> {
         let mut result = self.get_row(0).to_vec();
 
         for row in 1..self.rows {
+            #[allow(clippy::needless_range_loop)]
             for col in 0..self.columns {
                 result[col] = result[col] && self.get(row, col);
             }
@@ -387,6 +384,7 @@ impl Matrix2D<bool> {
         let mut result = self.get_row(0).to_vec();
 
         for row in 1..self.rows {
+            #[allow(clippy::needless_range_loop)]
             for col in 0..self.columns {
                 result[col] = result[col] || self.get(row, col);
             }

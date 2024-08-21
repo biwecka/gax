@@ -9,8 +9,8 @@ use rand::{rngs::ThreadRng, Rng};
 /// Genes may have different value ranges. For this case check out the
 /// [`randomize_multi_dist`] functions.
 ///
-pub fn randomize_single_dist<'a, T, D: rand::distributions::Distribution<T>>(
-    chromosome: &'a mut [T],
+pub fn randomize_single_dist<T, D: rand::distributions::Distribution<T>>(
+    chromosome: &mut [T],
     rate: f32,
     generator: &D,
     rng: &mut ThreadRng,
@@ -31,8 +31,8 @@ pub fn randomize_single_dist<'a, T, D: rand::distributions::Distribution<T>>(
 /// takes the `generators` parameter, which contains a separate random number
 /// generator for each gene. Therefore the index of the gene in the chromosome
 /// corresponds to the index for the respective random number generator.
-pub fn randomize_multi_dist<'a, T, D: rand::distributions::Distribution<T>>(
-    chromosome: &'a mut [T],
+pub fn randomize_multi_dist<T, D: rand::distributions::Distribution<T>>(
+    chromosome: &mut [T],
     rate: f32,
     generators: &[D],
     rng: &mut ThreadRng,

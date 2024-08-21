@@ -8,7 +8,7 @@ use rand::prelude::Distribution;
 #[allow(unused)]
 pub fn roulette_wheel(
     pair_count: usize,
-    current_generation: &Vec<(Chromosome, usize)>,
+    current_generation: &[(Chromosome, usize)],
 ) -> Vec<((Chromosome, usize), (Chromosome, usize))> {
     // Extract cost
     let costs: Vec<usize> =
@@ -22,7 +22,7 @@ pub fn roulette_wheel(
         costs.iter().map(|x| max_cost - x).collect();
 
     // Calc total cost and highest cost
-    let total_cost: usize = inverted_costs.iter().map(|x| x).sum();
+    let total_cost: usize = inverted_costs.iter().sum();
 
     // Calculate proportion
     let proportions: Vec<f32> =
@@ -137,7 +137,7 @@ pub fn roulette_wheel(
 #[allow(unused)]
 pub fn rank(
     pair_count: usize,
-    current_generation: &Vec<(Chromosome, usize)>,
+    current_generation: &[(Chromosome, usize)],
 ) -> Vec<((Chromosome, usize), (Chromosome, usize))> {
     // Get population size
     let pop_size = current_generation.len();
@@ -180,8 +180,8 @@ pub fn rank(
         .filter_map(|chunk| {
             if chunk.len() == 2 {
                 Some((
-                    (chunk[0].0.clone(), chunk[0].1.clone()),
-                    (chunk[1].0.clone(), chunk[1].1.clone()),
+                    (chunk[0].0.clone(), chunk[0].1),
+                    (chunk[1].0.clone(), chunk[1].1),
                 ))
             } else {
                 None

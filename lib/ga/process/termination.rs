@@ -25,20 +25,10 @@ impl<Ov: ObjectiveValue> Termination<Ov> for Terminate<Ov> {
     fn stop(&self, generation_num: usize, current_best: &Ov) -> bool {
         match self {
             Self::Generations(generation_limit) => {
-                if generation_num >= *generation_limit {
-                    true
-                } else {
-                    false
-                }
+                generation_num >= *generation_limit
             }
 
-            Self::ObjectiveValue(target) => {
-                if *current_best <= *target {
-                    true
-                } else {
-                    false
-                }
-            }
+            Self::ObjectiveValue(target) => *current_best <= *target,
         }
     }
 }

@@ -43,7 +43,7 @@ fn roulette_wheel<'a>(
         costs.iter().map(|x| (max_cost - x) * (max_cost - x)).collect();
 
     // Calc total cost and highest cost
-    let total_cost: usize = inverted_costs.iter().map(|x| x).sum();
+    let total_cost: usize = inverted_costs.iter().sum();
 
     // Calculate proportion
     let proportions: Vec<f32> =

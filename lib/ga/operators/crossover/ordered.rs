@@ -4,7 +4,7 @@ use rand::{prelude::SliceRandom, rngs::ThreadRng, Rng};
 // Function ////////////////////////////////////////////////////////////////////
 /// Ordered Crossover. If a crossover rate of 100% is desired, use `None`
 /// as parameter for the `rate`. This will skip the random number sampling.
-pub fn ordered<'a, T: Clone + PartialEq + Eq>(
+pub fn ordered<T: Clone + PartialEq + Eq>(
     a: Vec<T>,
     b: Vec<T>,
     rate: Option<f32>,

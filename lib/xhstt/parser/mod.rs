@@ -49,12 +49,8 @@ pub struct Stats {
 impl XhsttArchive {
     pub fn instance_stats(&self) -> Option<Stats> {
         let s = self.clone();
-        let i = s.instances.map(|v| v.list.first().cloned()).flatten();
-        let instance = if let Some(i) = i {
-            i
-        } else {
-            return None;
-        };
+        let i = s.instances.and_then(|v| v.list.first().cloned());
+        let instance = i?;
 
         let instance_id = instance.id;
         let instance_name = instance.metadata.name;

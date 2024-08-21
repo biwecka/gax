@@ -20,11 +20,7 @@ pub fn only_time_allocation_needed(db: &xhstt::db::Database) -> bool {
 // }
 
 pub fn allocation_and_chromosome_same_length(db: &xhstt::db::Database) -> bool {
-    if db.events().len() == db.events_with_no_time().len() {
-        true
-    } else {
-        false
-    }
+    db.events().len() == db.events_with_no_time().len()
 }
 
 pub fn only_hard_constraints(db: &xhstt::db::Database) -> bool {

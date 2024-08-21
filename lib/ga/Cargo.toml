@@ -9,20 +9,23 @@ path = "lib.rs"
 [features]
 default = [
     "cache",
+    "rerun_logger",
 
-    "log_cache_hits",
-    "log_runtimes",
+    "log_pop_stats",
     "log_ov_dist",
     "log_diversity",
+    "log_cache_hits",
+    "log_runtimes",
 ]
 
 cache           = []
 rerun_logger    = ["dep:rerun"]
 
-log_cache_hits  = ["rerun_logger", "cache"]
-log_runtimes    = ["rerun_logger"]
+log_pop_stats   = ["rerun_logger"]
 log_ov_dist     = ["rerun_logger"]
 log_diversity   = ["rerun_logger"]
+log_cache_hits  = ["rerun_logger", "cache"]
+log_runtimes    = ["rerun_logger"]
 
 
 [dependencies]

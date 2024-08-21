@@ -20,11 +20,7 @@ pub fn only_duration_of_1(db: &crate::db::Database) -> bool {
 }
 
 pub fn no_event_has_preassigned_time(db: &crate::db::Database) -> bool {
-    if db.events().len() == db.events_with_no_time().len() {
-        true
-    } else {
-        false
-    }
+    db.events().len() == db.events_with_no_time().len()
 }
 
 pub fn only_hard_constraints(db: &crate::db::Database) -> bool {

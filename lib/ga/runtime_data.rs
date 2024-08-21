@@ -216,7 +216,7 @@ impl<
         #[cfg(feature = "log_diversity")]
         {
             self.population_diversity_distribution =
-                Ge::calc_diversity(&population);
+                Ge::calc_diversity(population);
         };
     }
 

@@ -84,6 +84,7 @@ impl Matrix2D<bool> {
         let mut result = self.get_row(0).to_vec();
 
         for row in 1..self.rows {
+            #[allow(clippy::needless_range_loop)]
             for col in 0..self.columns {
                 result[col] = result[col] && self.get_cell(row, col);
             }
@@ -97,6 +98,7 @@ impl Matrix2D<bool> {
         let mut result = self.get_row(0).to_vec();
 
         for row in 1..self.rows {
+            #[allow(clippy::needless_range_loop)]
             for col in 0..self.columns {
                 result[col] = result[col] || self.get_cell(row, col);
             }

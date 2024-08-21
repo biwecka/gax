@@ -55,14 +55,13 @@ impl<Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>>
 
 // Functions ///////////////////////////////////////////////////////////////////
 fn roulette_wheel_usize<
-    'a,
     Ov: ObjectiveValue + Into<usize>,
     Ctx: Context,
     Ge: Genotype<Ctx>,
 >(
     amount: usize,
-    individuals: &'a [(Ge, Ov)],
-) -> (Vec<&'a (Ge, Ov)>, usize) {
+    individuals: &[(Ge, Ov)],
+) -> (Vec<&(Ge, Ov)>, usize) {
     // Extract cost (convert objective value to usize)
     let costs: Vec<usize> = individuals
         .iter()
@@ -77,7 +76,7 @@ fn roulette_wheel_usize<
         costs.iter().map(|x| (max_cost - *x) * (max_cost - *x)).collect();
 
     // Calc total cost and highest cost
-    let total_cost: usize = inverted_costs.iter().map(|x| x).sum();
+    let total_cost: usize = inverted_costs.iter().sum();
 
     // Calculate proportion
     let proportions: Vec<f32> =
@@ -120,15 +119,14 @@ fn roulette_wheel_usize<
 }
 
 fn tournament_usize<
-    'a,
     Ov: ObjectiveValue + Into<usize>,
     Ctx: Context,
     Ge: Genotype<Ctx>,
 >(
     tournament_size: usize,
     amount: usize,
-    individuals: &'a [(Ge, Ov)],
-) -> (Vec<&'a (Ge, Ov)>, usize) {
+    individuals: &[(Ge, Ov)],
+) -> (Vec<&(Ge, Ov)>, usize) {
     let mut selection: Vec<&(Ge, Ov)> = vec![];
     let mut selected_indices = HashSet::<usize>::new();
     let mut rng = rand::thread_rng();
@@ -137,7 +135,7 @@ fn tournament_usize<
 
     for _ in 0..amount {
         // Create tournament participant list
-        let mut tournament: Vec<(&'a (Ge, Ov), usize)> = vec![];
+        let mut tournament: Vec<(&(Ge, Ov), usize)> = vec![];
 
         // Pick participants
         for _ in 0..tournament_size {
@@ -159,14 +157,13 @@ fn tournament_usize<
 }
 
 fn random_usize<
-    'a,
     Ov: ObjectiveValue + Into<usize>,
     Ctx: Context,
     Ge: Genotype<Ctx>,
 >(
     amount: usize,
-    individuals: &'a [(Ge, Ov)],
-) -> (Vec<&'a (Ge, Ov)>, usize) {
+    individuals: &[(Ge, Ov)],
+) -> (Vec<&(Ge, Ov)>, usize) {
     let mut selection: Vec<&(Ge, Ov)> = vec![];
     let mut selected_indices = HashSet::<usize>::new();
     let mut rng = rand::thread_rng();
@@ -184,14 +181,13 @@ fn random_usize<
 }
 
 fn linear_rank_usize<
-    'a,
     Ov: ObjectiveValue + Into<usize>,
     Ctx: Context,
     Ge: Genotype<Ctx>,
 >(
     amount: usize,
-    individuals: &'a [(Ge, Ov)],
-) -> (Vec<&'a (Ge, Ov)>, usize) {
+    individuals: &[(Ge, Ov)],
+) -> (Vec<&(Ge, Ov)>, usize) {
     // Get population size
     let pop_size = individuals.len();
 

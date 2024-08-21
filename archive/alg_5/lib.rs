@@ -220,7 +220,7 @@ impl oxigen::Genotype<u8> for Chromosome {
                 Constraint::AssignTimeConstraint(_) => {}
                 Constraint::AvoidClashesConstraint(params) => {
                     total_cost += f64::from(avoid_clashes_constraint(
-                        self, params, &indices,
+                        self, params, indices,
                     ));
                 }
             }
@@ -257,7 +257,7 @@ fn avoid_clashes_constraint(
             }
 
             // Get all times allocated to the events
-            let times = times_by_events(&chromosome, &event_idxs);
+            let times = times_by_events(chromosome, &event_idxs);
 
             // If the times list is shorter than the event list, this means that
             // some events have the same time assigned.

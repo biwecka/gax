@@ -6,7 +6,7 @@ use rand::prelude::Distribution;
 #[allow(unused)]
 pub fn roulette_wheel(
     pair_count: usize,
-    current_generation: &Vec<(Chromosome, Cost)>,
+    current_generation: &[(Chromosome, Cost)],
 ) -> Vec<((Chromosome, Cost), (Chromosome, Cost))> {
     // Calculate total cost
     let total_cost: usize = current_generation.iter().map(|(_, c)| c.0).sum();
@@ -23,7 +23,7 @@ pub fn roulette_wheel(
     // ...and then accumulate the values
     let mut acc: f32 = 0.;
     for section in roulette_wheel.iter_mut() {
-        *section = *section + acc;
+        *section += acc;
         acc = *section;
     }
 
@@ -71,7 +71,7 @@ pub fn roulette_wheel(
 #[allow(unused)]
 pub fn rank(
     pair_count: usize,
-    current_generation: &Vec<(Chromosome, Cost)>,
+    current_generation: &[(Chromosome, Cost)],
 ) -> Vec<((Chromosome, Cost), (Chromosome, Cost))> {
     // Get population size
     let pop_size = current_generation.len();

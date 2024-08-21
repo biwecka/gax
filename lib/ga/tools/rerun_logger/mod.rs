@@ -13,7 +13,7 @@ use simple_moving_average::SMA;
 use rerun::{BarChart, RecordingStream, RecordingStreamBuilder, Scalar};
 
 // Constants ///////////////////////////////////////////////////////////////////
-const GENERATION_TIME_SEQ: &'static str = "generation";
+const GENERATION_TIME_SEQ: &str = "generation";
 
 // Rerun Logger ////////////////////////////////////////////////////////////////
 pub struct RerunLogger {
@@ -57,14 +57,17 @@ impl RerunLogger {
             rtd.success_rate_sma.get_average(),
         );
 
-        population_stats(
-            &self.rec,
-            rtd.generation,
-            rtd.population_size,
-            rtd.elite,
-            rtd.selection_corrected,
-            rtd.distinct_selections,
-        );
+        #[cfg(feature = "log_pop_stats")]
+        {
+            population_stats(
+                &self.rec,
+                rtd.generation,
+                rtd.population_size,
+                rtd.elite,
+                rtd.selection_corrected,
+                rtd.distinct_selections,
+            );
+        };
 
         #[cfg(feature = "log_ov_dist")]
         {
@@ -140,6 +143,7 @@ fn success_rates(rec: &RecordingStream, generation: usize, pt1: f32, sma: f32) {
 
 /// Log population statistics: total size, elite size, distinct selections,
 /// total selections, ...
+#[cfg(feature = "log_pop_stats")]
 fn population_stats(
     rec: &RecordingStream,
     generation: usize,
@@ -163,6 +167,7 @@ fn population_stats(
 }
 
 /// Log objective value distribution
+#[cfg(feature = "log_ov_dist")]
 fn objective_value_distribution(
     rec: &RecordingStream,
     generation: usize,
@@ -184,6 +189,7 @@ fn objective_value_distribution(
 }
 
 /// Log population diversity
+#[cfg(feature = "log_diversity")]
 fn population_diversity(
     rec: &RecordingStream,
     generation: usize,

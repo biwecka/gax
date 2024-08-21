@@ -7,13 +7,6 @@ edition = "2021"
 name = "playground"
 path = "main.rs"
 
-[features]
-default = [
-    "a"
-]
-
-a = []
-
 
 [dependencies]
 #> libs

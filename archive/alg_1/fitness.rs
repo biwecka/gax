@@ -82,7 +82,7 @@ fn eval_assign_time_constraint(
 
     // Add event_ids from event groups
     for event_group in &params.applies_to.event_groups {
-        let ids = data.get_events_by_event_group(&event_group);
+        let ids = data.get_events_by_event_group(event_group);
         event_ids.extend_from_slice(ids);
     }
 
@@ -97,11 +97,8 @@ fn eval_assign_time_constraint(
         }
     }
 
-    // Calculate cost
-    let cost = (params.weight as usize) * params.cost_function.calc(deviation);
-
-    // Return
-    cost
+    // Calculate cost and return
+    (params.weight as usize) * params.cost_function.calc(deviation)
 }
 
 fn eval_avoid_clashes_constraint(
@@ -151,11 +148,8 @@ fn eval_avoid_clashes_constraint(
         // first = false;
     }
 
-    // Calculate cost
-    let cost = (params.weight as usize) * params.cost_function.calc(deviation);
-
-    // Return
-    cost
+    // Calculate cost and return
+    (params.weight as usize) * params.cost_function.calc(deviation)
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -9,15 +9,15 @@ pub fn elite_best_n(
 ) -> Vec<Chromosome> {
     // Get elite
     let mut elite = population[0..n]
-        .to_vec()
-        .into_iter()
+        .iter()
+        .cloned()
         .map(|(chromosome, _)| chromosome)
         .collect::<Vec<Chromosome>>();
 
     // Get "top" of children
     let mut new_pop = children[0..children.len() - n]
-        .to_vec()
-        .into_iter()
+        .iter()
+        .cloned()
         .map(|(chromosome, _)| chromosome)
         .collect::<Vec<Chromosome>>();
 

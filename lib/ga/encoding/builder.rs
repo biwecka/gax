@@ -104,6 +104,20 @@ impl<
     }
 }
 
+impl<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    Ph: Phenotype<Ov, Ctx, Ge>,
+    //
+    // TsCtx: TS_Context,
+    // TsPh: TS_Phenotype,
+> std::default::Default for Builder<Ov, Ctx, Ge, Ph, (), ()> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 // set_context -----------------------------------------------------------------
 impl<
     Ov: ObjectiveValue,
