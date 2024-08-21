@@ -88,7 +88,7 @@ impl Phenotype {
         clash_vector.sum() as usize
     }
 
-    ///
+    /// TODO: docs
     pub fn to_solution_events(
         &self,
         db: &xhstt::db::Database,

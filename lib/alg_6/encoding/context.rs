@@ -42,7 +42,7 @@ impl Context {
 
         let rand_event = Uniform::<usize>::new(0, num_events);
 
-        let constraints = super::constraints::pre_calc(&db);
+        let constraints = super::constraints::pre_calc(db);
 
         // Get durations ( f(event_idx) -> duration )
         let durations: Vec<_> =
@@ -51,6 +51,7 @@ impl Context {
         // Due to different durations, each event has a different set of valid
         // times.
         let mut rand_time = Vec::with_capacity(num_events);
+        #[allow(clippy::needless_range_loop)]
         for event_idx in 0..num_events {
             // Get duration of this event
             let duration = durations[event_idx] as usize;

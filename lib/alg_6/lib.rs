@@ -81,7 +81,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
 
     // Get the best result and convert it to a list of solution events.
     let best: &Chromosome = &results.first().unwrap().0;
-    let timetable: Phenotype = ph.derive(&best, &ctx);
+    let timetable: Phenotype = ph.derive(best, &ctx);
 
     timetable.to_solution_events(&db, &ctx)
 }

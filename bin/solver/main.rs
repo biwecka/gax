@@ -23,8 +23,7 @@ fn main() {
     let instance = xhstt
         .clone()
         .instances
-        .map(|i| i.list.first().cloned())
-        .flatten()
+        .and_then(|i| i.list.first().cloned())
         .expect("No problem instance found.");
 
     // Call algorithm
