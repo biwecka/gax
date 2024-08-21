@@ -68,13 +68,15 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
-    let dynamics = vec![()];
+    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+        .set::<()>(vec![])
+        .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        .set_dynamics(dynamics)
+        .set_dynamics(Some(dynamics))
         .build();
 
     let results = alg.run();

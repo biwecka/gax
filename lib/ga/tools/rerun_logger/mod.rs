@@ -10,7 +10,14 @@ use crate::{
 };
 use simple_moving_average::SMA;
 
-use rerun::{BarChart, RecordingStream, RecordingStreamBuilder, Scalar};
+use rerun::{RecordingStream, RecordingStreamBuilder, Scalar};
+
+#[cfg(any(
+    feature = "log_ov_dist",
+    feature = "log_diversity",
+    feature = "log_runtimes"
+))]
+use rerun::BarChart;
 
 // Constants ///////////////////////////////////////////////////////////////////
 const GENERATION_TIME_SEQ: &str = "generation";

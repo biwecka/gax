@@ -15,7 +15,7 @@ mod tools;
 pub use builder::*;
 
 // Imports /////////////////////////////////////////////////////////////////////
-use dynamics::Dynamic;
+use dynamics::{Dynamic, Dynamics};
 use encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype};
 use operators::{Crossover, Mutation};
 use parameters::Parameters;
@@ -70,7 +70,7 @@ pub struct Algorithm<
 > {
     encoding: Encoding<Ov, Ctx, Ge, Ph>,
     params: Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
-    dynamics: Vec<Dy>,
+    dynamics: Option<Dynamics<Ov, Ctx, Ge, T, Se, Cr, Mu, Re, Rp, Te, Dy>>,
 
     #[cfg(feature = "cache")]
     cache: HashMap<Ge, Ov>,
@@ -376,8 +376,14 @@ impl<
             };
 
             // Execute dynamics
-            for dyn_exe in &self.dynamics {
-                dyn_exe.exec(&rtd, &mut self.params, &mut self.encoding.context);
+            if let Some(dynamics) = &self.dynamics {
+                for dyn_exe in &dynamics.list {
+                    dyn_exe.exec(
+                        &rtd,
+                        &mut self.params,
+                        &mut self.encoding.context,
+                    );
+                }
             }
         }
 

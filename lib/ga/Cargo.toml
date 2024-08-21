@@ -11,11 +11,11 @@ default = [
     "cache",
     "rerun_logger",
 
-    "log_pop_stats",
-    "log_ov_dist",
-    "log_diversity",
-    "log_cache_hits",
-    "log_runtimes",
+    # "log_pop_stats",
+    # "log_ov_dist",
+    # "log_diversity",
+    # "log_cache_hits",
+    # "log_runtimes",
 ]
 
 cache           = []

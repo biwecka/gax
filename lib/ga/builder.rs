@@ -4,13 +4,9 @@ use std::marker::PhantomData;
 use hashbrown::HashMap;
 
 use crate::{
-    encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype},
-    operators::{Crossover, Mutation},
-    parameters::Parameters,
-    process::{
+    dynamics::{Dynamic, Dynamics}, encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype}, operators::{Crossover, Mutation}, parameters::Parameters, process::{
         rejection::Rejection, replacement::Replacement, selection::Selection, termination::Termination
-    }, Algorithm,
-    dynamics::Dynamic
+    }, Algorithm
 };
 
 // Builder /////////////////////////////////////////////////////////////////////
@@ -28,15 +24,15 @@ pub struct Builder<
     Re: Rejection<Ov, Ctx, Ge>,
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
-    Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     //
     TsEn: TS_Encoding,
     TsPa: TS_Parameters,
-    // TsDy: TS_Dynamics,
+    TsDy: TS_Dynamics,
 > {
     encoding: TsEn,
     parameters: TsPa,
-    dynamics: Vec<Dy>,
+    dynamics: TsDy,
 
     // PhantomData
     objective_value: PhantomData<Ov>,
@@ -77,7 +73,7 @@ impl<
         Builder {
             encoding: (),
             parameters: (),
-            dynamics: vec![()],
+            dynamics: (),
 
             // PhantomData
             objective_value: PhantomData,
@@ -137,8 +133,9 @@ impl<
     // TsEn: TS_Encoding,
     // TsPa: TS_Parameters,
 > Builder<
-    Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, W_Encoding<Ov, Ctx, Ge, Ph>,
+    Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, W_Encoding<Ov, Ctx, Ge, Ph>,
     W_Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy>
 > {
     pub fn build(
         self
@@ -146,7 +143,7 @@ impl<
         Algorithm {
             encoding: self.encoding.0,
             params: self.parameters.0,
-            dynamics: self.dynamics,
+            dynamics: self.dynamics.0,
 
             #[cfg(feature = "cache")]
             cache: HashMap::<Ge, Ov>::new(),
@@ -176,18 +173,18 @@ impl<
     Re: Rejection<Ov, Ctx, Ge>,
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
-    Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     //
     // TsEn: TS_Encoding,
     TsPa: TS_Parameters,
-    // TsDy: TS_Dynamics,
-> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, (), TsPa> {
+    TsDy: TS_Dynamics,
+> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), TsPa, TsDy> {
     pub fn set_encoding(
         self,
         encoding: Encoding<Ov, Ctx, Ge, Ph>
     ) -> Builder<
-        Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, W_Encoding<Ov, Ctx, Ge, Ph>,
-        TsPa
+        Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, W_Encoding<Ov, Ctx, Ge, Ph>,
+        TsPa, TsDy
     > {
         Builder {
             encoding: encoding.into(),
@@ -223,18 +220,18 @@ impl<
     Re: Rejection<Ov, Ctx, Ge>,
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
-    Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     //
     TsEn: TS_Encoding,
     // TsPa: TS_Parameters,
-    // TsDy: TS_Dynamics,
-> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, TsEn, ()> {
+    TsDy: TS_Dynamics,
+> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, (), TsDy> {
     pub fn set_parameters(
         self,
         parameters: Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
     ) -> Builder<
-        Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, TsEn,
-        W_Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+        Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn,
+        W_Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>, TsDy
     > {
         Builder {
             encoding: self.encoding,
@@ -270,20 +267,19 @@ impl<
     Re: Rejection<Ov, Ctx, Ge>,
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
-    Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     //
     TsEn: TS_Encoding,
     TsPa: TS_Parameters,
     // TsDy: TS_Dynamics,
-> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, TsEn, TsPa> {
-    pub fn set_dynamics(
+> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, ()> {
+    pub fn set_dynamics<Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,>(
         self,
-        dynamics: Vec<Dy>,
-    ) -> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, TsEn, TsPa> {
+        dynamics: Option<Dynamics<Ov, Ctx, Ge, T, Se, Cr, Mu, Re, Rp, Te, Dy>>,
+    ) -> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy>> {
         Builder {
             encoding: self.encoding,
             parameters: self.parameters,
-            dynamics: dynamics,
+            dynamics: dynamics.into(),
 
             // PhantomData
             objective_value: PhantomData,
@@ -392,69 +388,69 @@ impl<
 
 
 // dynamics --------------------------------------------------------------------
-// #[allow(non_camel_case_types)] pub struct W_Dynamics<
-//     Ov: ObjectiveValue,
-//     Ctx: Context,
-//     Ge: Genotype<Ctx>,
-//     // Ph: Phenotype<Ov, Ctx, Ge>,
-//     Cr: Crossover<Ctx, Ge>,
-//     Mu: Mutation<Ctx, Ge>,
-//     T: From<Ov>,
-//     Se: Selection<Ov, Ctx, Ge, T>,
-//     Re: Rejection<Ov, Ctx, Ge>,
-//     Rp: Replacement<(Ge, Ov)>,
-//     Te: Termination<Ov>,
-//     Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
-// >(
-//     Vec<Dy>,
-//     PhantomData<Ov>,
-//     PhantomData<Ctx>,
-//     PhantomData<Ge>,
-//     PhantomData<Cr>,
-//     PhantomData<Mu>,
-//     PhantomData<T>,
-//     PhantomData<Se>,
-//     PhantomData<Re>,
-//     PhantomData<Rp>,
-//     PhantomData<Te>,
-// );
+#[allow(non_camel_case_types)] pub struct W_Dynamics<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    // Ph: Phenotype<Ov, Ctx, Ge>,
+    Cr: Crossover<Ctx, Ge>,
+    Mu: Mutation<Ctx, Ge>,
+    T: From<Ov>,
+    Se: Selection<Ov, Ctx, Ge, T>,
+    Re: Rejection<Ov, Ctx, Ge>,
+    Rp: Replacement<(Ge, Ov)>,
+    Te: Termination<Ov>,
+    Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
+>(
+    Option<Dynamics<Ov, Ctx, Ge, T, Se, Cr, Mu, Re, Rp, Te, Dy>>,
+    PhantomData<Ov>,
+    PhantomData<Ctx>,
+    PhantomData<Ge>,
+    PhantomData<Cr>,
+    PhantomData<Mu>,
+    PhantomData<T>,
+    PhantomData<Se>,
+    PhantomData<Re>,
+    PhantomData<Rp>,
+    PhantomData<Te>,
+);
 
-// impl<
-//     Ov: ObjectiveValue,
-//     Ctx: Context,
-//     Ge: Genotype<Ctx>,
-//     // Ph: Phenotype<Ov, Ctx, Ge>,
-//     Cr: Crossover<Ctx, Ge>,
-//     Mu: Mutation<Ctx, Ge>,
-//     T: From<Ov>,
-//     Se: Selection<Ov, Ctx, Ge, T>,
-//     Re: Rejection<Ov, Ctx, Ge>,
-//     Rp: Replacement<(Ge, Ov)>,
-//     Te: Termination<Ov>,
-//     Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
-// > From<Vec<Dy>> for W_Dynamics<
-//     Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy
-// > {
-//     fn from(value: Vec<Dy>) -> Self {
-//         Self(value, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, )
-//     }
-// }
+impl<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    // Ph: Phenotype<Ov, Ctx, Ge>,
+    Cr: Crossover<Ctx, Ge>,
+    Mu: Mutation<Ctx, Ge>,
+    T: From<Ov>,
+    Se: Selection<Ov, Ctx, Ge, T>,
+    Re: Rejection<Ov, Ctx, Ge>,
+    Rp: Replacement<(Ge, Ov)>,
+    Te: Termination<Ov>,
+    Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
+> From<Option<Dynamics<Ov, Ctx, Ge, T, Se, Cr, Mu, Re, Rp, Te, Dy>>> for W_Dynamics<
+    Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy
+> {
+    fn from(value: Option<Dynamics<Ov, Ctx, Ge, T, Se, Cr, Mu, Re, Rp, Te, Dy>>) -> Self {
+        Self(value, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, PhantomData, )
+    }
+}
 
-// #[allow(non_camel_case_types)] pub trait TS_Dynamics {}
-// impl TS_Dynamics for () {}
-// impl<
-//     Ov: ObjectiveValue,
-//     Ctx: Context,
-//     Ge: Genotype<Ctx>,
-//     // Ph: Phenotype<Ov, Ctx, Ge>,
-//     Cr: Crossover<Ctx, Ge>,
-//     Mu: Mutation<Ctx, Ge>,
-//     T: From<Ov>,
-//     Se: Selection<Ov, Ctx, Ge, T>,
-//     Re: Rejection<Ov, Ctx, Ge>,
-//     Rp: Replacement<(Ge, Ov)>,
-//     Te: Termination<Ov>,
-//     Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
-// >TS_Dynamics for W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy> {}
+#[allow(non_camel_case_types)] pub trait TS_Dynamics {}
+impl TS_Dynamics for () {}
+impl<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    // Ph: Phenotype<Ov, Ctx, Ge>,
+    Cr: Crossover<Ctx, Ge>,
+    Mu: Mutation<Ctx, Ge>,
+    T: From<Ov>,
+    Se: Selection<Ov, Ctx, Ge, T>,
+    Re: Rejection<Ov, Ctx, Ge>,
+    Rp: Replacement<(Ge, Ov)>,
+    Te: Termination<Ov>,
+    Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
+>TS_Dynamics for W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy> {}
 
 ////////////////////////////////////////////////////////////////////////////////
