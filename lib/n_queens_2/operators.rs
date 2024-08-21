@@ -1,5 +1,7 @@
 use std::usize;
 
+use rand::rngs::ThreadRng;
+
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::encoding::{Chromosome, Context};
 
@@ -8,12 +10,12 @@ use crate::encoding::{Chromosome, Context};
 pub enum Crossover {
     /// Variable single-point crossover takes one argument:
     /// 1) f32      representing the crossover rate
-    VariableSinglePoint(f32),
+    VariableSinglePoint,
 
     /// Variable n-point crossover takes two arguments:
     /// 1) f32      representing the crossover rate
     /// 2) usize    representing the amount of crossover points
-    VariableNPoint(f32, usize),
+    VariableNPoint(usize),
 }
 
 impl ga::operators::Crossover<Context, Chromosome> for Crossover {
@@ -21,25 +23,29 @@ impl ga::operators::Crossover<Context, Chromosome> for Crossover {
         &self,
         parent_0: &Chromosome,
         parent_1: &Chromosome,
+        rate: Option<f32>,
+        rng: &mut ThreadRng,
         _context: &Context,
     ) -> (Chromosome, Chromosome) {
         match self {
-            Crossover::VariableSinglePoint(rate) => {
-                let (a, b) = ga::utils::crossover::variable_single_point(
+            Crossover::VariableSinglePoint => {
+                let (a, b) = ga::operators::crossover::single_point(
                     parent_0.as_slice(),
                     parent_1.as_slice(),
-                    *rate,
+                    rate,
+                    rng,
                 );
 
                 (a.into(), b.into())
             }
 
-            Crossover::VariableNPoint(rate, num_points) => {
-                let (a, b) = ga::utils::crossover::variable_multi_point(
-                    *num_points,
+            Crossover::VariableNPoint(num_points) => {
+                let (a, b) = ga::operators::crossover::multi_point(
                     parent_0.as_slice(),
                     parent_1.as_slice(),
-                    *rate,
+                    rate,
+                    *num_points,
+                    rng,
                 );
 
                 (a.into(), b.into())
@@ -56,19 +62,25 @@ pub enum Mutation {
     /// Parameters:
     /// 1) f32      representing the mutation rate
     /// 2) usize    representing the number of genes to modify
-    RandomizeNGenes(f32, usize),
+    RandomValue,
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
-    fn exec(&self, chromosome: &mut Chromosome, context: &Context) {
+    fn exec(
+        &self,
+        chromosome: &mut Chromosome,
+        rate: f32,
+        rng: &mut ThreadRng,
+        context: &Context,
+    ) {
         match self {
-            Mutation::RandomizeNGenes(rate, n) => {
-                ga::utils::mutation::randomize_n_genes(
-                    *n,
+            Mutation::RandomValue => {
+                ga::operators::mutation::randomize_single_dist(
                     chromosome.as_mut_slice(),
-                    *rate,
-                    context.random_position,
-                );
+                    rate,
+                    &context.random_position,
+                    rng,
+                )
             }
         }
     }

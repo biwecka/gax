@@ -1,3 +1,5 @@
+#![feature(let_chains)]
+
 // Modules /////////////////////////////////////////////////////////////////////
 pub mod encoding;
 pub mod operators;
@@ -27,6 +29,29 @@ use runtime_data::RuntimeData;
 #[cfg(feature = "cache")]
 use hashbrown::HashMap;
 
+#[cfg(feature = "rerun_logger")]
+use tools::rerun_logger::RerunLogger;
+
+// Macros //////////////////////////////////////////////////////////////////////
+macro_rules! measure_runtime_start {
+    ($alg:ident) => {
+        #[cfg(feature = "log_runtimes")]
+        {
+            $alg.runtime_reference = std::time::Instant::now();
+        };
+    };
+}
+
+macro_rules! measure_runtime_end {
+    ($alg:ident) => {
+        #[cfg(feature = "log_runtimes")]
+        {
+            let elapsed = $alg.runtime_reference.elapsed();
+            $alg.runtimes.push(elapsed);
+        };
+    };
+}
+
 // Algorithm ///////////////////////////////////////////////////////////////////
 
 pub struct Algorithm<
@@ -46,6 +71,18 @@ pub struct Algorithm<
     encoding: Encoding<Ov, Ctx, Ge, Ph>,
     params: Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     dynamics: Vec<Dy>,
+
+    #[cfg(feature = "cache")]
+    cache: HashMap<Ge, Ov>,
+
+    #[cfg(feature = "rerun_logger")]
+    rerun_logger: RerunLogger,
+
+    #[cfg(feature = "log_runtimes")]
+    runtime_reference: std::time::Instant,
+
+    #[cfg(feature = "log_runtimes")]
+    runtimes: Vec<std::time::Duration>,
 }
 
 impl<
@@ -63,6 +100,7 @@ impl<
         Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     > Algorithm<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy>
 {
+    /*
     #[cfg(not(feature = "cache"))]
     pub fn run(mut self) -> Vec<(Ge, Ov)> {
         // Create initial population
@@ -101,7 +139,7 @@ impl<
         };
 
         // Initialize runtime data
-        let mut rtd = RuntimeData::init(&population);
+        let mut rtd = RuntimeData::init(&population, &self.params);
 
         // Initialize rerun logger
         let rerun_logger = if cfg!(feature = "rerun-log") {
@@ -113,7 +151,7 @@ impl<
         };
 
         // Start loop
-        while !self.params.termination.stop(rtd.generation, &rtd.current_best.1)
+        while !self.params.termination.stop(rtd.generation, &rtd.current_best)
         {
             // Increment generation counter
             rtd.inc_generation();
@@ -137,6 +175,9 @@ impl<
             let mut offspring: Vec<(Ge, Ov)> = parents
                 .par_chunks(2)
                 .map(|parents| {
+                    // Get source of randomness
+                    let mut rng = rand::thread_rng();
+
                     assert_eq!(parents.len(), 2);
                     let a = parents[0];
                     let b = parents[1];
@@ -146,11 +187,12 @@ impl<
                         &a.0,
                         &b.0,
                         &self.encoding.context,
+                        &mut rng,
                     );
 
                     // Mutation
-                    self.params.mutation.exec(&mut x0, &self.encoding.context);
-                    self.params.mutation.exec(&mut x1, &self.encoding.context);
+                    self.params.mutation.exec(&mut x0, &self.encoding.context, &mut rng);
+                    self.params.mutation.exec(&mut x1, &self.encoding.context, &mut rng);
 
                     // Evaluation
                     let y0: (Ge, Ov) = {
@@ -251,17 +293,17 @@ impl<
                 println!(
                     "[{:>7}] best:{:>4} mean: {:>4.2} worst:{:>4}",
                     rtd.generation,
-                    rtd.current_best.1.to_usize(),
+                    rtd.current_best.to_usize(),
                     rtd.current_mean,
-                    rtd.current_worst.1.to_usize(),
+                    rtd.current_worst.to_usize(),
                 );
             } else {
                 println!(
                     "[{}] best = {:?}, mean = {}, worst = {:?}",
                     rtd.generation,
-                    rtd.current_best.1,
+                    rtd.current_best,
                     rtd.current_mean,
-                    rtd.current_worst.1,
+                    rtd.current_worst,
                 );
             }
 
@@ -274,8 +316,8 @@ impl<
         // Return
         population
     }
+    */
 
-    #[cfg(feature = "cache")]
     pub fn run(mut self) -> Vec<(Ge, Ov)> {
         // Create initial population
         let mut population: Vec<(Ge, Ov)> = {
@@ -313,28 +355,27 @@ impl<
         };
 
         // Initialize runtime data
-        let mut rtd = RuntimeData::init(&population);
+        let mut rtd = RuntimeData::init(&population, &self.params);
 
         // Create and populate cache
-        let mut cache = HashMap::<Ge, Ov>::from_iter(population.clone());
+        #[cfg(feature = "cache")]
+        {
+            self.cache = HashMap::<Ge, Ov>::from_iter(population.clone());
+        };
 
         // Initialize rerun logger
-        let rerun_logger = if cfg!(feature = "rerun-log") {
-            let logger = tools::rerun::RerunLogger::connect("ga");
-            logger.log(&rtd);
-            Some(logger)
-        } else {
-            None
+        #[cfg(feature = "rerun_logger")]
+        {
+            self.rerun_logger.log(&rtd);
         };
 
         // Start loop
-        while !self.params.termination.stop(rtd.generation, &rtd.current_best.1)
-        {
+        while !self.params.termination.stop(rtd.generation, &rtd.current_best) {
             // Increment generation counter
             rtd.inc_generation();
 
             // Select
-            let now = std::time::Instant::now();
+            measure_runtime_start!(self);
             let (selection_size_raw, selection_size_corrected) = self
                 .params
                 .replacement
@@ -345,13 +386,16 @@ impl<
                 .selection
                 .exec(selection_size_corrected, &population);
 
-            let duration_select = now.elapsed();
+            measure_runtime_end!(self);
 
             // Crossover, Mutation, Rejection
-            let now = std::time::Instant::now();
+            measure_runtime_start!(self);
             let cx_mu_re: Vec<(((Ge, Ov), (Ge, Ov)), usize)> = parents
                 .par_chunks(2)
                 .map(|parents| {
+                    // Get source of randomness
+                    let mut rng = rand::thread_rng();
+
                     assert_eq!(parents.len(), 2);
                     let a = parents[0];
                     let b = parents[1];
@@ -360,25 +404,49 @@ impl<
                     let (mut x0, mut x1) = self.params.crossover.exec(
                         &a.0,
                         &b.0,
+                        self.params.crossover_rate,
+                        &mut rng,
                         &self.encoding.context,
                     );
 
                     // Mutation
-                    self.params.mutation.exec(&mut x0, &self.encoding.context);
-                    self.params.mutation.exec(&mut x1, &self.encoding.context);
+                    self.params.mutation.exec(
+                        &mut x0,
+                        self.params.mutation_rate,
+                        &mut rng,
+                        &self.encoding.context,
+                    );
+                    self.params.mutation.exec(
+                        &mut x1,
+                        self.params.mutation_rate,
+                        &mut rng,
+                        &self.encoding.context,
+                    );
 
                     // Evaluation
                     let mut cache_hits = 0;
 
                     let y0: (Ge, Ov) = {
-                        let ov: Ov = if let Some(cached_ov) = cache.get(&x0) {
+                        // If the cache feature is enabled, check the cache
+                        let ov = if cfg!(feature = "cache")
+                            && let Some(cached_ov) = self.cache.get(&x0)
+                        {
+                            // Increase cache hit count
                             cache_hits += 1;
+
+                            // Return the cached objective value
                             cached_ov.clone()
-                        } else {
+                        }
+                        // If the cache feature is not enabled, calculate the
+                        // objective value as usual.
+                        else {
+                            // Create derived phenotype
                             let ph = self
                                 .encoding
                                 .phenotype
                                 .derive(&x0, &self.encoding.context);
+
+                            // Calculate objective value and return it
                             ph.evaluate(&self.encoding.context)
                         };
 
@@ -386,14 +454,26 @@ impl<
                     };
 
                     let y1: (Ge, Ov) = {
-                        let ov: Ov = if let Some(cached_ov) = cache.get(&x1) {
+                        // If the cache feature is enabled, check the cache
+                        let ov: Ov = if cfg!(feature = "cache")
+                            && let Some(cached_ov) = self.cache.get(&x1)
+                        {
+                            // Increase cache hit count
                             cache_hits += 1;
+
+                            // Return the cached objective value
                             cached_ov.clone()
-                        } else {
+                        }
+                        // If the cache feature is not enabled, calculate the
+                        // objective value as usual.
+                        else {
+                            // Create derived phenotype
                             let ph = self
                                 .encoding
                                 .phenotype
                                 .derive(&x1, &self.encoding.context);
+
+                            // Calculate objective value and return it
                             ph.evaluate(&self.encoding.context)
                         };
 
@@ -416,49 +496,56 @@ impl<
 
             // Extract offspring and the nuber of cache hits from the results
             // of crossover, mutation and rejection
-            let cache_hits: usize =
-                cx_mu_re.iter().map(|(_, hits)| *hits).sum();
-            let mut offspring: Vec<(Ge, Ov)> = cx_mu_re
-                .into_iter()
-                .map(|((a, b), _)| vec![a, b])
-                .flatten()
-                .collect();
+            let (offspr, ch_num): (Vec<((Ge, Ov), (Ge, Ov))>, Vec<usize>) =
+                cx_mu_re.into_iter().unzip();
 
-            let duration_cx_mu_re = now.elapsed();
+            let cache_hits: usize = ch_num.into_iter().sum();
+
+            let mut offspring: Vec<(Ge, Ov)> =
+                offspr.into_iter().map(|(a, b)| vec![a, b]).flatten().collect();
+
+            measure_runtime_end!(self);
 
             // Correct offspring length (might be off by one, because of
             // selection size correction to get PAIRS of parents).
-            let now = std::time::Instant::now();
+            measure_runtime_start!(self);
             offspring.truncate(selection_size_raw);
 
-            let duration_truncate = now.elapsed();
+            measure_runtime_end!(self);
 
             // Calculate the average mean objective value of the offspring
-            let now = std::time::Instant::now();
+            measure_runtime_start!(self);
             let offspring_mean: f32 = Ov::calc_average(
                 &offspring.iter().map(|(_, ov)| ov.clone()).collect::<Vec<_>>(),
             );
-            let duration_calc_mean = now.elapsed();
+
+            measure_runtime_end!(self);
 
             // Replace (population must be sorted; offspring is not).
-            let now = std::time::Instant::now();
+            measure_runtime_start!(self);
             self.params.replacement.exec(&mut population, offspring);
-            let duration_replace = now.elapsed();
+
+            measure_runtime_end!(self);
 
             // Sort the new population
-            let now = std::time::Instant::now();
+            measure_runtime_start!(self);
             population.par_sort_by_key(|(_, x)| x.clone());
-            let duration_sort = now.elapsed();
+
+            measure_runtime_end!(self);
 
             // Update cache
-            let now = std::time::Instant::now();
-            population.iter().for_each(|(ge, ov)| {
-                cache.insert(ge.clone(), ov.clone());
-            });
-            let duration_cache_update = now.elapsed();
+            #[cfg(feature = "cache")]
+            {
+                measure_runtime_start!(self);
+                population.iter().for_each(|(ge, ov)| {
+                    self.cache.insert(ge.clone(), ov.clone());
+                });
+
+                measure_runtime_end!(self);
+            };
 
             // Update runtime data
-            let now = std::time::Instant::now();
+            measure_runtime_start!(self);
             rtd.update(
                 &population,
                 self.params.replacement.elite_size(self.params.population_size),
@@ -467,45 +554,44 @@ impl<
                 offspring_mean,
                 cache_hits,
             );
-            let duration_rtd_update = now.elapsed();
 
-            rtd.update_execution_times(vec![
-                duration_select,
-                duration_cx_mu_re,
-                duration_truncate,
-                duration_calc_mean,
-                duration_replace,
-                duration_sort,
-                duration_cache_update,
-                duration_rtd_update,
-            ]);
+            measure_runtime_end!(self);
+
+            #[cfg(feature = "log_runtimes")]
+            {
+                rtd.update_execution_times(self.runtimes);
+                self.runtimes = vec![];
+            }
 
             // Log (to 'rerun' or 'console')
-            if cfg!(feature = "rerun-log") {
-                if let Some(logger) = &rerun_logger {
-                    logger.log(&rtd);
-                } else {
-                    unreachable!();
-                }
+            #[cfg(feature = "rerun_logger")]
+            {
+                // Send runtime data to logger
+                self.rerun_logger.log(&rtd);
 
-                // Minimal console log
+                // Also print out minimal information to the console
                 println!(
                     "[{:>7}] best:{:>4} mean: {:>4.2} worst:{:>4}",
                     rtd.generation,
-                    rtd.current_best.1.to_usize(),
+                    rtd.current_best.to_usize(),
                     rtd.current_mean,
-                    rtd.current_worst.1.to_usize(),
+                    rtd.current_worst.to_usize(),
                 );
-            } else {
+            };
+
+            #[cfg(not(feature = "rerun_logger"))]
+            {
+                // Print some more information, if the "rerun_logger" feature
+                // is NOT enabled.
                 println!(
                     "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",
                     rtd.generation,
-                    rtd.current_best.1,
+                    rtd.current_best,
                     rtd.current_mean,
-                    rtd.current_worst.1,
+                    rtd.current_worst,
                     rtd.cache_hits,
                 );
-            }
+            };
 
             // Execute dynamics
             for dyn_exe in &self.dynamics {
@@ -517,9 +603,9 @@ impl<
         println!(
             "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",
             rtd.generation,
-            rtd.current_best.1,
+            rtd.current_best,
             rtd.current_mean,
-            rtd.current_worst.1,
+            rtd.current_worst,
             rtd.cache_hits,
         );
 

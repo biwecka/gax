@@ -2367,6 +2367,7 @@ dependencies = [
  "rand 0.8.5",
  "rayon",
  "rerun",
+ "simple_moving_average",
  "xhstt",
 ]
 
@@ -2924,7 +2925,7 @@ dependencies = [
  "httpdate",
  "itoa",
  "pin-project-lite",
- "socket2 0.4.10",
+ "socket2 0.5.7",
  "tokio",
  "tower-service",
  "tracing",
@@ -4527,6 +4528,7 @@ dependencies = [
  "plotters-backend",
  "rand 0.8.5",
  "rayon",
+ "simple_moving_average",
  "systemstat",
 ]
 
@@ -6509,6 +6511,15 @@ checksum = "e041bb827d1bfca18f213411d51b665309f1afb37a04a5d1464530e13779fc0f"
 dependencies = [
  "console",
  "similar",
+]
+
+[[package]]
+name = "simple_moving_average"
+version = "1.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a4b144ad185430cd033299e2c93e465d5a7e65fbb858593dc57181fa13cd310"
+dependencies = [
+ "num-traits",
 ]
 
 [[package]]

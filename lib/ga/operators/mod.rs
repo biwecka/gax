@@ -1,5 +1,10 @@
+// Modules /////////////////////////////////////////////////////////////////////
+pub mod crossover;
+pub mod mutation;
+
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::encoding::{Context, Genotype};
+use rand::rngs::ThreadRng;
 
 // Crossover ///////////////////////////////////////////////////////////////////
 
@@ -15,7 +20,14 @@ use crate::encoding::{Context, Genotype};
 /// method and should therefore be part of the crossover method (e.g. a
 /// parameter for an enum variant which represents one crossover method).
 pub trait Crossover<Ctx: Context, Ge: Genotype<Ctx>>: Send + Sync {
-    fn exec(&self, parent_0: &Ge, parent_1: &Ge, context: &Ctx) -> (Ge, Ge);
+    fn exec(
+        &self,
+        parent_0: &Ge,
+        parent_1: &Ge,
+        rate: Option<f32>,
+        rng: &mut ThreadRng,
+        context: &Ctx,
+    ) -> (Ge, Ge);
 }
 
 // Mutation ////////////////////////////////////////////////////////////////////
@@ -32,7 +44,13 @@ pub trait Crossover<Ctx: Context, Ge: Genotype<Ctx>>: Send + Sync {
 /// therefore be part of the crossover method (e.g. a parameter for an enum
 /// variant which represents one crossover method).
 pub trait Mutation<Ctx: Context, Ge: Genotype<Ctx>>: Send + Sync {
-    fn exec(&self, chromosome: &mut Ge, context: &Ctx);
+    fn exec(
+        &self,
+        chromosome: &mut Ge,
+        rate: f32,
+        rng: &mut ThreadRng,
+        context: &Ctx,
+    );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

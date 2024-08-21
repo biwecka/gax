@@ -57,6 +57,9 @@ plotters = "0.3.6"
 plotters-backend = "0.3.6"
 piston_window = "0.132.0"
 
+# moving average
+simple_moving_average = "1.0.2"
+
 
 ################################################################################
 # Clippy Configuration

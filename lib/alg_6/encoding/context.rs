@@ -16,10 +16,9 @@ pub struct Context {
     pub num_resources: usize,
 
     /// Random time generator. This vector contains a random number generator
-    /// for each duration.
-    /// Attention: index `0` holds the random number generator for `duration=1`
-    ///
-    pub rand_times_by_duration: Vec<rand::distributions::Uniform<usize>>,
+    /// for each gene. Index `0` holds the random number generator for the gene
+    /// of index `0`.
+    pub rand_time: Vec<rand::distributions::Uniform<usize>>,
 
     /// Random event generator
     #[allow(unused)]
@@ -41,27 +40,30 @@ impl Context {
         let num_events = db.events().len();
         let num_resources = db.resources().len();
 
-        // Due to different durations, each event has a different set of valid
-        // times.
-        let max_duration = db.events_max_duration();
-        let mut rand_times_by_duration = vec![];
-        for duration in 1..=max_duration {
-            rand_times_by_duration
-                .push(Uniform::<usize>::new(0, num_times - duration + 1));
-        }
-
         let rand_event = Uniform::<usize>::new(0, num_events);
 
         let constraints = super::constraints::pre_calc(&db);
 
-        // Get durations
-        let durations = db.events().iter().map(|e| e.duration as u8).collect();
+        // Get durations ( f(event_idx) -> duration )
+        let durations: Vec<_> =
+            db.events().iter().map(|e| e.duration as u8).collect();
+
+        // Due to different durations, each event has a different set of valid
+        // times.
+        let mut rand_time = Vec::with_capacity(num_events);
+        for event_idx in 0..num_events {
+            // Get duration of this event
+            let duration = durations[event_idx] as usize;
+
+            // Create random number generator for this gene
+            rand_time.push(Uniform::<usize>::new(0, num_times - duration + 1));
+        }
 
         Self {
             num_times,
             num_events,
             num_resources,
-            rand_times_by_duration,
+            rand_time,
             rand_event,
             constraints,
             durations,

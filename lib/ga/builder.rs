@@ -1,6 +1,8 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use std::marker::PhantomData;
 
+use hashbrown::HashMap;
+
 use crate::{
     encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype},
     operators::{Crossover, Mutation},
@@ -121,6 +123,18 @@ impl<
             encoding: self.encoding.0,
             params: self.parameters.0,
             dynamics: self.dynamics,
+
+            #[cfg(feature = "cache")]
+            cache: HashMap::<Ge, Ov>::new(),
+
+            #[cfg(feature = "rerun_logger")]
+            rerun_logger: crate::tools::rerun_logger::RerunLogger::connect("ga"),
+
+            #[cfg(feature = "log_runtimes")]
+            runtime_reference: std::time::Instant::now(),
+
+            #[cfg(feature = "log_runtimes")]
+            runtimes: vec![],
         }
     }
 }

@@ -7,13 +7,23 @@ edition = "2021"
 path = "lib.rs"
 
 [features]
-# default = []
-# default = ["cache"]
-default = ["cache", "rerun-log"]
-# default = ["rerun-log"]
+default = [
+    "cache",
 
-cache = []
-rerun-log = []
+    "log_cache_hits",
+    "log_runtimes",
+    "log_ov_dist",
+    "log_diversity",
+]
+
+cache           = []
+rerun_logger    = ["dep:rerun"]
+
+log_cache_hits  = ["rerun_logger", "cache"]
+log_runtimes    = ["rerun_logger"]
+log_ov_dist     = ["rerun_logger"]
+log_diversity   = ["rerun_logger"]
+
 
 [dependencies]
 #> lib
@@ -24,7 +34,9 @@ rand = { workspace = true }
 rayon = { workspace = true }
 ndarray = { workspace = true }
 hashbrown = { workspace = true }
-rerun = { workspace = true }
+simple_moving_average = { workspace = true }
+
+rerun = { workspace = true, optional = true }
 
 [lints]
 workspace = true

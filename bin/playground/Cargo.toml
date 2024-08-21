@@ -7,6 +7,14 @@ edition = "2021"
 name = "playground"
 path = "main.rs"
 
+[features]
+default = [
+    "a"
+]
+
+a = []
+
+
 [dependencies]
 #> libs
 n_queens = { workspace = true }
@@ -23,6 +31,9 @@ plotters-backend = "0.3.6"
 piston_window = "0.132.0"
 systemstat = "0.2.3"
 # plotters-piston = "0.3.0"
+
+simple_moving_average = { workspace = true }
+
 
 [lints]
 workspace = true

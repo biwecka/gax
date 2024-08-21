@@ -31,9 +31,11 @@ pub fn run() {
 
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
         .set_population_size(500)
+        .set_crossover_rate(None)
+        .set_mutation_rate(0.01)
         .set_selection(Select::RouletteWheel)
-        .set_crossover(Crossover::VariableNPoint(1., 8))
-        .set_mutation(Mutation::RandomizeNGenes(0.2, 8))
+        .set_crossover(Crossover::VariableNPoint(8))
+        .set_mutation(Mutation::RandomValue)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteRelative(0.01))
         .set_termination(Terminate::ObjectiveValue(0.into()))

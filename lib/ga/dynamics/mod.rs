@@ -40,7 +40,7 @@ pub trait Dynamic<
     fn exec(
         &self,
         parameters: &mut Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
-        rtd: &RuntimeData<Ov, Ctx, Ge>,
+        rtd: &RuntimeData<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     );
 }
 
@@ -61,7 +61,7 @@ impl<
     fn exec(
         &self,
         _parameters: &mut Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
-        _rtd: &RuntimeData<Ov, Ctx, Ge>,
+        _rtd: &RuntimeData<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     ) {
     }
 }

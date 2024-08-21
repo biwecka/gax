@@ -47,12 +47,8 @@ impl ga::encoding::Genotype<Context> for Chromosome {
         for _ in 0..amount {
             let mut chromosome = Vec::<usize>::with_capacity(ctx.num_events);
             for event_idx in 0..ctx.num_events {
-                // First get the events duration
-                let duration = ctx.durations[event_idx] as usize;
-
-                // Then get the correct random number generator for this
-                // duration.
-                let rand_time = ctx.rand_times_by_duration[duration - 1];
+                // Get the random value generator for this gene
+                let rand_time = ctx.rand_time[event_idx];
 
                 // Generate random time and add it to the chromosome
                 chromosome.push(rand_time.sample(&mut rng));

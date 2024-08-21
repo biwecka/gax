@@ -58,9 +58,11 @@ pub fn run(instance: Instance) -> Vec<Event> {
 
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
         .set_population_size(2_000)
+        .set_crossover_rate(None)
+        .set_mutation_rate(0.01)
         .set_selection(Select::RouletteWheel)
-        .set_crossover(Crossover::VariableNPoint(1., 3))
-        .set_mutation(Mutation::Conventional(0.01))
+        .set_crossover(Crossover::VariableNPoint(3))
+        .set_mutation(Mutation::RandomValue)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteAbsolute(1))
         .set_termination(Terminate::ObjectiveValue(0.into()))

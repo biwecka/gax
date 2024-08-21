@@ -1,3 +1,5 @@
+use rand::rngs::ThreadRng;
+
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::encoding::{Chromosome, Context};
 
@@ -11,7 +13,7 @@ pub enum Crossover {
     /// Variable n-point crossover takes two arguments:
     /// 1) f32      representing the crossover rate
     /// 2) usize    representing the amount of crossover points
-    VariableNPoint(f32, usize),
+    VariableNPoint(usize),
 
     /// Uniform crossover. Arguments:
     /// 1) f32      representing the crossover rate
@@ -28,35 +30,40 @@ impl ga::operators::Crossover<Context, Chromosome> for Crossover {
         &self,
         parent_0: &Chromosome,
         parent_1: &Chromosome,
+        rate: Option<f32>,
+        rng: &mut ThreadRng,
         _context: &Context,
     ) -> (Chromosome, Chromosome) {
         match self {
-            Crossover::VariableSinglePoint(rate) => {
-                let (a, b) = ga::utils::crossover::variable_single_point(
+            Crossover::VariableSinglePoint(_) => {
+                let (a, b) = ga::operators::crossover::single_point(
                     parent_0.as_slice(),
                     parent_1.as_slice(),
-                    *rate,
+                    rate,
+                    rng,
                 );
 
                 (a.into(), b.into())
             }
 
-            Crossover::VariableNPoint(rate, num_points) => {
-                let (a, b) = ga::utils::crossover::variable_multi_point(
+            Crossover::VariableNPoint(num_points) => {
+                let (a, b) = ga::operators::crossover::multi_point(
+                    parent_0.as_slice(),
+                    parent_1.as_slice(),
+                    rate,
                     *num_points,
-                    parent_0.as_slice(),
-                    parent_1.as_slice(),
-                    *rate,
+                    rng,
                 );
 
                 (a.into(), b.into())
             }
 
-            Crossover::Uniform(rate) => {
-                let (a, b) = ga::utils::crossover::uniform(
+            Crossover::Uniform(_) => {
+                let (a, b) = ga::operators::crossover::uniform(
                     parent_0.as_slice(),
                     parent_1.as_slice(),
-                    *rate,
+                    rate,
+                    rng,
                 );
                 (a.into(), b.into())
             }

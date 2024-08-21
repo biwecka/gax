@@ -24,6 +24,8 @@ pub struct Parameters<
 > {
     // General
     pub population_size: usize,
+    pub crossover_rate: Option<f32>,
+    pub mutation_rate: f32,
 
     // Operators + Process
     pub selection: Se,
@@ -44,7 +46,6 @@ pub struct Parameters<
 // Typestates //////////////////////////////////////////////////////////////////
 
 // population_size -------------------------------------------------------------
-
 #[allow(non_camel_case_types)] pub struct W_PopulationSize(usize);
 impl From<usize> for W_PopulationSize {
     fn from(value: usize) -> Self {
@@ -55,6 +56,30 @@ impl From<usize> for W_PopulationSize {
 #[allow(non_camel_case_types)] pub trait TS_PopulationSize {}
 impl TS_PopulationSize for () {}
 impl TS_PopulationSize for W_PopulationSize {}
+
+// crossover_rate --------------------------------------------------------------
+#[allow(non_camel_case_types)] pub struct W_CrossoverRate(Option<f32>);
+impl From<Option<f32>> for W_CrossoverRate {
+    fn from(value: Option<f32>) -> Self {
+        Self(value)
+    }
+}
+
+#[allow(non_camel_case_types)] pub trait TS_CrossoverRate {}
+impl TS_CrossoverRate for () {}
+impl TS_CrossoverRate for W_CrossoverRate {}
+
+// mutation_rate ---------------------------------------------------------------
+#[allow(non_camel_case_types)] pub struct W_MutationRate(f32);
+impl From<f32> for W_MutationRate {
+    fn from(value: f32) -> Self {
+        Self(value)
+    }
+}
+
+#[allow(non_camel_case_types)] pub trait TS_MutationRate {}
+impl TS_MutationRate for () {}
+impl TS_MutationRate for W_MutationRate {}
 
 
 // selection -------------------------------------------------------------------
@@ -249,6 +274,8 @@ pub struct Builder<
     T,
     //
     TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
     TsSe: TS_Selection,
     TsCr: TS_Crossover,
     TsMu: TS_Mutation,
@@ -258,6 +285,8 @@ pub struct Builder<
 > {
     // Data
     population_size: TsPs,
+    crossover_rate: TsCrr,
+    mutation_rate: TsMur,
     selection: TsSe,
     crossover: TsCr,
     mutation: TsMu,
@@ -288,10 +317,12 @@ impl<
     // TsRe: TS_Rejection,
     // TsRp: TS_Replacement,
     // TsTe: TS_Termination,
-> Builder<Ov, Ctx, Ge, Ph, T, (), (), (), (), (), (), ()> {
+> Builder<Ov, Ctx, Ge, Ph, T, (), (), (), (), (), (), (), (), ()> {
     pub fn for_encoding(_encoding: &Encoding<Ov, Ctx, Ge, Ph>) -> Self {
         Self {
             population_size: (),
+            crossover_rate: (),
+            mutation_rate: (),
             selection: (),
             crossover: (),
             mutation: (),
@@ -318,18 +349,106 @@ impl<
     T,
     //
     // TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
     TsSe: TS_Selection,
     TsCr: TS_Crossover,
     TsMu: TS_Mutation,
     TsRe: TS_Rejection,
     TsRp: TS_Replacement,
     TsTe: TS_Termination,
-> Builder<Ov, Ctx, Ge, Ph, T, (), TsSe, TsCr, TsMu, TsRe, TsRp, TsTe> {
+> Builder<Ov, Ctx, Ge, Ph, T, (), TsCrr, TsMur, TsSe, TsCr, TsMu, TsRe, TsRp, TsTe> {
     pub fn set_population_size(self, population_size: usize) -> Builder<
-        Ov, Ctx, Ge, Ph, T, W_PopulationSize, TsSe, TsCr, TsMu, TsRe, TsRp, TsTe
+        Ov, Ctx, Ge, Ph, T, W_PopulationSize, TsCrr, TsMur, TsSe, TsCr, TsMu, TsRe, TsRp, TsTe
     > {
         Builder {
             population_size: population_size.into(),
+            crossover_rate: self.crossover_rate,
+            mutation_rate: self.mutation_rate,
+            selection: self.selection,
+            crossover: self.crossover,
+            mutation: self.mutation,
+            rejection: self.rejection,
+            replacement: self.replacement,
+            termination: self.termination,
+
+            // PhantomData
+            objective_value: PhantomData,
+            context: PhantomData,
+            genotype: PhantomData,
+            phenotype: PhantomData,
+            t: PhantomData,
+        }
+    }
+}
+
+// set_crossover_rate ----------------------------------------------------------
+impl<
+    Ov: ObjectiveValue + Into<T>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    Ph: Phenotype<Ov, Ctx, Ge>,
+    T,
+    //
+    TsPs: TS_PopulationSize,
+    // TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
+    TsSe: TS_Selection,
+    TsCr: TS_Crossover,
+    TsMu: TS_Mutation,
+    TsRe: TS_Rejection,
+    TsRp: TS_Replacement,
+    TsTe: TS_Termination,
+> Builder<Ov, Ctx, Ge, Ph, T, TsPs, (), TsMur, TsSe, TsCr, TsMu, TsRe, TsRp, TsTe> {
+    pub fn set_crossover_rate(self, crossover_rate: Option<f32>) -> Builder<
+        Ov, Ctx, Ge, Ph, T, TsPs, W_CrossoverRate, TsMur, TsSe, TsCr, TsMu, TsRe, TsRp, TsTe
+    > {
+        Builder {
+            population_size: self.population_size,
+            crossover_rate: crossover_rate.into(),
+            mutation_rate: self.mutation_rate,
+            selection: self.selection,
+            crossover: self.crossover,
+            mutation: self.mutation,
+            rejection: self.rejection,
+            replacement: self.replacement,
+            termination: self.termination,
+
+            // PhantomData
+            objective_value: PhantomData,
+            context: PhantomData,
+            genotype: PhantomData,
+            phenotype: PhantomData,
+            t: PhantomData,
+        }
+    }
+}
+
+// set_mutation_rate -----------------------------------------------------------
+impl<
+    Ov: ObjectiveValue + Into<T>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    Ph: Phenotype<Ov, Ctx, Ge>,
+    T,
+    //
+    TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    // TsMur: TS_MutationRate,
+    TsSe: TS_Selection,
+    TsCr: TS_Crossover,
+    TsMu: TS_Mutation,
+    TsRe: TS_Rejection,
+    TsRp: TS_Replacement,
+    TsTe: TS_Termination,
+> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, (), TsSe, TsCr, TsMu, TsRe, TsRp, TsTe> {
+    pub fn set_mutation_rate(self, mutation_rate: f32) -> Builder<
+        Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, W_MutationRate, TsSe, TsCr, TsMu, TsRe, TsRp, TsTe
+    > {
+        Builder {
+            population_size: self.population_size,
+            crossover_rate: self.crossover_rate,
+            mutation_rate: mutation_rate.into(),
             selection: self.selection,
             crossover: self.crossover,
             mutation: self.mutation,
@@ -356,22 +475,26 @@ impl<
     T,
     //
     TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
     // TsSe: TS_Selection,
     TsCr: TS_Crossover,
     TsMu: TS_Mutation,
     TsRe: TS_Rejection,
     TsRp: TS_Replacement,
     TsTe: TS_Termination,
-> Builder<Ov, Ctx, Ge, Ph, T, TsPs, (), TsCr, TsMu, TsRe, TsRp, TsTe> {
+> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, (), TsCr, TsMu, TsRe, TsRp, TsTe> {
     pub fn set_selection<Se: Selection<Ov, Ctx, Ge, T>>(
         self,
         selection: Se
     ) -> Builder<
-        Ov, Ctx, Ge, Ph, T, TsPs, W_Selection<Ov, Ctx, Ge, T, Se>, TsCr, TsMu,
+        Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, W_Selection<Ov, Ctx, Ge, T, Se>, TsCr, TsMu,
         TsRe, TsRp, TsTe
     > {
         Builder {
             population_size: self.population_size,
+            crossover_rate: self.crossover_rate,
+            mutation_rate: self.mutation_rate,
             selection: selection.into(),
             crossover: self.crossover,
             mutation: self.mutation,
@@ -398,22 +521,26 @@ impl<
     T,
     //
     TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
     TsSe: TS_Selection,
     // TsCr: TS_Crossover,
     TsMu: TS_Mutation,
     TsRe: TS_Rejection,
     TsRp: TS_Replacement,
     TsTe: TS_Termination,
-> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsSe, (), TsMu, TsRe, TsRp, TsTe> {
+> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, (), TsMu, TsRe, TsRp, TsTe> {
     pub fn set_crossover<Cr: Crossover<Ctx, Ge>>(
         self,
         crossover: Cr
     ) -> Builder<
-        Ov, Ctx, Ge, Ph, T, TsPs, TsSe, W_Crossover<Ctx, Ge, Cr>, TsMu, TsRe,
+        Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, W_Crossover<Ctx, Ge, Cr>, TsMu, TsRe,
         TsRp, TsTe
     > {
         Builder {
             population_size: self.population_size,
+            crossover_rate: self.crossover_rate,
+            mutation_rate: self.mutation_rate,
             selection: self.selection,
             crossover: crossover.into(),
             mutation: self.mutation,
@@ -440,22 +567,26 @@ impl<
     T,
     //
     TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
     TsSe: TS_Selection,
     TsCr: TS_Crossover,
     // TsMu: TS_Mutation,
     TsRe: TS_Rejection,
     TsRp: TS_Replacement,
     TsTe: TS_Termination,
-> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsSe, TsCr, (), TsRe, TsRp, TsTe> {
+> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, TsCr, (), TsRe, TsRp, TsTe> {
     pub fn set_mutation<Mu: Mutation<Ctx, Ge>>(
         self,
         mutation: Mu
     ) -> Builder<
-        Ov, Ctx, Ge, Ph, T, TsPs, TsSe, TsCr, W_Mutation<Ctx, Ge, Mu>, TsRe,
+        Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, TsCr, W_Mutation<Ctx, Ge, Mu>, TsRe,
         TsRp, TsTe
     > {
         Builder {
             population_size: self.population_size,
+            crossover_rate: self.crossover_rate,
+            mutation_rate: self.mutation_rate,
             selection: self.selection,
             crossover: self.crossover,
             mutation: mutation.into(),
@@ -482,22 +613,26 @@ impl<
     T,
     //
     TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
     TsSe: TS_Selection,
     TsCr: TS_Crossover,
     TsMu: TS_Mutation,
     // TsRe: TS_Rejection,
     TsRp: TS_Replacement,
     TsTe: TS_Termination,
-> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsSe, TsCr, TsMu, (), TsRp, TsTe> {
+> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, TsCr, TsMu, (), TsRp, TsTe> {
     pub fn set_rejection<Re: Rejection<Ov, Ctx, Ge>>(
         self,
         rejection: Re
     ) -> Builder<
-        Ov, Ctx, Ge, Ph, T, TsPs, TsSe, TsCr, TsMu,
+        Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, TsCr, TsMu,
         W_Rejection<Ov, Ctx, Ge, Re>, TsRp, TsTe
     > {
         Builder {
             population_size: self.population_size,
+            crossover_rate: self.crossover_rate,
+            mutation_rate: self.mutation_rate,
             selection: self.selection,
             crossover: self.crossover,
             mutation: self.mutation,
@@ -524,22 +659,26 @@ impl<
     T,
     //
     TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
     TsSe: TS_Selection,
     TsCr: TS_Crossover,
     TsMu: TS_Mutation,
     TsRe: TS_Rejection,
     // TsRp: TS_Replacement,
     TsTe: TS_Termination,
-> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsSe, TsCr, TsMu, TsRe, (), TsTe> {
+> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, TsCr, TsMu, TsRe, (), TsTe> {
     pub fn set_replacement<Rp: Replacement<(Ge, Ov)>>(
         self,
         replacement: Rp
     ) -> Builder<
-        Ov, Ctx, Ge, Ph, T, TsPs, TsSe, TsCr, TsMu, TsRe,
+        Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, TsCr, TsMu, TsRe,
         W_Replacement<Ov, Ctx, Ge, Rp>, TsTe
     > {
         Builder {
             population_size: self.population_size,
+            crossover_rate: self.crossover_rate,
+            mutation_rate: self.mutation_rate,
             selection: self.selection,
             crossover: self.crossover,
             mutation: self.mutation,
@@ -566,22 +705,26 @@ impl<
     T,
     //
     TsPs: TS_PopulationSize,
+    TsCrr: TS_CrossoverRate,
+    TsMur: TS_MutationRate,
     TsSe: TS_Selection,
     TsCr: TS_Crossover,
     TsMu: TS_Mutation,
     TsRe: TS_Rejection,
     TsRp: TS_Replacement,
     // TsTe: TS_Termination,
-> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsSe, TsCr, TsMu, TsRe, TsRp, ()> {
+> Builder<Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, TsCr, TsMu, TsRe, TsRp, ()> {
     pub fn set_termination<Te: Termination<Ov>>(
         self,
         termination: Te
     ) -> Builder<
-        Ov, Ctx, Ge, Ph, T, TsPs, TsSe, TsCr, TsMu, TsRe, TsRp,
+        Ov, Ctx, Ge, Ph, T, TsPs, TsCrr, TsMur, TsSe, TsCr, TsMu, TsRe, TsRp,
         W_Termination<Ov, Te>
     > {
         Builder {
             population_size: self.population_size,
+            crossover_rate: self.crossover_rate,
+            mutation_rate: self.mutation_rate,
             selection: self.selection,
             crossover: self.crossover,
             mutation: self.mutation,
@@ -622,14 +765,16 @@ impl<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
 > Builder<
-    Ov, Ctx, Ge, Ph, T, W_PopulationSize, W_Selection<Ov, Ctx, Ge, T, Se>,
-    W_Crossover<Ctx, Ge, Cr>, W_Mutation<Ctx, Ge, Mu>,
-    W_Rejection<Ov, Ctx, Ge, Re>, W_Replacement<Ov, Ctx, Ge, Rp>,
-    W_Termination<Ov, Te>
+    Ov, Ctx, Ge, Ph, T, W_PopulationSize, W_CrossoverRate, W_MutationRate,
+    W_Selection<Ov, Ctx, Ge, T, Se>, W_Crossover<Ctx, Ge, Cr>,
+    W_Mutation<Ctx, Ge, Mu>, W_Rejection<Ov, Ctx, Ge, Re>,
+    W_Replacement<Ov, Ctx, Ge, Rp>, W_Termination<Ov, Te>
 > {
     pub fn build(self) -> Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te> {
         Parameters {
             population_size: self.population_size.0,
+            crossover_rate: self.crossover_rate.0,
+            mutation_rate: self.mutation_rate.0,
             selection: self.selection.0,
             crossover: self.crossover.0,
             mutation: self.mutation.0,
