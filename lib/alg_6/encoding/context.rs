@@ -18,7 +18,9 @@ pub struct Context {
     /// Random time generator. This vector contains a random number generator
     /// for each gene. Index `0` holds the random number generator for the gene
     /// of index `0`.
-    pub rand_time: Vec<rand::distributions::Uniform<usize>>,
+    pub rand_time_uniform: Vec<rand::distributions::Uniform<usize>>,
+    pub rand_time_beta: Vec<crate::utils::beta_distr::DynamicBetaDistribution>,
+    pub rand_time_beta_default_std_deviation: f32,
 
     /// Random event generator
     #[allow(unused)]
@@ -50,21 +52,35 @@ impl Context {
 
         // Due to different durations, each event has a different set of valid
         // times.
-        let mut rand_time = Vec::with_capacity(num_events);
+        let rand_time_beta_default_std_deviation = 0.2;
+        let mut rand_time_uniform = Vec::with_capacity(num_events);
+        let mut rand_time_beta = Vec::with_capacity(num_events);
+
         #[allow(clippy::needless_range_loop)]
         for event_idx in 0..num_events {
             // Get duration of this event
             let duration = durations[event_idx] as usize;
 
             // Create random number generator for this gene
-            rand_time.push(Uniform::<usize>::new(0, num_times - duration + 1));
+            rand_time_uniform
+                .push(Uniform::<usize>::new(0, num_times - duration + 1));
+
+            rand_time_beta.push(
+                crate::utils::beta_distr::DynamicBetaDistribution::new_inclusive(
+                    0,
+                    num_times - duration,
+                    rand_time_beta_default_std_deviation
+                )
+            );
         }
 
         Self {
             num_times,
             num_events,
             num_resources,
-            rand_time,
+            rand_time_uniform,
+            rand_time_beta,
+            rand_time_beta_default_std_deviation,
             rand_event,
             constraints,
             durations,

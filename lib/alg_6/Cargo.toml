@@ -12,9 +12,13 @@ xhstt = { workspace = true }
 ga = { workspace = true }
 
 #> remote
-rand = "0.8.5"
+rand = { workspace = true }
+rand_distr = { workspace = true }
+simple_moving_average = { workspace = true }
+
 ndarray = { workspace = true }
 hashbrown = { workspace = true }
+
 
 [lints]
 workspace = true

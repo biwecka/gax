@@ -1,92 +1,12 @@
 use rand::rngs::ThreadRng;
 use rand_distr::Distribution;
 
-fn main() {
-    let mut rng = rand::thread_rng();
-
-    // Normal distribution
-    let normal_dist = rand_distr::Normal::new(4.5, 2.).unwrap();
-
-    let mut hits: [usize; 10] = [0; 10];
-
-    for _ in 0..100_000 {
-        let value = normal_dist.sample(&mut rng);
-        if value <= 0. {
-            continue;
-        }
-        if value < 0.5 {
-            hits[0] += 1;
-            continue;
-        }
-        if value < 1.5 {
-            hits[1] += 1;
-            continue;
-        }
-        if value < 2.5 {
-            hits[2] += 1;
-            continue;
-        }
-        if value < 3.5 {
-            hits[3] += 1;
-            continue;
-        }
-        if value < 4.5 {
-            hits[4] += 1;
-            continue;
-        }
-        if value < 5.5 {
-            hits[5] += 1;
-            continue;
-        }
-        if value < 6.5 {
-            hits[6] += 1;
-            continue;
-        }
-        if value < 7.5 {
-            hits[7] += 1;
-            continue;
-        }
-        if value < 8.5 {
-            hits[8] += 1;
-            continue;
-        }
-        if value < 9.0 {
-            hits[9] += 1;
-            continue;
-        }
-    }
-
-    println!("normal = {hits:?}");
-
-    // Binomial distribution
-    let normal_dist = rand_distr::Binomial::new(9, 0.6667).unwrap();
-
-    let mut hits: [usize; 10] = [0; 10];
-
-    for _ in 0..100_000 {
-        let value = normal_dist.sample(&mut rng);
-        assert!(value < hits.len() as u64);
-        hits[value as usize] += 1;
-    }
-
-    println!("binom  = {hits:?}");
-
-    // DynamicBetaDist
-    let dyn_beta_dist = DynamicBetaDistribution::new_inclusive(0, 9, 0.21);
-    let mut hits: [usize; 10] = [0; 10];
-    for _ in 0..100_000 {
-        let value = dyn_beta_dist.sample(5, &mut rng);
-        hits[value] += 1;
-    }
-
-    println!("beta   = {hits:?}");
-}
-
+#[derive(Clone)]
 pub struct DynamicBetaDistribution {
     start: usize,
     end: usize,
 
-    std_deviation: f32,
+    pub std_deviation: f32,
 }
 
 impl DynamicBetaDistribution {
@@ -113,8 +33,8 @@ impl DynamicBetaDistribution {
         let exp_val = map_interval(self.start, self.end, expected_value);
 
         // Calculate parameters (alpha + beta) for the beta distribution
-        let alpha = calc_alpha(exp_val, self.std_deviation);
-        let beta = calc_beta(exp_val, alpha);
+        let alpha = calc_alpha(exp_val, self.std_deviation).max(0.001);
+        let beta = calc_beta(exp_val, alpha).max(0.001);
 
         // Create distribution
         let beta_dist = rand_distr::Beta::new(alpha, beta).unwrap();

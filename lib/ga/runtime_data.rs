@@ -47,7 +47,7 @@ pub struct RuntimeData<
     pub success_rate_pt1: f32,
 
     /// Moving average calculated by a "simple moving average" algorithm.
-    pub success_rate_sma: SumTreeSMA<f32, f32, 100>,
+    pub success_rate_sma: SumTreeSMA<f32, f32, 1000>,
 
     // PhantomData
     objective_value: std::marker::PhantomData<Ov>,
@@ -97,11 +97,6 @@ impl<
                 .collect::<Vec<_>>(),
         );
 
-        let mut success_rate_sma = SumTreeSMA::new();
-        for _ in 0..100 {
-            success_rate_sma.add_sample(0.25);
-        }
-
         Self {
             generation,
             population_size,
@@ -123,8 +118,8 @@ impl<
             #[cfg(feature = "log_diversity")]
             population_diversity_distribution: vec![],
 
-            success_rate_pt1: 0.25,
-            success_rate_sma,
+            success_rate_pt1: 0.,
+            success_rate_sma: SumTreeSMA::new(),
 
             objective_value: std::marker::PhantomData,
             context: std::marker::PhantomData,
@@ -168,12 +163,12 @@ impl<
                     self.success_rate_sma.add_sample(1.);
 
                     self.success_rate_pt1 =
-                        crate::utils::pt1(self.success_rate_pt1, 1., 100.);
+                        crate::utils::pt1(self.success_rate_pt1, 1., 1000.);
                 } else {
                     self.success_rate_sma.add_sample(0.);
 
                     self.success_rate_pt1 =
-                        crate::utils::pt1(self.success_rate_pt1, 0., 100.);
+                        crate::utils::pt1(self.success_rate_pt1, 0., 1000.);
                 }
 
                 new_best.clone()

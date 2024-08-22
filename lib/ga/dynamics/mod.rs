@@ -41,6 +41,14 @@ pub trait Dynamic<
     Te: Termination<Ov>,
 >: Send + Sync
 {
+    fn setup(
+        &self,
+        // Output
+        rtd: &mut RuntimeData<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+        parameters: &mut Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+        context: &mut Ctx,
+    );
+
     fn exec(
         &self,
         // Input
@@ -65,6 +73,16 @@ impl<
         Te: Termination<Ov>,
     > Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te> for ()
 {
+    #[inline(always)]
+    fn setup(
+        &self,
+        // Output
+        _rtd: &mut RuntimeData<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+        _parameters: &mut Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+        _context: &mut Ctx,
+    ) {
+    }
+
     #[inline(always)]
     fn exec(
         &self,

@@ -19,10 +19,12 @@
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
+mod dynamics;
 mod encoding;
 mod operators;
 mod utils;
 
+use dynamics::Dynamic;
 // Imports /////////////////////////////////////////////////////////////////////
 use encoding::{Chromosome, Context, Phenotype};
 use ga::{
@@ -59,7 +61,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
         .set_population_size(2_000)
         .set_crossover_rate(None)
-        .set_mutation_rate(0.01)
+        .set_mutation_rate(0.005)
         .set_selection(Select::RouletteWheel)
         .set_crossover(Crossover::VariableNPoint(3))
         .set_mutation(Mutation::RandomValue)
@@ -69,7 +71,10 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .build();
 
     let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-        .set::<()>(vec![])
+        .set(vec![
+            // (target_success_rate, k-factor, default std. deviation)
+            Dynamic::SuccessDrivenBetaDistrStdDeviation(0.10, 0.2, 0.15),
+        ])
         .build();
 
     // Create algorithm and let it run!

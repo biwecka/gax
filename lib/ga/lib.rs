@@ -8,7 +8,7 @@ pub mod utils;
 #[rustfmt::skip] pub mod parameters;
 #[rustfmt::skip] mod builder;
 pub mod dynamics;
-mod runtime_data;
+pub mod runtime_data;
 mod tools;
 
 // Re-Exports //////////////////////////////////////////////////////////////////
@@ -138,6 +138,17 @@ impl<
 
         // Initialize runtime data
         let mut rtd = RuntimeData::init(&population, &self.params);
+
+        // Setup dynamics
+        if let Some(dynamics) = &self.dynamics {
+            for dyn_exe in &dynamics.list {
+                dyn_exe.setup(
+                    &mut rtd,
+                    &mut self.params,
+                    &mut self.encoding.context,
+                );
+            }
+        }
 
         // Create and populate cache
         #[cfg(feature = "cache")]
