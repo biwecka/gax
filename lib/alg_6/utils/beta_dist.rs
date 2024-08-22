@@ -2,6 +2,7 @@ use rand::rngs::ThreadRng;
 use rand_distr::Distribution;
 
 #[derive(Clone)]
+#[allow(unused)]
 pub struct DynamicBetaDistribution {
     start: usize,
     end: usize,
@@ -9,6 +10,7 @@ pub struct DynamicBetaDistribution {
     pub std_deviation: f32,
 }
 
+#[allow(unused)]
 impl DynamicBetaDistribution {
     pub fn new_inclusive(start: usize, end: usize, std_deviation: f32) -> Self {
         assert!(start < end);
@@ -47,6 +49,7 @@ impl DynamicBetaDistribution {
     }
 }
 
+#[allow(unused)]
 fn calc_alpha(expected_value: f32, std_deviation: f32) -> f32 {
     let u = expected_value; // μ
     let o = std_deviation; // σ
@@ -54,12 +57,14 @@ fn calc_alpha(expected_value: f32, std_deviation: f32) -> f32 {
     (((1. - u) * u * u) / (o * o)) - u
 }
 
+#[allow(unused)]
 fn calc_beta(expected_value: f32, alpha: f32) -> f32 {
     let u = expected_value; // μ
 
     ((1. / u) - 1.) * alpha
 }
 
+#[allow(unused)]
 fn map_interval(a: usize, b: usize, x: usize) -> f32 {
     assert!(a < b);
 
@@ -75,6 +80,7 @@ fn map_interval(a: usize, b: usize, x: usize) -> f32 {
     (x - offset) as f32 / diff as f32
 }
 
+#[allow(unused)]
 fn reverse_map_interval(a: usize, b: usize, x: f32) -> usize {
     assert!(a < b);
 

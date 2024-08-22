@@ -59,21 +59,22 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .build();
 
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
-        .set_population_size(2_000)
+        .set_population_size(1_000)
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
         .set_selection(Select::RouletteWheel)
         .set_crossover(Crossover::VariableNPoint(3))
-        .set_mutation(Mutation::BetaRandom)
+        .set_mutation(Mutation::NormalRandom)
         .set_rejection(Reject::None)
-        .set_replacement(Replace::EliteAbsolute(1))
+        .set_replacement(Replace::EliteAbsolute(10))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
     let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
         .set(vec![
             // (target_success_rate, k-factor, default std. deviation)
-            Dynamic::SuccessDrivenBetaDistrStdDeviation(0.01, 0.2, 0.15),
+            // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
+            Dynamic::SuccessDrivenNormalDistrStdDeviation(0.01, 1., 10.),
         ])
         .build();
 
@@ -82,6 +83,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_encoding(encoding)
         .set_parameters(parameters)
         .set_dynamics(Some(dynamics))
+        // .set_dynamics::<()>(None)
         .build();
 
     let results = alg.run();

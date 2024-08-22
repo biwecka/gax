@@ -8,7 +8,7 @@ default = [
     "ga_log_dynamics",
 
     #>>> `ga` features <<<#
-    "ga/cache",
+    # "ga/cache",
     # "ga/rerun_logger",
 
     # "ga/log_pop_stats",

@@ -9,8 +9,10 @@ pub enum Mutation {
     /// Assigns a random value to genes.
     RandomValue,
 
-    /// Non-uniform random values based on beta-distribution.
-    BetaRandom,
+    // /// Non-uniform random values based on beta-distribution.
+    // BetaRandom,
+    /// Non-uniform random values based on normal-distribution.
+    NormalRandom,
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
@@ -31,10 +33,16 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
                 )
             }
 
-            Mutation::BetaRandom => beta_random_multi_dist(
+            // Mutation::BetaRandom => beta_random_multi_dist(
+            //     chromosome.as_mut_slice(),
+            //     rate,
+            //     &ctx.rand_time,
+            //     rng,
+            // ),
+            Mutation::NormalRandom => normal_random_multi_dist(
                 chromosome.as_mut_slice(),
                 rate,
-                &ctx.rand_time_beta,
+                &ctx.rand_time,
                 rng,
             ),
         }
@@ -42,10 +50,29 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
 }
 
 // Helper Functions ////////////////////////////////////////////////////////////
-pub fn beta_random_multi_dist(
+// pub fn beta_random_multi_dist(
+//     chromosome: &mut [usize],
+//     rate: f32,
+//     generators: &[crate::utils::beta_dist::DynamicBetaDistribution],
+//     rng: &mut ThreadRng,
+// ) {
+//     assert_eq!(chromosome.len(), generators.len());
+
+//     for (i, gene) in chromosome.iter_mut().enumerate() {
+//         // Decide wether to mutate or not
+//         if rng.gen_range(0. ..=1.) > rate {
+//             continue;
+//         }
+
+//         // Mutate the gene (pass in `*gene` as expected value)
+//         *gene = generators[i].sample(*gene, rng);
+//     }
+// }
+
+pub fn normal_random_multi_dist(
     chromosome: &mut [usize],
     rate: f32,
-    generators: &[crate::utils::beta_distr::DynamicBetaDistribution],
+    generators: &[crate::utils::normal_dist::NormalDistribution],
     rng: &mut ThreadRng,
 ) {
     assert_eq!(chromosome.len(), generators.len());

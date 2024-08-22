@@ -5,58 +5,29 @@ fn main() {
     let mut rng = rand::thread_rng();
 
     // Normal distribution
-    let normal_dist = rand_distr::Normal::new(4.5, 2.).unwrap();
+    let normal_dist = rand_distr::Normal::new(5., 10.).unwrap();
 
-    let mut hits: [usize; 10] = [0; 10];
+    let mut hits: [usize; 11] = [0; 11];
+    let mut recalc_counter = 0;
 
     for _ in 0..100_000 {
-        let value = normal_dist.sample(&mut rng);
-        if value <= 0. {
-            continue;
+        let random_value: f64 = normal_dist.sample(&mut rng);
+        let mut rounded_value = random_value.round() as i32;
+
+        while rounded_value < 0 || rounded_value > 10 {
+            let rnd = normal_dist.sample(&mut rng);
+            rounded_value = rnd.round() as i32;
+
+            recalc_counter += 1;
         }
-        if value < 0.5 {
-            hits[0] += 1;
-            continue;
-        }
-        if value < 1.5 {
-            hits[1] += 1;
-            continue;
-        }
-        if value < 2.5 {
-            hits[2] += 1;
-            continue;
-        }
-        if value < 3.5 {
-            hits[3] += 1;
-            continue;
-        }
-        if value < 4.5 {
-            hits[4] += 1;
-            continue;
-        }
-        if value < 5.5 {
-            hits[5] += 1;
-            continue;
-        }
-        if value < 6.5 {
-            hits[6] += 1;
-            continue;
-        }
-        if value < 7.5 {
-            hits[7] += 1;
-            continue;
-        }
-        if value < 8.5 {
-            hits[8] += 1;
-            continue;
-        }
-        if value < 9.0 {
-            hits[9] += 1;
-            continue;
-        }
+
+        assert!(rounded_value >= 0);
+        assert!(rounded_value <= 10);
+        hits[rounded_value as usize] += 1;
     }
 
-    println!("normal = {hits:?}");
+    println!("normal          = {hits:?}");
+    println!("re-calculations = {}", recalc_counter);
 
     // Binomial distribution
     let normal_dist = rand_distr::Binomial::new(9, 0.6667).unwrap();

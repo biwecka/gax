@@ -19,8 +19,9 @@ pub struct Context {
     /// for each gene. Index `0` holds the random number generator for the gene
     /// of index `0`.
     pub rand_time_uniform: Vec<rand::distributions::Uniform<usize>>,
-    pub rand_time_beta: Vec<crate::utils::beta_distr::DynamicBetaDistribution>,
-    pub rand_time_beta_default_std_deviation: f32,
+    // pub rand_time: Vec<crate::utils::beta_dist::DynamicBetaDistribution>,
+    pub rand_time: Vec<crate::utils::normal_dist::NormalDistribution>,
+    pub rand_time_std_deviation: f32,
 
     /// Random event generator
     #[allow(unused)]
@@ -52,9 +53,9 @@ impl Context {
 
         // Due to different durations, each event has a different set of valid
         // times.
-        let rand_time_beta_default_std_deviation = 0.2;
+        let rand_time_std_deviation = 1.;
         let mut rand_time_uniform = Vec::with_capacity(num_events);
-        let mut rand_time_beta = Vec::with_capacity(num_events);
+        let mut rand_time = Vec::with_capacity(num_events);
 
         #[allow(clippy::needless_range_loop)]
         for event_idx in 0..num_events {
@@ -65,12 +66,17 @@ impl Context {
             rand_time_uniform
                 .push(Uniform::<usize>::new(0, num_times - duration + 1));
 
-            rand_time_beta.push(
-                crate::utils::beta_distr::DynamicBetaDistribution::new_inclusive(
+            rand_time.push(
+                // crate::utils::beta_dist::DynamicBetaDistribution::new_inclusive(
+                //     0,
+                //     num_times - duration,
+                //     rand_time_std_deviation
+                // )
+                crate::utils::normal_dist::NormalDistribution::new_inclusive(
                     0,
                     num_times - duration,
-                    rand_time_beta_default_std_deviation
-                )
+                    rand_time_std_deviation,
+                ),
             );
         }
 
@@ -79,8 +85,8 @@ impl Context {
             num_events,
             num_resources,
             rand_time_uniform,
-            rand_time_beta,
-            rand_time_beta_default_std_deviation,
+            rand_time,
+            rand_time_std_deviation,
             rand_event,
             constraints,
             durations,

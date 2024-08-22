@@ -1,1 +1,2 @@
-pub mod beta_distr;
+pub mod beta_dist;
+pub mod normal_dist;

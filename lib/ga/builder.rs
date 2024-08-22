@@ -1,8 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use std::marker::PhantomData;
-
-use hashbrown::HashMap;
-
 use crate::{
     dynamics::{Dynamic, Dynamics}, encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype}, operators::{Crossover, Mutation}, parameters::Parameters, process::{
         rejection::Rejection, replacement::Replacement, selection::Selection, termination::Termination
