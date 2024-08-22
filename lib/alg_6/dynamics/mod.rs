@@ -164,7 +164,7 @@ fn success_driven_beta_distr_std_deviation(
     target_success_rate: f32,
     k: f32,
 
-    #[cfg(feature = "ga_log_dynamics")] _rerun_logger: &RerunLogger,
+    #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
 ) {
     // Calculate the difference from the targeted success rate
     let success_rate_diff = rtd.success_rate_pt1 - target_success_rate;
@@ -179,6 +179,11 @@ fn success_driven_beta_distr_std_deviation(
     for beta_distr in &mut context.rand_time_beta {
         beta_distr.set_std_deviation(std_dev);
     }
+
+    #[cfg(feature = "ga_log_dynamics")]
+    {
+        rerun_logger.log_mutation_std_deviation(rtd.generation, std_dev);
+    };
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -113,6 +113,19 @@ impl RerunLogger {
             );
         };
     }
+
+    #[cfg(feature = "log_dynamics")]
+    pub fn log_mutation_std_deviation(
+        &self,
+        generation: usize,
+        std_deviation: f32,
+    ) {
+        self.rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
+
+        let _ = self
+            .rec
+            .log("mutation/std_dev", &Scalar::new(std_deviation as f64));
+    }
 }
 
 // Functions ///////////////////////////////////////////////////////////////////
