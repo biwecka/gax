@@ -1,4 +1,4 @@
-#![feature(let_chains)]
+// #![feature(let_chains)]
 
 // Modules /////////////////////////////////////////////////////////////////////
 pub mod encoding;
@@ -9,7 +9,7 @@ pub mod utils;
 #[rustfmt::skip] mod builder;
 pub mod dynamics;
 pub mod runtime_data;
-mod tools;
+pub mod tools;
 
 // Re-Exports //////////////////////////////////////////////////////////////////
 pub use builder::*;
@@ -217,22 +217,21 @@ impl<
                     );
 
                     // Evaluation
+                    #[allow(unused_mut)]
                     let mut cache_hits = 0;
 
                     let y0: (Ge, Ov) = {
-                        // If the cache feature is enabled, check the cache
-                        let ov = if cfg!(feature = "cache")
-                            && let Some(cached_ov) = self.cache.get(&x0)
-                        {
-                            // Increase cache hit count
-                            cache_hits += 1;
+                        #[allow(unused_labels)]
+                        let ov: Ov = 'ov: {
+                            #[cfg(feature = "cache")]
+                            if let Some(cached_ov) = self.cache.get(&x0) {
+                                // Increase cache hit count
+                                cache_hits += 1;
 
-                            // Return the cached objective value
-                            cached_ov.clone()
-                        }
-                        // If the cache feature is not enabled, calculate the
-                        // objective value as usual.
-                        else {
+                                // Return the cached objective value
+                                break 'ov cached_ov.clone();
+                            }
+
                             // Create derived phenotype
                             let ph = self
                                 .encoding
@@ -247,19 +246,17 @@ impl<
                     };
 
                     let y1: (Ge, Ov) = {
-                        // If the cache feature is enabled, check the cache
-                        let ov: Ov = if cfg!(feature = "cache")
-                            && let Some(cached_ov) = self.cache.get(&x1)
-                        {
-                            // Increase cache hit count
-                            cache_hits += 1;
+                        #[allow(unused_labels)]
+                        let ov: Ov = 'ov: {
+                            #[cfg(feature = "cache")]
+                            if let Some(cached_ov) = self.cache.get(&x1) {
+                                // Increase cache hit count
+                                cache_hits += 1;
 
-                            // Return the cached objective value
-                            cached_ov.clone()
-                        }
-                        // If the cache feature is not enabled, calculate the
-                        // objective value as usual.
-                        else {
+                                // Return the cached objective value
+                                break 'ov cached_ov.clone();
+                            }
+
                             // Create derived phenotype
                             let ph = self
                                 .encoding
@@ -393,6 +390,8 @@ impl<
                         &rtd,
                         &mut self.params,
                         &mut self.encoding.context,
+                        #[cfg(feature = "log_dynamics")]
+                        &self.rerun_logger,
                     );
                 }
             }

@@ -15,6 +15,9 @@ use crate::process::{
     termination::Termination,
 };
 
+#[cfg(feature = "log_dynamics")]
+use crate::tools::rerun_logger::RerunLogger;
+
 // Crossover ///////////////////////////////////////////////////////////////////
 
 /// This trait is usually implemented by enums, which represent a set of
@@ -57,6 +60,9 @@ pub trait Dynamic<
         // "Output"
         parameters: &mut Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
         context: &mut Ctx,
+
+        // Logger
+        #[cfg(feature = "log_dynamics")] rerun_logger: &RerunLogger,
     );
 }
 
@@ -92,6 +98,9 @@ impl<
         // "Output"
         _parameters: &mut Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
         _context: &mut Ctx,
+
+        // Logger
+        #[cfg(feature = "log_dynamics")] _rerun_logger: &RerunLogger,
     ) {
     }
 }

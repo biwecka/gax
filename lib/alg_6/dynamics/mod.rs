@@ -13,6 +13,9 @@ use crate::{
     operators::{Crossover, Mutation},
 };
 
+#[cfg(feature = "ga_log_dynamics")]
+use ga::tools::rerun_logger::RerunLogger;
+
 // Dynamic Enum ////////////////////////////////////////////////////////////////
 pub enum Dynamic {
     /// Parameters:
@@ -119,6 +122,8 @@ impl
             Terminate<Cost>,
         >,
         context: &mut Context,
+
+        #[cfg(feature = "ga_log_dynamics")] _rerun_logger: &RerunLogger,
     ) {
         match self {
             Dynamic::SuccessDrivenBetaDistrStdDeviation(
@@ -131,6 +136,8 @@ impl
                     context,
                     *target_success_rate,
                     *k,
+                    #[cfg(feature = "ga_log_dynamics")]
+                    _rerun_logger,
                 );
             }
         }
@@ -156,6 +163,8 @@ fn success_driven_beta_distr_std_deviation(
 
     target_success_rate: f32,
     k: f32,
+
+    #[cfg(feature = "ga_log_dynamics")] _rerun_logger: &RerunLogger,
 ) {
     // Calculate the difference from the targeted success rate
     let success_rate_diff = rtd.success_rate_pt1 - target_success_rate;

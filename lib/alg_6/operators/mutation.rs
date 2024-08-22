@@ -9,7 +9,7 @@ pub enum Mutation {
     /// Assigns a random value to genes.
     RandomValue,
 
-    ///
+    /// Non-uniform random values based on beta-distribution.
     BetaRandom,
 }
 

@@ -61,10 +61,10 @@ pub fn run(instance: Instance) -> Vec<Event> {
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
         .set_population_size(2_000)
         .set_crossover_rate(None)
-        .set_mutation_rate(0.005)
+        .set_mutation_rate(0.01)
         .set_selection(Select::RouletteWheel)
         .set_crossover(Crossover::VariableNPoint(3))
-        .set_mutation(Mutation::RandomValue)
+        .set_mutation(Mutation::BetaRandom)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteAbsolute(1))
         .set_termination(Terminate::ObjectiveValue(0.into()))
@@ -73,7 +73,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
     let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
         .set(vec![
             // (target_success_rate, k-factor, default std. deviation)
-            Dynamic::SuccessDrivenBetaDistrStdDeviation(0.10, 0.2, 0.15),
+            Dynamic::SuccessDrivenBetaDistrStdDeviation(0.01, 0.2, 0.15),
         ])
         .build();
 

@@ -8,24 +8,49 @@ path = "lib.rs"
 
 [features]
 default = [
-    "cache",
-    "rerun_logger",
+    # "cache",
+    # "rerun_logger",
 
     # "log_pop_stats",
     # "log_ov_dist",
     # "log_diversity",
     # "log_cache_hits",
     # "log_runtimes",
+    # "log_dynamics"
 ]
 
+# This feature enables a cache which stores the results of objective value
+# calculations. If the same chromosome is "discovered" multiple times, this
+# cache allows skipping the evaluation of the chromosome.
 cache           = []
+
+# This feature enables logging to "Rerun". Enabling this feature some basic
+# metrics are automatically logged to "Rerun".
+# For logging more advanced data, see the features below.
 rerun_logger    = ["dep:rerun"]
 
+# Log population statistics like population size, elite size, selection size
+# and number of distinct selections.
 log_pop_stats   = ["rerun_logger"]
+
+# Log the distribution of objective values throughout the population as
+# histrogram.
 log_ov_dist     = ["rerun_logger"]
+
+# Log the diversity (amount of equal chromosomes) as histogram.
 log_diversity   = ["rerun_logger"]
+
+# Log cache hits and misses (this feature automatically enables the cache
+# feature).
 log_cache_hits  = ["rerun_logger", "cache"]
+
+# Log runtime measurements for performance insights.
 log_runtimes    = ["rerun_logger"]
+
+# Enabling this feature makes the `rerun_logger` part of the function signatures
+# of the `Dynamics` trait. This allows users, who implement dynamic behaviour
+# (by implementing the `Dynamics` trait), to log their custom metrics to rerun.
+log_dynamics    = ["rerun_logger"]
 
 
 [dependencies]
