@@ -30,6 +30,13 @@ pub enum Dynamic {
     /// 2) f32  factor `k` in `default_std_deviation + k * (success difference)`
     /// 3) f32  default standard deviation
     SuccessDrivenNormalDistrStdDeviation(f32, f32, f32),
+
+    /// Variable mutation rate in form of `cos`.
+    /// Parameters:
+    /// 1) f32      default mutation rate
+    /// 2) f32      amplitude factor    : a in `a * sin(k*x)`
+    /// 3) f32      wavelength factor   : k in `a * sin(k*x)`
+    VariableMutationRateCos(f32, f32, f32),
 }
 
 impl
@@ -115,6 +122,8 @@ impl
                     distr.set_std_deviation(*def_std_deviation);
                 }
             }
+
+            Dynamic::VariableMutationRateCos(_, _, _) => {}
         }
     }
 
@@ -135,7 +144,7 @@ impl
         >,
 
         // "Output"
-        _parameters: &mut ga::parameters::Parameters<
+        parameters: &mut ga::parameters::Parameters<
             Cost,
             Context,
             Chromosome,
@@ -178,6 +187,18 @@ impl
                     *target_success_rate,
                     *k,
                     #[cfg(feature = "ga_log_dynamics")]
+                    rerun_logger,
+                );
+            }
+
+            Dynamic::VariableMutationRateCos(reference, a, k) => {
+                variable_mutation_rate_cos(
+                    rtd,
+                    parameters,
+                    context,
+                    *reference,
+                    *a,
+                    *k,
                     rerun_logger,
                 );
             }
@@ -268,6 +289,58 @@ fn success_driven_normal_distr_std_deviation(
     #[cfg(feature = "ga_log_dynamics")]
     {
         rerun_logger.log_mutation_std_deviation(rtd.generation, std_dev);
+    };
+}
+
+fn variable_mutation_rate_cos(
+    rtd: &RuntimeData<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    parameters: &mut ga::parameters::Parameters<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    _context: &mut Context,
+
+    reference: f32,
+    a: f32,
+    k: f32,
+
+    #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
+) {
+    // Get generation number
+    let x = rtd.generation as f32;
+
+    // Calculate mutation rate
+    // let mutation_rate = (reference + (a * (k * x).cos())).clamp(0.001, 0.999);
+    let mutation_rate =
+        (reference + a + (-a * (k * x).cos())).clamp(0.001, 0.999);
+
+    // Set mutation rate
+    parameters.mutation_rate = mutation_rate;
+
+    #[cfg(feature = "ga_log_dynamics")]
+    {
+        rerun_logger.log_mutation_rate(rtd.generation, mutation_rate);
     };
 }
 

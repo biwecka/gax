@@ -7,12 +7,12 @@ use rand::{rngs::ThreadRng, Rng};
 #[allow(unused)]
 pub enum Mutation {
     /// Assigns a random value to genes.
-    RandomValue,
+    UniformRandom,
 
     // /// Non-uniform random values based on beta-distribution.
     // BetaRandom,
     /// Non-uniform random values based on normal-distribution.
-    NormalRandom,
+    NormalDistributedRandom,
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
@@ -24,7 +24,7 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
         ctx: &Context,
     ) {
         match self {
-            Mutation::RandomValue => {
+            Mutation::UniformRandom => {
                 ga::operators::mutation::randomize_multi_dist(
                     chromosome.as_mut_slice(),
                     rate,
@@ -39,7 +39,7 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
             //     &ctx.rand_time,
             //     rng,
             // ),
-            Mutation::NormalRandom => normal_random_multi_dist(
+            Mutation::NormalDistributedRandom => normal_random_multi_dist(
                 chromosome.as_mut_slice(),
                 rate,
                 &ctx.rand_time,

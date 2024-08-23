@@ -24,8 +24,8 @@ mod encoding;
 mod operators;
 mod utils;
 
-use dynamics::Dynamic;
 // Imports /////////////////////////////////////////////////////////////////////
+#[allow(unused)] use dynamics::Dynamic;
 use encoding::{Chromosome, Context, Phenotype};
 use ga::{
     encoding::Phenotype as _,
@@ -64,26 +64,28 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_mutation_rate(0.01)
         .set_selection(Select::RouletteWheel)
         .set_crossover(Crossover::VariableNPoint(3))
-        .set_mutation(Mutation::NormalRandom)
+        .set_mutation(Mutation::NormalDistributedRandom)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteAbsolute(10))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
-    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-        .set(vec![
-            // (target_success_rate, k-factor, default std. deviation)
-            // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
-            Dynamic::SuccessDrivenNormalDistrStdDeviation(0.01, 1., 10.),
-        ])
-        .build();
+    // let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+    //     .set(vec![
+    //         // (target_success_rate, k-factor, default std. deviation)
+    //         // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
+    //         // Dynamic::SuccessDrivenNormalDistrStdDeviation(0.01, 1., 10.),
+
+    //         // Dynamic::VariableMutationRateCos(0.01, 1., 0.05),
+    //     ])
+    //     .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        .set_dynamics(Some(dynamics))
-        // .set_dynamics::<()>(None)
+        // .set_dynamics(Some(dynamics))
+        .set_dynamics::<()>(None)
         .build();
 
     let results = alg.run();

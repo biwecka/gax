@@ -126,6 +126,14 @@ impl RerunLogger {
             .rec
             .log("mutation/std_dev", &Scalar::new(std_deviation as f64));
     }
+
+    #[cfg(feature = "log_dynamics")]
+    pub fn log_mutation_rate(&self, generation: usize, mutation_rate: f32) {
+        self.rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
+
+        let _ =
+            self.rec.log("mutation/rate", &Scalar::new(mutation_rate as f64));
+    }
 }
 
 // Functions ///////////////////////////////////////////////////////////////////
