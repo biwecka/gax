@@ -37,6 +37,13 @@ pub enum Dynamic {
     /// 2) f32      amplitude factor    : a in `a * sin(k*x)`
     /// 3) f32      wavelength factor   : k in `a * sin(k*x)`
     VariableMutationRateCos(f32, f32, f32),
+
+    /// Variable mutation rate in form of `cos`.
+    /// Parameters:
+    /// 1) f32      default population size
+    /// 2) f32      amplitude factor    : a in `a * sin(k*x)`
+    /// 3) f32      wavelength factor   : k in `a * sin(k*x)`
+    VariablePopulationSizeCos(usize, f32, f32),
 }
 
 impl
@@ -124,6 +131,7 @@ impl
             }
 
             Dynamic::VariableMutationRateCos(_, _, _) => {}
+            Dynamic::VariablePopulationSizeCos(_, _, _) => {}
         }
     }
 
@@ -201,6 +209,18 @@ impl
                     *k,
                     rerun_logger,
                 );
+            }
+
+            Dynamic::VariablePopulationSizeCos(reference, a, k) => {
+                variable_population_size_cos(
+                    rtd,
+                    parameters,
+                    context,
+                    *reference,
+                    *a,
+                    *k,
+                    rerun_logger,
+                )
             }
         }
     }
@@ -342,6 +362,51 @@ fn variable_mutation_rate_cos(
     {
         rerun_logger.log_mutation_rate(rtd.generation, mutation_rate);
     };
+}
+
+fn variable_population_size_cos(
+    rtd: &RuntimeData<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    parameters: &mut ga::parameters::Parameters<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    _context: &mut Context,
+
+    reference: usize,
+    a: f32,
+    k: f32,
+
+    #[cfg(feature = "ga_log_dynamics")] _rerun_logger: &RerunLogger,
+) {
+    // Get generation number
+    let x = rtd.generation as f32;
+
+    // Calculate mutation rate
+    let population_size = reference as f32 + a + (-a * (k * x).cos());
+
+    // Set mutation rate
+    parameters.population_size = population_size.round() as usize;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -25,7 +25,8 @@ mod operators;
 mod utils;
 
 // Imports /////////////////////////////////////////////////////////////////////
-#[allow(unused)] use dynamics::Dynamic;
+#[allow(unused)]
+use dynamics::Dynamic;
 use encoding::{Chromosome, Context, Phenotype};
 use ga::{
     encoding::Phenotype as _,
@@ -66,7 +67,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_crossover(Crossover::VariableNPoint(3))
         .set_mutation(Mutation::NormalDistributedRandom)
         .set_rejection(Reject::None)
-        .set_replacement(Replace::EliteAbsolute(10))
+        .set_replacement(Replace::EliteRelative(0.05))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
@@ -76,7 +77,8 @@ pub fn run(instance: Instance) -> Vec<Event> {
     //         // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
     //         // Dynamic::SuccessDrivenNormalDistrStdDeviation(0.01, 1., 10.),
 
-    //         // Dynamic::VariableMutationRateCos(0.01, 1., 0.05),
+    //         // Dynamic::VariableMutationRateCos(0.01, 0.25, 0.005),
+    //         // Dynamic::VariablePopulationSizeCos(1_000, 500., 0.005)
     //     ])
     //     .build();
 
