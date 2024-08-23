@@ -59,6 +59,7 @@ xhstt = { workspace = true }
 
 #> remote
 rand = { workspace = true }
+rand_distr = { workspace = true }
 rayon = { workspace = true }
 ndarray = { workspace = true }
 hashbrown = { workspace = true }

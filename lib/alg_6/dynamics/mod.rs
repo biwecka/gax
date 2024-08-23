@@ -13,7 +13,7 @@ use crate::{
     operators::{Crossover, Mutation},
 };
 
-#[cfg(feature = "ga_log_dynamics")]
+// #[cfg(feature = "ga_log_dynamics")]
 use ga::tools::rerun_logger::RerunLogger;
 
 // Dynamic Enum ////////////////////////////////////////////////////////////////
@@ -207,6 +207,7 @@ impl
                     *reference,
                     *a,
                     *k,
+                    #[cfg(feature = "ga_log_dynamics")]
                     rerun_logger,
                 );
             }
@@ -219,6 +220,7 @@ impl
                     *reference,
                     *a,
                     *k,
+                    #[cfg(feature = "ga_log_dynamics")]
                     rerun_logger,
                 )
             }

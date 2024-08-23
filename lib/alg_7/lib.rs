@@ -8,11 +8,12 @@
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
-// mod dynamics;
+mod dynamics;
 mod encoding;
 mod operators;
 // mod utils;
 
+use dynamics::Dynamic;
 // Imports /////////////////////////////////////////////////////////////////////
 // #[allow(unused)]
 // use dynamics::Dynamic;
@@ -49,35 +50,31 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .build();
 
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
-        .set_population_size(100)
+        .set_population_size(200)
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
         .set_selection(Select::RouletteWheel)
         .set_crossover(Crossover::Ordered)
-        .set_mutation(Mutation::UniformSwap)
+        .set_mutation(Mutation::NormalSwap)
         .set_rejection(Reject::None)
-        .set_replacement(Replace::EliteRelative(0.05))
-        // .set_termination(Terminate::ObjectiveValue(0.into()))
-        .set_termination(Terminate::Generations(100))
+        .set_replacement(Replace::EliteAbsolute(1))
+        .set_termination(Terminate::ObjectiveValue(0.into()))
+        // .set_termination(Terminate::Generations(100))
         .build();
 
-    // let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-    //     .set(vec![
-    //         // (target_success_rate, k-factor, default std. deviation)
-    //         // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
-    //         // Dynamic::SuccessDrivenNormalDistrStdDeviation(0.01, 1., 10.),
-
-    //         // Dynamic::VariableMutationRateCos(0.01, 0.25, 0.005),
-    //         // Dynamic::VariablePopulationSizeCos(1_000, 500., 0.005)
-    //     ])
-    //     .build();
+    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+        .set(vec![
+            // (target_success_rate, k-factor, default std. deviation)
+            Dynamic::SuccessDrivenNormalDistrStdDeviation(0.01, 1000., 1.),
+        ])
+        .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        // .set_dynamics(Some(dynamics))
-        .set_dynamics::<()>(None)
+        .set_dynamics(Some(dynamics))
+        // .set_dynamics::<()>(None)
         .build();
 
     let results = alg.run();

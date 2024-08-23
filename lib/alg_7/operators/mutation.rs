@@ -8,8 +8,9 @@ use rand::rngs::ThreadRng;
 pub enum Mutation {
     /// Assigns a random value to genes.
     UniformSwap,
+
     // Non-uniform random values based on normal-distribution.
-    // NormalDistributedRandom,
+    NormalSwap,
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
@@ -21,17 +22,21 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
         ctx: &Context,
     ) {
         match self {
-            Mutation::UniformSwap => ga::operators::mutation::swap(
+            Mutation::UniformSwap => {
+                ga::operators::mutation::swap_uniform_dist(
+                    chromosome.as_mut_slice(),
+                    rate,
+                    &ctx.rand_event_uniform,
+                    rng,
+                )
+            }
+
+            Mutation::NormalSwap => ga::operators::mutation::swap_normal_dist(
                 chromosome.as_mut_slice(),
                 rate,
                 &ctx.rand_event,
                 rng,
-            ), // Mutation::NormalDistributedRandom => normal_random_multi_dist(
-               //     chromosome.as_mut_slice(),
-               //     rate,
-               //     &ctx.rand_time,
-               //     rng,
-               // ),
+            ),
         }
     }
 }
