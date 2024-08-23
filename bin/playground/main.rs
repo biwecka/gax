@@ -1,136 +1,183 @@
-use rand::rngs::ThreadRng;
-use rand_distr::Distribution;
+// Imports /////////////////////////////////////////////////////////////////////
+use ndarray::{Array1, Array2, Axis};
 
+// Main ////////////////////////////////////////////////////////////////////////
 fn main() {
-    let mut rng = rand::thread_rng();
+    let mut times = Array2::<u8>::default((6, 10));
+    times[[1, 0]] = 1;
+    times[[2, 0]] = 1;
 
-    // Normal distribution
-    let normal_dist = rand_distr::Normal::new(5., 10.).unwrap();
+    times[[0, 1]] = 1;
 
-    let mut hits: [usize; 11] = [0; 11];
-    let mut recalc_counter = 0;
+    times[[2, 2]] = 1;
+    times[[3, 2]] = 1;
 
-    for _ in 0..100_000 {
-        let random_value: f64 = normal_dist.sample(&mut rng);
-        let mut rounded_value = random_value.round() as i32;
+    let mut resources = Array2::<u8>::default((4, 10));
+    resources[[2, 0]] = 1;
+    resources[[2, 1]] = 1;
+    resources[[2, 2]] = 1;
+    resources[[2, 4]] = 1;
 
-        while rounded_value < 0 || rounded_value > 10 {
-            let rnd = normal_dist.sample(&mut rng);
-            rounded_value = rnd.round() as i32;
+    println!("Times");
+    print_matrix(&times);
 
-            recalc_counter += 1;
+    println!("Resources");
+    print_matrix(&resources);
+
+    // "events_by_resource"
+    let resource_idx = 2;
+    let res_row = resources.row(resource_idx);
+    println!("Resource row");
+    print_matrix(&res_row);
+
+    // get columns of "times" by "res_row"
+    let num_events = res_row.sum();
+    println!("Number of events of this resource: {}\n", num_events);
+
+    let mut matrix = Array2::<u8>::default((6, num_events as usize));
+
+    let mut matrix_col_index = 0;
+    for (i, val) in res_row.iter().enumerate() {
+        if *val == 1 {
+            let mut col = matrix.column_mut(matrix_col_index);
+            col.assign(&times.column(i));
+            matrix_col_index += 1;
+        }
+    }
+
+    println!("Extracted columns from 'times' matrix:");
+    print_matrix(&matrix);
+
+    // Summarize
+    let res = matrix.fold_axis(Axis(1), 0, |acc, x| acc + *x).map(|x| {
+        if *x > 0 {
+            x - 1
+        } else {
+            *x
+        }
+    });
+    println!("Row sum:");
+    print_matrix(&res);
+
+    // Summarize (columns)
+    let cols = matrix.fold_axis(Axis(0), 0, |acc, x| acc + x);
+    println!("COl sum:");
+    print_matrix(&cols);
+
+    println!("-------- TEST ----------");
+
+    let mut x = times.row(0).to_owned();
+    x.scaled_add(1, &times.row(1));
+
+    print_matrix(&x);
+
+    println!("-------- TEST ----------");
+
+    let mut vec = Array1::<i32>::default(6);
+    vec[1] = -1;
+    vec[3] = 1;
+
+    print_matrix2(&vec);
+
+    let y = vec.mapv(|x| (-x).clamp(0, 1));
+    print_matrix2(&y);
+
+    let mut z = Array1::<i32>::default(6);
+    z
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+fn print_matrix<S, D>(matrix: &ndarray::ArrayBase<S, D>)
+where
+    S: ndarray::Data<Elem = u8>,
+    D: ndarray::Dimension + ndarray::RemoveAxis,
+{
+    match matrix.ndim() {
+        1 => {
+            // let length = matrix.shape()[0];
+            let mut s = String::from("["); //format!("Matrix 1 x {}: [", length);
+            for item in matrix.iter() {
+                if *item > 0 {
+                    s += &format!(" {}", item);
+                } else {
+                    s += " ·";
+                }
+            }
+
+            s += " ]\n";
+            println!("{}", s);
         }
 
-        assert!(rounded_value >= 0);
-        assert!(rounded_value <= 10);
-        hits[rounded_value as usize] += 1;
-    }
+        2 => {
+            // let rows = matrix.shape()[0];
+            // let columns = matrix.shape()[1];
 
-    println!("normal          = {hits:?}");
-    println!("re-calculations = {}", recalc_counter);
+            // let mut s = format!("Matrix {} x {}:\n", rows, columns);
+            let mut s = String::from("");
 
-    // Binomial distribution
-    let normal_dist = rand_distr::Binomial::new(9, 0.6667).unwrap();
+            for row in matrix.outer_iter() {
+                s += "[";
+                for item in row.iter() {
+                    if *item > 0 {
+                        s += &format!(" {}", item);
+                    } else {
+                        s += " ·";
+                    }
+                }
+                s += " ]\n";
+            }
 
-    let mut hits: [usize; 10] = [0; 10];
+            println!("{}", s);
+        }
 
-    for _ in 0..100_000 {
-        let value = normal_dist.sample(&mut rng);
-        assert!(value < hits.len() as u64);
-        hits[value as usize] += 1;
-    }
-
-    println!("binom  = {hits:?}");
-
-    // DynamicBetaDist
-    let dyn_beta_dist = DynamicBetaDistribution::new_inclusive(0, 9, 0.21);
-    let mut hits: [usize; 10] = [0; 10];
-    for _ in 0..100_000 {
-        let value = dyn_beta_dist.sample(5, &mut rng);
-        hits[value] += 1;
-    }
-
-    println!("beta   = {hits:?}");
-}
-
-pub struct DynamicBetaDistribution {
-    start: usize,
-    end: usize,
-
-    std_deviation: f32,
-}
-
-impl DynamicBetaDistribution {
-    pub fn new_inclusive(start: usize, end: usize, std_deviation: f32) -> Self {
-        assert!(start < end);
-        assert!(std_deviation <= 0.25);
-        assert!(std_deviation > 0.);
-        Self { start, end, std_deviation }
-    }
-
-    pub fn set_std_deviation(&mut self, std_deviation: f32) {
-        // assert!(std_deviation <= 0.45);
-        assert!(std_deviation <= 0.25);
-        assert!(std_deviation > 0.);
-
-        self.std_deviation = std_deviation;
-    }
-
-    pub fn sample(&self, expected_value: usize, rng: &mut ThreadRng) -> usize {
-        assert!(expected_value >= self.start);
-        assert!(expected_value <= self.end);
-
-        // Map expected value from [start, end] to [0, 1]
-        let exp_val = map_interval(self.start, self.end, expected_value);
-
-        // Calculate parameters (alpha + beta) for the beta distribution
-        let alpha = calc_alpha(exp_val, self.std_deviation);
-        let beta = calc_beta(exp_val, alpha);
-
-        // Create distribution
-        let beta_dist = rand_distr::Beta::new(alpha, beta).unwrap();
-
-        // Get random value
-        let random_value = beta_dist.sample(rng);
-
-        // Reverse mapping and return
-        reverse_map_interval(self.start, self.end, random_value)
+        _ => println!("{}", matrix),
     }
 }
 
-fn calc_alpha(expected_value: f32, std_deviation: f32) -> f32 {
-    let u = expected_value; // μ
-    let o = std_deviation; // σ
+fn print_matrix2<S, D>(matrix: &ndarray::ArrayBase<S, D>)
+where
+    S: ndarray::Data<Elem = i32>,
+    D: ndarray::Dimension + ndarray::RemoveAxis,
+{
+    match matrix.ndim() {
+        1 => {
+            // let length = matrix.shape()[0];
+            let mut s = String::from("["); //format!("Matrix 1 x {}: [", length);
+            for item in matrix.iter() {
+                if *item != 0 {
+                    s += &format!(" {}", item);
+                } else {
+                    s += " ·";
+                }
+            }
 
-    (((1. - u) * u * u) / (o * o)) - u
-}
+            s += " ]\n";
+            println!("{}", s);
+        }
 
-fn calc_beta(expected_value: f32, alpha: f32) -> f32 {
-    let u = expected_value; // μ
+        2 => {
+            // let rows = matrix.shape()[0];
+            // let columns = matrix.shape()[1];
 
-    ((1. / u) - 1.) * alpha
-}
+            // let mut s = format!("Matrix {} x {}:\n", rows, columns);
+            let mut s = String::from("");
 
-fn map_interval(a: usize, b: usize, x: usize) -> f32 {
-    assert!(a < b);
+            for row in matrix.outer_iter() {
+                s += "[";
+                for item in row.iter() {
+                    if *item != 0 {
+                        s += &format!(" {}", item);
+                    } else {
+                        s += " ·";
+                    }
+                }
+                s += " ]\n";
+            }
 
-    if x == a {
-        return 0.;
-    } else if x == b {
-        return 1.;
+            println!("{}", s);
+        }
+
+        _ => println!("{}", matrix),
     }
-
-    let offset = a;
-    let diff = b - a;
-
-    (x - offset) as f32 / diff as f32
-}
-
-fn reverse_map_interval(a: usize, b: usize, x: f32) -> usize {
-    assert!(a < b);
-
-    let offset = a;
-    let diff = b - a;
-
-    (x * (diff as f32)).round() as usize + offset
 }

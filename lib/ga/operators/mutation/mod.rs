@@ -15,5 +15,5 @@
 mod randomize;
 pub use randomize::*;
 
-// mod swap;
-// pub use swap::*;
+mod swap;
+pub use swap::*;

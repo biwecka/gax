@@ -10,7 +10,7 @@ use xhstt::{
 #[derive(Clone, Debug)]
 pub struct Phenotype {
     /// This 2D-matrix stores the scheduled times for each event, where
-    /// each column represents an event (by id) and each row a timeslot (by
+    /// each column represents an event (by index) and each row a timeslot (by
     /// index).
     /// If the cell `[2, 3]` contains the value `1` this means, that
     /// event `3` is scheduled at time `2` (the first index is for the row; like
@@ -18,7 +18,7 @@ pub struct Phenotype {
     times: Array2<u8>,
 
     /// This 2D-matrix stores the allocated resources for each event, where
-    /// each column represents and event (by id) and each row a resource (by
+    /// each column represents an event (by index) and each row a resource (by
     /// index). If the cell `[2, 3]` contains the value `1` this means, that
     /// resource `2` is allocated to event `3`.
     ///

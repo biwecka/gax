@@ -59,10 +59,18 @@ fn main() {
     println!("Row sum:");
     print_matrix(&res);
 
+
+    // Summarize (columns)
+    let cols = matrix.fold_axis(Axis(0), 0, |acc, x| acc + x);
+    println!("COl sum:");
+    print_matrix(&cols);
+
     println!("-------- TEST ----------");
 
-    let test = times.slice(ndarray::s![.., 0..2]);
-    print_matrix(&test);
+    let mut x = times.row(0).to_owned();
+    x.scaled_add(1, &times.row(1));
+
+    print_matrix(&x);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

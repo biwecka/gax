@@ -21,6 +21,9 @@ pub fn randomize_single_dist<T, D: rand::distributions::Distribution<T>>(
             continue;
         }
 
+        // TODO: prevent mutation from not chaning the value (if the random
+        // value is the same as the current value).
+
         // Mutate the gene
         *gene = generator.sample(rng);
     }
@@ -44,6 +47,9 @@ pub fn randomize_multi_dist<T, D: rand::distributions::Distribution<T>>(
         if rng.gen_range(0. ..=1.) > rate {
             continue;
         }
+
+        // TODO: prevent mutation from not chaning the value (if the random
+        // value is the same as the current value).
 
         // Mutate the gene
         *gene = generators[i].sample(rng);

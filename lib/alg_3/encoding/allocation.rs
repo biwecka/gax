@@ -111,7 +111,7 @@ impl Allocation {
                     // Get row of the current time_idx from the time matrix
                     let time_row = a.times.get_row(*time_idx as usize);
                     let time_alloc =
-                        time_row.iter().map(|x| *x <= 0).collect::<Vec<bool>>();
+                        time_row.iter().map(|x| *x > 0).collect::<Vec<bool>>();
 
                     matrix.set_row(0, &time_alloc);
                     matrix.set_row(1, &collision_vector);
@@ -167,107 +167,6 @@ impl Allocation {
                     }
                 }
             }
-
-            // let time_idxs = a
-            //     .times
-            //     .get_col(*event_idx as usize)
-            //     .iter()
-            //     .enumerate()
-            //     .filter_map(
-            //         |(i, val)| {
-            //             if *val == 0 {
-            //                 Some(i as u8)
-            //             } else {
-            //                 None
-            //             }
-            //         },
-            //     )
-            //     .collect::<Vec<u8>>();
-            // if time_idxs.is_empty() {
-            //     continue;
-            // }
-
-            // // TIMES: A vector to store (time_idx, efficiency) of assigning
-            // // the current event to the respective timeslot.
-            // // The efficiency value counts how many "-1" values overlap in a
-            // // row. For each overlap the efficiency is increased. Higher values
-            // // are better (worst efficiency value is 0).
-            // let mut times: Vec<(u8, usize)> = vec![];
-
-            // // Find time with no collisions.
-            // for time_idx in time_idxs {
-            //     let mut matrix = Matrix2D::<bool>::init(2, chromosome.0.len());
-
-            //     // Get row of the current time_idx from the time matrix
-            //     let time_row = a.times.get_row(time_idx as usize);
-            //     let time_alloc = time_row
-            //         .iter()
-            //         .map(|x| if *x <= 0 { false } else { true })
-            //         .collect::<Vec<bool>>();
-
-            //     matrix.set_row(0, &time_alloc);
-            //     matrix.set_row(1, &collision_vector);
-
-            //     let result = matrix.and_rows();
-
-            //     // Check result to be 000000 (all values = false)
-            //     if result.contains(&true) {
-            //         continue; // this time does cannot be assigned to the event
-            //     }
-
-            //     // Calculate the efficiency of the allocation in this timeslot.
-            //     let time_blocked_slots = time_row
-            //         .iter()
-            //         .map(|x| if *x < 0 { true } else { false })
-            //         .collect::<Vec<bool>>();
-
-            //     // Re-use the matrix from above
-            //     matrix.set_row(0, &time_blocked_slots);
-            //     matrix.set_row(1, &collision_vector);
-
-            //     let efficiency = matrix.and_rows()
-            //         .iter()
-            //         .map(|x| if *x { 1 } else { 0 })
-            //         .sum::<usize>();
-
-            //     times.push((time_idx, efficiency));
-
-            //     // // The current time is good an can be allocated. Apply this
-            //     // // to the times matrix.
-            //     // for (i, collision) in collision_vector.iter().enumerate() {
-            //     //     if !collision {
-            //     //         continue;
-            //     //     }
-
-            //     //     if i == (*event_idx as usize) {
-            //     //         a.times.set(time_idx as usize, i, 1);
-            //     //     } else {
-            //     //         a.times.set(time_idx as usize, i, -1);
-            //     //     }
-            //     // }
-
-            //     // // Break the inner loop because correct time was found
-            //     // break;
-            // }
-
-            // // Sort the times by their efficiency (descendingly)
-            // times.sort_by_key(|(_, efficiency)| std::cmp::Reverse(*efficiency));
-
-            // // Allocate the highest ranked time to the allocation.
-            // if let Some((time_idx, _)) = times.first() {
-            //     for (i, collision) in collision_vector.iter().enumerate() {
-            //         if !collision {
-            //             continue;
-            //         }
-
-            //         if i == (*event_idx as usize) {
-            //             a.times.set(*time_idx as usize, i, 1);
-
-            //         } else {
-            //             a.times.set(*time_idx as usize, i, -1);
-            //         }
-            //     }
-            // }
         }
 
         // Return
