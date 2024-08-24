@@ -50,14 +50,14 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .build();
 
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
-        .set_population_size(200)
+        .set_population_size(500)
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
         .set_selection(Select::RouletteWheel)
         .set_crossover(Crossover::Ordered)
         .set_mutation(Mutation::NormalSwap)
         .set_rejection(Reject::None)
-        .set_replacement(Replace::EliteAbsolute(1))
+        .set_replacement(Replace::EliteRelative(0.01))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         // .set_termination(Terminate::Generations(100))
         .build();

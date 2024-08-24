@@ -1258,6 +1258,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3fd119d74b830634cea2a0f58bbd0d54540518a14397557951e79340abc28c0"
 
 [[package]]
+name = "colors-transform"
+version = "0.2.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9226dbc05df4fb986f48d730b001532580883c4c06c5d1c213f4b34c1c157178"
+
+[[package]]
 name = "com"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1713,6 +1719,17 @@ dependencies = [
  "wgpu",
  "winapi",
  "winit 0.29.15",
+]
+
+[[package]]
+name = "eggholder"
+version = "0.1.0"
+dependencies = [
+ "colors-transform",
+ "rand 0.8.5",
+ "rand_distr",
+ "rayon",
+ "rerun",
 ]
 
 [[package]]

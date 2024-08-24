@@ -1,0 +1,22 @@
+[package]
+name = "eggholder"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "eggholder"
+path = "main.rs"
+
+[dependencies]
+#> libs <#
+
+#> remote <#
+rand = { workspace = true }
+rand_distr = { workspace = true }
+rayon = { workspace = true }
+rerun = { workspace = true }
+
+colors-transform = "0.2.11"
+
+[lints]
+workspace = true

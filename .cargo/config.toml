@@ -17,6 +17,10 @@ wr-playground = ["watch", "-q", "-c", "--ignore", "assets", "-x", "run -p playgr
 wb-playground = ["watch", "-q", "-c", "--ignore", "assets", "-x", "build -p playground"]
 wc-playground = ["watch", "-q", "-c", "--ignore", "assets", "-x", "check -p playground"]
 
+wr-eggholder = ["watch", "-q", "-c", "--ignore", "assets", "-x", "run -p eggholder"]
+wb-eggholder = ["watch", "-q", "-c", "--ignore", "assets", "-x", "build -p eggholder"]
+wc-eggholder = ["watch", "-q", "-c", "--ignore", "assets", "-x", "check -p eggholder"]
+
 
 # Whole workspace
 bw  = "build --workspace"           # build workspace
