@@ -1,6 +1,6 @@
-use rand::Rng;
-use rand::prelude::SliceRandom;
 use crate::chromosome::Chromosome;
+use rand::prelude::SliceRandom;
+use rand::Rng;
 
 pub enum Crossover {
     InterchangeX2Coordinates,
@@ -25,7 +25,7 @@ impl Crossover {
                 let child1 = (p0.x1(), p1.x0()).into();
 
                 (child0, child1)
-            },
+            }
 
             Crossover::InterchangeAllCoordinates => {
                 let mut rng = rand::thread_rng();

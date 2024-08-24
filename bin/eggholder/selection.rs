@@ -1,5 +1,5 @@
-use rand::prelude::Distribution;
 use crate::chromosome::Chromosome;
+use rand::prelude::Distribution;
 
 pub enum Selection {
     RouletteWheel,
@@ -7,11 +7,15 @@ pub enum Selection {
 }
 
 impl Selection {
-    pub fn exec<'a>(&self, amount: usize, individuals: &'a [(Chromosome, f64)]) -> Vec<&'a (Chromosome, f64)> {
+    pub fn exec<'a>(
+        &self,
+        amount: usize,
+        individuals: &'a [(Chromosome, f64)],
+    ) -> Vec<&'a (Chromosome, f64)> {
         match self {
             Selection::RouletteWheel => {
                 roulette_wheel_usize(amount, individuals)
-            },
+            }
 
             Selection::Tournament(n) => {
                 tournament_usize(*n, amount, individuals)
@@ -25,10 +29,7 @@ fn roulette_wheel_usize(
     individuals: &[(Chromosome, f64)],
 ) -> Vec<&(Chromosome, f64)> {
     // Extract cost (convert objective value to usize)
-    let costs: Vec<f64> = individuals
-        .iter()
-        .map(|(_, c)| *c)
-        .collect();
+    let costs: Vec<f64> = individuals.iter().map(|(_, c)| *c).collect();
 
     // Calculate max
     let mut max_cost: f64 = 1000.;
@@ -85,15 +86,12 @@ fn roulette_wheel_usize(
     selection //, selected_indices.len())
 }
 
-
-
 fn tournament_usize(
     tournament_size: usize,
     amount: usize,
     individuals: &[(Chromosome, f64)],
 ) -> Vec<&(Chromosome, f64)> {
     let mut selection: Vec<&(Chromosome, f64)> = vec![];
-
 
     let mut rng = rand::thread_rng();
     let interval =

@@ -8,12 +8,7 @@ pub enum Mutation {
 }
 
 impl Mutation {
-    pub fn exec(
-        &self,
-        c: &mut Chromosome,
-        rate: f32,
-        std_dev: f32,
-    ) {
+    pub fn exec(&self, c: &mut Chromosome, rate: f32, std_dev: f32) {
         match self {
             Mutation::RandomUniform => {
                 let mut rng = rand::thread_rng();
@@ -30,7 +25,7 @@ impl Mutation {
                     let new_x1 = uniform_dist.sample(&mut rng);
                     c.set_x1(new_x1);
                 }
-            },
+            }
 
             Mutation::RandomGauss => {
                 let mut rng = rand::thread_rng();

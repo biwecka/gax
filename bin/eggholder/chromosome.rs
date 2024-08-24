@@ -13,12 +13,10 @@ impl Chromosome {
 
         let mut chromosomes = vec![];
         for _ in 0..amount {
-            chromosomes.push(
-                Chromosome(
-                    uniform_dist.sample(&mut rng),
-                    uniform_dist.sample(&mut rng),
-                )
-            );
+            chromosomes.push(Chromosome(
+                uniform_dist.sample(&mut rng),
+                uniform_dist.sample(&mut rng),
+            ));
         }
 
         chromosomes
