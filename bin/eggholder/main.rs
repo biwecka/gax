@@ -197,7 +197,7 @@ fn main() {
         logger.log_mutation_std_dev(generation, mutation_sd);
 
         // Terminate
-        if generation >= 50_000 || best_value < -959.64 {
+        if generation >= 50_000 || best_value < -959.6406 {
             break;
         }
 
