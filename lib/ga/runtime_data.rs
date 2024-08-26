@@ -43,11 +43,14 @@ pub struct RuntimeData<
     #[cfg(feature = "log_diversity")]
     pub population_diversity_distribution: Vec<usize>,
 
+    /// True, when the current generation improved on the best solution.
+    pub success: bool,
+
     /// Moving average calculated by a PT1-lowpass filter function.
     pub success_rate_pt1: f32,
 
     /// Moving average calculated by a "simple moving average" algorithm.
-    pub success_rate_sma: SumTreeSMA<f32, f32, 1000>,
+    pub success_rate_sma: SumTreeSMA<f32, f32, 100>,
 
     // PhantomData
     objective_value: std::marker::PhantomData<Ov>,
@@ -118,6 +121,7 @@ impl<
             #[cfg(feature = "log_diversity")]
             population_diversity_distribution: vec![],
 
+            success: false,
             success_rate_pt1: 0.,
             success_rate_sma: SumTreeSMA::new(),
 
@@ -163,12 +167,16 @@ impl<
                     self.success_rate_sma.add_sample(1.);
 
                     self.success_rate_pt1 =
-                        crate::utils::pt1(self.success_rate_pt1, 1., 1000.);
+                        crate::utils::pt1(self.success_rate_pt1, 1., 100.);
+
+                    self.success = true;
                 } else {
                     self.success_rate_sma.add_sample(0.);
 
                     self.success_rate_pt1 =
-                        crate::utils::pt1(self.success_rate_pt1, 0., 1000.);
+                        crate::utils::pt1(self.success_rate_pt1, 0., 100.);
+
+                    self.success = false;
                 }
 
                 new_best.clone()
