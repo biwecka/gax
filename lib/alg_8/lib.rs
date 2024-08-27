@@ -1,22 +1,19 @@
-//! Algorithm V7
-//! This algorithm is the successor of "alg_3".
-//! It's now build with my onw genetic algorithm "framework" to allow for
-//! easy testing of advanced concepts like self-parameterization.
-//!
-//! Limitations:
-//! 1. Only event-time allocation is missing (event resources are pre-defined).
+//! Algorithm V8:
+//! - direct encoding (like alg_2 & alg_6)
+//! - assigns multiple events to a time (instead of assigning a time to an
+//!   event like alg_2 & alg_6)
+//! - this encoding is inspired by:
+//!     - "A parallel genetic algorithm for solving the school timetabling
+//!        problem" (by Abramson and Abela; 1992)
+//!     - Making a class schedule using a genetic algorithm:
+//!       https://www.codeproject.com/Articles/23111/Making-a-Class-Schedule-Using-a-Genetic-Algorithm
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
-mod dynamics;
 mod encoding;
 mod operators;
-// mod utils;
 
 // Imports /////////////////////////////////////////////////////////////////////
-// #[allow(unused)]
-// use dynamics::Dynamic;
-use dynamics::Dynamic;
 use encoding::{Chromosome, Context, Phenotype};
 use ga::{
     encoding::Phenotype as _,
@@ -36,9 +33,6 @@ pub fn run(instance: Instance) -> Vec<Event> {
     // Create an XHSTT database of the problem instance
     let db = Database::init(&instance).unwrap();
 
-    // Check if the instance complies with the algorithms limitations
-    // TODO
-
     // Initialize context and phenotype
     let ctx = Context::init(&db);
     let ph = Phenotype::blueprint(&db, &ctx);
@@ -54,34 +48,27 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
         .set_selection(Select::Tournament(10))
-        .set_crossover(Crossover::Ordered)
-        .set_mutation(Mutation::NormalSwap)
+        .set_crossover(Crossover::VariableNPoint(3))
+        .set_mutation(Mutation::UniformSwap)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteRelative(0.01))
-        .set_termination(Terminate::ObjectiveValue(0.into()))
-        // .set_termination(Terminate::Generations(100))
-        .build();
-
-    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-        .set(vec![
-            // (target_success_rate, k-factor, default std. deviation)
-            Dynamic::SuccessDrivenNormalDistrStdDeviation(0.05, 10., 1.),
-        ])
+        .set_termination(Terminate::Generations(100))
         .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        .set_dynamics(Some(dynamics))
-        // .set_dynamics::<()>(None)
+        .set_dynamics::<()>(None)
         .build();
 
     let results = alg.run();
 
-    // Get the best result and convert it to a list of solution events.
+    // Get the best result and convert it to a list of solution events
     let best: &Chromosome = &results.first().unwrap().0;
     let timetable: Phenotype = ph.derive(best, &ctx);
+
+    println!("{:?}", best);
 
     timetable.to_solution_events(&db, &ctx)
 }

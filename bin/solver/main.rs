@@ -20,11 +20,7 @@ fn main() {
     let xhstt = xhstt::parse(&xml);
 
     // Extract problem instance
-    let instance = xhstt
-        .clone()
-        .instances
-        .and_then(|i| i.list.first().cloned())
-        .expect("No problem instance found.");
+    let instance = xhstt.instance().expect("No problem instance found.");
 
     // Call algorithm
     // let solution_events = alg_2::run(instance.clone());
@@ -32,7 +28,8 @@ fn main() {
     // let solution_events = alg_4::run(instance.clone());
     // let solution_events = alg_5::run(instance.clone());
     // let solution_events = alg_6::run(instance.clone());
-    let solution_events = alg_7::run(instance.clone());
+    // let solution_events = alg_7::run(instance.clone());
+    let solution_events = alg_8::run(instance.clone());
 
     // Write result
     let solution = xhstt::tools::create_solution(

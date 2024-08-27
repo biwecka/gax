@@ -204,6 +204,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "alg_8"
+version = "0.0.0"
+dependencies = [
+ "ga",
+ "hashbrown 0.14.5",
+ "ndarray 0.16.0",
+ "rand 0.8.5",
+ "rand_distr",
+ "simple_moving_average",
+ "xhstt",
+]
+
+[[package]]
 name = "aligned-vec"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3211,6 +3224,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "itertools"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "413ee7dfc52ee1a4949ceeb7dbc8a33f2d6c088194d9f922fb8318faf1f01186"
+dependencies = [
+ "either",
+]
+
+[[package]]
 name = "itoa"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4553,6 +4575,7 @@ dependencies = [
 name = "playground"
 version = "0.1.0"
 dependencies = [
+ "itertools 0.13.0",
  "n_queens",
  "n_queens_2",
  "ndarray 0.16.0",
@@ -4564,6 +4587,7 @@ dependencies = [
  "rayon",
  "simple_moving_average",
  "systemstat",
+ "xhstt",
 ]
 
 [[package]]
@@ -6729,6 +6753,7 @@ dependencies = [
  "alg_5",
  "alg_6",
  "alg_7",
+ "alg_8",
  "rand 0.8.5",
  "xhstt",
 ]

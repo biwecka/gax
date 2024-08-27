@@ -62,7 +62,7 @@ fn main() {
 
     // Summarize (columns)
     let cols = matrix.fold_axis(Axis(0), 0, |acc, x| acc + x);
-    println!("COl sum:");
+    println!("Col sum:");
     print_matrix(&cols);
 
     println!("-------- TEST ----------");

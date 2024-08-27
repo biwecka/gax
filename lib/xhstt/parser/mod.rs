@@ -24,6 +24,13 @@ pub struct XhsttArchive {
     pub solution_groups: Option<solution_groups::SolutionGroups>,
 }
 
+impl XhsttArchive {
+    /// Returns the first instance of an archive
+    pub fn instance(&self) -> Option<instances::Instance> {
+        self.instances.clone()?.list.first().cloned()
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct Stats {
     pub instance_id: String,

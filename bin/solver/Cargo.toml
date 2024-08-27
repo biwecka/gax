@@ -17,6 +17,7 @@ alg_4 = { workspace = true }
 alg_5 = { workspace = true }
 alg_6 = { workspace = true }
 alg_7 = { workspace = true }
+alg_8 = { workspace = true }
 
 #> remote <#
 rand = { workspace = true }
