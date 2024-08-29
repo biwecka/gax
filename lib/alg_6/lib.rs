@@ -68,6 +68,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_mutation(Mutation::NormalDistributedRandom)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteRelative(0.05))
+        // .set_termination(Terminate::Generations(100))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
