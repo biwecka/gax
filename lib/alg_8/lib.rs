@@ -10,9 +10,9 @@
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
+mod dynamics;
 mod encoding;
 mod operators;
-mod dynamics;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use dynamics::Dynamic;
@@ -59,9 +59,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .build();
 
     let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-        .set(vec![
-            Dynamic::SuccessDrivenGaussDistrStdDeviation(0.05, 0.1, 1.)
-        ])
+        .set(vec![Dynamic::SuccessDrivenGaussDistrStdDeviation(0.05, 0.1, 1.)])
         .build();
 
     // Create algorithm and let it run!

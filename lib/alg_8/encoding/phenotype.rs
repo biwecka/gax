@@ -129,28 +129,25 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
         for event_idx in 0..ctx.num_events {
             // Calculate the sum of time slots allocated to the event and check,
             // if the allocated time slots are coherent (one after the other).
-            let (sum, coherent) = chromsome
-                .get_event_time_allocation(event_idx);
+            let (sum, coherent) =
+                chromsome.get_event_time_allocation(event_idx);
 
             // Calculate a boolean representing if the sum of the allocated
             // time slots is equal to the duration the event has.
             let correct_duration = sum == ctx.durations[event_idx];
 
-
             // Calculate a boolean value which is true, if the time allocation
             // including the event's duration overflow the maximum time slot
             // index; false if not.
-            let overflow: bool = if let Some(i) = self.times
-                .column(event_idx)
-                .iter()
-                .position(|x| x == &1)
+            let overflow: bool = if let Some(i) =
+                self.times.column(event_idx).iter().position(|x| x == &1)
             {
                 let duration = ctx.durations[event_idx];
 
                 (i + duration as usize - 1) >= ctx.num_times
-
-            } else { false };
-
+            } else {
+                false
+            };
 
             // Only apply the event's time allocations to the derived phenotype,
             // if it has the correct duration, coherent time slot allocations

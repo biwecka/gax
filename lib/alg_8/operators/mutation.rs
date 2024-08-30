@@ -1,5 +1,3 @@
-use std::ffi::OsStr;
-
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::encoding::{Chromosome, Context};
 use rand::{rngs::ThreadRng, Rng};
@@ -26,7 +24,7 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
         match self {
             Mutation::UniformSwap => {
                 swap_uniform_dist(chromosome, rate, &ctx.rand_time, rng);
-            },
+            }
 
             Mutation::GaussSwap => {
                 swap_gauss_dist(chromosome, rate, &ctx.gauss_rand_event, rng);
@@ -85,10 +83,14 @@ fn swap_gauss_dist(
         for col in 0..cols {
             // Only consider genes for mutation which contain "1". This reflects
             // the behavior described in Abramsons papter.
-            if matrix[[row, col]] != 1 { continue; }
+            if matrix[[row, col]] != 1 {
+                continue;
+            }
 
             // Decide wether to mutate or not
-            if rng.gen::<f32>() > rate { continue; }
+            if rng.gen::<f32>() > rate {
+                continue;
+            }
 
             // Generate the time index (row index) to swap with
             let mut offset = generator.sample(rng).round() as i32;
