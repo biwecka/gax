@@ -1,5 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use rand::distributions::Uniform;
+use rand_distr::Normal;
 use xhstt::db::constraints::Constraint;
 
 // Context /////////////////////////////////////////////////////////////////////
@@ -24,6 +25,9 @@ pub struct Context {
     /// Random number generator for event indices
     pub rand_event: Uniform<usize>,
 
+    pub gauss_sd: f32, // standard deviation
+    pub gauss_rand_event: Normal<f32>,
+
     /// Random number generator for time indices
     pub rand_time: Uniform<usize>,
 }
@@ -44,6 +48,9 @@ impl Context {
         let rand_event = Uniform::<usize>::new(0, num_events);
         let rand_time = Uniform::<usize>::new(0, num_times);
 
+        let gauss_sd: f32 = 1.;
+        let gauss_rand_event = Normal::new(0., gauss_sd).unwrap();
+
         Self {
             num_times,
             num_events,
@@ -52,6 +59,8 @@ impl Context {
             durations,
             rand_event,
             rand_time,
+            gauss_sd,
+            gauss_rand_event,
         }
     }
 }

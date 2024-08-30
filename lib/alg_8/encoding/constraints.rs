@@ -1,9 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use xhstt::db::constraints::{
-    assign_time_constraint::AssignTimeConstraint, Constraint,
-};
-
-use super::Context;
+use xhstt::db::constraints::Constraint;
 
 // Functions ///////////////////////////////////////////////////////////////////
 
@@ -30,28 +26,5 @@ pub fn pre_calc(db: &xhstt::db::Database) -> Vec<(Constraint, Vec<usize>)> {
 
 // Constraint Cost Functions ///////////////////////////////////////////////////
 
-// pub fn assign_time_constraint(
-//     phenotype: &Phenotype,
-//     ctx: &Context,
-//     params: &AssignTimeConstraint,
-//     event_idxs: &[usize],
-// ) -> usize {
-//     let deviation: usize = event_idxs
-//         .iter()
-//         .map(|event_idx| {
-//             // Get column
-//             let col_sum = phenotype.times.column(*event_idx).clamp(0, 1).sum();
-
-//             // Get duration
-//             let duration = ctx.durations[*event_idx] as usize;
-
-//             duration - (col_sum as usize)
-//         })
-//         .sum();
-
-//     // Return
-//     // Calc cost and return
-//     (params.weight as usize) * params.cost_function.calc(deviation)
-// }
 
 ////////////////////////////////////////////////////////////////////////////////

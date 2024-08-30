@@ -30,8 +30,6 @@ impl Chromosome {
     /// 1) amount of time slots allocated to the event
     /// 2) boolean value: true, if the time allocation is coherent; false, if
     ///    the time allocation is NOT coherent.
-    /// 3) boolean value: true, if the time allocation including the event's
-    ///    duration overflow the maximum time slot index; false if not
     pub fn get_event_time_allocation(&self, event_idx: usize) -> (u8, bool) {
         let col = self.0.column(event_idx);
 
