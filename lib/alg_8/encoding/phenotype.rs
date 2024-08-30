@@ -1,5 +1,3 @@
-use std::os::unix::fs::chown;
-
 // Imports /////////////////////////////////////////////////////////////////////
 use super::{context::Context, genotype::Chromosome, objective_value::Cost};
 use ndarray::{Array2, Axis};
@@ -23,6 +21,7 @@ impl Phenotype {
         // Create resource matrix
         let mut resources =
             Array2::default((ctx.num_resources, ctx.num_events));
+
         for (event_idx, event) in db.events().iter().enumerate() {
             for resource in &event.allocated_resources {
                 let resource_idx = db.resource_id_to_idx(&resource.id);
@@ -134,23 +133,36 @@ impl Phenotype {
 }
 
 impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
-    fn derive(&self, chromsome: &Chromosome, _ctx: &Context) -> Self {
+    fn derive(&self, chromsome: &Chromosome, ctx: &Context) -> Self {
         // Clone the blueprint phenotype
         let mut new = self.clone();
 
-        new.times = chromsome.0.clone();
+        // new.times = chromsome.0.clone();
 
-        // // Assign the events matrix to the cloned phenotype
-        // new.times = Array2::default(chromsome.0.dim()); //chromsome.0.clone();
+        // Assign the events matrix to the cloned phenotype
+        new.times = Array2::default(chromsome.0.dim()); //chromsome.0.clone();
 
-        // for event_idx in 0..ctx.num_events {
-        //     //
-        //     let (_sum, coherent) = chromsome.get_event_time_allocation(event_idx);
+        for event_idx in 0..ctx.num_events {
+            //
+            let (sum, coherent) = chromsome.get_event_time_allocation(event_idx);
 
-        //     if coherent {
-        //         new.times.column_mut(event_idx).assign(&chromsome.0.column(event_idx));
-        //     }
-        // }
+            let correct_duration = sum == ctx.durations[event_idx];
+
+            let overflow: bool = if let Some(i) = self.times
+                .column(event_idx)
+                .iter()
+                .position(|x| x == &1)
+            {
+                let duration = ctx.durations[event_idx];
+
+                (i + duration as usize - 1) >= ctx.num_times
+
+            } else { false };
+
+            if correct_duration && coherent && !overflow {
+                new.times.column_mut(event_idx).assign(&chromsome.0.column(event_idx));
+            }
+        }
 
         // Return the derived phenotypes
         new
@@ -165,34 +177,38 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                     let deviation: usize = indices
                         .iter()
                         .map(|event_idx| {
-                            // TODO: re-enable the code below
+                            // // Get event time allocation
+                            // let chromosome: Chromosome = self.times
+                            //     .clone()
+                            //     .into();
 
-                            // Get event time allocation
-                            let chromosome: Chromosome = self.times.clone().into();
-                            let (sum, coherent) = chromosome.get_event_time_allocation(*event_idx);
+                            // let (sum, coherent) = chromosome
+                            //     .get_event_time_allocation(*event_idx);
 
-                            // Get event duration
-                            let duration = ctx.durations[*event_idx];
+                            // // Get event duration
+                            // let duration = ctx.durations[*event_idx];
 
-                            if !coherent || duration > sum {
-                                return duration as usize;
-                            // } else {
-                            //     return 0;
-                            }
+                            // if !coherent { // || duration > sum {
+                            //     return duration as usize; // - sum as usize;
+                            // }
 
-                            // Check if time allocation + duration overflows
-                            // the max. time slot index
-                            if let Some(i) = self.times.column(*event_idx).iter().position(|x| x == &1) {
-                                if (i + duration as usize - 1) >= ctx.num_times {
-                                    return duration as usize;
-                                }
-                            }
+                            // // Check if time allocation + duration overflows
+                            // // the max. time slot index
+                            // if let Some(i) = self.times
+                            //     .column(*event_idx)
+                            //     .iter()
+                            //     .position(|x| x == &1)
+                            // {
+                            //     if (i + duration as usize - 1) >= ctx.num_times
+                            //     {
+                            //         return duration as usize; // - sum as usize;
+                            //     }
+                            // }
+                            // duration as usize - sum as usize
 
-                            0
-
-                            // let sum = self.times.column(*event_idx).sum();
-                            // let duration = ctx.durations[*event_idx] as usize;
-                            // duration - (sum as usize)
+                            let sum = self.times.column(*event_idx).sum();
+                            let duration = ctx.durations[*event_idx] as usize;
+                            duration - (sum as usize)
                         })
                         .sum();
 

@@ -52,7 +52,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_mutation(Mutation::UniformSwap)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteRelative(0.01))
-        .set_termination(Terminate::Generations(100))
+        .set_termination(Terminate::Generations(10))
         .build();
 
     // Create algorithm and let it run!

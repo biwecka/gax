@@ -6,6 +6,10 @@
 //! Limitations:
 //! 1. Only event-time allocation is missing (event resources are pre-defined).
 //!
+//! Best Result:
+//! - Cost = 0 (in the first generation; multiple times in a row; something must
+//!   have been messed up with the random number generator or something, but
+//!   the results were valid based on HSEval)
 
 // Modules /////////////////////////////////////////////////////////////////////
 mod dynamics;
