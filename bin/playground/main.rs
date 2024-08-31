@@ -1,4 +1,3 @@
-use piston_window::event_id;
 use rand_distr::Distribution;
 
 fn main() {
