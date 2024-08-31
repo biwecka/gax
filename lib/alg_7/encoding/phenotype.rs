@@ -88,12 +88,12 @@ impl Phenotype {
 }
 
 impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
-    fn derive(&self, chromsome: &Chromosome, ctx: &Context) -> Self {
+    fn derive(&self, chromosome: &Chromosome, ctx: &Context) -> Self {
         let mut new = self.clone();
 
         // Iterate over the chromosome. Its values are event indices.
         // Schedule the events in the order they appear in the chromosome.
-        for event_idx in chromsome.iter() {
+        for event_idx in chromosome.iter() {
             // Get the indices of the allocated resources of this event
             let resource_idxs = new
                 .resources

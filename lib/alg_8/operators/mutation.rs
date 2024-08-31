@@ -83,6 +83,7 @@ fn swap_gauss_dist(
         for col in 0..cols {
             // Only consider genes for mutation which contain "1". This reflects
             // the behavior described in Abramsons papter.
+            // TODO: remove this and check if helps the genetic process.
             if matrix[[row, col]] != 1 {
                 continue;
             }

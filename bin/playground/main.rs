@@ -1,98 +1,82 @@
-use ndarray::Array2;
+use piston_window::event_id;
+use rand_distr::Distribution;
 
 fn main() {
-    let mut matrix = Array2::<u8>::default((6, 10));
-    matrix[[1, 0]] = 1;
-    matrix[[2, 0]] = 1;
+    // Crossover implementation
+    let a = vec![1, 2, 3, 4];
+    let b = vec![5, 6, 7];
 
-    matrix[[3, 1]] = 1;
-    matrix[[5, 1]] = 1;
+    let index = 2;
+    let (a_head, a_tail) = a.split_at(index);
+    let (b_head, b_tail) = b.split_at(index);
 
-    matrix[[2, 2]] = 1;
-    matrix[[3, 2]] = 1;
+    let x = vec![a_head, b_tail].concat();
+    let y = vec![b_head, a_tail].concat();
+    dbg!(x, y);
 
-    print_matrix(&matrix);
+    // Sort and dedup removes all duplicate elements
+    let mut test = vec![1, 2, 3, 3, 3, 3, 4, 5, 3, 6, 6, 7];
+    test.sort();
+    test.dedup(); //.partition_dedup also returns the duplicates
 
-    for (i, col) in matrix.columns().into_iter().enumerate() {
-        println!("column = {}", i);
+    dbg!(test);
 
-        let sum = col.sum();
-        println!("sum    = {sum}");
+    // Remove duplicates and maintain element order
+    let mut test = vec![7, 6, 1, 2, 3, 3, 3, 3, 4, 5, 3, 6, 6, 7];
+    remove_duplicates(&mut test);
 
-        let continuous = 'x: {
-            let mut prev = col.first().unwrap();
-            let mut seq_end = false;
+    dbg!(test);
 
-            for val in col.iter().skip(1) {
-                // If we already observed the end of a 1s-sequence, and
-                // are currently observing the start of another 1s-sequence,
-                // we return false.
-                if seq_end && prev == &0 && val == &1 {
-                    break 'x false;
-                }
+    // Test
+    let uniform_dist = rand::distributions::Uniform::new(0, 10);
+    let x: Vec<usize> =
+        uniform_dist.sample_iter(rand::thread_rng()).take(10).collect();
+    dbg!(x);
 
-                // As soon as we detect the end of a 1s-sequence, we set the
-                // corresponding flag to true.
-                if prev == &1 && val == &0 {
-                    seq_end = true;
-                }
+    // Final test
+    let mut matrix = vec![vec![1, 5, 7, 9, 3], vec![5, 8, 9, 2, 1, 7, 8]];
 
-                // Update "previous".
-                prev = val;
-            }
+    // Generate a list of events in this time slot which should be mutated
+    // This list contains a tuple, where the first value is the event index
+    // and the second value is the target time slot.
+    let mut mutations: Vec<usize> = vec![];
+    let mut target_index: Vec<usize> = vec![];
 
-            true
-        };
+    let test_mutation_indices = vec![(1, 4, 0)];
 
-        println!("cont.  = {}", continuous);
+    // for (time_idx, events) in matrix.iter_mut().enumerate() {
+    for (time_idx, event_idx, target_time_idx) in test_mutation_indices {
+        // for event_idx in events.clone() {
+        // Decide wether to mutate or not
 
-        println!("");
+        // Generate a target time slot for the mutation
+        // let mut swap_time = generator.sample(rng);
+        // while swap_time == time_idx {
+        //     swap_time = generator.sample(rng);
+        // }
+
+        // If so, add the event index and the index of this event in the
+        // time allocation vector to the "list"
+        mutations.push(matrix[time_idx][event_idx]);
+        target_index.push(target_time_idx);
+        // }
+
+        // Remove the mutated events from this time slot
+        matrix[time_idx].retain(|x| !mutations.contains(x));
     }
+
+    // Add the mutated events to the target time slots
+    for (i, target_index) in target_index.iter().enumerate() {
+        matrix[*target_index].push(mutations[i]);
+
+        // Remove duplicates
+        remove_duplicates(&mut matrix[*target_index]);
+    }
+
+    dbg!(matrix);
 }
 
-fn print_matrix<S, D>(matrix: &ndarray::ArrayBase<S, D>)
-where
-    S: ndarray::Data<Elem = u8>,
-    D: ndarray::Dimension + ndarray::RemoveAxis,
-{
-    match matrix.ndim() {
-        1 => {
-            // let length = matrix.shape()[0];
-            let mut s = String::from("["); //format!("Matrix 1 x {}: [", length);
-            for item in matrix.iter() {
-                if *item > 0 {
-                    s += &format!(" {}", item);
-                } else {
-                    s += " ·";
-                }
-            }
-
-            s += " ]\n";
-            println!("{}", s);
-        }
-
-        2 => {
-            // let rows = matrix.shape()[0];
-            // let columns = matrix.shape()[1];
-
-            // let mut s = format!("Matrix {} x {}:\n", rows, columns);
-            let mut s = String::from("");
-
-            for row in matrix.outer_iter() {
-                s += "[";
-                for item in row.iter() {
-                    if *item > 0 {
-                        s += &format!(" {}", item);
-                    } else {
-                        s += " ·";
-                    }
-                }
-                s += " ]\n";
-            }
-
-            println!("{}", s);
-        }
-
-        _ => println!("{}", matrix),
-    }
+fn remove_duplicates<T: Clone + std::hash::Hash + Eq>(vec: &mut Vec<T>) {
+    let mut seen = std::collections::HashSet::new();
+    vec.retain(|x| seen.insert(x.clone()));
 }

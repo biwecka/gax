@@ -80,7 +80,7 @@ pub trait Genotype<Ctx: Context>:
 pub trait Phenotype<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>:
     Clone + Debug + Send + Sync
 {
-    fn derive(&self, chromsome: &Ge, ctx: &Ctx) -> Self;
+    fn derive(&self, chromosome: &Ge, ctx: &Ctx) -> Self;
 
     fn evaluate(&self, ctx: &Ctx) -> Ov;
 }

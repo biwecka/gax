@@ -124,10 +124,10 @@ impl Phenotype {
 }
 
 impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
-    fn derive(&self, chromsome: &Chromosome, ctx: &Context) -> Self {
+    fn derive(&self, chromosome: &Chromosome, ctx: &Context) -> Self {
         let mut clone = self.clone();
 
-        for (event_idx, start_time_idx) in chromsome.iter().enumerate() {
+        for (event_idx, start_time_idx) in chromosome.iter().enumerate() {
             // Get event duration
             let event_duration = ctx.durations[event_idx] as usize;
 

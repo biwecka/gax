@@ -1,5 +1,8 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use super::{context::Context, genotype::Chromosome, objective_value::Cost};
+use super::{
+    context::Context, genotype::Chromosome, objective_value::Cost,
+    IntermediateRepresentation,
+};
 use ndarray::{Array2, Axis};
 use xhstt::{
     db::constraints::Constraint,
@@ -123,14 +126,19 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
         // Clone the blueprint phenotype
         let mut new = self.clone();
 
+        // Convert chromosome to intermediate representation (to allow for
+        // the same evaluation process as in alg_8).
+        let intermediate_rep =
+            IntermediateRepresentation::from_chromosome(chromosome, ctx);
+
         // Assign the events matrix to the cloned phenotype
-        new.times = Array2::default(chromosome.0.dim());
+        new.times = Array2::default(intermediate_rep.0.dim());
 
         for event_idx in 0..ctx.num_events {
             // Calculate the sum of time slots allocated to the event and check,
             // if the allocated time slots are coherent (one after the other).
             let (sum, coherent) =
-                chromosome.get_event_time_allocation(event_idx);
+                intermediate_rep.get_event_time_allocation(event_idx);
 
             // Calculate a boolean representing if the sum of the allocated
             // time slots is equal to the duration the event has.
@@ -155,7 +163,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
             if correct_duration && coherent && !overflow {
                 new.times
                     .column_mut(event_idx)
-                    .assign(&chromosome.0.column(event_idx));
+                    .assign(&intermediate_rep.0.column(event_idx));
             }
         }
 

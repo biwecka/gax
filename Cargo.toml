@@ -19,6 +19,7 @@ alg_3               = { path = "lib/alg_3" }
 alg_6               = { path = "lib/alg_6" }
 alg_7               = { path = "lib/alg_7" }
 alg_8               = { path = "lib/alg_8" }
+alg_9               = { path = "lib/alg_9" }
 n_queens_2          = { path = "lib/n_queens_2" }
 
 ga                  = { path = "lib/ga" }
