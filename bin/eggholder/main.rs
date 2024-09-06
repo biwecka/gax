@@ -46,19 +46,6 @@ pub fn pt1(y: f32, u: f32, t: f32) -> f32 {
 }
 
 // Main ////////////////////////////////////////////////////////////////////////
-fn mainx() {
-    let z = eggholder(503., 397.);
-    println!("z = {z}");
-
-    let mut list = vec![11.135, -3.23453, -103.24532, 2389.23, 0., -20.];
-
-    println!("list = {list:?}");
-
-    list.sort_by(|a, b| a.partial_cmp(b).unwrap());
-
-    println!("list = {list:?}");
-}
-
 fn main() {
     // Logger
     let logger = Logger::default();

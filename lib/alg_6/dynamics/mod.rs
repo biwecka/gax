@@ -187,13 +187,14 @@ impl
             Dynamic::SuccessDrivenNormalDistrStdDeviation(
                 target_success_rate,
                 k,
-                _def_std_deviation,
+                def_std_deviation,
             ) => {
                 success_driven_normal_distr_std_deviation(
                     rtd,
                     context,
                     *target_success_rate,
                     *k,
+                    *def_std_deviation,
                     #[cfg(feature = "ga_log_dynamics")]
                     rerun_logger,
                 );
@@ -288,25 +289,61 @@ fn success_driven_normal_distr_std_deviation(
 
     target_success_rate: f32,
     k: f32,
+    def_std_deviation: f32,
 
     #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
 ) {
-    // Calculate the difference from the targeted success rate
-    let success_rate_diff = rtd.success_rate_pt1 - target_success_rate;
+    if rtd.success_rate_pt1 < target_success_rate {
+        // Calc diff (this is always positive because of the if condition)
+        let diff = target_success_rate - rtd.success_rate_pt1;
 
-    // Calculate new standard deviation
-    let std_dev = (context.rand_time_std_deviation
-        + (k * -1. * success_rate_diff))
-        .clamp(1., context.num_events as f32);
+        // Multiply factor to get the summand
+        let summand = k * diff;
 
-    // Apply the standard deviation to the random number generators in the
-    // context
-    for dist in &mut context.rand_time {
-        dist.set_std_deviation(std_dev);
+        // Add the summand to the mutation's standard deviation
+        context.rand_time_std_deviation += summand;
+
+        // Apply the standard deviation to the random number generators in the
+        // context
+        for d in &mut context.rand_time {
+            d.set_std_deviation(context.rand_time_std_deviation);
+        }
+
+        // Reset the standard deviation if it passes a certain threshold
+        if context.rand_time_std_deviation > context.num_times as f32 * 2. {
+            context.rand_time_std_deviation = def_std_deviation;
+            for d in &mut context.rand_time {
+                d.set_std_deviation(context.rand_time_std_deviation);
+            }
+        }
     }
 
-    // Update std deviation on context
-    context.rand_time_std_deviation = std_dev;
+    if rtd.success {
+        context.rand_time_std_deviation = 1.;
+        for d in &mut context.rand_time {
+            d.set_std_deviation(context.rand_time_std_deviation);
+        }
+
+    }
+
+    // // Calculate the difference from the targeted success rate
+    // let success_rate_diff = rtd.success_rate_pt1 - target_success_rate;
+
+    // // Calculate new standard deviation
+    // let std_dev = (context.rand_time_std_deviation
+    //     + (k * -1. * success_rate_diff))
+    //     .clamp(1., context.num_events as f32);
+
+    // // Apply the standard deviation to the random number generators in the
+    // // context
+    // for dist in &mut context.rand_time {
+    //     dist.set_std_deviation(std_dev);
+    // }
+
+    // // Update std deviation on context
+    // context.rand_time_std_deviation = std_dev;
+
+    let std_dev = context.rand_time_std_deviation;
 
     #[cfg(feature = "ga_log_dynamics")]
     {

@@ -2,6 +2,7 @@ use rand::{distributions::Uniform, prelude::Distribution, Rng};
 
 use crate::chromosome::Chromosome;
 
+#[allow(unused)]
 pub enum Mutation {
     RandomUniform,
     RandomGauss,

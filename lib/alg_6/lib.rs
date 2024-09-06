@@ -72,23 +72,23 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
-    // let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-    //     .set(vec![
-    //         // (target_success_rate, k-factor, default std. deviation)
-    //         // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
-    //         // Dynamic::SuccessDrivenNormalDistrStdDeviation(0.01, 1., 10.),
+    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+        .set(vec![
+            // (target_success_rate, k-factor, default std. deviation)
+            // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
+            Dynamic::SuccessDrivenNormalDistrStdDeviation(0.05, 10., 1.),
 
-    //         // Dynamic::VariableMutationRateCos(0.01, 0.25, 0.005),
-    //         // Dynamic::VariablePopulationSizeCos(1_000, 500., 0.005)
-    //     ])
-    //     .build();
+            // Dynamic::VariableMutationRateCos(0.01, 0.25, 0.005),
+            // Dynamic::VariablePopulationSizeCos(1_000, 500., 0.005)
+        ])
+        .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        // .set_dynamics(Some(dynamics))
-        .set_dynamics::<()>(None)
+        .set_dynamics(Some(dynamics))
+        // .set_dynamics::<()>(None)
         .build();
 
     let results = alg.run();

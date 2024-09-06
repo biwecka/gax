@@ -198,7 +198,7 @@ fn success_driven_normal_distr_std_deviation(
             Normal::<f32>::new(0., context.std_deviation).unwrap();
 
         // Reset the standard deviation if it passes a certain threshold
-        if context.std_deviation > 500. {
+        if context.std_deviation > context.num_events as f32 * 2. {
             context.std_deviation = default_sd;
         }
     }

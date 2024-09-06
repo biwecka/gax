@@ -28,9 +28,9 @@ fn main() {
     // let solution_events = alg_4::run(instance.clone());
     // let solution_events = alg_5::run(instance.clone());
     // let solution_events = alg_6::run(instance.clone());
-    // let solution_events = alg_7::run(instance.clone());
+    let solution_events = alg_7::run(instance.clone());
     // let solution_events = alg_8::run(instance.clone());
-    let solution_events = alg_9::run(instance.clone());
+    // let solution_events = alg_9::run(instance.clone());
 
     // Write result
     let solution = xhstt::tools::create_solution(
