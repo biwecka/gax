@@ -3,7 +3,7 @@ use std::marker::PhantomData;
 use crate::{
     dynamics::{Dynamic, Dynamics}, encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype}, operators::{Crossover, Mutation}, parameters::Parameters, process::{
         rejection::Rejection, replacement::Replacement, selection::Selection, termination::Termination
-    }, Algorithm
+    }, tools::rerun_logger::CustomLogger, Algorithm
 };
 
 // Builder /////////////////////////////////////////////////////////////////////
@@ -22,14 +22,17 @@ pub struct Builder<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    // Cl: CustomLogger,
     //
     TsEn: TS_Encoding,
     TsPa: TS_Parameters,
     TsDy: TS_Dynamics,
+    TsCl: TS_CustomLogger,
 > {
     encoding: TsEn,
     parameters: TsPa,
     dynamics: TsDy,
+    custom_logger: TsCl,
 
     // PhantomData
     objective_value: PhantomData<Ov>,
@@ -58,19 +61,21 @@ impl<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    // Cl: CustomLogger,
     //
     // TsEn: TS_Encoding,
     // TsPa: TS_Parameters,
 > Builder<
-    Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), (), (),
+    Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), (), (), ()
 > {
     pub fn new() -> Builder<
-        Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), (), (),
+        Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), (), (), ()
     > {
         Builder {
             encoding: (),
             parameters: (),
             dynamics: (),
+            custom_logger: (),
 
             // PhantomData
             objective_value: PhantomData,
@@ -101,11 +106,12 @@ impl<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    // Cl: CustomLogger,
     //
     // TsEn: TS_Encoding,
     // TsPa: TS_Parameters,
 > std::default::Default for Builder<
-    Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), (), (),
+    Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), (), (), ()
 > {
     fn default() -> Self {
         Self::new()
@@ -126,21 +132,24 @@ impl<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    Cl: CustomLogger,
     //
     // TsEn: TS_Encoding,
     // TsPa: TS_Parameters,
 > Builder<
     Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, W_Encoding<Ov, Ctx, Ge, Ph>,
     W_Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
-    W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy>
+    W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy>,
+    W_CustomLogger<Cl>
 > {
     pub fn build(
         self
-    ) -> Algorithm<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy> {
+    ) -> Algorithm<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, Cl> {
         Algorithm {
             encoding: self.encoding.0,
             params: self.parameters.0,
             dynamics: self.dynamics.0,
+            custom_logger: self.custom_logger.0,
 
             #[cfg(feature = "cache")]
             cache: HashMap::<Ge, Ov>::new(),
@@ -171,22 +180,25 @@ impl<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    // Cl: CustomLogger,
     //
     // TsEn: TS_Encoding,
     TsPa: TS_Parameters,
     TsDy: TS_Dynamics,
-> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), TsPa, TsDy> {
+    TsCl: TS_CustomLogger,
+> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, (), TsPa, TsDy, TsCl> {
     pub fn set_encoding(
         self,
         encoding: Encoding<Ov, Ctx, Ge, Ph>
     ) -> Builder<
         Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, W_Encoding<Ov, Ctx, Ge, Ph>,
-        TsPa, TsDy
+        TsPa, TsDy, TsCl
     > {
         Builder {
             encoding: encoding.into(),
             parameters: self.parameters,
             dynamics: self.dynamics,
+            custom_logger: self.custom_logger,
 
             // PhantomData
             objective_value: PhantomData,
@@ -218,22 +230,25 @@ impl<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     // Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    // Cl: CustomLogger,
     //
     TsEn: TS_Encoding,
     // TsPa: TS_Parameters,
     TsDy: TS_Dynamics,
-> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, (), TsDy> {
+    TsCl: TS_CustomLogger,
+> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, (), TsDy, TsCl> {
     pub fn set_parameters(
         self,
         parameters: Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
     ) -> Builder<
         Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn,
-        W_Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>, TsDy
+        W_Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>, TsDy, TsCl
     > {
         Builder {
             encoding: self.encoding,
             parameters: parameters.into(),
             dynamics: self.dynamics,
+            custom_logger: self.custom_logger,
 
             // PhantomData
             objective_value: PhantomData,
@@ -268,15 +283,62 @@ impl<
     TsEn: TS_Encoding,
     TsPa: TS_Parameters,
     // TsDy: TS_Dynamics,
-> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, ()> {
+    TsCl: TS_CustomLogger,
+> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, (), TsCl> {
     pub fn set_dynamics<Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,>(
         self,
         dynamics: Option<Dynamics<Ov, Ctx, Ge, T, Se, Cr, Mu, Re, Rp, Te, Dy>>,
-    ) -> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy>> {
+    ) -> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy>, TsCl> {
         Builder {
             encoding: self.encoding,
             parameters: self.parameters,
             dynamics: dynamics.into(),
+            custom_logger: self.custom_logger,
+
+            // PhantomData
+            objective_value: PhantomData,
+            context: PhantomData,
+            genotype: PhantomData,
+            phenotype: PhantomData,
+            crossover: PhantomData,
+            mutation: PhantomData,
+            t: PhantomData,
+            selection: PhantomData,
+            rejection: PhantomData,
+            replacement: PhantomData,
+            termination: PhantomData,
+        }
+    }
+}
+
+// set_custom_logger -----------------------------------------------------------
+impl<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    Ph: Phenotype<Ov, Ctx, Ge>,
+    Cr: Crossover<Ctx, Ge>,
+    Mu: Mutation<Ctx, Ge>,
+    T: From<Ov>,
+    Se: Selection<Ov, Ctx, Ge, T>,
+    Re: Rejection<Ov, Ctx, Ge>,
+    Rp: Replacement<(Ge, Ov)>,
+    Te: Termination<Ov>,
+    //
+    TsEn: TS_Encoding,
+    TsPa: TS_Parameters,
+    TsDy: TS_Dynamics,
+    // TsCl: TS_CustomLogger,
+> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, TsDy, ()> {
+    pub fn set_custom_logger<Cl: CustomLogger>(
+        self,
+        custom_logger: Option<Cl>,
+    ) -> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, TsDy, W_CustomLogger<Cl>> {
+        Builder {
+            encoding: self.encoding,
+            parameters: self.parameters,
+            dynamics: self.dynamics,
+            custom_logger: custom_logger.into(),
 
             // PhantomData
             objective_value: PhantomData,
@@ -449,5 +511,18 @@ impl<
     Te: Termination<Ov>,
     Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>
 >TS_Dynamics for W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy> {}
+
+// custom_logger ---------------------------------------------------------------
+#[allow(non_camel_case_types)] pub struct W_CustomLogger<Cl: CustomLogger>(Option<Cl>);
+impl<Cl: CustomLogger> From<Option<Cl>> for W_CustomLogger<Cl> {
+    fn from(value: Option<Cl>) -> Self {
+        Self(value)
+    }
+}
+
+#[allow(non_camel_case_types)] pub trait TS_CustomLogger {}
+impl TS_CustomLogger for () {}
+impl<Cl: CustomLogger> TS_CustomLogger for W_CustomLogger<Cl> {}
+
 
 ////////////////////////////////////////////////////////////////////////////////

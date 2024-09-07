@@ -15,6 +15,7 @@
 mod dynamics;
 mod encoding;
 mod operators;
+mod logger;
 // mod utils;
 
 // Imports /////////////////////////////////////////////////////////////////////
@@ -27,8 +28,9 @@ use ga::{
     process::{
         rejection::Reject, replacement::Replace, selection::Select,
         termination::Terminate,
-    },
+    }, tools::rerun_logger::CustomLogger,
 };
+use logger::Logger;
 use operators::{Crossover, Mutation};
 use xhstt::{
     db::Database,
@@ -79,6 +81,8 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_parameters(parameters)
         .set_dynamics(Some(dynamics))
         // .set_dynamics::<()>(None)
+        .set_custom_logger(Some(Logger::default()))
+        // .set_custom_logger::<()>(None)
         .build();
 
     let results = alg.run();

@@ -45,6 +45,7 @@ pub fn run() {
         .set_encoding(encoding)
         .set_parameters(parameters)
         .set_dynamics::<()>(None)
+        .set_custom_logger::<()>(None)
         .build();
 
     let _solutions = alg.run();

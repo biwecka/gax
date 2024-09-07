@@ -89,6 +89,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_parameters(parameters)
         .set_dynamics(Some(dynamics))
         // .set_dynamics::<()>(None)
+        .set_custom_logger::<()>(None)
         .build();
 
     let results = alg.run();

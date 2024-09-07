@@ -29,6 +29,7 @@ use runtime_data::RuntimeData;
 #[cfg(feature = "cache")]
 use hashbrown::HashMap;
 
+use tools::rerun_logger::CustomLogger;
 #[cfg(feature = "rerun_logger")]
 use tools::rerun_logger::RerunLogger;
 
@@ -67,10 +68,12 @@ pub struct Algorithm<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
+    Cl: CustomLogger,
 > {
     encoding: Encoding<Ov, Ctx, Ge, Ph>,
     params: Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     dynamics: Option<Dynamics<Ov, Ctx, Ge, T, Se, Cr, Mu, Re, Rp, Te, Dy>>,
+    custom_logger: Option<Cl>,
 
     #[cfg(feature = "cache")]
     cache: HashMap<Ge, Ov>,
@@ -98,7 +101,8 @@ impl<
         Rp: Replacement<(Ge, Ov)>,
         Te: Termination<Ov>,
         Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
-    > Algorithm<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy>
+        Cl: CustomLogger,
+    > Algorithm<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, Cl>
 {
     pub fn run(mut self) -> Vec<(Ge, Ov)> {
         // Create initial population
@@ -358,6 +362,11 @@ impl<
             {
                 // Send runtime data to logger
                 self.rerun_logger.log(&rtd);
+
+                // Execute custom logger
+                if let Some(cl) = &self.custom_logger {
+                    cl.log(self.rerun_logger.get_stream(), &population);
+                }
 
                 // Also print out minimal information to the console
                 println!(

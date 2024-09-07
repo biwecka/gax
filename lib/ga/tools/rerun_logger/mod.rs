@@ -22,6 +22,31 @@ use rerun::BarChart;
 // Constants ///////////////////////////////////////////////////////////////////
 const GENERATION_TIME_SEQ: &str = "generation";
 
+// Traits //////////////////////////////////////////////////////////////////////
+pub trait CustomLogger {
+    fn log<
+        Ov: ObjectiveValue, //+ Into<T>,
+        Ctx: Context,
+        Ge: Genotype<Ctx>,
+        // Cr: Crossover<Ctx, Ge>,
+        // Mu: Mutation<Ctx, Ge>,
+        // T,
+        // Se: Selection<Ov, Ctx, Ge, T>,
+        // Re: Rejection<Ov, Ctx, Ge>,
+        // Rp: Replacement<(Ge, Ov)>,
+        // Te: Termination<Ov>,
+    >(&self, rec: &RecordingStream, population: &[(Ge, Ov)]);
+}
+
+impl CustomLogger for () {
+    fn log<
+        Ov: ObjectiveValue, // + Into<T>,
+        Ctx: Context,
+        Ge: Genotype<Ctx>,
+        //T,
+    >(&self, _rec: &RecordingStream, _population: &[(Ge, Ov)]) {}
+}
+
 // Rerun Logger ////////////////////////////////////////////////////////////////
 pub struct RerunLogger {
     rec: RecordingStream,
@@ -31,6 +56,10 @@ impl RerunLogger {
     pub fn connect(name: &str) -> Self {
         let rec = RecordingStreamBuilder::new(name).spawn().unwrap();
         Self { rec }
+    }
+
+    pub fn get_stream(&self) -> &RecordingStream {
+        &self.rec
     }
 
     pub fn log<
