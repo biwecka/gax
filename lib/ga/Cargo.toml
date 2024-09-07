@@ -27,7 +27,7 @@ cache           = []
 # This feature enables logging to "Rerun". Enabling this feature some basic
 # metrics are automatically logged to "Rerun".
 # For logging more advanced data, see the features below.
-rerun_logger    = ["dep:rerun"]
+rerun_logger    = ["dep:rerun", "dep:colors-transform"]
 
 # Log population statistics like population size, elite size, selection size
 # and number of distinct selections.
@@ -66,6 +66,7 @@ hashbrown = { workspace = true }
 simple_moving_average = { workspace = true }
 
 rerun = { workspace = true, optional = true }
+colors-transform = { workspace = true, optional = true }
 
 [lints]
 workspace = true

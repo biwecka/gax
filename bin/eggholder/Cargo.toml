@@ -16,7 +16,7 @@ rand_distr = { workspace = true }
 rayon = { workspace = true }
 rerun = { workspace = true }
 
-colors-transform = "0.2.11"
+colors-transform = { workspace = true }
 
 [lints]
 workspace = true

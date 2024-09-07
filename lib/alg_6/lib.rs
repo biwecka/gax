@@ -23,6 +23,7 @@ mod dynamics;
 mod encoding;
 mod operators;
 mod utils;
+mod logger;
 
 // Imports /////////////////////////////////////////////////////////////////////
 #[allow(unused)]
@@ -35,6 +36,7 @@ use ga::{
         termination::Terminate,
     },
 };
+use logger::Logger;
 use operators::{Crossover, Mutation};
 use xhstt::{
     db::Database,
@@ -67,7 +69,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_crossover(Crossover::VariableNPoint(3))
         .set_mutation(Mutation::NormalDistributedRandom)
         .set_rejection(Reject::None)
-        .set_replacement(Replace::EliteRelative(0.05))
+        .set_replacement(Replace::EliteRelative(0.000_001))
         // .set_termination(Terminate::Generations(100))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
@@ -75,8 +77,9 @@ pub fn run(instance: Instance) -> Vec<Event> {
     let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
         .set(vec![
             // (target_success_rate, k-factor, default std. deviation)
+
             // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
-            Dynamic::SuccessDrivenNormalDistrStdDeviation(0.05, 10., 1.),
+            Dynamic::SuccessDrivenNormalDistrStdDeviation(0.05, 0.02, 1.),
 
             // Dynamic::VariableMutationRateCos(0.01, 0.25, 0.005),
             // Dynamic::VariablePopulationSizeCos(1_000, 500., 0.005)
@@ -89,7 +92,8 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_parameters(parameters)
         .set_dynamics(Some(dynamics))
         // .set_dynamics::<()>(None)
-        .set_custom_logger::<()>(None)
+        .set_custom_logger(Some(Logger::default()))
+        // .set_custom_logger::<()>(None)
         .build();
 
     let results = alg.run();

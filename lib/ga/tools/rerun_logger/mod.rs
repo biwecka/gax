@@ -23,28 +23,21 @@ use rerun::BarChart;
 const GENERATION_TIME_SEQ: &str = "generation";
 
 // Traits //////////////////////////////////////////////////////////////////////
-pub trait CustomLogger {
-    fn log<
-        Ov: ObjectiveValue, //+ Into<T>,
-        Ctx: Context,
-        Ge: Genotype<Ctx>,
-        // Cr: Crossover<Ctx, Ge>,
-        // Mu: Mutation<Ctx, Ge>,
-        // T,
-        // Se: Selection<Ov, Ctx, Ge, T>,
-        // Re: Rejection<Ov, Ctx, Ge>,
-        // Rp: Replacement<(Ge, Ov)>,
-        // Te: Termination<Ov>,
-    >(&self, rec: &RecordingStream, population: &[(Ge, Ov)]);
+pub trait CustomLogger<
+    Ov: ObjectiveValue, //+ Into<T>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+>
+{
+    fn log(&self, rec: &RecordingStream, generation: usize, ctx: &Ctx, population: &[(Ge, Ov)]);
 }
 
-impl CustomLogger for () {
-    fn log<
-        Ov: ObjectiveValue, // + Into<T>,
-        Ctx: Context,
-        Ge: Genotype<Ctx>,
-        //T,
-    >(&self, _rec: &RecordingStream, _population: &[(Ge, Ov)]) {}
+impl<
+    Ov: ObjectiveValue, //+ Into<T>,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+> CustomLogger<Ov, Ctx, Ge> for () {
+    fn log(&self, _rec: &RecordingStream, _generation: usize, _ctx: &Ctx, _population: &[(Ge, Ov)]) {}
 }
 
 // Rerun Logger ////////////////////////////////////////////////////////////////

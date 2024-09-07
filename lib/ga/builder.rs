@@ -132,7 +132,7 @@ impl<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
-    Cl: CustomLogger,
+    Cl: CustomLogger<Ov, Ctx, Ge>,
     //
     // TsEn: TS_Encoding,
     // TsPa: TS_Parameters,
@@ -140,7 +140,7 @@ impl<
     Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, W_Encoding<Ov, Ctx, Ge, Ph>,
     W_Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy>,
-    W_CustomLogger<Cl>
+    W_CustomLogger<Ov, Ctx, Ge, Cl>
 > {
     pub fn build(
         self
@@ -330,10 +330,10 @@ impl<
     TsDy: TS_Dynamics,
     // TsCl: TS_CustomLogger,
 > Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, TsDy, ()> {
-    pub fn set_custom_logger<Cl: CustomLogger>(
+    pub fn set_custom_logger<Cl: CustomLogger<Ov, Ctx, Ge>>(
         self,
         custom_logger: Option<Cl>,
-    ) -> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, TsDy, W_CustomLogger<Cl>> {
+    ) -> Builder<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, TsEn, TsPa, TsDy, W_CustomLogger<Ov, Ctx, Ge, Cl>> {
         Builder {
             encoding: self.encoding,
             parameters: self.parameters,
@@ -513,16 +513,32 @@ impl<
 >TS_Dynamics for W_Dynamics<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te, Dy> {}
 
 // custom_logger ---------------------------------------------------------------
-#[allow(non_camel_case_types)] pub struct W_CustomLogger<Cl: CustomLogger>(Option<Cl>);
-impl<Cl: CustomLogger> From<Option<Cl>> for W_CustomLogger<Cl> {
+#[allow(non_camel_case_types)] pub struct W_CustomLogger<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    Cl: CustomLogger<Ov, Ctx, Ge>
+>(Option<Cl>, PhantomData<(Ov, Ctx, Ge)>);
+
+impl<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    Cl: CustomLogger<Ov, Ctx, Ge>
+> From<Option<Cl>> for W_CustomLogger<Ov, Ctx, Ge, Cl> {
     fn from(value: Option<Cl>) -> Self {
-        Self(value)
+        Self(value, PhantomData)
     }
 }
 
 #[allow(non_camel_case_types)] pub trait TS_CustomLogger {}
 impl TS_CustomLogger for () {}
-impl<Cl: CustomLogger> TS_CustomLogger for W_CustomLogger<Cl> {}
+impl<
+    Ov: ObjectiveValue,
+    Ctx: Context,
+    Ge: Genotype<Ctx>,
+    Cl: CustomLogger<Ov, Ctx, Ge>
+> TS_CustomLogger for W_CustomLogger<Ov, Ctx, Ge, Cl> {}
 
 
 ////////////////////////////////////////////////////////////////////////////////

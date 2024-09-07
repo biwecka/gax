@@ -323,7 +323,6 @@ fn success_driven_normal_distr_std_deviation(
         for d in &mut context.rand_time {
             d.set_std_deviation(context.rand_time_std_deviation);
         }
-
     }
 
     // // Calculate the difference from the targeted success rate

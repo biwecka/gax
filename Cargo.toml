@@ -58,6 +58,7 @@ oxigen = "2.2.2"
 
 # data log
 rerun = "0.13.0"
+colors-transform = "0.2.11"
 
 # plots
 plotters = "0.3.6"

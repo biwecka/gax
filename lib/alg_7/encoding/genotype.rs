@@ -5,6 +5,13 @@ use rand::prelude::SliceRandom;
 use std::ops::AddAssign;
 
 // Genotype ////////////////////////////////////////////////////////////////////
+
+/// The chromosome stores a vector of event indices, where the order of these
+/// indices in the chromosome defines the order in which the corresponding
+/// events are scheduled. The values of the vector fields are event indices.
+///
+/// This makes the encoding a permutation encoding.
+///
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct Chromosome(Vec<usize>);
 

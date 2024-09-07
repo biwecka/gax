@@ -14,6 +14,13 @@ pub mod tools;
 // Re-Exports //////////////////////////////////////////////////////////////////
 pub use builder::*;
 
+#[cfg(feature = "rerun_logger")]
+pub use rerun;
+
+#[cfg(feature = "rerun_logger")]
+pub use colors_transform;
+
+
 // Imports /////////////////////////////////////////////////////////////////////
 use dynamics::{Dynamic, Dynamics};
 use encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype};
@@ -68,7 +75,7 @@ pub struct Algorithm<
     Rp: Replacement<(Ge, Ov)>,
     Te: Termination<Ov>,
     Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
-    Cl: CustomLogger,
+    Cl: CustomLogger<Ov, Ctx, Ge>,
 > {
     encoding: Encoding<Ov, Ctx, Ge, Ph>,
     params: Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
@@ -101,7 +108,7 @@ impl<
         Rp: Replacement<(Ge, Ov)>,
         Te: Termination<Ov>,
         Dy: Dynamic<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
-        Cl: CustomLogger,
+        Cl: CustomLogger<Ov, Ctx, Ge>,
     > Algorithm<Ov, Ctx, Ge, Ph, Cr, Mu, T, Se, Re, Rp, Te, Dy, Cl>
 {
     pub fn run(mut self) -> Vec<(Ge, Ov)> {
@@ -365,7 +372,7 @@ impl<
 
                 // Execute custom logger
                 if let Some(cl) = &self.custom_logger {
-                    cl.log(self.rerun_logger.get_stream(), &population);
+                    cl.log(self.rerun_logger.get_stream(), rtd.generation, &self.encoding.context, &population);
                 }
 
                 // Also print out minimal information to the console

@@ -14,8 +14,8 @@
 // Modules /////////////////////////////////////////////////////////////////////
 mod dynamics;
 mod encoding;
-mod operators;
 mod logger;
+mod operators;
 // mod utils;
 
 // Imports /////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ use ga::{
     process::{
         rejection::Reject, replacement::Replace, selection::Select,
         termination::Terminate,
-    }, tools::rerun_logger::CustomLogger,
+    },
 };
 use logger::Logger;
 use operators::{Crossover, Mutation};
