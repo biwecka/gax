@@ -29,15 +29,29 @@ pub trait CustomLogger<
     Ge: Genotype<Ctx>,
 >
 {
-    fn log(&self, rec: &RecordingStream, generation: usize, ctx: &Ctx, population: &[(Ge, Ov)]);
+    fn log(
+        &self,
+        rec: &RecordingStream,
+        generation: usize,
+        ctx: &Ctx,
+        population: &[(Ge, Ov)],
+    );
 }
 
 impl<
-    Ov: ObjectiveValue, //+ Into<T>,
-    Ctx: Context,
-    Ge: Genotype<Ctx>,
-> CustomLogger<Ov, Ctx, Ge> for () {
-    fn log(&self, _rec: &RecordingStream, _generation: usize, _ctx: &Ctx, _population: &[(Ge, Ov)]) {}
+        Ov: ObjectiveValue, //+ Into<T>,
+        Ctx: Context,
+        Ge: Genotype<Ctx>,
+    > CustomLogger<Ov, Ctx, Ge> for ()
+{
+    fn log(
+        &self,
+        _rec: &RecordingStream,
+        _generation: usize,
+        _ctx: &Ctx,
+        _population: &[(Ge, Ov)],
+    ) {
+    }
 }
 
 // Rerun Logger ////////////////////////////////////////////////////////////////

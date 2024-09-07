@@ -21,9 +21,9 @@
 // Modules /////////////////////////////////////////////////////////////////////
 mod dynamics;
 mod encoding;
+mod logger;
 mod operators;
 mod utils;
-mod logger;
 
 // Imports /////////////////////////////////////////////////////////////////////
 #[allow(unused)]
@@ -80,7 +80,6 @@ pub fn run(instance: Instance) -> Vec<Event> {
 
             // Dynamic::SuccessDrivenBetaDistrStdDeviation(0.05, 5., 0.2),
             Dynamic::SuccessDrivenNormalDistrStdDeviation(0.05, 0.02, 1.),
-
             // Dynamic::VariableMutationRateCos(0.01, 0.25, 0.005),
             // Dynamic::VariablePopulationSizeCos(1_000, 500., 0.005)
         ])
