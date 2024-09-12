@@ -3,8 +3,11 @@ use std::marker::PhantomData;
 use crate::{
     dynamics::{Dynamic, Dynamics}, encoding::{Context, Encoding, Genotype, ObjectiveValue, Phenotype}, operators::{Crossover, Mutation}, parameters::Parameters, process::{
         rejection::Rejection, replacement::Replacement, selection::Selection, termination::Termination
-    }, tools::rerun_logger::CustomLogger, Algorithm
+    }, Algorithm
 };
+
+#[cfg(feature = "rerun_logger")]
+use crate::tools::rerun_logger::CustomLogger;
 
 // Builder /////////////////////////////////////////////////////////////////////
 

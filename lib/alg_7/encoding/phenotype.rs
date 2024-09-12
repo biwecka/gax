@@ -273,6 +273,8 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
 
                 // There cannot be any resource clashes with this encoding.
                 Constraint::AvoidClashesConstraint(_) => {}
+
+                _ => {}
             }
         }
 

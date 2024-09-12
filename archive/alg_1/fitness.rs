@@ -65,6 +65,8 @@ pub fn eval(
             Constraint::AvoidClashesConstraint(params) => {
                 total_cost += eval_avoid_clashes_constraint(params, &data);
             }
+
+            _ => {}
         }
     }
 

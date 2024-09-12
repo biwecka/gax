@@ -22,6 +22,7 @@ pub fn pre_calc(db: &xhstt::db::Database) -> Vec<(Constraint, Vec<usize>)> {
             Constraint::AvoidClashesConstraint(x) => {
                 x.applies_to.resolve_idxs(db)
             }
+            _ => continue,
         };
 
         result.push((c.clone(), indices));

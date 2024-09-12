@@ -2,6 +2,7 @@
 pub mod constraints;
 pub mod events;
 pub mod resources;
+pub mod stats;
 pub mod times;
 
 // Imports /////////////////////////////////////////////////////////////////////
@@ -16,6 +17,7 @@ use resources::{
     resource_group::{ResourceGroup, ResourceGroupId},
     resource_type::{ResourceType, ResourceTypeId},
 };
+use stats::Stats;
 use times::{
     day::{Day, DayId},
     time::{Time, TimeId},
@@ -43,6 +45,10 @@ pub struct Database {
 
     // Constraints Data ////////////////////////////////////////////////////////
     constraints: Vec<Constraint>,
+
+    // Misc ////////////////////////////////////////////////////////////////////
+    pub instance_id: String,
+    pub instance_name: String,
     ////////////////////////////////////////////////////////////////////////////
 }
 
@@ -133,6 +139,10 @@ impl Database {
             .map(|x| x.into())
             .collect();
 
+        // Get instance name
+        let instance_id = instance.id.clone();
+        let instance_name = instance.metadata.name.clone();
+
         // Create database instance
         let db = Self {
             weeks,
@@ -146,19 +156,22 @@ impl Database {
             event_groups,
             events,
             constraints,
+            instance_id,
+            instance_name,
         };
 
         // Check all references and return
-        Self::check_references(&db).map(|_| db)
+        db.check_references()?;
+        Ok(db)
     }
 
-    fn check_references(db: &Self) -> Result<(), Vec<String>> {
+    fn check_references(&self) -> Result<(), Vec<String>> {
         // Collect used references
         let mut week_ids = vec![];
         let mut day_ids = vec![];
         let mut time_group_ids = vec![];
 
-        for time in db.times() {
+        for time in self.times() {
             if let Some(x) = &time.week {
                 week_ids.push(x);
             }
@@ -173,10 +186,10 @@ impl Database {
         let mut resource_type_ids = vec![];
         let mut resource_group_ids = vec![];
 
-        for resource_goup in db.resource_groups() {
+        for resource_goup in self.resource_groups() {
             resource_type_ids.push(resource_goup.resource_type.clone());
         }
-        for resource in db.resources() {
+        for resource in self.resources() {
             resource_type_ids.push(resource.resource_type.clone());
             resource.resource_groups.iter().for_each(|x| {
                 resource_group_ids.push(x);
@@ -188,7 +201,7 @@ impl Database {
         let mut resource_ids = vec![];
         let mut event_group_ids = vec![];
 
-        for event in db.events() {
+        for event in self.events() {
             if let Some(course_id) = &event.course {
                 course_ids.push(course_id);
             }
@@ -219,23 +232,23 @@ impl Database {
         // Check references
         let mut report: Vec<String> = vec![];
         for week_id in week_ids {
-            if !db.weeks().iter().any(|x| x.id.eq(week_id)) {
+            if !self.weeks().iter().any(|x| x.id.eq(week_id)) {
                 report.push(format!("Week ID \"{}\" not found.", week_id.0));
             }
         }
         for day_id in day_ids {
-            if !db.days().iter().any(|x| x.id.eq(day_id)) {
+            if !self.days().iter().any(|x| x.id.eq(day_id)) {
                 report.push(format!("Day ID \"{}\" not found.", day_id.0));
             }
         }
         for tg_id in time_group_ids {
-            if !db.time_groups().iter().any(|x| x.id.eq(tg_id)) {
+            if !self.time_groups().iter().any(|x| x.id.eq(tg_id)) {
                 report.push(format!("TimeGroup ID \"{}\" not found.", tg_id.0));
             }
         }
 
         for rt_id in resource_type_ids {
-            if !db.resource_types().iter().any(|x| x.id.eq(&rt_id)) {
+            if !self.resource_types().iter().any(|x| x.id.eq(&rt_id)) {
                 report.push(format!(
                     "ResourceType ID \"{}\" not found.",
                     rt_id.0
@@ -243,7 +256,7 @@ impl Database {
             }
         }
         for rg_id in resource_group_ids {
-            if !db.resource_groups().iter().any(|x| x.id.eq(rg_id)) {
+            if !self.resource_groups().iter().any(|x| x.id.eq(rg_id)) {
                 report.push(format!(
                     "ResourceGroup ID \"{}\" not found.",
                     rg_id.0
@@ -252,24 +265,30 @@ impl Database {
         }
 
         for c_id in course_ids {
-            if !db.courses().iter().any(|x| x.id.eq(c_id)) {
+            if !self.courses().iter().any(|x| x.id.eq(c_id)) {
                 report.push(format!("Course ID \"{}\" not found.", c_id.0));
             }
         }
         for t_id in time_ids {
-            if !db.times().iter().any(|x| x.id.eq(t_id)) {
+            if !self.times().iter().any(|x| x.id.eq(t_id)) {
                 report.push(format!("Time ID \"{}\" not found.", t_id.0));
             }
         }
         for r_id in resource_ids {
-            if !db.resources().iter().any(|x| x.id.eq(&r_id)) {
+            if !self.resources().iter().any(|x| x.id.eq(&r_id)) {
                 report.push(format!("Resource ID \"{}\" not found.", r_id.0));
             }
         }
         for eg_id in event_group_ids {
-            if !db.event_groups().iter().any(|x| x.id.eq(eg_id)) {
-                report
-                    .push(format!("EventGroup ID \"{}\" not found.", eg_id.0));
+            if !self.event_groups().iter().any(|x| x.id.eq(eg_id)) {
+                // Also search courses for the given resource id, because the
+                // GR-PA-08 instance uses course ids as event group references.
+                if !self.courses().iter().any(|x| x.id.0.eq(&eg_id.0)) {
+                    report.push(format!(
+                        "EventGroup ID \"{}\" not found.",
+                        eg_id.0
+                    ));
+                }
             }
         }
 
@@ -279,6 +298,10 @@ impl Database {
         } else {
             Err(report)
         }
+    }
+
+    pub fn stats(&self) -> Stats {
+        Stats::new(self)
     }
 }
 
@@ -542,7 +565,22 @@ impl Database {
 
     /// Get a event-group by id.
     pub fn event_group_by_id(&self, id: &EventGroupId) -> &EventGroup {
-        self.event_groups.iter().find(|x| x.id.eq(id)).unwrap()
+        let res = self.event_groups.iter().find(|x| x.id.eq(id));
+        match res {
+            Some(x) => x,
+            None => {
+                // Also search courses for the given resource id, because the
+                // GR-PA-08 instance uses course ids as event group references.
+                let c = self.courses.iter().find(|x| x.id.0.eq(&id.0)).unwrap();
+
+                let _e = EventGroup {
+                    id: EventGroupId(c.id.0.clone()),
+                    name: c.name.clone(),
+                };
+
+                todo!("greek case (event group referencing a course")
+            }
+        }
     }
 
     /// Get a event-group by index.

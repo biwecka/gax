@@ -158,9 +158,12 @@ impl ProblemSize {
                 Constraint::AssignTimeConstraint(x) => {
                     x.applies_to.resolve_idxs(db)
                 }
+
                 Constraint::AvoidClashesConstraint(x) => {
                     x.applies_to.resolve_idxs(db)
                 }
+
+                _ => continue,
             };
 
             constraints.push((constraint.clone(), indices));
@@ -223,6 +226,7 @@ impl oxigen::Genotype<u8> for Chromosome {
                         self, params, indices,
                     ));
                 }
+                _ => {}
             }
         }
 

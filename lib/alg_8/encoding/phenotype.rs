@@ -202,6 +202,8 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
 
                     total_cost += cost;
                 }
+
+                _ => {}
             }
         }
 

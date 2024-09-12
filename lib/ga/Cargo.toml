@@ -9,7 +9,7 @@ path = "lib.rs"
 [features]
 default = [
     # "cache",
-    # "rerun_logger",
+    "rerun_logger",
 
     # "log_pop_stats",
     # "log_ov_dist",

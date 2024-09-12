@@ -69,7 +69,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_crossover(Crossover::VariableNPoint(3))
         .set_mutation(Mutation::NormalDistributedRandom)
         .set_rejection(Reject::None)
-        .set_replacement(Replace::EliteRelative(0.000_001))
+        .set_replacement(Replace::EliteRelative(0.01))
         // .set_termination(Terminate::Generations(100))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();

@@ -11,7 +11,7 @@ pub struct Constraints {
 structstruck::strike!(
     #[strikethrough[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]]
     pub enum Constraint {
-        // AssignResourceConstraint,
+        AssignResourceConstraint(pub struct {}),
 
         AssignTimeConstraint(pub struct {
             #[serde(rename = "@Id")]
@@ -33,14 +33,14 @@ structstruck::strike!(
             pub applies_to: AppliesToEventsAndGroups,
         }),
 
-        // SplitEventsConstraint,
-        // DistributeSplitEventsConstraint,
-        // PreferResourcesConstraint,
-        // PreferTimesConstraint,
-        // AvoidSplitAssignmentsConstraint,
-        // SpreadEventsConstraint,
-        // LinkEventsConstraint,
-        // OrderEventsConstraint,
+        SplitEventsConstraint(pub struct {}),
+        DistributeSplitEventsConstraint(pub struct {}),
+        PreferResourcesConstraint(pub struct {}),
+        PreferTimesConstraint(pub struct {}),
+        AvoidSplitAssignmentsConstraint(pub struct {}),
+        SpreadEventsConstraint(pub struct {}),
+        LinkEventsConstraint(pub struct {}),
+        OrderEventsConstraint(pub struct {}),
 
         AvoidClashesConstraint(pub struct {
             #[serde(rename = "@Id")]
@@ -62,11 +62,11 @@ structstruck::strike!(
             pub applies_to: AppliesToResourcesAndGroups,
         }),
 
-        // AvoidUnavailableTimesConstraint,
-        // LimitIdleTimesConstraint,
-        // ClusterBusyTimesConstraint,
-        // LimitBusyTimesConstraint,
-        // LimitWorkloadConstraint,
+        AvoidUnavailableTimesConstraint(pub struct {}),
+        LimitIdleTimesConstraint(pub struct {}),
+        ClusterBusyTimesConstraint(pub struct {}),
+        LimitBusyTimesConstraint(pub struct {}),
+        LimitWorkloadConstraint(pub struct {}),
     }
 );
 

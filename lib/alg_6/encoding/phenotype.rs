@@ -152,6 +152,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                         self, ctx, x, indices,
                     );
                 }
+                _ => {}
             }
         }
 

@@ -23,6 +23,7 @@ pub fn pre_calc_constraints(
             Constraint::AvoidClashesConstraint(x) => {
                 x.applies_to.resolve_idxs(db)
             }
+            _ => continue,
         };
 
         result.push((c.clone(), indices));
@@ -46,6 +47,7 @@ pub fn calculate_cost(
                     assign_time_constraint(allocation, params, indices);
             }
             Constraint::AvoidClashesConstraint(_params) => {}
+            _ => {}
         }
     }
 

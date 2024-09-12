@@ -91,6 +91,7 @@ impl Problem {
                 Constraint::AvoidClashesConstraint(x) => {
                     x.applies_to.resolve_idxs(db)
                 }
+                _ => continue,
             };
 
             constraints.push((constraint.clone(), indices));
@@ -129,6 +130,7 @@ impl<'a> FitnessFunction<Chromosome, usize> for &'a Problem {
                         indices,    // event indices (precalculation)
                     )
                 }
+                _ => {}
             }
         }
 

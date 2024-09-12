@@ -1,11 +1,12 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use super::{EventGroupId, EventId, ResourceGroupId, ResourceId};
+use crate::parser::instances::constraints::Constraint as ParserConstraint;
 
 // Constraints /////////////////////////////////////////////////////////////////
 structstruck::strike!(
     #[strikethrough[derive(Clone, Debug)]]
     pub enum Constraint {
-        // AssignResourceConstraint,
+        AssignResourceConstraint(pub struct {}),
 
         AssignTimeConstraint(pub struct {
             pub id: String,
@@ -16,14 +17,14 @@ structstruck::strike!(
             pub applies_to: AppliesToEventsAndGroups,
         }),
 
-        // SplitEventsConstraint,
-        // DistributeSplitEventsConstraint,
-        // PreferResourcesConstraint,
-        // PreferTimesConstraint,
-        // AvoidSplitAssignmentsConstraint,
-        // SpreadEventsConstraint,
-        // LinkEventsConstraint,
-        // OrderEventsConstraint,
+        SplitEventsConstraint(pub struct {}),
+        DistributeSplitEventsConstraint(pub struct {}),
+        PreferResourcesConstraint(pub struct {}),
+        PreferTimesConstraint(pub struct {}),
+        AvoidSplitAssignmentsConstraint(pub struct {}),
+        SpreadEventsConstraint(pub struct {}),
+        LinkEventsConstraint(pub struct {}),
+        OrderEventsConstraint(pub struct {}),
 
         AvoidClashesConstraint(pub struct {
             pub id: String,
@@ -34,18 +35,22 @@ structstruck::strike!(
             pub applies_to: AppliesToResourcesAndGroups,
         }),
 
-        // AvoidUnavailableTimesConstraint,
-        // LimitIdleTimesConstraint,
-        // ClusterBusyTimesConstraint,
-        // LimitBusyTimesConstraint,
-        // LimitWorkloadConstraint,
+        AvoidUnavailableTimesConstraint(pub struct {}),
+        LimitIdleTimesConstraint(pub struct {}),
+        ClusterBusyTimesConstraint(pub struct {}),
+        LimitBusyTimesConstraint(pub struct {}),
+        LimitWorkloadConstraint(pub struct {}),
     }
 );
 
 impl From<crate::parser::instances::constraints::Constraint> for Constraint {
-    fn from(value: crate::parser::instances::constraints::Constraint) -> Self {
+    fn from(value: ParserConstraint) -> Self {
         match value {
-            crate::parser::instances::constraints::Constraint::AssignTimeConstraint(data) => {
+            ParserConstraint::AssignResourceConstraint(_) => {
+                Self::AssignResourceConstraint(AssignResourceConstraint {})
+            }
+
+            ParserConstraint::AssignTimeConstraint(data) => {
                 Self::AssignTimeConstraint(AssignTimeConstraint {
                     id: data.id,
                     name: data.name,
@@ -54,9 +59,38 @@ impl From<crate::parser::instances::constraints::Constraint> for Constraint {
                     cost_function: data.cost_function.into(),
                     applies_to: data.applies_to.into(),
                 })
-            },
+            }
 
-            crate::parser::instances::constraints::Constraint::AvoidClashesConstraint(data) => {
+            ParserConstraint::SplitEventsConstraint(_) => {
+                Self::SplitEventsConstraint(SplitEventsConstraint {})
+            }
+            ParserConstraint::DistributeSplitEventsConstraint(_) => {
+                Self::DistributeSplitEventsConstraint(
+                    DistributeSplitEventsConstraint {},
+                )
+            }
+            ParserConstraint::PreferResourcesConstraint(_) => {
+                Self::PreferResourcesConstraint(PreferResourcesConstraint {})
+            }
+            ParserConstraint::PreferTimesConstraint(_) => {
+                Self::PreferTimesConstraint(PreferTimesConstraint {})
+            }
+            ParserConstraint::AvoidSplitAssignmentsConstraint(_) => {
+                Self::AvoidSplitAssignmentsConstraint(
+                    AvoidSplitAssignmentsConstraint {},
+                )
+            }
+            ParserConstraint::SpreadEventsConstraint(_) => {
+                Self::SpreadEventsConstraint(SpreadEventsConstraint {})
+            }
+            ParserConstraint::LinkEventsConstraint(_) => {
+                Self::LinkEventsConstraint(LinkEventsConstraint {})
+            }
+            ParserConstraint::OrderEventsConstraint(_) => {
+                Self::OrderEventsConstraint(OrderEventsConstraint {})
+            }
+
+            ParserConstraint::AvoidClashesConstraint(data) => {
                 Self::AvoidClashesConstraint(AvoidClashesConstraint {
                     id: data.id,
                     name: data.name,
@@ -65,6 +99,24 @@ impl From<crate::parser::instances::constraints::Constraint> for Constraint {
                     cost_function: data.cost_function.into(),
                     applies_to: data.applies_to.into(),
                 })
+            }
+
+            ParserConstraint::AvoidUnavailableTimesConstraint(_) => {
+                Self::AvoidUnavailableTimesConstraint(
+                    AvoidUnavailableTimesConstraint {},
+                )
+            }
+            ParserConstraint::LimitIdleTimesConstraint(_) => {
+                Self::LimitIdleTimesConstraint(LimitIdleTimesConstraint {})
+            }
+            ParserConstraint::ClusterBusyTimesConstraint(_) => {
+                Self::ClusterBusyTimesConstraint(ClusterBusyTimesConstraint {})
+            }
+            ParserConstraint::LimitBusyTimesConstraint(_) => {
+                Self::LimitBusyTimesConstraint(LimitBusyTimesConstraint {})
+            }
+            ParserConstraint::LimitWorkloadConstraint(_) => {
+                Self::LimitWorkloadConstraint(LimitWorkloadConstraint {})
             }
         }
     }

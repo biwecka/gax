@@ -1,0 +1,19 @@
+[package]
+name = "n_queens_2"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+#> lib
+ga = { workspace = true }
+xhstt = { workspace = true }
+
+#> remote
+rand = { workspace = true }
+ndarray = { workspace = true }
+
+[lints]
+workspace = true

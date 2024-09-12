@@ -1,0 +1,6259 @@
+<HighSchoolTimetableArchive>
+	<Instances>
+		<Instance Id="FI-WP-06">
+			<MetaData>
+				<Name>FinlandHighSchool</Name>
+				<Contributor>KyngasNurmi, Satakunta University of Applied Sciences</Contributor>
+				<Date>22/09/2011</Date>
+				<Country>Finland</Country>
+				<Description>see http://www.samk.fi/sttp</Description>
+				<Remarks/>
+			</MetaData>
+			<Times>
+				<TimeGroups>
+					<Day Id="gr_Mo">
+						<Name>Mo</Name>
+					</Day>
+					<Day Id="gr_Tu">
+						<Name>Tu</Name>
+					</Day>
+					<Day Id="gr_We">
+						<Name>We</Name>
+					</Day>
+					<Day Id="gr_Th">
+						<Name>Th</Name>
+					</Day>
+					<Day Id="gr_Fr">
+						<Name>Fr</Name>
+					</Day>
+					<TimeGroup Id="gr_TimesDurationTwo">
+						<Name>TimesDurationTwo</Name>
+					</TimeGroup>
+					<TimeGroup Id="gr_TimesDurationThree">
+						<Name>TimesDurationThree</Name>
+					</TimeGroup>
+				</TimeGroups>
+				<Time Id="Mo_1">
+					<Name>Mo_1</Name>
+					<Day Reference="gr_Mo"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Mo_2">
+					<Name>Mo_2</Name>
+					<Day Reference="gr_Mo"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Mo_3">
+					<Name>Mo_3</Name>
+					<Day Reference="gr_Mo"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Mo_4">
+					<Name>Mo_4</Name>
+					<Day Reference="gr_Mo"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Mo_5">
+					<Name>Mo_5</Name>
+					<Day Reference="gr_Mo"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Mo_6">
+					<Name>Mo_6</Name>
+					<Day Reference="gr_Mo"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Mo_7">
+					<Name>Mo_7</Name>
+					<Day Reference="gr_Mo"/>
+				</Time>
+				<Time Id="Tu_1">
+					<Name>Tu_1</Name>
+					<Day Reference="gr_Tu"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Tu_2">
+					<Name>Tu_2</Name>
+					<Day Reference="gr_Tu"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Tu_3">
+					<Name>Tu_3</Name>
+					<Day Reference="gr_Tu"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Tu_4">
+					<Name>Tu_4</Name>
+					<Day Reference="gr_Tu"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Tu_5">
+					<Name>Tu_5</Name>
+					<Day Reference="gr_Tu"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Tu_6">
+					<Name>Tu_6</Name>
+					<Day Reference="gr_Tu"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Tu_7">
+					<Name>Tu_7</Name>
+					<Day Reference="gr_Tu"/>
+				</Time>
+				<Time Id="We_1">
+					<Name>We_1</Name>
+					<Day Reference="gr_We"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="We_2">
+					<Name>We_2</Name>
+					<Day Reference="gr_We"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="We_3">
+					<Name>We_3</Name>
+					<Day Reference="gr_We"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="We_4">
+					<Name>We_4</Name>
+					<Day Reference="gr_We"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="We_5">
+					<Name>We_5</Name>
+					<Day Reference="gr_We"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="We_6">
+					<Name>We_6</Name>
+					<Day Reference="gr_We"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="We_7">
+					<Name>We_7</Name>
+					<Day Reference="gr_We"/>
+				</Time>
+				<Time Id="Th_1">
+					<Name>Th_1</Name>
+					<Day Reference="gr_Th"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Th_2">
+					<Name>Th_2</Name>
+					<Day Reference="gr_Th"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Th_3">
+					<Name>Th_3</Name>
+					<Day Reference="gr_Th"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Th_4">
+					<Name>Th_4</Name>
+					<Day Reference="gr_Th"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Th_5">
+					<Name>Th_5</Name>
+					<Day Reference="gr_Th"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Th_6">
+					<Name>Th_6</Name>
+					<Day Reference="gr_Th"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Th_7">
+					<Name>Th_7</Name>
+					<Day Reference="gr_Th"/>
+				</Time>
+				<Time Id="Fr_1">
+					<Name>Fr_1</Name>
+					<Day Reference="gr_Fr"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Fr_2">
+					<Name>Fr_2</Name>
+					<Day Reference="gr_Fr"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Fr_3">
+					<Name>Fr_3</Name>
+					<Day Reference="gr_Fr"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Fr_4">
+					<Name>Fr_4</Name>
+					<Day Reference="gr_Fr"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Fr_5">
+					<Name>Fr_5</Name>
+					<Day Reference="gr_Fr"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Fr_6">
+					<Name>Fr_6</Name>
+					<Day Reference="gr_Fr"/>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+					</TimeGroups>
+				</Time>
+				<Time Id="Fr_7">
+					<Name>Fr_7</Name>
+					<Day Reference="gr_Fr"/>
+				</Time>
+			</Times>
+			<Resources>
+				<ResourceTypes>
+					<ResourceType Id="Teacher">
+						<Name>Teacher</Name>
+					</ResourceType>
+					<ResourceType Id="Class">
+						<Name>Class</Name>
+					</ResourceType>
+					<ResourceType Id="Room">
+						<Name>Room</Name>
+					</ResourceType>
+				</ResourceTypes>
+				<ResourceGroups>
+					<ResourceGroup Id="gr_Teachers">
+						<Name>allTeachers</Name>
+						<ResourceType Reference="Teacher"/>
+					</ResourceGroup>
+					<ResourceGroup Id="gr_Classes">
+						<Name>allClasses</Name>
+						<ResourceType Reference="Class"/>
+					</ResourceGroup>
+					<ResourceGroup Id="gr_Rooms">
+						<Name>allRooms</Name>
+						<ResourceType Reference="Room"/>
+					</ResourceGroup>
+				</ResourceGroups>
+				<Resource Id="ARO">
+					<Name>ARO</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="BLO">
+					<Name>BLO</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="HAH">
+					<Name>HAH</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="HAN">
+					<Name>HAN</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="HED">
+					<Name>HED</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="HIL">
+					<Name>HIL</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="IHA">
+					<Name>IHA</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="KHK">
+					<Name>KHK</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="LES">
+					<Name>LES</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="MAL">
+					<Name>MAL</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="MIK">
+					<Name>MIK</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="MIV">
+					<Name>MIV</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="MTH">
+					<Name>MTH</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="NII">
+					<Name>NII</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="RAP">
+					<Name>RAP</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SOL">
+					<Name>SOL</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="TOK">
+					<Name>TOK</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="VAM">
+					<Name>VAM</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SA">
+					<Name>SA</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SB">
+					<Name>SB</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SC">
+					<Name>SC</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SD">
+					<Name>SD</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SE">
+					<Name>SE</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SF">
+					<Name>SF</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SG">
+					<Name>SG</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SH">
+					<Name>SH</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SI">
+					<Name>SI</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="SX">
+					<Name>SX</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R181">
+					<Name>R181</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R204">
+					<Name>R204</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R205">
+					<Name>R205</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R206">
+					<Name>R206</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R207">
+					<Name>R207</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R210">
+					<Name>R210</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R211">
+					<Name>R211</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R212">
+					<Name>R212</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R213">
+					<Name>R213</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R227">
+					<Name>R227</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R232">
+					<Name>R232</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R235">
+					<Name>R235</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="R302">
+					<Name>R302</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
+			</Resources>
+			<Events>
+				<EventGroups>
+					<Course Id="gr_C001">
+						<Name>C001</Name>
+					</Course>
+					<Course Id="gr_C002">
+						<Name>C002</Name>
+					</Course>
+					<Course Id="gr_C003">
+						<Name>C003</Name>
+					</Course>
+					<Course Id="gr_C004">
+						<Name>C004</Name>
+					</Course>
+					<Course Id="gr_C005">
+						<Name>C005</Name>
+					</Course>
+					<Course Id="gr_C006">
+						<Name>C006</Name>
+					</Course>
+					<Course Id="gr_C007">
+						<Name>C007</Name>
+					</Course>
+					<Course Id="gr_C008">
+						<Name>C008</Name>
+					</Course>
+					<Course Id="gr_C009">
+						<Name>C009</Name>
+					</Course>
+					<Course Id="gr_C010">
+						<Name>C010</Name>
+					</Course>
+					<Course Id="gr_C011">
+						<Name>C011</Name>
+					</Course>
+					<Course Id="gr_C012">
+						<Name>C012</Name>
+					</Course>
+					<Course Id="gr_C013">
+						<Name>C013</Name>
+					</Course>
+					<Course Id="gr_C014">
+						<Name>C014</Name>
+					</Course>
+					<Course Id="gr_C015">
+						<Name>C015</Name>
+					</Course>
+					<Course Id="gr_C016">
+						<Name>C016</Name>
+					</Course>
+					<Course Id="gr_C017">
+						<Name>C017</Name>
+					</Course>
+					<Course Id="gr_C018">
+						<Name>C018</Name>
+					</Course>
+					<Course Id="gr_C019">
+						<Name>C019</Name>
+					</Course>
+					<Course Id="gr_C020">
+						<Name>C020</Name>
+					</Course>
+					<Course Id="gr_C021">
+						<Name>C021</Name>
+					</Course>
+					<Course Id="gr_C022">
+						<Name>C022</Name>
+					</Course>
+					<Course Id="gr_C023">
+						<Name>C023</Name>
+					</Course>
+					<Course Id="gr_C024">
+						<Name>C024</Name>
+					</Course>
+					<Course Id="gr_C025">
+						<Name>C025</Name>
+					</Course>
+					<Course Id="gr_C026">
+						<Name>C026</Name>
+					</Course>
+					<Course Id="gr_C027">
+						<Name>C027</Name>
+					</Course>
+					<Course Id="gr_C028">
+						<Name>C028</Name>
+					</Course>
+					<Course Id="gr_C029">
+						<Name>C029</Name>
+					</Course>
+					<Course Id="gr_C030">
+						<Name>C030</Name>
+					</Course>
+					<Course Id="gr_C031">
+						<Name>C031</Name>
+					</Course>
+					<Course Id="gr_C032">
+						<Name>C032</Name>
+					</Course>
+					<Course Id="gr_C033">
+						<Name>C033</Name>
+					</Course>
+					<Course Id="gr_C034">
+						<Name>C034</Name>
+					</Course>
+					<Course Id="gr_C035">
+						<Name>C035</Name>
+					</Course>
+					<Course Id="gr_C036">
+						<Name>C036</Name>
+					</Course>
+					<Course Id="gr_C037">
+						<Name>C037</Name>
+					</Course>
+					<Course Id="gr_C038">
+						<Name>C038</Name>
+					</Course>
+					<Course Id="gr_C039">
+						<Name>C039</Name>
+					</Course>
+					<Course Id="gr_C040">
+						<Name>C040</Name>
+					</Course>
+					<Course Id="gr_C041">
+						<Name>C041</Name>
+					</Course>
+					<Course Id="gr_C042">
+						<Name>C042</Name>
+					</Course>
+					<Course Id="gr_C043">
+						<Name>C043</Name>
+					</Course>
+					<Course Id="gr_C044">
+						<Name>C044</Name>
+					</Course>
+					<Course Id="gr_C045">
+						<Name>C045</Name>
+					</Course>
+					<Course Id="gr_C046">
+						<Name>C046</Name>
+					</Course>
+					<Course Id="gr_C047">
+						<Name>C047</Name>
+					</Course>
+					<Course Id="gr_C048">
+						<Name>C048</Name>
+					</Course>
+					<Course Id="gr_C049">
+						<Name>C049</Name>
+					</Course>
+					<Course Id="gr_C050">
+						<Name>C050</Name>
+					</Course>
+					<Course Id="gr_C051">
+						<Name>C051</Name>
+					</Course>
+					<Course Id="gr_C052">
+						<Name>C052</Name>
+					</Course>
+					<Course Id="gr_C053">
+						<Name>C053</Name>
+					</Course>
+					<Course Id="gr_C054">
+						<Name>C054</Name>
+					</Course>
+					<Course Id="gr_C055">
+						<Name>C055</Name>
+					</Course>
+					<Course Id="gr_C056">
+						<Name>C056</Name>
+					</Course>
+					<Course Id="gr_C057">
+						<Name>C057</Name>
+					</Course>
+					<Course Id="gr_C058">
+						<Name>C058</Name>
+					</Course>
+					<Course Id="gr_C059">
+						<Name>C059</Name>
+					</Course>
+					<Course Id="gr_C060">
+						<Name>C060</Name>
+					</Course>
+					<Course Id="gr_C061">
+						<Name>C061</Name>
+					</Course>
+					<Course Id="gr_C062">
+						<Name>C062</Name>
+					</Course>
+					<Course Id="gr_C063">
+						<Name>C063</Name>
+					</Course>
+					<EventGroup Id="gr_EventsDuration2">
+						<Name>EventsOfDurationTwo</Name>
+					</EventGroup>
+					<EventGroup Id="gr_EventsDuration3">
+						<Name>EventsOfDurationThree</Name>
+					</EventGroup>
+					<EventGroup Id="gr_EventsGeneral">
+						<Name>General</Name>
+					</EventGroup>
+				</EventGroups>
+				<Event Id="Event_C001_1">
+					<Name>C001_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C001"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="ARO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C001_2">
+					<Name>C001_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C001"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="ARO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C001_3">
+					<Name>C001_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C001"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="ARO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C002_1">
+					<Name>C002_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C002"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C002_2">
+					<Name>C002_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C002"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C003_1">
+					<Name>C003_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C003"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C003_2">
+					<Name>C003_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C003"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C003_3">
+					<Name>C003_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C003"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C004_1">
+					<Name>C004_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C004"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C004_2">
+					<Name>C004_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C004"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C004_3">
+					<Name>C004_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C004"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C005_1">
+					<Name>C005_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C005"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C005_2">
+					<Name>C005_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C005"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="BLO">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C006_1">
+					<Name>C006_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C006"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C006_2">
+					<Name>C006_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C006"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C006_3">
+					<Name>C006_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C006"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C007_1">
+					<Name>C007_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C007"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C007_2">
+					<Name>C007_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C007"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C007_3">
+					<Name>C007_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C007"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C008_1">
+					<Name>C008_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C008"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C008_2">
+					<Name>C008_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C008"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C008_3">
+					<Name>C008_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C008"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C009_1">
+					<Name>C009_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C009"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C009_2">
+					<Name>C009_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C009"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C009_3">
+					<Name>C009_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C009"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C010_1">
+					<Name>C010_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C010"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C010_2">
+					<Name>C010_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C010"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C010_3">
+					<Name>C010_3</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C010"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C011_1">
+					<Name>C011_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C011"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C011_2">
+					<Name>C011_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C011"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C011_3">
+					<Name>C011_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C011"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C012_1">
+					<Name>C012_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C012"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C012_2">
+					<Name>C012_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C012"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C012_3">
+					<Name>C012_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C012"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C013_1">
+					<Name>C013_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C013"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C013_2">
+					<Name>C013_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C013"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HAN">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C014_1">
+					<Name>C014_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C014"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C014_2">
+					<Name>C014_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C014"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C014_3">
+					<Name>C014_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C014"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C015_1">
+					<Name>C015_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C015"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C015_2">
+					<Name>C015_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C015"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C015_3">
+					<Name>C015_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C015"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R213">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C016_1">
+					<Name>C016_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C016"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C016_2">
+					<Name>C016_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C016"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C016_3">
+					<Name>C016_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C016"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C017_1">
+					<Name>C017_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C017"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C017_2">
+					<Name>C017_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C017"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C017_3">
+					<Name>C017_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C017"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HED">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R211">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C018_1">
+					<Name>C018_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C018"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C018_2">
+					<Name>C018_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C018"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C018_3">
+					<Name>C018_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C018"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C019_1">
+					<Name>C019_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C019"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C019_2">
+					<Name>C019_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C019"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C019_3">
+					<Name>C019_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C019"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C020_1">
+					<Name>C020_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C020"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C020_2">
+					<Name>C020_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C020"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C020_3">
+					<Name>C020_3</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C020"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C021_1">
+					<Name>C021_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C021"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C021_2">
+					<Name>C021_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C021"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C022_1">
+					<Name>C022_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C022"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C022_2">
+					<Name>C022_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C022"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C022_3">
+					<Name>C022_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C022"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="HIL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R302">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C023_1">
+					<Name>C023_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C023"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="IHA">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R181">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C023_2">
+					<Name>C023_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C023"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="IHA">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R181">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C023_3">
+					<Name>C023_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C023"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="IHA">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R181">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C024_1">
+					<Name>C024_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C024"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="IHA">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R181">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C024_2">
+					<Name>C024_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C024"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="IHA">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R181">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C024_3">
+					<Name>C024_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C024"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="IHA">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R181">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C025_1">
+					<Name>C025_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C025"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="IHA">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C025_2">
+					<Name>C025_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C025"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="IHA">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C026_1">
+					<Name>C026_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C026"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C026_2">
+					<Name>C026_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C026"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C026_3">
+					<Name>C026_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C026"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C027_1">
+					<Name>C027_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C027"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C027_2">
+					<Name>C027_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C027"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C027_3">
+					<Name>C027_3</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C027"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C028_1">
+					<Name>C028_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C028"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C028_2">
+					<Name>C028_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C028"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C029_1">
+					<Name>C029_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C029"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C029_2">
+					<Name>C029_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C029"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C029_3">
+					<Name>C029_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C029"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C030_1">
+					<Name>C030_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C030"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C030_2">
+					<Name>C030_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C030"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C030_3">
+					<Name>C030_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C030"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="KHK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C031_1">
+					<Name>C031_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C031"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="LES">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C031_2">
+					<Name>C031_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C031"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="LES">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C031_3">
+					<Name>C031_3</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C031"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="LES">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C032_1">
+					<Name>C032_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C032"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="LES">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C032_2">
+					<Name>C032_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C032"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="LES">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C032_3">
+					<Name>C032_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C032"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="LES">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C033_1">
+					<Name>C033_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C033"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MAL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C033_2">
+					<Name>C033_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C033"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MAL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C033_3">
+					<Name>C033_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C033"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MAL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C034_1">
+					<Name>C034_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C034"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MAL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C034_2">
+					<Name>C034_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C034"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MAL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C034_3">
+					<Name>C034_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C034"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MAL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R205">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C035_1">
+					<Name>C035_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C035"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C035_2">
+					<Name>C035_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C035"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C035_3">
+					<Name>C035_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C035"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R232">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C036_1">
+					<Name>C036_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C036"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C036_2">
+					<Name>C036_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C036"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C036_3">
+					<Name>C036_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C036"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C037_1">
+					<Name>C037_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C037"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C037_2">
+					<Name>C037_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C037"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C038_1">
+					<Name>C038_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C038"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C038_2">
+					<Name>C038_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C038"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C039_1">
+					<Name>C039_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C039"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C039_2">
+					<Name>C039_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C039"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C039_3">
+					<Name>C039_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C039"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C040_1">
+					<Name>C040_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C040"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C040_2">
+					<Name>C040_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C040"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C040_3">
+					<Name>C040_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C040"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R206">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C041_1">
+					<Name>C041_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C041"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C041_2">
+					<Name>C041_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C041"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C042_1">
+					<Name>C042_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C042"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C042_2">
+					<Name>C042_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C042"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C042_3">
+					<Name>C042_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C042"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C043_1">
+					<Name>C043_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C043"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C043_2">
+					<Name>C043_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C043"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C043_3">
+					<Name>C043_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C043"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MIV">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C044_1">
+					<Name>C044_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C044"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MTH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C044_2">
+					<Name>C044_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C044"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MTH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C044_3">
+					<Name>C044_3</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C044"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MTH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C045_1">
+					<Name>C045_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C045"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MTH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C045_2">
+					<Name>C045_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C045"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MTH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C046_1">
+					<Name>C046_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C046"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MTH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C046_2">
+					<Name>C046_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C046"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="MTH">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C047_1">
+					<Name>C047_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C047"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C047_2">
+					<Name>C047_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C047"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C047_3">
+					<Name>C047_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C047"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C048_1">
+					<Name>C048_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C048"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C048_2">
+					<Name>C048_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C048"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C048_3">
+					<Name>C048_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C048"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C049_1">
+					<Name>C049_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C049"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C049_2">
+					<Name>C049_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C049"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C049_3">
+					<Name>C049_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C049"/>
+					<Resources>
+						<Resource Reference="SX">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C050_1">
+					<Name>C050_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C050"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C050_2">
+					<Name>C050_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C050"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C050_3">
+					<Name>C050_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C050"/>
+					<Resources>
+						<Resource Reference="SA">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="NII">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C051_1">
+					<Name>C051_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C051"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C051_2">
+					<Name>C051_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C051"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C051_3">
+					<Name>C051_3</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C051"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C052_1">
+					<Name>C052_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C052"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C052_2">
+					<Name>C052_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C052"/>
+					<Resources>
+						<Resource Reference="SC">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C053_1">
+					<Name>C053_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C053"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C053_2">
+					<Name>C053_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C053"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C054_1">
+					<Name>C054_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C054"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C054_2">
+					<Name>C054_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C054"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C054_3">
+					<Name>C054_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C054"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="RAP">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R210">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C055_1">
+					<Name>C055_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C055"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C055_2">
+					<Name>C055_2</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C055"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C055_3">
+					<Name>C055_3</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C055"/>
+					<Resources>
+						<Resource Reference="SF">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C056_1">
+					<Name>C056_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C056"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C056_2">
+					<Name>C056_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C056"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C056_3">
+					<Name>C056_3</Name>
+					<Duration>3</Duration>
+					<Course Reference="gr_C056"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration3"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C057_1">
+					<Name>C057_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C057"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C057_2">
+					<Name>C057_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C057"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R207">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C058_1">
+					<Name>C058_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C058"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C058_2">
+					<Name>C058_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C058"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C058_3">
+					<Name>C058_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C058"/>
+					<Resources>
+						<Resource Reference="SB">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C059_1">
+					<Name>C059_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C059"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C059_2">
+					<Name>C059_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C059"/>
+					<Resources>
+						<Resource Reference="SE">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="SOL">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R212">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C060_1">
+					<Name>C060_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C060"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="TOK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C060_2">
+					<Name>C060_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C060"/>
+					<Resources>
+						<Resource Reference="SG">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="TOK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R227">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C061_1">
+					<Name>C061_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C061"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="TOK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C061_2">
+					<Name>C061_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C061"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="TOK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C061_3">
+					<Name>C061_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C061"/>
+					<Resources>
+						<Resource Reference="SH">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="TOK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C062_1">
+					<Name>C062_1</Name>
+					<Duration>1</Duration>
+					<Course Reference="gr_C062"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="TOK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C062_2">
+					<Name>C062_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C062"/>
+					<Resources>
+						<Resource Reference="SI">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="TOK">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R204">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C063_1">
+					<Name>C063_1</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C063"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="VAM">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R235">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C063_2">
+					<Name>C063_2</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C063"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="VAM">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R235">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+				<Event Id="Event_C063_3">
+					<Name>C063_3</Name>
+					<Duration>2</Duration>
+					<Course Reference="gr_C063"/>
+					<Resources>
+						<Resource Reference="SD">
+							<Role>Class</Role>
+						</Resource>
+						<Resource Reference="VAM">
+							<Role>Teacher</Role>
+						</Resource>
+						<Resource Reference="R235">
+							<Role>Room</Role>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_EventsGeneral"/>
+						<EventGroup Reference="gr_EventsDuration2"/>
+					</EventGroups>
+				</Event>
+			</Events>
+			<Constraints>
+				<AssignTimeConstraint Id="AssignTimes_2">
+					<Name>AssignTimes</Name>
+					<Required>true</Required>
+					<Weight>1</Weight>
+					<CostFunction>Linear</CostFunction>
+					<AppliesTo>
+						<EventGroups>
+							<EventGroup Reference="gr_EventsGeneral"/>
+						</EventGroups>
+					</AppliesTo>
+				</AssignTimeConstraint>
+				<SplitEventsConstraint Id="NoSplitEventsConstraint">
+					<Name>Do not split events</Name>
+					<Required>true</Required>
+					<Weight>1000</Weight>
+					<CostFunction>Linear</CostFunction>
+					<AppliesTo>
+						<EventGroups>
+							<EventGroup Reference="gr_EventsGeneral"/>
+						</EventGroups>
+					</AppliesTo>
+					<MinimumDuration>1</MinimumDuration>
+					<MaximumDuration>999</MaximumDuration>
+					<MinimumAmount>1</MinimumAmount>
+					<MaximumAmount>1</MaximumAmount>
+				</SplitEventsConstraint>
+				<PreferTimesConstraint Id="PreferredTimes_5">
+					<Name>PreferredTimesDurationTwo</Name>
+					<Required>true</Required>
+					<Weight>2</Weight>
+					<CostFunction>Linear</CostFunction>
+					<AppliesTo>
+						<EventGroups>
+							<EventGroup Reference="gr_EventsDuration2"/>
+						</EventGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationTwo"/>
+					</TimeGroups>
+				</PreferTimesConstraint>
+				<PreferTimesConstraint Id="PreferredTimes_6">
+					<Name>PreferredTimesDurationThree</Name>
+					<Required>true</Required>
+					<Weight>3</Weight>
+					<CostFunction>Linear</CostFunction>
+					<AppliesTo>
+						<EventGroups>
+							<EventGroup Reference="gr_EventsDuration3"/>
+						</EventGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_TimesDurationThree"/>
+					</TimeGroups>
+				</PreferTimesConstraint>
+				<SpreadEventsConstraint Id="EventSpreadingConstraint_7">
+					<Name>EventSpreadingConstraint</Name>
+					<Required>true</Required>
+					<Weight>1</Weight>
+					<CostFunction>Linear</CostFunction>
+					<AppliesTo>
+						<EventGroups>
+							<EventGroup Reference="gr_C001"/>
+							<EventGroup Reference="gr_C002"/>
+							<EventGroup Reference="gr_C003"/>
+							<EventGroup Reference="gr_C004"/>
+							<EventGroup Reference="gr_C005"/>
+							<EventGroup Reference="gr_C006"/>
+							<EventGroup Reference="gr_C007"/>
+							<EventGroup Reference="gr_C008"/>
+							<EventGroup Reference="gr_C009"/>
+							<EventGroup Reference="gr_C010"/>
+							<EventGroup Reference="gr_C011"/>
+							<EventGroup Reference="gr_C012"/>
+							<EventGroup Reference="gr_C013"/>
+							<EventGroup Reference="gr_C014"/>
+							<EventGroup Reference="gr_C015"/>
+							<EventGroup Reference="gr_C016"/>
+							<EventGroup Reference="gr_C017"/>
+							<EventGroup Reference="gr_C018"/>
+							<EventGroup Reference="gr_C019"/>
+							<EventGroup Reference="gr_C020"/>
+							<EventGroup Reference="gr_C021"/>
+							<EventGroup Reference="gr_C022"/>
+							<EventGroup Reference="gr_C023"/>
+							<EventGroup Reference="gr_C024"/>
+							<EventGroup Reference="gr_C025"/>
+							<EventGroup Reference="gr_C026"/>
+							<EventGroup Reference="gr_C027"/>
+							<EventGroup Reference="gr_C028"/>
+							<EventGroup Reference="gr_C029"/>
+							<EventGroup Reference="gr_C030"/>
+							<EventGroup Reference="gr_C031"/>
+							<EventGroup Reference="gr_C032"/>
+							<EventGroup Reference="gr_C033"/>
+							<EventGroup Reference="gr_C034"/>
+							<EventGroup Reference="gr_C035"/>
+							<EventGroup Reference="gr_C036"/>
+							<EventGroup Reference="gr_C037"/>
+							<EventGroup Reference="gr_C038"/>
+							<EventGroup Reference="gr_C039"/>
+							<EventGroup Reference="gr_C040"/>
+							<EventGroup Reference="gr_C041"/>
+							<EventGroup Reference="gr_C042"/>
+							<EventGroup Reference="gr_C043"/>
+							<EventGroup Reference="gr_C044"/>
+							<EventGroup Reference="gr_C045"/>
+							<EventGroup Reference="gr_C046"/>
+							<EventGroup Reference="gr_C047"/>
+							<EventGroup Reference="gr_C048"/>
+							<EventGroup Reference="gr_C049"/>
+							<EventGroup Reference="gr_C050"/>
+							<EventGroup Reference="gr_C051"/>
+							<EventGroup Reference="gr_C052"/>
+							<EventGroup Reference="gr_C053"/>
+							<EventGroup Reference="gr_C054"/>
+							<EventGroup Reference="gr_C055"/>
+							<EventGroup Reference="gr_C056"/>
+							<EventGroup Reference="gr_C057"/>
+							<EventGroup Reference="gr_C058"/>
+							<EventGroup Reference="gr_C059"/>
+							<EventGroup Reference="gr_C060"/>
+							<EventGroup Reference="gr_C061"/>
+							<EventGroup Reference="gr_C062"/>
+							<EventGroup Reference="gr_C063"/>
+						</EventGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo">
+							<Minimum>0</Minimum>
+							<Maximum>1</Maximum>
+						</TimeGroup>
+						<TimeGroup Reference="gr_Tu">
+							<Minimum>0</Minimum>
+							<Maximum>1</Maximum>
+						</TimeGroup>
+						<TimeGroup Reference="gr_We">
+							<Minimum>0</Minimum>
+							<Maximum>1</Maximum>
+						</TimeGroup>
+						<TimeGroup Reference="gr_Th">
+							<Minimum>0</Minimum>
+							<Maximum>1</Maximum>
+						</TimeGroup>
+						<TimeGroup Reference="gr_Fr">
+							<Minimum>0</Minimum>
+							<Maximum>1</Maximum>
+						</TimeGroup>
+					</TimeGroups>
+				</SpreadEventsConstraint>
+				<AvoidClashesConstraint Id="NoResourceClashes_8">
+					<Name>NoResourceClashes</Name>
+					<Required>true</Required>
+					<Weight>1</Weight>
+					<CostFunction>Linear</CostFunction>
+					<AppliesTo>
+						<ResourceGroups>
+							<ResourceGroup Reference="gr_Teachers"/>
+							<ResourceGroup Reference="gr_Rooms"/>
+							<ResourceGroup Reference="gr_Classes"/>
+						</ResourceGroups>
+					</AppliesTo>
+				</AvoidClashesConstraint>
+				<LimitIdleTimesConstraint Id="JumpPeriods_Classes">
+					<Name>JumpPeriods_Classes</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups>
+							<ResourceGroup Reference="gr_Classes"/>
+						</ResourceGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>0</Minimum>
+					<Maximum>0</Maximum>
+				</LimitIdleTimesConstraint>
+				<LimitIdleTimesConstraint Id="JumpPeriods_Teachers">
+					<Name>JumpPeriods_Teachers</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups>
+							<ResourceGroup Reference="gr_Teachers"/>
+						</ResourceGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>0</Minimum>
+					<Maximum>0</Maximum>
+				</LimitIdleTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxADay_Classes_mo">
+					<Name>MinMaxADay_Classes</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups>
+							<ResourceGroup Reference="gr_Classes"/>
+						</ResourceGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>7</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxADay_Classes_tu">
+					<Name>MinMaxADay_Classes</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups>
+							<ResourceGroup Reference="gr_Classes"/>
+						</ResourceGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Tu"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>7</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxADay_Classes_we">
+					<Name>MinMaxADay_Classes</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups>
+							<ResourceGroup Reference="gr_Classes"/>
+						</ResourceGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_We"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>7</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxADay_Classes_th">
+					<Name>MinMaxADay_Classes</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups>
+							<ResourceGroup Reference="gr_Classes"/>
+						</ResourceGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Th"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>7</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxADay_Classes_fr">
+					<Name>MinMaxADay_Classes</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups>
+							<ResourceGroup Reference="gr_Classes"/>
+						</ResourceGroups>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>7</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_ARO">
+					<Name>MinMaxDay_ARO</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="ARO"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>2</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_BLO">
+					<Name>MinMaxDay_BLO</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="BLO"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>3</Minimum>
+					<Maximum>6</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_HAH">
+					<Name>MinMaxDay_HAH</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="HAH"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>3</Minimum>
+					<Maximum>6</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_HAN">
+					<Name>MinMaxDay_HAN</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="HAN"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>2</Minimum>
+					<Maximum>6</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_HED">
+					<Name>MinMaxDay_HED</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="HED"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>3</Minimum>
+					<Maximum>5</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_HIL">
+					<Name>MinMaxDay_HIL</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="HIL"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>3</Minimum>
+					<Maximum>6</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_IHA">
+					<Name>MinMaxDay_IHA</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="IHA"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>2</Minimum>
+					<Maximum>4</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_KHK">
+					<Name>MinMaxDay_KHK</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="KHK"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>3</Minimum>
+					<Maximum>7</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_LES">
+					<Name>MinMaxDay_LES</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="LES"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>4</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_MAL">
+					<Name>MinMaxDay_MAL</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="MAL"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>2</Minimum>
+					<Maximum>4</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_MIK">
+					<Name>MinMaxDay_MIK</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="MIK"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>3</Minimum>
+					<Maximum>7</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_MIV">
+					<Name>MinMaxDay_MIV</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="MIV"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>2</Minimum>
+					<Maximum>6</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_MTH">
+					<Name>MinMaxDay_MTH</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="MTH"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>2</Minimum>
+					<Maximum>4</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_NII">
+					<Name>MinMaxDay_NII</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="NII"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>2</Minimum>
+					<Maximum>6</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_RAP">
+					<Name>MinMaxDay_RAP</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="RAP"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>3</Minimum>
+					<Maximum>6</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_SOL">
+					<Name>MinMaxDay_SOL</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="SOL"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>3</Minimum>
+					<Maximum>7</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_TOK">
+					<Name>MinMaxDay_TOK</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="TOK"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>6</Maximum>
+				</LimitBusyTimesConstraint>
+				<LimitBusyTimesConstraint Id="MinMaxDay_VAM">
+					<Name>MinMaxDay_VAM</Name>
+					<Required>false</Required>
+					<Weight>1</Weight>
+					<CostFunction>Quadratic</CostFunction>
+					<AppliesTo>
+						<ResourceGroups/>
+						<Resources>
+							<Resource Reference="VAM"/>
+						</Resources>
+					</AppliesTo>
+					<TimeGroups>
+						<TimeGroup Reference="gr_Mo"/>
+						<TimeGroup Reference="gr_Tu"/>
+						<TimeGroup Reference="gr_We"/>
+						<TimeGroup Reference="gr_Th"/>
+						<TimeGroup Reference="gr_Fr"/>
+					</TimeGroups>
+					<Minimum>1</Minimum>
+					<Maximum>3</Maximum>
+				</LimitBusyTimesConstraint>
+			</Constraints>
+		</Instance>
+	</Instances>
+	<SolutionGroups>
+		<SolutionGroup Id="CimmoJari_2011-09-22">
+			<MetaData>
+				<Contributor>Satakunta University of Applied Sciences, Pori</Contributor>
+				<Date>22/09/2011</Date>
+				<Description>Solution</Description>
+			</MetaData>
+			<Solution Reference="FI-WP-06">
+				<Events>
+					<Event Reference="Event_C001_1">
+						<Duration>2</Duration>
+						<Time Reference="We_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C001_2">
+						<Duration>2</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C001_3">
+						<Duration>2</Duration>
+						<Time Reference="Fr_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C002_1">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C002_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C003_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C003_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C003_3">
+						<Duration>3</Duration>
+						<Time Reference="Tu_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C004_1">
+						<Duration>2</Duration>
+						<Time Reference="We_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C004_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C004_3">
+						<Duration>3</Duration>
+						<Time Reference="Mo_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C005_1">
+						<Duration>1</Duration>
+						<Time Reference="We_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C005_2">
+						<Duration>1</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C006_1">
+						<Duration>2</Duration>
+						<Time Reference="We_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C006_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C006_3">
+						<Duration>2</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C007_1">
+						<Duration>1</Duration>
+						<Time Reference="Mo_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C007_2">
+						<Duration>2</Duration>
+						<Time Reference="Tu_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C007_3">
+						<Duration>3</Duration>
+						<Time Reference="Fr_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C008_1">
+						<Duration>1</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C008_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C008_3">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C009_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C009_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C009_3">
+						<Duration>3</Duration>
+						<Time Reference="We_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C010_1">
+						<Duration>1</Duration>
+						<Time Reference="Mo_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C010_2">
+						<Duration>1</Duration>
+						<Time Reference="Tu_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C010_3">
+						<Duration>1</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C011_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C011_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C011_3">
+						<Duration>2</Duration>
+						<Time Reference="Tu_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C012_1">
+						<Duration>1</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C012_2">
+						<Duration>1</Duration>
+						<Time Reference="Th_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C012_3">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C013_1">
+						<Duration>2</Duration>
+						<Time Reference="Tu_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C013_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C014_1">
+						<Duration>1</Duration>
+						<Time Reference="Tu_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C014_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C014_3">
+						<Duration>2</Duration>
+						<Time Reference="Th_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C015_1">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C015_2">
+						<Duration>2</Duration>
+						<Time Reference="Tu_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C015_3">
+						<Duration>2</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C016_1">
+						<Duration>2</Duration>
+						<Time Reference="Th_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C016_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C016_3">
+						<Duration>3</Duration>
+						<Time Reference="We_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C017_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C017_2">
+						<Duration>2</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C017_3">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C018_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C018_2">
+						<Duration>1</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C018_3">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C019_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C019_2">
+						<Duration>2</Duration>
+						<Time Reference="We_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C019_3">
+						<Duration>2</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C020_1">
+						<Duration>1</Duration>
+						<Time Reference="Tu_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C020_2">
+						<Duration>1</Duration>
+						<Time Reference="Th_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C020_3">
+						<Duration>1</Duration>
+						<Time Reference="Fr_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C021_1">
+						<Duration>1</Duration>
+						<Time Reference="Mo_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C021_2">
+						<Duration>2</Duration>
+						<Time Reference="Tu_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C022_1">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C022_2">
+						<Duration>2</Duration>
+						<Time Reference="We_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C022_3">
+						<Duration>3</Duration>
+						<Time Reference="Th_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C023_1">
+						<Duration>2</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C023_2">
+						<Duration>2</Duration>
+						<Time Reference="Tu_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C023_3">
+						<Duration>3</Duration>
+						<Time Reference="Fr_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C024_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C024_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C024_3">
+						<Duration>2</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C025_1">
+						<Duration>2</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C025_2">
+						<Duration>2</Duration>
+						<Time Reference="We_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C026_1">
+						<Duration>1</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C026_2">
+						<Duration>2</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C026_3">
+						<Duration>2</Duration>
+						<Time Reference="Mo_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C027_1">
+						<Duration>1</Duration>
+						<Time Reference="We_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C027_2">
+						<Duration>1</Duration>
+						<Time Reference="Fr_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C027_3">
+						<Duration>1</Duration>
+						<Time Reference="Th_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C028_1">
+						<Duration>1</Duration>
+						<Time Reference="Tu_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C028_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C029_1">
+						<Duration>2</Duration>
+						<Time Reference="We_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C029_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C029_3">
+						<Duration>2</Duration>
+						<Time Reference="Fr_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C030_1">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C030_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C030_3">
+						<Duration>3</Duration>
+						<Time Reference="Tu_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C031_1">
+						<Duration>1</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C031_2">
+						<Duration>1</Duration>
+						<Time Reference="Th_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C031_3">
+						<Duration>1</Duration>
+						<Time Reference="Tu_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C032_1">
+						<Duration>1</Duration>
+						<Time Reference="Mo_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C032_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C032_3">
+						<Duration>3</Duration>
+						<Time Reference="Fr_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C033_1">
+						<Duration>1</Duration>
+						<Time Reference="We_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C033_2">
+						<Duration>1</Duration>
+						<Time Reference="Th_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C033_3">
+						<Duration>2</Duration>
+						<Time Reference="Mo_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C034_1">
+						<Duration>2</Duration>
+						<Time Reference="We_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C034_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C034_3">
+						<Duration>3</Duration>
+						<Time Reference="Fr_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C035_1">
+						<Duration>1</Duration>
+						<Time Reference="We_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C035_2">
+						<Duration>1</Duration>
+						<Time Reference="Tu_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C035_3">
+						<Duration>2</Duration>
+						<Time Reference="Th_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C036_1">
+						<Duration>1</Duration>
+						<Time Reference="Tu_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C036_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C036_3">
+						<Duration>2</Duration>
+						<Time Reference="We_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C037_1">
+						<Duration>2</Duration>
+						<Time Reference="Tu_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C037_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C038_1">
+						<Duration>1</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C038_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C039_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C039_2">
+						<Duration>1</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C039_3">
+						<Duration>2</Duration>
+						<Time Reference="Mo_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C040_1">
+						<Duration>1</Duration>
+						<Time Reference="We_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C040_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C040_3">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C041_1">
+						<Duration>2</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C041_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C042_1">
+						<Duration>1</Duration>
+						<Time Reference="We_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C042_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C042_3">
+						<Duration>2</Duration>
+						<Time Reference="Fr_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C043_1">
+						<Duration>1</Duration>
+						<Time Reference="Mo_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C043_2">
+						<Duration>2</Duration>
+						<Time Reference="We_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C043_3">
+						<Duration>2</Duration>
+						<Time Reference="Tu_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C044_1">
+						<Duration>1</Duration>
+						<Time Reference="Mo_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C044_2">
+						<Duration>1</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C044_3">
+						<Duration>1</Duration>
+						<Time Reference="Fr_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C045_1">
+						<Duration>2</Duration>
+						<Time Reference="Tu_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C045_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C046_1">
+						<Duration>1</Duration>
+						<Time Reference="Fr_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C046_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C047_1">
+						<Duration>2</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C047_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C047_3">
+						<Duration>3</Duration>
+						<Time Reference="Tu_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C048_1">
+						<Duration>2</Duration>
+						<Time Reference="Fr_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C048_2">
+						<Duration>2</Duration>
+						<Time Reference="We_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C048_3">
+						<Duration>3</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C049_1">
+						<Duration>1</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C049_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C049_3">
+						<Duration>2</Duration>
+						<Time Reference="Fr_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C050_1">
+						<Duration>2</Duration>
+						<Time Reference="Fr_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C050_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C050_3">
+						<Duration>3</Duration>
+						<Time Reference="We_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C051_1">
+						<Duration>1</Duration>
+						<Time Reference="We_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C051_2">
+						<Duration>1</Duration>
+						<Time Reference="Mo_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C051_3">
+						<Duration>1</Duration>
+						<Time Reference="Fr_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C052_1">
+						<Duration>2</Duration>
+						<Time Reference="Tu_2"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C052_2">
+						<Duration>2</Duration>
+						<Time Reference="Th_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C053_1">
+						<Duration>1</Duration>
+						<Time Reference="We_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C053_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C054_1">
+						<Duration>1</Duration>
+						<Time Reference="We_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C054_2">
+						<Duration>1</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C054_3">
+						<Duration>2</Duration>
+						<Time Reference="Fr_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C055_1">
+						<Duration>1</Duration>
+						<Time Reference="We_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C055_2">
+						<Duration>1</Duration>
+						<Time Reference="Tu_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C055_3">
+						<Duration>1</Duration>
+						<Time Reference="Th_7"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C056_1">
+						<Duration>2</Duration>
+						<Time Reference="Mo_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C056_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C056_3">
+						<Duration>3</Duration>
+						<Time Reference="Tu_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C057_1">
+						<Duration>1</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C057_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C058_1">
+						<Duration>2</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C058_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C058_3">
+						<Duration>2</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C059_1">
+						<Duration>1</Duration>
+						<Time Reference="Tu_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C059_2">
+						<Duration>2</Duration>
+						<Time Reference="We_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C060_1">
+						<Duration>1</Duration>
+						<Time Reference="Th_5"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C060_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C061_1">
+						<Duration>1</Duration>
+						<Time Reference="Th_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C061_2">
+						<Duration>2</Duration>
+						<Time Reference="Mo_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C061_3">
+						<Duration>2</Duration>
+						<Time Reference="We_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C062_1">
+						<Duration>1</Duration>
+						<Time Reference="Th_3"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C062_2">
+						<Duration>2</Duration>
+						<Time Reference="Fr_1"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C063_1">
+						<Duration>2</Duration>
+						<Time Reference="Fr_4"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C063_2">
+						<Duration>2</Duration>
+						<Time Reference="We_6"/>
+						<Resources/>
+					</Event>
+					<Event Reference="Event_C063_3">
+						<Duration>2</Duration>
+						<Time Reference="Tu_4"/>
+						<Resources/>
+					</Event>
+				</Events>
+			</Solution>
+		</SolutionGroup>
+		<SolutionGroup Id="GOAL team Fri Jan 29 01:53:12 2016">
+			<MetaData>
+				<Contributor>GOAL team: Fonseca, G.H.G. Santos, H.G. and Carrano, E.G.</Contributor>
+				<Date>void</Date>
+				<Description>Fri Jan 29 01:53:12 2016
+				</Description>
+				<Publication>George Fonseca&apos;s PhD thesis</Publication>
+				<Remarks>Random seed = 5 Time limit = 10000</Remarks>
+			</MetaData>
+			<Solution Reference="FI-WP-06">
+				<Description>George Fonseca&apos;s PhD thesis</Description>
+				<Events>
+					<Event Reference="Event_C001_1">
+						<Time Reference="Tu_4"/>
+					</Event>
+					<Event Reference="Event_C001_2">
+						<Time Reference="We_4"/>
+					</Event>
+					<Event Reference="Event_C001_3">
+						<Time Reference="Fr_1"/>
+					</Event>
+					<Event Reference="Event_C002_1">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C002_2">
+						<Time Reference="Fr_1"/>
+					</Event>
+					<Event Reference="Event_C003_1">
+						<Time Reference="Fr_3"/>
+					</Event>
+					<Event Reference="Event_C003_2">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C003_3">
+						<Time Reference="Tu_1"/>
+					</Event>
+					<Event Reference="Event_C004_1">
+						<Time Reference="We_2"/>
+					</Event>
+					<Event Reference="Event_C004_2">
+						<Time Reference="Th_1"/>
+					</Event>
+					<Event Reference="Event_C004_3">
+						<Time Reference="Mo_2"/>
+					</Event>
+					<Event Reference="Event_C005_1">
+						<Time Reference="We_1"/>
+					</Event>
+					<Event Reference="Event_C005_2">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C006_1">
+						<Time Reference="Tu_4"/>
+					</Event>
+					<Event Reference="Event_C006_2">
+						<Time Reference="Th_1"/>
+					</Event>
+					<Event Reference="Event_C006_3">
+						<Time Reference="We_1"/>
+					</Event>
+					<Event Reference="Event_C007_1">
+						<Time Reference="Mo_7"/>
+					</Event>
+					<Event Reference="Event_C007_2">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C007_3">
+						<Time Reference="Fr_3"/>
+					</Event>
+					<Event Reference="Event_C008_1">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C008_2">
+						<Time Reference="Tu_2"/>
+					</Event>
+					<Event Reference="Event_C008_3">
+						<Time Reference="Fr_6"/>
+					</Event>
+					<Event Reference="Event_C009_1">
+						<Time Reference="Th_6"/>
+					</Event>
+					<Event Reference="Event_C009_2">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C009_3">
+						<Time Reference="We_3"/>
+					</Event>
+					<Event Reference="Event_C010_1">
+						<Time Reference="Mo_7"/>
+					</Event>
+					<Event Reference="Event_C010_2">
+						<Time Reference="Tu_7"/>
+					</Event>
+					<Event Reference="Event_C010_3">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C011_1">
+						<Time Reference="Fr_7"/>
+					</Event>
+					<Event Reference="Event_C011_2">
+						<Time Reference="Mo_3"/>
+					</Event>
+					<Event Reference="Event_C011_3">
+						<Time Reference="Tu_2"/>
+					</Event>
+					<Event Reference="Event_C012_1">
+						<Time Reference="Tu_4"/>
+					</Event>
+					<Event Reference="Event_C012_2">
+						<Time Reference="Th_6"/>
+					</Event>
+					<Event Reference="Event_C012_3">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C013_1">
+						<Time Reference="Tu_5"/>
+					</Event>
+					<Event Reference="Event_C013_2">
+						<Time Reference="Fr_5"/>
+					</Event>
+					<Event Reference="Event_C014_1">
+						<Time Reference="Tu_3"/>
+					</Event>
+					<Event Reference="Event_C014_2">
+						<Time Reference="Fr_6"/>
+					</Event>
+					<Event Reference="Event_C014_3">
+						<Time Reference="Th_4"/>
+					</Event>
+					<Event Reference="Event_C015_1">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C015_2">
+						<Time Reference="Tu_6"/>
+					</Event>
+					<Event Reference="Event_C015_3">
+						<Time Reference="Mo_3"/>
+					</Event>
+					<Event Reference="Event_C016_1">
+						<Time Reference="Fr_3"/>
+					</Event>
+					<Event Reference="Event_C016_2">
+						<Time Reference="Th_6"/>
+					</Event>
+					<Event Reference="Event_C016_3">
+						<Time Reference="We_3"/>
+					</Event>
+					<Event Reference="Event_C017_1">
+						<Time Reference="Fr_5"/>
+					</Event>
+					<Event Reference="Event_C017_2">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C017_3">
+						<Time Reference="Tu_4"/>
+					</Event>
+					<Event Reference="Event_C018_1">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C018_2">
+						<Time Reference="Fr_2"/>
+					</Event>
+					<Event Reference="Event_C018_3">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C019_1">
+						<Time Reference="Fr_3"/>
+					</Event>
+					<Event Reference="Event_C019_2">
+						<Time Reference="We_4"/>
+					</Event>
+					<Event Reference="Event_C019_3">
+						<Time Reference="Tu_4"/>
+					</Event>
+					<Event Reference="Event_C020_1">
+						<Time Reference="We_1"/>
+					</Event>
+					<Event Reference="Event_C020_2">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C020_3">
+						<Time Reference="Fr_1"/>
+					</Event>
+					<Event Reference="Event_C021_1">
+						<Time Reference="Mo_7"/>
+					</Event>
+					<Event Reference="Event_C021_2">
+						<Time Reference="Tu_6"/>
+					</Event>
+					<Event Reference="Event_C022_1">
+						<Time Reference="Th_1"/>
+					</Event>
+					<Event Reference="Event_C022_2">
+						<Time Reference="We_2"/>
+					</Event>
+					<Event Reference="Event_C022_3">
+						<Time Reference="Mo_2"/>
+					</Event>
+					<Event Reference="Event_C023_1">
+						<Time Reference="Mo_3"/>
+					</Event>
+					<Event Reference="Event_C023_2">
+						<Time Reference="Th_6"/>
+					</Event>
+					<Event Reference="Event_C023_3">
+						<Time Reference="Fr_2"/>
+					</Event>
+					<Event Reference="Event_C024_1">
+						<Time Reference="Fr_5"/>
+					</Event>
+					<Event Reference="Event_C024_2">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C024_3">
+						<Time Reference="Mo_1"/>
+					</Event>
+					<Event Reference="Event_C025_1">
+						<Time Reference="We_4"/>
+					</Event>
+					<Event Reference="Event_C025_2">
+						<Time Reference="Tu_1"/>
+					</Event>
+					<Event Reference="Event_C026_1">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C026_2">
+						<Time Reference="Tu_4"/>
+					</Event>
+					<Event Reference="Event_C026_3">
+						<Time Reference="Mo_1"/>
+					</Event>
+					<Event Reference="Event_C027_1">
+						<Time Reference="We_3"/>
+					</Event>
+					<Event Reference="Event_C027_2">
+						<Time Reference="Fr_3"/>
+					</Event>
+					<Event Reference="Event_C027_3">
+						<Time Reference="Th_7"/>
+					</Event>
+					<Event Reference="Event_C028_1">
+						<Time Reference="Tu_6"/>
+					</Event>
+					<Event Reference="Event_C028_2">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C029_1">
+						<Time Reference="Fr_1"/>
+					</Event>
+					<Event Reference="Event_C029_2">
+						<Time Reference="Th_1"/>
+					</Event>
+					<Event Reference="Event_C029_3">
+						<Time Reference="We_4"/>
+					</Event>
+					<Event Reference="Event_C030_1">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C030_2">
+						<Time Reference="Mo_3"/>
+					</Event>
+					<Event Reference="Event_C030_3">
+						<Time Reference="Tu_1"/>
+					</Event>
+					<Event Reference="Event_C031_1">
+						<Time Reference="Tu_1"/>
+					</Event>
+					<Event Reference="Event_C031_2">
+						<Time Reference="Th_2"/>
+					</Event>
+					<Event Reference="Event_C031_3">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C032_1">
+						<Time Reference="Mo_7"/>
+					</Event>
+					<Event Reference="Event_C032_2">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C032_3">
+						<Time Reference="Fr_1"/>
+					</Event>
+					<Event Reference="Event_C033_1">
+						<Time Reference="We_3"/>
+					</Event>
+					<Event Reference="Event_C033_2">
+						<Time Reference="Th_2"/>
+					</Event>
+					<Event Reference="Event_C033_3">
+						<Time Reference="Mo_1"/>
+					</Event>
+					<Event Reference="Event_C034_1">
+						<Time Reference="We_1"/>
+					</Event>
+					<Event Reference="Event_C034_2">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C034_3">
+						<Time Reference="Fr_4"/>
+					</Event>
+					<Event Reference="Event_C035_1">
+						<Time Reference="We_7"/>
+					</Event>
+					<Event Reference="Event_C035_2">
+						<Time Reference="Tu_6"/>
+					</Event>
+					<Event Reference="Event_C035_3">
+						<Time Reference="Th_6"/>
+					</Event>
+					<Event Reference="Event_C036_1">
+						<Time Reference="Tu_5"/>
+					</Event>
+					<Event Reference="Event_C036_2">
+						<Time Reference="Fr_1"/>
+					</Event>
+					<Event Reference="Event_C036_3">
+						<Time Reference="We_4"/>
+					</Event>
+					<Event Reference="Event_C037_1">
+						<Time Reference="Tu_3"/>
+					</Event>
+					<Event Reference="Event_C037_2">
+						<Time Reference="Mo_3"/>
+					</Event>
+					<Event Reference="Event_C038_1">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C038_2">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C039_1">
+						<Time Reference="Fr_3"/>
+					</Event>
+					<Event Reference="Event_C039_2">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C039_3">
+						<Time Reference="Mo_1"/>
+					</Event>
+					<Event Reference="Event_C040_1">
+						<Time Reference="We_2"/>
+					</Event>
+					<Event Reference="Event_C040_2">
+						<Time Reference="Fr_4"/>
+					</Event>
+					<Event Reference="Event_C040_3">
+						<Time Reference="Mo_3"/>
+					</Event>
+					<Event Reference="Event_C041_1">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C041_2">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C042_1">
+						<Time Reference="We_3"/>
+					</Event>
+					<Event Reference="Event_C042_2">
+						<Time Reference="Fr_6"/>
+					</Event>
+					<Event Reference="Event_C042_3">
+						<Time Reference="Th_6"/>
+					</Event>
+					<Event Reference="Event_C043_1">
+						<Time Reference="Mo_7"/>
+					</Event>
+					<Event Reference="Event_C043_2">
+						<Time Reference="Tu_6"/>
+					</Event>
+					<Event Reference="Event_C043_3">
+						<Time Reference="We_4"/>
+					</Event>
+					<Event Reference="Event_C044_1">
+						<Time Reference="Fr_6"/>
+					</Event>
+					<Event Reference="Event_C044_2">
+						<Time Reference="Mo_7"/>
+					</Event>
+					<Event Reference="Event_C044_3">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C045_1">
+						<Time Reference="Tu_6"/>
+					</Event>
+					<Event Reference="Event_C045_2">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C046_1">
+						<Time Reference="Fr_7"/>
+					</Event>
+					<Event Reference="Event_C046_2">
+						<Time Reference="Th_6"/>
+					</Event>
+					<Event Reference="Event_C047_1">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C047_2">
+						<Time Reference="Mo_3"/>
+					</Event>
+					<Event Reference="Event_C047_3">
+						<Time Reference="Tu_1"/>
+					</Event>
+					<Event Reference="Event_C048_1">
+						<Time Reference="Fr_2"/>
+					</Event>
+					<Event Reference="Event_C048_2">
+						<Time Reference="We_4"/>
+					</Event>
+					<Event Reference="Event_C048_3">
+						<Time Reference="Tu_4"/>
+					</Event>
+					<Event Reference="Event_C049_1">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C049_2">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C049_3">
+						<Time Reference="Fr_6"/>
+					</Event>
+					<Event Reference="Event_C050_1">
+						<Time Reference="Fr_4"/>
+					</Event>
+					<Event Reference="Event_C050_2">
+						<Time Reference="Th_1"/>
+					</Event>
+					<Event Reference="Event_C050_3">
+						<Time Reference="We_1"/>
+					</Event>
+					<Event Reference="Event_C051_1">
+						<Time Reference="We_2"/>
+					</Event>
+					<Event Reference="Event_C051_2">
+						<Time Reference="Mo_7"/>
+					</Event>
+					<Event Reference="Event_C051_3">
+						<Time Reference="Th_4"/>
+					</Event>
+					<Event Reference="Event_C052_1">
+						<Time Reference="Fr_6"/>
+					</Event>
+					<Event Reference="Event_C052_2">
+						<Time Reference="Th_1"/>
+					</Event>
+					<Event Reference="Event_C053_1">
+						<Time Reference="We_1"/>
+					</Event>
+					<Event Reference="Event_C053_2">
+						<Time Reference="Mo_5"/>
+					</Event>
+					<Event Reference="Event_C054_1">
+						<Time Reference="We_3"/>
+					</Event>
+					<Event Reference="Event_C054_2">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C054_3">
+						<Time Reference="Fr_4"/>
+					</Event>
+					<Event Reference="Event_C055_1">
+						<Time Reference="We_7"/>
+					</Event>
+					<Event Reference="Event_C055_2">
+						<Time Reference="Tu_7"/>
+					</Event>
+					<Event Reference="Event_C055_3">
+						<Time Reference="Th_7"/>
+					</Event>
+					<Event Reference="Event_C056_1">
+						<Time Reference="Mo_3"/>
+					</Event>
+					<Event Reference="Event_C056_2">
+						<Time Reference="Fr_6"/>
+					</Event>
+					<Event Reference="Event_C056_3">
+						<Time Reference="Tu_1"/>
+					</Event>
+					<Event Reference="Event_C057_1">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C057_2">
+						<Time Reference="Fr_4"/>
+					</Event>
+					<Event Reference="Event_C058_1">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C058_2">
+						<Time Reference="Mo_1"/>
+					</Event>
+					<Event Reference="Event_C058_3">
+						<Time Reference="Tu_4"/>
+					</Event>
+					<Event Reference="Event_C059_1">
+						<Time Reference="Tu_6"/>
+					</Event>
+					<Event Reference="Event_C059_2">
+						<Time Reference="We_4"/>
+					</Event>
+					<Event Reference="Event_C060_1">
+						<Time Reference="Th_5"/>
+					</Event>
+					<Event Reference="Event_C060_2">
+						<Time Reference="Fr_3"/>
+					</Event>
+					<Event Reference="Event_C061_1">
+						<Time Reference="Th_4"/>
+					</Event>
+					<Event Reference="Event_C061_2">
+						<Time Reference="Mo_1"/>
+					</Event>
+					<Event Reference="Event_C061_3">
+						<Time Reference="We_1"/>
+					</Event>
+					<Event Reference="Event_C062_1">
+						<Time Reference="Th_3"/>
+					</Event>
+					<Event Reference="Event_C062_2">
+						<Time Reference="Fr_1"/>
+					</Event>
+					<Event Reference="Event_C063_1">
+						<Time Reference="Fr_4"/>
+					</Event>
+					<Event Reference="Event_C063_2">
+						<Time Reference="We_6"/>
+					</Event>
+					<Event Reference="Event_C063_3">
+						<Time Reference="Tu_4"/>
+					</Event>
+				</Events>
+				<Report>
+					<InfeasibilityValue>0</InfeasibilityValue>
+					<ObjectiveValue>0</ObjectiveValue>
+				</Report>
+			</Solution>
+		</SolutionGroup>
+	</SolutionGroups>
+</HighSchoolTimetableArchive>

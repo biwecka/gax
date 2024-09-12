@@ -35,9 +35,11 @@ use runtime_data::RuntimeData;
 #[cfg(feature = "cache")]
 use hashbrown::HashMap;
 
-use tools::rerun_logger::CustomLogger;
 #[cfg(feature = "rerun_logger")]
 use tools::rerun_logger::RerunLogger;
+
+#[cfg(feature = "rerun_logger")]
+use tools::rerun_logger::CustomLogger;
 
 // Macros //////////////////////////////////////////////////////////////////////
 macro_rules! measure_runtime_start {
