@@ -65,22 +65,22 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteRelative(0.01))
         .set_termination(Terminate::ObjectiveValue(0.into()))
-        // .set_termination(Terminate::Generations(100))
+        // .set_termination(Terminate::Generations(20))
         .build();
 
-    // let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-    //     .set(vec![
-    //         // (target_success_rate, k-factor, default std. deviation)
-    //         Dynamic::SuccessDrivenNormalDistrStdDeviation(0.05, 10., 1.),
-    //     ])
-    //     .build();
+    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+        .set(vec![
+            // (target_success_rate, k-factor, default std. deviation)
+            Dynamic::SuccessDrivenNormalDistrStdDeviation(0.05, 10., 1.),
+        ])
+        .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        // .set_dynamics(Some(dynamics))
-        .set_dynamics::<()>(None)
+        .set_dynamics(Some(dynamics))
+        // .set_dynamics::<()>(None)
         // .set_custom_logger(Some(Logger::default()))
         .set_custom_logger::<()>(None)
         .build();

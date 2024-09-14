@@ -136,8 +136,6 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
     fn derive(&self, chromosome: &Chromosome, ctx: &Context) -> Self {
         let mut new = self.clone();
 
-        let mut rng = rand::thread_rng();
-
         // Iterate over the chromosome. Its values are event indices.
         // Schedule the events in the order they appear in the chromosome.
         for event_idx in chromosome.iter() {
@@ -206,7 +204,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
             //     .collect();
 
             // Calculate and shuffle the indices of free timeslots
-            let mut free_timeslots: Vec<usize> = new
+            let free_timeslots: Vec<usize> = new
                 .times
                 .column(*event_idx)
                 .iter()
@@ -220,10 +218,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                 })
                 .collect();
 
-            free_timeslots.shuffle(&mut rng);
-
-
-
+            // Calculate time groups from free timeslots
             let time_groups: Vec<Vec<usize>> = free_timeslots
                 .into_iter()
                 .combinations(duration as usize)

@@ -6,7 +6,7 @@ use xhstt::xml::{Archives, X2014a};
 // Main ////////////////////////////////////////////////////////////////////////
 fn main() {
     // Select XHSTT problem instance and parse its XML file.
-    let selection = Archives::X2014a(X2014a::Hdtt5);
+    let selection = Archives::X2014a(X2014a::Hdtt4);
     let xhstt = xhstt::parse(&selection.xml());
 
     // Extract problem instance
