@@ -2,6 +2,7 @@
 use super::{context::Context, genotype::Chromosome, objective_value::Cost};
 use itertools::Itertools;
 use ndarray::{Array2, Axis};
+use rand::seq::SliceRandom;
 use xhstt::{
     db::constraints::Constraint,
     parser::solution_groups::solution::events::{Event, TimeRef},
@@ -135,6 +136,8 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
     fn derive(&self, chromosome: &Chromosome, ctx: &Context) -> Self {
         let mut new = self.clone();
 
+        let mut rng = rand::thread_rng();
+
         // Iterate over the chromosome. Its values are event indices.
         // Schedule the events in the order they appear in the chromosome.
         for event_idx in chromosome.iter() {
@@ -202,8 +205,8 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
             //     })
             //     .collect();
 
-
-            let time_groups: Vec<Vec<usize>> = new
+            // Calculate and shuffle the indices of free timeslots
+            let mut free_timeslots: Vec<usize> = new
                 .times
                 .column(*event_idx)
                 .iter()
@@ -215,6 +218,14 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                         None
                     }
                 })
+                .collect();
+
+            free_timeslots.shuffle(&mut rng);
+
+
+
+            let time_groups: Vec<Vec<usize>> = free_timeslots
+                .into_iter()
                 .combinations(duration as usize)
                 .take(100)
                 .collect();
