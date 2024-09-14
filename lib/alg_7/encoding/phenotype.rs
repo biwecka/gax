@@ -1,5 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use super::{context::Context, genotype::Chromosome, objective_value::Cost};
+use itertools::Itertools;
 use ndarray::{Array2, Axis};
 use xhstt::{
     db::constraints::Constraint,
@@ -57,30 +58,73 @@ impl Phenotype {
 
         for (event_idx, column) in self.times.columns().into_iter().enumerate()
         {
-            // Get start time
-            let start_time_idx =
-                if let Some(x) = column.iter().position(|x| *x == 1) {
-                    x
+            // Collect 1-sequences as sub-events
+            let mut tmp = vec![];
+            let mut sub_events = vec![];
+
+            for (i, val) in column.iter().enumerate() {
+                if *val == 1 {
+                    tmp.push(i);
+
                 } else {
-                    continue;
-                };
+                    if !tmp.is_empty() {
+                        sub_events.push(tmp);
+                        tmp = vec![];
+                    }
+                }
+            }
 
-            // Get time by index from database
-            let time = db.time_by_idx(start_time_idx);
+            if !tmp.is_empty() {
+                sub_events.push(tmp);
+            }
 
-            // Get event by index from database
-            let event = db.event_by_idx(event_idx);
+            for sub_event in sub_events {
+                // Get start time index
+                let start_time_idx = sub_event[0];
 
-            // get event duration
-            let duration = ctx.durations[event_idx];
+                // Get time by index from database
+                let time = db.time_by_idx(start_time_idx);
 
-            // Create solution event
-            events.push(Event {
-                reference: event.id.0.clone(),
-                duration: Some(duration as u32),
-                resources: None,
-                time: Some(TimeRef { reference: time.id.0.clone() }),
-            });
+                // Get event from database
+                let event = db.event_by_idx(event_idx);
+
+                // Duration
+                let duration = sub_event.len();
+
+                // Create solution event
+                events.push(Event {
+                    reference: event.id.0.clone(),
+                    duration: Some(duration as u32),
+                    resources: None,
+                    time: Some(TimeRef { reference: time.id.0.clone() }),
+                });
+            }
+
+
+            // // Get start time
+            // let start_time_idx =
+            //     if let Some(x) = column.iter().position(|x| *x == 1) {
+            //         x
+            //     } else {
+            //         continue;
+            //     };
+
+            // // Get time by index from database
+            // let time = db.time_by_idx(start_time_idx);
+
+            // // Get event by index from database
+            // let event = db.event_by_idx(event_idx);
+
+            // // get event duration
+            // let duration = ctx.durations[event_idx];
+
+            // // Create solution event
+            // events.push(Event {
+            //     reference: event.id.0.clone(),
+            //     duration: Some(duration as u32),
+            //     resources: None,
+            //     time: Some(TimeRef { reference: time.id.0.clone() }),
+            // });
         }
 
         events
@@ -133,26 +177,48 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
             // duration (e.g. duration = 2), so the event is assigned two
             // time slots which we call "time group" here.
             // The time groups should contain the time indices of the times.
+            // let time_groups: Vec<Vec<usize>> = new
+            //     .times
+            //     .column(*event_idx)
+            //     .iter()
+            //     .enumerate()
+            //     .map(|(i, value)| (i, *value))
+            //     .collect::<Vec<(usize, i8)>>()
+            //     // .windows(duration as usize)
+            //     .into_iter()
+            //     .combinations(duration as usize)
+            //     .collect::<Vec<Vec<(usize, i8)>>>()
+            //     .into_iter()
+            //     // Window content:  time_idx, value (-1, 0, 1)
+            //     .filter_map(|window: Vec<(usize, i8)>| {
+            //         let (indices, values): (Vec<usize>, Vec<i8>) =
+            //             window.iter().copied().unzip();
+
+            //         if values.contains(&-1) || values.contains(&1) {
+            //             None
+            //         } else {
+            //             Some(indices)
+            //         }
+            //     })
+            //     .collect();
+
+
             let time_groups: Vec<Vec<usize>> = new
                 .times
                 .column(*event_idx)
                 .iter()
                 .enumerate()
-                .map(|(i, value)| (i, *value))
-                .collect::<Vec<(usize, i8)>>()
-                .windows(duration as usize)
-                // Window content:  time_idx, value (-1, 0, 1)
-                .filter_map(|window: &[(usize, i8)]| {
-                    let (indices, values): (Vec<usize>, Vec<i8>) =
-                        window.iter().copied().unzip();
-
-                    if values.contains(&-1) || values.contains(&1) {
-                        None
+                .filter_map(|(index, value)| {
+                    if *value == 0 {
+                        Some(index)
                     } else {
-                        Some(indices)
+                        None
                     }
                 })
+                .combinations(duration as usize)
+                .take(100)
                 .collect();
+
 
             // If no time groups can be scheduled, continue with the main loop
             if time_groups.is_empty() {

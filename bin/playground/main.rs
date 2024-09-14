@@ -1,20 +1,28 @@
-use bitvec::prelude::*;
-
 fn main() {
-    let bits: BitVec<u8, Msb0> = bitvec![
-        u8, Msb0; // Lsb -> 64 | Msb -> 2
-        0, 0, 0, 0, 0, 0, 1, 0,
-        0, 0, 0, 0, 0, 0, 0, 0,
-    ];
-    // bits.set(6, true);
+    let dbs = xhstt::xml::Archives::all_xml()
+        .iter()
+        .filter_map(|xml| {
+            let xhstt = xhstt::parse(xml).instance().unwrap();
 
-    // Load the bits as a little-endian number
-    let le_number = bits.load_le::<u16>(); // Little-endian interpretation
+            match xhstt::db::Database::init(&xhstt) {
+                Ok(x) => Some(x),
+                Err(e) => {
+                    dbg!(&xhstt.id);
+                    println!("{:#?}", e);
+                    None
+                }
+            }
+        })
+        .collect::<Vec<xhstt::db::Database>>();
 
-    // Load the bits as a big-endian number
-    let be_number = bits.load_be::<u16>(); // Big-endian interpretation
-
-    println!("Bits (Lsb0): {:?}", bits);            // Output: [1, 1, 0, 1]
-    println!("Little-endian interpretation: {}", le_number); // Output: 13
-    println!("Big-endian interpretation: {}", be_number);    // Output: 11
+    for db in dbs {
+        let s = db.stats();
+        println!(
+            "{:<40}: assign_res = {:>8}, assign_class = {:>8}, times = {:>4}",
+            db.instance_name,
+            s.needs_resource_assignment(),
+            s.needs_class_assignment(),
+            s.times,
+        );
+    }
 }

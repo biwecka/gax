@@ -169,45 +169,45 @@ HighSchoolTimetableArchive [+Id]
 ```
 
 ## Instances
-|               | Needs Resource assignment | Needs Class assignment    |
-|---------------|---------------------------|---------------------------|
-| **XHSTT2014** |                           |                           |
-| AU-BG-98      | yes                       | no                        |
-| AU-SA-96      | yes                       | no                        |
-| AU-TE-99      | yes                       | no                        |
-| BR-SA-00      | no                        | no                        |
-| BR-SM-00      | no                        | no                        |
-| BR-SN-00      | no                        | no                        |
-| DK-FG-12      | yes                       | no                        |
-| DK-HG-12      | yes                       | no                        |
-| DK-VG-09      | yes                       | no                        |
-| ES-SS-08      | yes                       | no                        |
-| FI-MP-06      | no                        | no                        |
-| FI-PB-98      | no                        | no                        |
-| FI-WP-06      | no                        | no                        |
-| GR-H1-97      | no                        | no                        |
-| GR-P3-10      | no                        | no                        |
-| GR-PA-08      | no                        | no                        |
-| IT-I4-96      | no                        | no                        |
-| KS-PR-11      | no                        | no                        |
-| NL-KP-03      | yes                       | no                        |
-| NL-KP-05      | yes                       | no                        |
-| NL-KP-09      | yes                       | no                        |
-| UK-SP-06      | yes                       | no                        |
-| US-WS-09      | yes                       | no                        |
-| ZA-LW-09      | no                        | no                        |
-| ZA-WD-09      | no                        | no                        |
-|               |                           |                           |
-| **XHSTT2014A**|                           |                           |
-| Abramson15    | no                        | no                        |
-| All11         | no                        | no                        |
-| All15         | no                        | no                        |
-| hdtt4         | no                        | no                        |
-| hdtt5         | no                        | no                        |
-| hdtt6         | no                        | no                        |
-| hdtt7         | no                        | no                        |
-| hdtt8         | no                        | no                        |
-| Sudoku4x4     | no                        | no                        |
+|               | Times | Needs Resource assignment | Needs Class assignment    |
+|---------------|-------|---------------------------|---------------------------|
+| **XHSTT2014** |       |                           |                           |
+| AU-BG-98      |    40 | yes                       | no                        |
+| AU-SA-96      |    60 | yes                       | no                        |
+| AU-TE-99      |    30 | yes                       | no                        |
+| BR-SA-00      |    25 | no                        | no                        |
+| BR-SM-00      |    25 | no                        | no                        |
+| BR-SN-00      |    25 | no                        | no                        |
+| DK-FG-12      |    50 | yes                       | no                        |
+| DK-HG-12      |    50 | yes                       | no                        |
+| DK-VG-09      |    60 | yes                       | no                        |
+| ES-SS-08      |    35 | yes                       | no                        |
+| FI-MP-06      |    35 | no                        | no                        |
+| FI-PB-98      |    40 | no                        | no                        |
+| FI-WP-06      |    35 | no                        | no                        |
+| GR-H1-97      |    35 | no                        | no                        |
+| GR-P3-10      |    35 | no                        | no                        |
+| GR-PA-08      |    35 | no                        | no                        |
+| IT-I4-96      |    36 | no                        | no                        |
+| KS-PR-11      |    62 | no                        | no                        |
+| NL-KP-03      |    38 | yes                       | no                        |
+| NL-KP-05      |    37 | yes                       | no                        |
+| NL-KP-09      |    38 | yes                       | no                        |
+| UK-SP-06      |    25 | yes                       | no                        |
+| US-WS-09      |   100 | yes                       | no                        |
+| ZA-LW-09      |   148 | no                        | no                        |
+| ZA-WD-09      |   42  | no                        | no                        |
+|               |       |                           |                           |
+| **XHSTT2014A**|       |                           |                           |
+| Abramson15    |    30 | no                        | no                        |
+| All11         |   121 | no                        | no                        |
+| All15         |   225 | no                        | no                        |
+| hdtt4         |    30 | no                        | no                        |
+| hdtt5         |    30 | no                        | no                        |
+| hdtt6         |    30 | no                        | no                        |
+| hdtt7         |    30 | no                        | no                        |
+| hdtt8         |    30 | no                        | no                        |
+| Sudoku4x4     |     4 | no                        | no                        |
 
 
 

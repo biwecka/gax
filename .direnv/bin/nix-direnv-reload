@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 set -e
-if [[ ! -d "/home/luca/code/uni/xhstt-genetic-algorithm" ]]; then
+if [[ ! -d "/home/luca/code/master-studies/xhstt-genetic-algorithm" ]]; then
   echo "Cannot find source directory; Did you move it?"
-  echo "(Looking for "/home/luca/code/uni/xhstt-genetic-algorithm")"
+  echo "(Looking for "/home/luca/code/master-studies/xhstt-genetic-algorithm")"
   echo 'Cannot force reload with this script - use "direnv reload" manually and then try again'
   exit 1
 fi
 
 # rebuild the cache forcefully
-_nix_direnv_force_reload=1 direnv exec "/home/luca/code/uni/xhstt-genetic-algorithm" true
+_nix_direnv_force_reload=1 direnv exec "/home/luca/code/master-studies/xhstt-genetic-algorithm" true
 
 # Update the mtime for .envrc.
 # This will cause direnv to reload again - but without re-building.
-touch "/home/luca/code/uni/xhstt-genetic-algorithm/.envrc"
+touch "/home/luca/code/master-studies/xhstt-genetic-algorithm/.envrc"
 
 # Also update the timestamp of whatever profile_rc we have.
 # This makes sure that we know we are up to date.
-touch -r "/home/luca/code/uni/xhstt-genetic-algorithm/.envrc" "/home/luca/code/uni/xhstt-genetic-algorithm/.direnv"/*.rc
+touch -r "/home/luca/code/master-studies/xhstt-genetic-algorithm/.envrc" "/home/luca/code/master-studies/xhstt-genetic-algorithm/.direnv"/*.rc
