@@ -21,7 +21,6 @@ mod operators;
 // Imports /////////////////////////////////////////////////////////////////////
 // #[allow(unused)]
 // use dynamics::Dynamic;
-use dynamics::Dynamic;
 use encoding::{Chromosome, Context, Phenotype};
 use ga::{
     encoding::Phenotype as _,
@@ -30,7 +29,6 @@ use ga::{
         termination::Terminate,
     },
 };
-use logger::Logger;
 use operators::{Crossover, Mutation};
 use xhstt::{
     db::Database,
@@ -81,7 +79,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_parameters(parameters)
         // .set_dynamics(Some(dynamics))
         .set_dynamics::<()>(None)
-        // .set_custom_logger(Some(Logger::default()))
+        // .set_custom_logger(Some(logger::Logger::default()))
         .set_custom_logger::<()>(None)
         .build();
 

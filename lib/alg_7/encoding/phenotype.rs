@@ -2,7 +2,6 @@
 use super::{context::Context, genotype::Chromosome, objective_value::Cost};
 use itertools::Itertools;
 use ndarray::{Array2, Axis};
-use rand::seq::SliceRandom;
 use xhstt::{
     db::constraints::Constraint,
     parser::solution_groups::solution::events::{Event, TimeRef},
@@ -53,7 +52,7 @@ impl Phenotype {
     pub fn to_solution_events(
         &self,
         db: &xhstt::db::Database,
-        ctx: &Context,
+        _ctx: &Context,
     ) -> Vec<Event> {
         let mut events = vec![];
 
