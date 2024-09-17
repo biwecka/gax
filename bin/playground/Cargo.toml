@@ -31,6 +31,8 @@ systemstat = "0.2.3"
 simple_moving_average = { workspace = true }
 
 bitvec = { workspace = true }
+bitvec_simd = { workspace = true }
+fixedbitset = { workspace = true }
 
 
 [lints]
