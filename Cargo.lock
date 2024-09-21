@@ -144,6 +144,7 @@ dependencies = [
 name = "alg_10"
 version = "0.0.0"
 dependencies = [
+ "bitvec",
  "ga",
  "hashbrown 0.14.5",
  "ndarray 0.16.0",

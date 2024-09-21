@@ -48,15 +48,13 @@ impl Stats {
             .events
             .iter()
             .filter(|e| {
-                e.allocated_resources
-                    .iter()
-                    .any(|r| {
-                        let resource = db.resource_by_id(&r.id);
+                e.allocated_resources.iter().any(|r| {
+                    let resource = db.resource_by_id(&r.id);
 
-                        resource.resource_type == ResourceTypeId("Class".into())
-                            || resource.resource_type
-                                == ResourceTypeId("class".into())
-                    })
+                    resource.resource_type == ResourceTypeId("Class".into())
+                        || resource.resource_type
+                            == ResourceTypeId("class".into())
+                })
             })
             .count();
 
@@ -64,12 +62,10 @@ impl Stats {
             .events
             .iter()
             .filter(|e| {
-                e.unallocated_resources
-                    .iter()
-                    .any(|r| {
-                        r.resource_type == ResourceTypeId("Class".into())
-                            || r.resource_type == ResourceTypeId("class".into())
-                    })
+                e.unallocated_resources.iter().any(|r| {
+                    r.resource_type == ResourceTypeId("Class".into())
+                        || r.resource_type == ResourceTypeId("class".into())
+                })
             })
             .count();
 
@@ -83,13 +79,10 @@ impl Stats {
         // Resources
         let resource_types = db.resource_types.len();
         let resource_groups = db.resource_groups.len();
-        let class_resource_type = db
-            .resource_types
-            .iter()
-            .any(|x| {
-                x.id == ResourceTypeId("Class".into())
-                    || x.id == ResourceTypeId("class".into())
-            });
+        let class_resource_type = db.resource_types.iter().any(|x| {
+            x.id == ResourceTypeId("Class".into())
+                || x.id == ResourceTypeId("class".into())
+        });
 
         // Return
         Self {

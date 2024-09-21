@@ -65,7 +65,6 @@ impl Phenotype {
             for (i, val) in column.iter().enumerate() {
                 if *val == 1 {
                     tmp.push(i);
-
                 } else {
                     if !tmp.is_empty() {
                         sub_events.push(tmp);
@@ -99,7 +98,6 @@ impl Phenotype {
                     time: Some(TimeRef { reference: time.id.0.clone() }),
                 });
             }
-
 
             // // Get start time
             // let start_time_idx =
@@ -208,13 +206,15 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                 .column(*event_idx)
                 .iter()
                 .enumerate()
-                .filter_map(|(index, value)| {
-                    if *value == 0 {
-                        Some(index)
-                    } else {
-                        None
-                    }
-                })
+                .filter_map(
+                    |(index, value)| {
+                        if *value == 0 {
+                            Some(index)
+                        } else {
+                            None
+                        }
+                    },
+                )
                 .collect();
 
             // Calculate time groups from free timeslots
@@ -223,7 +223,6 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                 .combinations(duration as usize)
                 .take(100)
                 .collect();
-
 
             // If no time groups can be scheduled, continue with the main loop
             if time_groups.is_empty() {
