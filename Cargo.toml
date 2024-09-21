@@ -72,6 +72,8 @@ simple_moving_average = "1.0.2"
 
 # bitvec
 bitvec = "1.0.1"
+bitvec_simd = "0.20.5"
+fixedbitset = "0.5.7"
 
 ################################################################################
 # Clippy Configuration
