@@ -9,7 +9,8 @@ mod encoding;
 
 // Imports /////////////////////////////////////////////////////////////////////
 // use dynamics::Dynamic;
-use encoding::Context;
+use encoding::{Chromosome, Context};
+use ga::encoding::Genotype;
 // use ga::{
 //     encoding::Phenotype as _,
 //     process::{
@@ -31,11 +32,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
     // Initialize context and phenotype
     let ctx = Context::init(&db);
 
-    for _ in 0..10_000 {
-        for e_idx in 0..ctx.num_events {
-            encoding::EventGene::generate(ctx.durations[e_idx].into(), &ctx);
-        }
-    }
+    Chromosome::generate(100, &ctx);
 
     println!("done");
 

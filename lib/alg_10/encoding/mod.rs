@@ -3,13 +3,13 @@ mod constraints;
 mod context;
 mod genotype;
 mod objective_value;
-// mod phenotype;
+mod phenotype;
 
 // Re-Exports //////////////////////////////////////////////////////////////////
 pub use context::*;
 pub use genotype::*;
 #[allow(unused)]
 pub use objective_value::*;
-// pub use phenotype::*;
+pub use phenotype::*;
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,7 +1,8 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use super::Context;
+use std::ops::AddAssign;
 use bitvec::prelude::*;
-use hashbrown::HashSet;
+use hashbrown::{HashMap, HashSet};
 use rand_distr::Distribution;
 
 // Genotype ////////////////////////////////////////////////////////////////////
@@ -14,61 +15,52 @@ use rand_distr::Distribution;
 /// The outer vector is of fixed length.
 /// The inner vectors have different lengths and can vary in their length.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
-pub struct Chromosome(pub Vec<BitVec<u32, Lsb0>>);
+pub struct Chromosome(pub Vec<EventGene>);
 
-// impl From<Vec<Vec<usize>>> for Chromosome {
-//     fn from(value: Vec<Vec<usize>>) -> Self {
-//         Self(value)
-//     }
-// }
+impl From<Vec<EventGene>> for Chromosome {
+    fn from(value: Vec<EventGene>) -> Self {
+        Self(value)
+    }
+}
 
-// impl ga::encoding::Genotype<Context> for Chromosome {
-//     fn generate(amount: usize, ctx: &Context) -> Vec<Self> {
-//         // Get source of randomness
-//         let rng = rand::thread_rng();
+impl ga::encoding::Genotype<Context> for Chromosome {
+    fn generate(amount: usize, ctx: &Context) -> Vec<Self> {
+        // Initialize the vector of chromosomes (result).
+        let mut chromosomes: Vec<Self> = Vec::with_capacity(amount);
 
-//         // Initialize the vector of chromosomes (result).
-//         let mut chromosomes: Vec<Self> = Vec::with_capacity(amount);
+        for _ in 0..amount {
+            let genes: Vec<EventGene> = (0..ctx.num_events)
+                .map(|event_idx| {
+                    let duration = ctx.durations[event_idx];
+                    EventGene::generate(duration, ctx)
+                })
+                .collect();
 
-//         // // Calculate the average events per timeslot
-//         // let ept =
-//         //     (ctx.num_events as f32 / ctx.num_times as f32).round() as usize;
+            chromosomes.push(genes.into());
+        }
 
-//         // for _ in 0..amount {
-//         //     // Create the inner value of the chromosome
-//         //     let mut time_slots: Vec<Vec<usize>> =
-//         //         Vec::with_capacity(ctx.num_times);
+        chromosomes
+    }
 
-//         //     for _ in 0..ctx.num_times {
-//         //         time_slots.push(
-//         //             ctx.rand_event.sample_iter(rng.clone()).take(ept).collect(),
-//         //         );
-//         //     }
+    fn calc_diversity<Ov: ga::encoding::ObjectiveValue>(
+        population: &[(Self, Ov)],
+    ) -> Vec<usize> {
+        let mut map = HashMap::<(Self, Ov), usize>::new();
+        for i in population {
+            map.entry(i.clone()).or_default().add_assign(1);
+        }
 
-//         //     chromosomes.push(time_slots.into());
-//         // }
+        let mut arr: Vec<((Self, Ov), usize)> = map.into_iter().collect();
+        arr.sort_by_key(|((_, x), _)| x.clone());
 
-//         // chromosomes
-//     }
-
-//     fn calc_diversity<Ov: ga::encoding::ObjectiveValue>(
-//         population: &[(Self, Ov)],
-//     ) -> Vec<usize> {
-//         let mut map = HashMap::<(Self, Ov), usize>::new();
-//         for i in population {
-//             map.entry(i.clone()).or_default().add_assign(1);
-//         }
-
-//         let mut arr: Vec<((Self, Ov), usize)> = map.into_iter().collect();
-//         arr.sort_by_key(|((_, x), _)| x.clone());
-
-//         // Return
-//         arr.into_iter().map(|(_, x)| x).collect()
-//     }
-// }
+        // Return
+        arr.into_iter().map(|(_, x)| x).collect()
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct EventGene {
     // Bitvector to store all time assignments of this event's sub-events.
     times: BitVec<u32, Lsb0>,
@@ -78,11 +70,11 @@ pub struct EventGene {
 
     // List of (d, bitvector), where d represents a duration and the bitvector
     // stores only the starting times of sub-events with a duration of d.
-    sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)>,
+    pub sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)>,
 }
 
 impl EventGene {
-    pub fn generate(duration: usize, ctx: &Context) -> Self {
+    pub fn generate(duration: u8, ctx: &Context) -> Self {
         let mut times = bitvec![u32, Lsb0; 0; ctx.num_times];
         let mut start_times = bitvec![u32, Lsb0; 0; ctx.num_times];
         let mut sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)> = vec![];
@@ -92,7 +84,7 @@ impl EventGene {
         let mut rng = rand::thread_rng();
 
         let mut time_indices = vec![];
-        while time_indices.len() < duration {
+        while time_indices.len() < duration as usize {
             let i = ctx.rand_time.sample(&mut rng);
             if !time_indices.contains(&i) {
                 time_indices.push(i);

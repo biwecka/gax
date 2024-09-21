@@ -34,7 +34,7 @@ rand = { workspace = true }
 rand_distr = { workspace = true }
 simple_moving_average = { workspace = true }
 
-ndarray = { workspace = true }
+# ndarray = { workspace = true }
 hashbrown = { workspace = true }
 
 bitvec = { workspace = true }

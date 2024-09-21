@@ -1,236 +1,68 @@
-#![feature(test)]
-
 use bitvec::prelude::*;
 
-fn main() {
-    let bits: BitVec<u8, Lsb0> = bitvec![
-        u8, Lsb0; // Lsb -> 64 | Msb -> 2
-        0, 0, 0, 0, 0, 0, 1, 0,
-        0, 0, 0, 0, 0, 0, 0, 0,
-    ];
-    // bits.set(6, true);
+fn reduce_bit<T: BitStore>(bv: BitVec<T, Lsb0>) -> BitVec<T, Lsb0> {
+    // Interpret bitvec as number and subtract 1.
+    let mut num = bv.load_le::<usize>();
+    if num == 0 { return bv }
+    num -= 1;
 
-    // Load the bits as a little-endian number
-    let le_number = bits.load_le::<u16>(); // Little-endian interpretation
+    // Now store this number into a new bitvector
+    let mut sub = bitvec![T, Lsb0; 0; bv.len()];
+    sub.store(num);
 
-    // Load the bits as a big-endian number
-    let be_number = bits.load_be::<u16>(); // Big-endian interpretation
-
-    println!("Bits (Lsb0): {:?}", bits);
-    println!("Little-endian interpretation: {}", le_number); // Output: 64
-    println!("Big-endian interpretation: {}", be_number); // Output: 16384
-
-    println!("\n---------------------------------------------------------\n\n");
-
-    let bits = bitvec_simd::BitVec::from_bool_iterator(
-        vec![0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            .into_iter()
-            .map(|x| x > 0),
-    );
-
-    println!("{:?}", bits);
-
-    println!("\n---------------------------------------------------------\n\n");
-
-    let mut bit = fixedbitset::FixedBitSet::with_capacity(8);
-    bit.set(0, true);
-    bit.set(2, true);
-    println!("{:b}", bit);
-
-    let num = bit.ones().fold(0u64, |acc, indices| acc | 1 << indices);
-    dbg!(num);
+    // Perform `and` operation and return
+    bv & sub
 }
 
-extern crate test;
+fn main() {
+    let b_va = bitvec![u8, Lsb0; 0, 0, 1, 0, 1, 1];
+    println!("b_va     = {:?}", b_va);
 
-#[cfg(test)]
-mod tests {
-    use bitvec::prelude::*;
-    use test::{black_box, Bencher};
+    let mut x = reduce_bit(b_va);
+    println!("reduce   = {:?}", x);
 
-    #[bench]
-    fn bitvec(bench: &mut Bencher) {
-        // Optionally include some setup
-        let a: BitVec<u32, Lsb0> = bitvec![
-            u32, Lsb0;
-            0, 1, 1, 0, 0, 0, 1, 0,
-            0, 0, 0, 0, 1, 0, 0, 0,
-            0, 0, 1, 0, 0, 0, 1, 0,
-            1, 0, 0, 0, 0, 0, 0, 1,
-            0, 0, 0, 0, 0, 0, 1, 0,
-            0, 1, 0, 0, 1, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 1, 1,
-            0, 1, 0, 1, 0, 0, 0, 1,
-        ];
+    x = reduce_bit(x);
+    println!("reduce   = {:?}", x);
 
-        let b: BitVec<u32, Lsb0> = bitvec![
-            u32, Lsb0;
-            0, 1, 0, 0, 0, 0, 1, 0,
-            0, 0, 0, 0, 1, 0, 0, 0,
-            0, 0, 1, 0, 0, 1, 1, 0,
-            1, 0, 0, 0, 0, 0, 0, 1,
-            0, 0, 0, 0, 0, 0, 1, 0,
-            0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 1, 0, 1, 1,
-            0, 1, 0, 1, 0, 0, 0, 1,
-        ];
+    x = reduce_bit(x);
+    println!("reduce   = {:?}", x);
 
-        let c: BitVec<u32, Lsb0> = bitvec![
-            u32, Lsb0;
-            0, 1, 1, 0, 0, 0, 1, 0,
-            0, 0, 0, 0, 1, 0, 0, 0,
-            0, 0, 1, 0, 0, 0, 1, 0,
-            1, 0, 0, 1, 1, 1, 1, 0,
-            0, 0, 0, 0, 0, 0, 1, 0,
-            0, 0, 0, 0, 1, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 1, 0,
-            0, 1, 0, 1, 0, 0, 0, 0,
-        ];
+    println!("x.ones() = {}", x.count_ones());
 
-        let d: BitVec<u32, Lsb0> = bitvec![
-            u32, Lsb0;
-            0, 0, 0, 0, 1, 1, 1, 1,
-            0, 0, 0, 0, 1, 0, 1, 0,
-            0, 0, 1, 0, 0, 0, 1, 0,
-            1, 0, 0, 0, 0, 0, 0, 1,
-            0, 0, 0, 0, 1, 0, 1, 0,
-            0, 1, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 1, 1,
-            0, 0, 0, 1, 0, 0, 0, 1,
-        ];
+    // let bits: BitVec<u8, Lsb0> = bitvec![
+    //     u8, Lsb0; // Lsb -> 64 | Msb -> 2
+    //     0, 0, 0, 0, 0, 0, 1, 0,
+    //     0, 0, 0, 0, 0, 0, 0, 0,
+    // ];
+    // // bits.set(6, true);
 
-        let values = vec![a, b, c, d];
+    // // Load the bits as a little-endian number
+    // let le_number = bits.load_le::<u16>(); // Little-endian interpretation
 
-        let mut x: BitVec<u32, Lsb0> = bitvec![u32, Lsb0;];
+    // // Load the bits as a big-endian number
+    // let be_number = bits.load_be::<u16>(); // Big-endian interpretation
 
-        bench.iter(|| {
-            for i in 0..10_000_000 {
-                let index = i % 4;
-                black_box(x.clone() & &values[index]);
-                // black_box(x.clone() & &values[index]);
-            }
-        });
-    }
+    // println!("Bits (Lsb0): {:?}", bits);
+    // println!("Little-endian interpretation: {}", le_number); // Output: 64
+    // println!("Big-endian interpretation: {}", be_number); // Output: 16384
 
-    #[bench]
-    fn bitvec_simd(bench: &mut Bencher) {
-        // Optionally include some setup
-        let a = bitvec_simd::BitVec::from_bool_iterator(
-            vec![
-                0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0,
-                0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
-                0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0,
-                1,
-            ]
-            .into_iter()
-            .map(|x| x > 0),
-        );
+    // println!("\n---------------------------------------------------------\n\n");
 
-        let b = bitvec_simd::BitVec::from_bool_iterator(
-            vec![
-                0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0,
-                1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0,
-                1,
-            ]
-            .into_iter()
-            .map(|x| x > 0),
-        );
+    // let bits = bitvec_simd::BitVec::from_bool_iterator(
+    //     vec![0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    //         .into_iter()
+    //         .map(|x| x > 0),
+    // );
 
-        let c = bitvec_simd::BitVec::from_bool_iterator(
-            vec![
-                0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0,
-                0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
-                0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0,
-                0,
-            ]
-            .into_iter()
-            .map(|x| x > 0),
-        );
+    // println!("{:?}", bits);
 
-        let d = bitvec_simd::BitVec::from_bool_iterator(
-            vec![
-                0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0,
-                0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0,
-                1,
-            ]
-            .into_iter()
-            .map(|x| x > 0),
-        );
+    // println!("\n---------------------------------------------------------\n\n");
 
-        let values = vec![a, b, c, d];
+    // let mut bit = fixedbitset::FixedBitSet::with_capacity(8);
+    // bit.set(0, true);
+    // bit.set(2, true);
+    // println!("{:b}", bit);
 
-        let mut x = bitvec_simd::BitVec::from_bool_iterator(
-            vec![
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0,
-            ]
-            .into_iter()
-            .map(|x| x > 0),
-        );
-
-        bench.iter(|| {
-            for i in 0..10_000_000 {
-                let index = i % 4;
-                black_box(x.clone() & &values[index]);
-            }
-        });
-    }
-
-    #[bench]
-    fn fixedbitset(bench: &mut Bencher) {
-        let mut a = fixedbitset::FixedBitSet::with_capacity(64);
-        vec![
-            0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0,
-            1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0,
-            1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1,
-        ]
-        .into_iter()
-        .enumerate()
-        .for_each(|(index, bit)| a.set(index, bit > 0));
-
-        let mut b = fixedbitset::FixedBitSet::with_capacity(64);
-        vec![
-            0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1,
-            1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1,
-        ]
-        .into_iter()
-        .enumerate()
-        .for_each(|(index, bit)| b.set(index, bit > 0));
-
-        let mut c = fixedbitset::FixedBitSet::with_capacity(64);
-        vec![
-            0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0,
-            1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-            1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0,
-        ]
-        .into_iter()
-        .enumerate()
-        .for_each(|(index, bit)| c.set(index, bit > 0));
-
-        let mut d = fixedbitset::FixedBitSet::with_capacity(64);
-        vec![
-            0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0,
-            1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1,
-        ]
-        .into_iter()
-        .enumerate()
-        .for_each(|(index, bit)| d.set(index, bit > 0));
-
-        let values = vec![a, b, c, d];
-
-        let mut x = fixedbitset::FixedBitSet::with_capacity(64);
-
-        bench.iter(|| {
-            for i in 0..10_000_000 {
-                let index = i % 4;
-                black_box(x.intersection(&values[index]));
-            }
-        });
-    }
+    // let num = bit.ones().fold(0u64, |acc, indices| acc | 1 << indices);
+    // dbg!(num);
 }
