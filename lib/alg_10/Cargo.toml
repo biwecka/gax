@@ -38,6 +38,7 @@ simple_moving_average = { workspace = true }
 hashbrown = { workspace = true }
 
 bitvec = { workspace = true }
+itertools = { workspace = true }
 
 
 [lints]

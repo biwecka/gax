@@ -47,4 +47,10 @@ impl From<Cost> for (usize, usize) {
     }
 }
 
+impl From<Cost> for usize {
+    fn from(value: Cost) -> Self {
+        value.0
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////

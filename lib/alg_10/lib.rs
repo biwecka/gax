@@ -5,20 +5,18 @@
 // Modules /////////////////////////////////////////////////////////////////////
 // mod dynamics;
 mod encoding;
-// mod operators;
+mod operators;
 
 // Imports /////////////////////////////////////////////////////////////////////
-// use dynamics::Dynamic;
-use encoding::{Chromosome, Context};
-use ga::encoding::Genotype;
-// use ga::{
-//     encoding::Phenotype as _,
-//     process::{
-//         rejection::Reject, replacement::Replace, selection::Select,
-//         termination::Terminate,
-//     },
-// };
-// use operators::{Crossover, Mutation};
+use encoding::{Chromosome, Context, Phenotype};
+use ga::{
+    encoding::Phenotype as _,
+    process::{
+        rejection::Reject, replacement::Replace, selection::Select,
+        termination::Terminate,
+    },
+};
+use operators::{Crossover, Mutation};
 use xhstt::{
     db::Database,
     parser::{instances::Instance, solution_groups::solution::events::Event},
@@ -31,13 +29,42 @@ pub fn run(instance: Instance) -> Vec<Event> {
 
     // Initialize context and phenotype
     let ctx = Context::init(&db);
+    let ph = Phenotype::blueprint(&db, &ctx);
 
-    Chromosome::generate(100, &ctx);
+    // Create encoding and parameters
+    let encoding = ga::encoding::Builder::new()
+        .set_context(ctx.clone())
+        .set_phenotype(ph.clone())
+        .build();
 
-    println!("done");
+    let parameters = ga::parameters::Builder::for_encoding(&encoding)
+        .set_population_size(1_000)
+        .set_crossover_rate(None)
+        .set_mutation_rate(0.01)
+        .set_selection(Select::RouletteWheel)
+        .set_crossover(Crossover::Uniform)
+        .set_mutation(Mutation::NormalDistributedRandom)
+        .set_rejection(Reject::None)
+        .set_replacement(Replace::EliteRelative(0.01))
+        // .set_termination(Terminate::Generations(100))
+        .set_termination(Terminate::ObjectiveValue(0.into()))
+        .build();
 
-    // Return
-    vec![]
+    // Create algorithm and let it run!
+    let alg = ga::Builder::new()
+        .set_encoding(encoding)
+        .set_parameters(parameters)
+        .set_dynamics::<()>(None)
+        .set_custom_logger::<()>(None)
+        .build();
+
+    let results = alg.run();
+
+    // Get the best result and convert it to a list of solution events.
+    let best: &Chromosome = &results.first().unwrap().0;
+    let timetable: Phenotype = ph.derive(best, &ctx);
+
+    timetable.to_solution_events(&db, &ctx)
 }
 
 ////////////////////////////////////////////////////////////////////////////////

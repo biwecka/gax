@@ -1,9 +1,9 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use super::Context;
-use std::ops::AddAssign;
 use bitvec::prelude::*;
 use hashbrown::{HashMap, HashSet};
 use rand_distr::Distribution;
+use std::ops::AddAssign;
 
 // Genotype ////////////////////////////////////////////////////////////////////
 /// This chromosome encodes the event-to-time allocation like described in
@@ -63,7 +63,7 @@ impl ga::encoding::Genotype<Context> for Chromosome {
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct EventGene {
     // Bitvector to store all time assignments of this event's sub-events.
-    times: BitVec<u32, Lsb0>,
+    pub times: BitVec<u32, Lsb0>,
 
     // Bitvector that only stores the starting times of the event's sub-events.
     start_times: BitVec<u32, Lsb0>,

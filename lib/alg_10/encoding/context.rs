@@ -22,13 +22,11 @@ pub struct Context {
     /// Constraints (with pre-calculated affected IDs)
     pub constraints: Vec<(Constraint, Vec<usize>)>,
 
-
     // /// Random number generator for event indices
     // pub rand_event: Uniform<usize>,
 
     // pub gauss_sd: f32, // standard deviation
     // pub gauss_rand_event: Normal<f32>,
-
     /// Random number generator for time indices
     pub rand_time: Uniform<usize>,
 }

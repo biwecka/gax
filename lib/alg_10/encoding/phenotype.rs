@@ -1,16 +1,19 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use super::{context::Context, genotype::Chromosome, objective_value::Cost, EventGene};
+use super::{
+    constraints, context::Context, genotype::Chromosome, objective_value::Cost,
+    EventGene,
+};
+use bitvec::prelude::*;
 use xhstt::{
     db::constraints::Constraint,
     parser::solution_groups::solution::events::{Event, TimeRef},
 };
-use bitvec::prelude::*;
 
 // Phenotype ///////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug)]
 pub struct Phenotype {
     // `times` contains the exact inner value of a chromosome
-    times: Vec<EventGene>,
+    pub times: Vec<EventGene>,
 
     // The vector contains a bitvector for each resource. The inner bitvectors
     // contain information about which events use a given resource.
@@ -18,7 +21,7 @@ pub struct Phenotype {
     // -> event_0 does NOT use resource_0
     // -> event_1 does     use resource_0
     // -> event_2 does     use resource_0
-    resources: Vec<BitVec<usize, Lsb0>>,
+    pub resources: Vec<BitVec<usize, Lsb0>>,
 }
 
 impl Phenotype {
@@ -26,12 +29,11 @@ impl Phenotype {
         // Create times matrix (this is empty in the blueprint)
         let times = vec![];
 
-        // Create resource matrix
-        let mut resources = vec![
-            bitvec![usize, Lsb0; 0; ctx.num_events];
-            ctx.num_resources
-        ];
+        // Create resource vector of bitvectors
+        let mut resources =
+            vec![bitvec![usize, Lsb0; 0; ctx.num_events]; ctx.num_resources];
 
+        // Fill resource 2D vector (matrix)
         for (event_idx, event) in db.events().iter().enumerate() {
             for resource in &event.allocated_resources {
                 let resource_idx = db.resource_id_to_idx(&resource.id);
@@ -97,19 +99,14 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
         for (constraint, indices) in &ctx.constraints {
             match constraint {
                 Constraint::AssignTimeConstraint(params) => {
-                    let deviation: usize =todo!();
-
-                    let cost = (params.weight as usize)
-                        * params.cost_function.calc(deviation);
-
+                    let cost =
+                        constraints::assign_time(self, ctx, params, indices);
                     total_cost += cost;
                 }
 
                 Constraint::AvoidClashesConstraint(params) => {
-                    let deviation: usize = todo!();
-
-                    let cost = (params.weight as usize)
-                        * params.cost_function.calc(deviation);
+                    let cost =
+                        constraints::avoid_clashes(self, ctx, params, indices);
 
                     total_cost += cost;
                 }
@@ -119,8 +116,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
         }
 
         // Return
-        // total_cost.into()
-        todo!()
+        (total_cost, 0).into()
     }
 }
 
