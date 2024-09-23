@@ -6,18 +6,73 @@ use rand_distr::Distribution;
 
 // Main ////////////////////////////////////////////////////////////////////////
 
+// This main method contains an implementation for trading one time allocation
+// for another between two event genes.
+//
+// This can be used as crossover operator `Crossover::Trade(n)`.
+fn main() {
+    let y_e_0 = bitvec![u32, Lsb0; 0, 0, 1, 1, 1, 0, 1, 1, 0, 1];
+    let y_e_1 = bitvec![u32, Lsb0; 0, 1, 1, 0, 1, 1, 0, 0, 1, 0];
+
+    // Negate both
+    let y_e_0_inv = !y_e_0.clone();
+    let y_e_1_inv = !y_e_1.clone();
+
+    // Calc possible trades from e_0 -> e_1
+    let trades_0_to_1 = y_e_0 & y_e_1_inv;
+    println!("0 -> 1: {} / {:?}", trades_0_to_1, trades_0_to_1.iter_ones().collect::<Vec<_>>());
+
+    // Calc possible trades from e_1 -> e_0
+    let trades_1_to_0 = y_e_1 & y_e_0_inv;
+    println!("1 -> 0: {} / {:?}", trades_1_to_0, trades_1_to_0.iter_ones().collect::<Vec<_>>());
+}
+
+// This main method contains an implementation for moving a single time
+// allocation to another random position.
+//
+// This operatoin can be used as `Mutation::MoveSingleTimeAlloc`.
+fn mainx() {
+    let eg = EventGene::from_sub_events(vec![
+        (1, bitvec![u32, Lsb0; 0, 1, 0, 0, 0, 0, 0]),
+        (2, bitvec![u32, Lsb0; 0, 0, 1, 0, 0, 1, 0]),
+    ]).unwrap();
+
+    println!("{}", eg);
+
+    // Define time slot move (original and target index). THESE CAN BE
+    // GENERATED RANDOMLY. The `mv_from` should be set, and `mv_to` position
+    // should be unset.
+    let mv_from = 3;
+    let mv_to = 4;
+
+    // Get teh Y_e vector and manipulate it
+    let mut y_e = eg.times.clone();
+    y_e.set(mv_from, false);
+    y_e.set(mv_to, true);
+
+    println!("Y_e = {}", y_e);
+
+    // Create the new event gene
+    let eg_new = EventGene::from_time_allocation(y_e).unwrap();
+    println!("{}", eg_new);
+}
+
 // This main method contains an implementation for moving a random sub_event
 // to another random position. The algorithm is designed in a way, that it
 // always results in a VALID event gene!
-fn main() {
-    let eg: EventGene = vec![
+//
+// This operation can be used as `Mutation::MoveSubEvent`
+fn mainx2() {
+    let eg = EventGene::from_sub_events(vec![
         (1, bitvec![u32, Lsb0; 0, 1, 0, 0, 0, 0, 0]),
         (2, bitvec![u32, Lsb0; 0, 0, 1, 0, 0, 1, 0]),
-    ].try_into().unwrap();
+    ]).unwrap();
 
     println!("{}", eg);
 
     // Define which sub_event to move. THESE CAN BE GENERATED RANDOMLY.
+    // But when generating those indices, it's important to only use `mv_i`
+    // where the K_e,d=2 vector is actually set to 1 !!!
     let mv_d = 2;
     let mv_i = 5;
 
@@ -61,7 +116,7 @@ fn main() {
         y.1.set(mv_i, false);
         y.1.set(*i, true);
 
-        let eg_new: EventGene = x.try_into().unwrap();
+        let eg_new = EventGene::from_sub_events(x).unwrap();
         println!("{}", eg_new);
     }
 }
@@ -94,62 +149,6 @@ impl std::fmt::Display for EventGene {
 
         write!(f, "  ]\n")?;
         write!(f, "}}")
-    }
-}
-
-impl TryFrom<Vec<(usize, BitVec<u32, Lsb0>)>> for EventGene {
-    type Error = ();
-    fn try_from(values: Vec<(usize, BitVec<u32, Lsb0>)>) -> Result<Self, Self::Error> {
-        // Extract num_times
-        let num_times = match values.first() {
-            Some(x) => x.1.len(),
-            None => return Err(()),
-        };
-
-        // Make sure, all given values are of length `num_times`
-        for val in &values {
-            if val.1.len() != num_times {
-                return Err(());
-            }
-        }
-
-        // Declare variables
-        let mut times = bitvec![u32, Lsb0; 0; num_times];
-        let mut start_times = bitvec![u32, Lsb0; 0; num_times];
-        let mut sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)> = vec![];
-
-        // >>> Copy given values as sub-event start times <<<
-        for val in values {
-            sub_event_start_times.push(val.clone());
-        }
-
-        // >>> Calculate start_times bitvector <<<
-        for (_, bv) in sub_event_start_times.iter() {
-            start_times |= bv;
-        }
-
-        // >>> Calculate times bitvector <<<
-        for (d, k_ed) in sub_event_start_times.iter() {
-            for i in k_ed.iter_ones() {
-                for k in i..(i+d) {
-                    times.set(k, true);
-                }
-            }
-        }
-
-        // Create event gene
-        let e = Self { times, start_times, sub_event_start_times };
-
-        // Check data correctness
-        assert!(Self::check_rule_1(&e));
-        assert!(Self::check_rule_2(&e));
-        assert!(Self::check_rule_3(&e));
-        assert!(Self::check_rule_4(&e));
-        assert!(Self::check_rule_5(&e));
-        assert!(Self::check_rule_6(&e));
-
-        // Return
-        Ok(e)
     }
 }
 
@@ -230,6 +229,126 @@ impl EventGene {
         // Return
         e
     }
+
+    pub fn from_time_allocation(times: BitVec<u32, Lsb0>) -> Result<Self, ()> {
+        // Extract the number of time slots
+        let num_times = times.len();
+
+        // Declare variables
+        let mut start_times = bitvec![u32, Lsb0; 0; num_times];
+        let mut sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)> = vec![];
+
+        // >>> Calculate sub-event start time bitvectors <<<
+
+        // Group the time indices into groups of consecutive numbers.
+        let grouped_time_indices = group_consecutive_numbers(
+            times
+                .iter_ones()
+                .collect::<Vec<usize>>()
+        );
+
+        // Get a list of durations of the sub-events
+        let duration_set = HashSet::<usize>::from_iter(
+            grouped_time_indices.iter().map(|sub| sub.len()),
+        );
+        let mut durations: Vec<usize> = duration_set.into_iter().collect();
+
+        durations.sort();
+
+        for d in durations {
+            // Get all sub-events of duration d
+            let sub_events = grouped_time_indices
+                .iter()
+                .filter(|sub| sub.len() == d)
+                .collect::<Vec<_>>();
+
+            // Get the first index of each sub-event of duration d
+            let indices =
+                sub_events.iter().filter_map(|x| x.first()).collect::<Vec<_>>();
+
+            // Create bitvec
+            let mut bv = bitvec![u32, Lsb0; 0; num_times];
+            for i in indices {
+                bv.set(*i, true);
+            }
+
+            // Add to sub-event start times
+            sub_event_start_times.push((d, bv));
+        }
+
+        // >>> Calculate start times bitvector <<<
+        for (_, bv) in sub_event_start_times.iter() {
+            start_times |= bv;
+        }
+
+        // Create event gene
+        let e = Self { times, start_times, sub_event_start_times };
+
+        // Check data correctness
+        assert!(Self::check_rule_1(&e));
+        assert!(Self::check_rule_2(&e));
+        assert!(Self::check_rule_3(&e));
+        assert!(Self::check_rule_4(&e));
+        assert!(Self::check_rule_5(&e));
+        assert!(Self::check_rule_6(&e));
+
+        // Return
+        Ok(e)
+    }
+
+    pub fn from_sub_events(sub_events: Vec<(usize, BitVec<u32, Lsb0>)>) -> Result<Self, ()> {
+        // Extract num_times
+        let num_times = match sub_events.first() {
+            Some(x) => x.1.len(),
+            None => return Err(()),
+        };
+
+        // Make sure, all given values are of length `num_times`
+        for val in &sub_events {
+            if val.1.len() != num_times {
+                return Err(());
+            }
+        }
+
+        // Declare variables
+        let mut times = bitvec![u32, Lsb0; 0; num_times];
+        let mut start_times = bitvec![u32, Lsb0; 0; num_times];
+        let mut sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)> = vec![];
+
+        // >>> Copy given values as sub-event start times <<<
+        for val in sub_events {
+            sub_event_start_times.push(val.clone());
+        }
+
+        // >>> Calculate start_times bitvector <<<
+        for (_, bv) in sub_event_start_times.iter() {
+            start_times |= bv;
+        }
+
+        // >>> Calculate times bitvector <<<
+        for (d, k_ed) in sub_event_start_times.iter() {
+            for i in k_ed.iter_ones() {
+                for k in i..(i+d) {
+                    times.set(k, true);
+                }
+            }
+        }
+
+        // Create event gene
+        let e = Self { times, start_times, sub_event_start_times };
+
+        // Check data correctness
+        assert!(Self::check_rule_1(&e));
+        assert!(Self::check_rule_2(&e));
+        assert!(Self::check_rule_3(&e));
+        assert!(Self::check_rule_4(&e));
+        assert!(Self::check_rule_5(&e));
+        assert!(Self::check_rule_6(&e));
+
+        // Return
+        Ok(e)
+    }
+
 
     /// Rule 1: Starting times must also be contained in time allocation.
     fn check_rule_1(e: &Self) -> bool {
