@@ -31,6 +31,7 @@ pub fn pre_calc(db: &xhstt::db::Database) -> Vec<(Constraint, Vec<usize>)> {
 }
 
 // Constraint Cost Functions ///////////////////////////////////////////////////
+#[allow(unused)]
 pub fn assign_time(
     phenotype: &Phenotype,
     ctx: &Context,

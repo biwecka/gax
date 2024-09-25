@@ -1,8 +1,8 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use std::collections::HashSet;
 use bitvec::prelude::*;
 use rand::seq::SliceRandom;
 use rand_distr::Distribution;
+use std::collections::HashSet;
 
 // Main ////////////////////////////////////////////////////////////////////////
 
@@ -20,22 +20,32 @@ fn main() {
 
     // Calc possible trades from e_0 -> e_1
     let trades_0_to_1 = y_e_0 & y_e_1_inv;
-    println!("0 -> 1: {} / {:?}", trades_0_to_1, trades_0_to_1.iter_ones().collect::<Vec<_>>());
+    println!(
+        "0 -> 1: {} / {:?}",
+        trades_0_to_1,
+        trades_0_to_1.iter_ones().collect::<Vec<_>>()
+    );
 
     // Calc possible trades from e_1 -> e_0
     let trades_1_to_0 = y_e_1 & y_e_0_inv;
-    println!("1 -> 0: {} / {:?}", trades_1_to_0, trades_1_to_0.iter_ones().collect::<Vec<_>>());
+    println!(
+        "1 -> 0: {} / {:?}",
+        trades_1_to_0,
+        trades_1_to_0.iter_ones().collect::<Vec<_>>()
+    );
 }
 
 // This main method contains an implementation for moving a single time
 // allocation to another random position.
 //
 // This operatoin can be used as `Mutation::MoveSingleTimeAlloc`.
+#[allow(unused)]
 fn mainx() {
     let eg = EventGene::from_sub_events(vec![
         (1, bitvec![u32, Lsb0; 0, 1, 0, 0, 0, 0, 0]),
         (2, bitvec![u32, Lsb0; 0, 0, 1, 0, 0, 1, 0]),
-    ]).unwrap();
+    ])
+    .unwrap();
 
     println!("{}", eg);
 
@@ -62,11 +72,13 @@ fn mainx() {
 // always results in a VALID event gene!
 //
 // This operation can be used as `Mutation::MoveSubEvent`
+#[allow(unused)]
 fn mainx2() {
     let eg = EventGene::from_sub_events(vec![
         (1, bitvec![u32, Lsb0; 0, 1, 0, 0, 0, 0, 0]),
         (2, bitvec![u32, Lsb0; 0, 0, 1, 0, 0, 1, 0]),
-    ]).unwrap();
+    ])
+    .unwrap();
 
     println!("{}", eg);
 
@@ -90,7 +102,9 @@ fn mainx2() {
         let mut h = bitvec![u32, Lsb0; 0; len];
 
         for index in 0..len {
-            if index + mv_d > len { break };
+            if index + mv_d > len {
+                break;
+            };
             let range = index..(index + mv_d);
             let slice = &y_e[range];
 
@@ -242,9 +256,7 @@ impl EventGene {
 
         // Group the time indices into groups of consecutive numbers.
         let grouped_time_indices = group_consecutive_numbers(
-            times
-                .iter_ones()
-                .collect::<Vec<usize>>()
+            times.iter_ones().collect::<Vec<usize>>(),
         );
 
         // Get a list of durations of the sub-events
@@ -296,7 +308,9 @@ impl EventGene {
         Ok(e)
     }
 
-    pub fn from_sub_events(sub_events: Vec<(usize, BitVec<u32, Lsb0>)>) -> Result<Self, ()> {
+    pub fn from_sub_events(
+        sub_events: Vec<(usize, BitVec<u32, Lsb0>)>,
+    ) -> Result<Self, ()> {
         // Extract num_times
         let num_times = match sub_events.first() {
             Some(x) => x.1.len(),
@@ -328,7 +342,7 @@ impl EventGene {
         // >>> Calculate times bitvector <<<
         for (d, k_ed) in sub_event_start_times.iter() {
             for i in k_ed.iter_ones() {
-                for k in i..(i+d) {
+                for k in i..(i + d) {
                     times.set(k, true);
                 }
             }
@@ -348,7 +362,6 @@ impl EventGene {
         // Return
         Ok(e)
     }
-
 
     /// Rule 1: Starting times must also be contained in time allocation.
     fn check_rule_1(e: &Self) -> bool {

@@ -33,19 +33,25 @@ impl ga::encoding::ObjectiveValue for Cost {
     }
 }
 
-impl From<(usize, usize)> for Cost {
-    fn from((hard, soft): (usize, usize)) -> Self {
-        Self(10_000 * hard + soft)
+impl From<usize> for Cost {
+    fn from(value: usize) -> Self {
+        Self(value)
     }
 }
 
-impl From<Cost> for (usize, usize) {
-    fn from(value: Cost) -> Self {
-        let hard = value.0 / 10_000;
-        let soft = value.0 % 10_000;
-        (hard, soft)
-    }
-}
+// impl From<(usize, usize)> for Cost {
+//     fn from((hard, soft): (usize, usize)) -> Self {
+//         Self(10_000 * hard + soft)
+//     }
+// }
+
+// impl From<Cost> for (usize, usize) {
+//     fn from(value: Cost) -> Self {
+//         let hard = value.0 / 10_000;
+//         let soft = value.0 % 10_000;
+//         (hard, soft)
+//     }
+// }
 
 impl From<Cost> for usize {
     fn from(value: Cost) -> Self {

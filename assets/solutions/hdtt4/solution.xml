@@ -1536,11 +1536,464 @@
 		<SolutionGroup Id="test_run">
 			<MetaData>
 				<Contributor>biwecka</Contributor>
-				<Date>2024-09-22T11:23:11.035154511+02:00</Date>
+				<Date>2024-09-25T21:32:55.004646330+02:00</Date>
 				<Description>GA for XHSTT</Description>
 			</MetaData>
 			<Solution Reference="Artificialhdtt4_XHSTT2014A">
-				<Events/>
+				<Events>
+					<Event Reference="C0T0R0">
+						<Duration>1</Duration>
+						<Time Reference="2"/>
+					</Event>
+					<Event Reference="C0T0R0">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C0T1R0">
+						<Duration>1</Duration>
+						<Time Reference="1"/>
+					</Event>
+					<Event Reference="C0T1R0">
+						<Duration>1</Duration>
+						<Time Reference="25"/>
+					</Event>
+					<Event Reference="C0T2R0">
+						<Duration>1</Duration>
+						<Time Reference="10"/>
+					</Event>
+					<Event Reference="C0T3R0">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C0T3R0">
+						<Duration>1</Duration>
+						<Time Reference="12"/>
+					</Event>
+					<Event Reference="C1T0R0">
+						<Duration>1</Duration>
+						<Time Reference="29"/>
+					</Event>
+					<Event Reference="C1T1R0">
+						<Duration>1</Duration>
+						<Time Reference="19"/>
+					</Event>
+					<Event Reference="C1T2R0">
+						<Duration>1</Duration>
+						<Time Reference="6"/>
+					</Event>
+					<Event Reference="C1T3R0">
+						<Duration>1</Duration>
+						<Time Reference="5"/>
+					</Event>
+					<Event Reference="C1T3R0">
+						<Duration>1</Duration>
+						<Time Reference="8"/>
+					</Event>
+					<Event Reference="C2T0R0">
+						<Duration>1</Duration>
+						<Time Reference="28"/>
+					</Event>
+					<Event Reference="C2T1R0">
+						<Duration>1</Duration>
+						<Time Reference="11"/>
+					</Event>
+					<Event Reference="C2T2R0">
+						<Duration>1</Duration>
+						<Time Reference="27"/>
+					</Event>
+					<Event Reference="C2T3R0">
+						<Duration>1</Duration>
+						<Time Reference="4"/>
+					</Event>
+					<Event Reference="C2T3R0">
+						<Duration>1</Duration>
+						<Time Reference="23"/>
+					</Event>
+					<Event Reference="C2T3R0">
+						<Duration>2</Duration>
+						<Time Reference="6"/>
+					</Event>
+					<Event Reference="C2T3R0">
+						<Duration>2</Duration>
+						<Time Reference="13"/>
+					</Event>
+					<Event Reference="C3T0R0">
+						<Duration>1</Duration>
+						<Time Reference="24"/>
+					</Event>
+					<Event Reference="C3T0R0">
+						<Duration>1</Duration>
+						<Time Reference="26"/>
+					</Event>
+					<Event Reference="C3T1R0">
+						<Duration>1</Duration>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C3T1R0">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C3T2R0">
+						<Duration>1</Duration>
+						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C3T2R0">
+						<Duration>1</Duration>
+						<Time Reference="14"/>
+					</Event>
+					<Event Reference="C3T2R0">
+						<Duration>1</Duration>
+						<Time Reference="17"/>
+					</Event>
+					<Event Reference="C3T3R0">
+						<Duration>1</Duration>
+						<Time Reference="15"/>
+					</Event>
+					<Event Reference="C3T3R0">
+						<Duration>1</Duration>
+						<Time Reference="20"/>
+					</Event>
+					<Event Reference="C0T0R1">
+						<Duration>1</Duration>
+						<Time Reference="11"/>
+					</Event>
+					<Event Reference="C0T0R1">
+						<Duration>1</Duration>
+						<Time Reference="17"/>
+					</Event>
+					<Event Reference="C0T1R1">
+						<Duration>1</Duration>
+						<Time Reference="4"/>
+					</Event>
+					<Event Reference="C0T1R1">
+						<Duration>1</Duration>
+						<Time Reference="23"/>
+					</Event>
+					<Event Reference="C0T1R1">
+						<Duration>3</Duration>
+						<Time Reference="6"/>
+					</Event>
+					<Event Reference="C0T2R1">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C0T3R1">
+						<Duration>1</Duration>
+						<Time Reference="24"/>
+					</Event>
+					<Event Reference="C0T3R1">
+						<Duration>1</Duration>
+						<Time Reference="26"/>
+					</Event>
+					<Event Reference="C1T1R1">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C1T1R1">
+						<Duration>1</Duration>
+						<Time Reference="12"/>
+					</Event>
+					<Event Reference="C1T1R1">
+						<Duration>1</Duration>
+						<Time Reference="14"/>
+					</Event>
+					<Event Reference="C1T1R1">
+						<Duration>1</Duration>
+						<Time Reference="20"/>
+					</Event>
+					<Event Reference="C1T2R1">
+						<Duration>1</Duration>
+						<Time Reference="4"/>
+					</Event>
+					<Event Reference="C1T2R1">
+						<Duration>1</Duration>
+						<Time Reference="13"/>
+					</Event>
+					<Event Reference="C1T2R1">
+						<Duration>1</Duration>
+						<Time Reference="25"/>
+					</Event>
+					<Event Reference="C1T3R1">
+						<Duration>1</Duration>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C1T3R1">
+						<Duration>1</Duration>
+						<Time Reference="29"/>
+					</Event>
+					<Event Reference="C2T0R1">
+						<Duration>1</Duration>
+						<Time Reference="15"/>
+					</Event>
+					<Event Reference="C2T1R1">
+						<Duration>1</Duration>
+						<Time Reference="19"/>
+					</Event>
+					<Event Reference="C2T1R1">
+						<Duration>1</Duration>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C2T2R1">
+						<Duration>1</Duration>
+						<Time Reference="1"/>
+					</Event>
+					<Event Reference="C3T0R1">
+						<Duration>1</Duration>
+						<Time Reference="5"/>
+					</Event>
+					<Event Reference="C3T0R1">
+						<Duration>1</Duration>
+						<Time Reference="27"/>
+					</Event>
+					<Event Reference="C3T1R1">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C3T1R1">
+						<Duration>1</Duration>
+						<Time Reference="28"/>
+					</Event>
+					<Event Reference="C3T2R1">
+						<Duration>1</Duration>
+						<Time Reference="2"/>
+					</Event>
+					<Event Reference="C3T3R1">
+						<Duration>1</Duration>
+						<Time Reference="10"/>
+					</Event>
+					<Event Reference="C3T3R1">
+						<Duration>1</Duration>
+						<Time Reference="16"/>
+					</Event>
+					<Event Reference="C0T0R2">
+						<Duration>1</Duration>
+						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C0T0R2">
+						<Duration>1</Duration>
+						<Time Reference="14"/>
+					</Event>
+					<Event Reference="C0T1R2">
+						<Duration>1</Duration>
+						<Time Reference="27"/>
+					</Event>
+					<Event Reference="C0T2R2">
+						<Duration>1</Duration>
+						<Time Reference="5"/>
+					</Event>
+					<Event Reference="C0T3R2">
+						<Duration>1</Duration>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C0T3R2">
+						<Duration>1</Duration>
+						<Time Reference="19"/>
+					</Event>
+					<Event Reference="C1T2R2">
+						<Duration>1</Duration>
+						<Time Reference="7"/>
+					</Event>
+					<Event Reference="C1T2R2">
+						<Duration>1</Duration>
+						<Time Reference="15"/>
+					</Event>
+					<Event Reference="C1T2R2">
+						<Duration>1</Duration>
+						<Time Reference="28"/>
+					</Event>
+					<Event Reference="C1T2R2">
+						<Duration>2</Duration>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C1T3R2">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C2T0R2">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C2T0R2">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C2T1R2">
+						<Duration>1</Duration>
+						<Time Reference="24"/>
+					</Event>
+					<Event Reference="C2T2R2">
+						<Duration>1</Duration>
+						<Time Reference="8"/>
+					</Event>
+					<Event Reference="C2T2R2">
+						<Duration>1</Duration>
+						<Time Reference="16"/>
+					</Event>
+					<Event Reference="C2T2R2">
+						<Duration>1</Duration>
+						<Time Reference="26"/>
+					</Event>
+					<Event Reference="C2T2R2">
+						<Duration>1</Duration>
+						<Time Reference="29"/>
+					</Event>
+					<Event Reference="C2T3R2">
+						<Duration>1</Duration>
+						<Time Reference="17"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="1"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="4"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="6"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="12"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="25"/>
+					</Event>
+					<Event Reference="C3T1R2">
+						<Duration>1</Duration>
+						<Time Reference="13"/>
+					</Event>
+					<Event Reference="C3T2R2">
+						<Duration>1</Duration>
+						<Time Reference="20"/>
+					</Event>
+					<Event Reference="C3T2R2">
+						<Duration>1</Duration>
+						<Time Reference="23"/>
+					</Event>
+					<Event Reference="C3T3R2">
+						<Duration>1</Duration>
+						<Time Reference="11"/>
+					</Event>
+					<Event Reference="C0T0R3">
+						<Duration>1</Duration>
+						<Time Reference="7"/>
+					</Event>
+					<Event Reference="C0T0R3">
+						<Duration>1</Duration>
+						<Time Reference="13"/>
+					</Event>
+					<Event Reference="C0T0R3">
+						<Duration>1</Duration>
+						<Time Reference="16"/>
+					</Event>
+					<Event Reference="C0T1R3">
+						<Duration>1</Duration>
+						<Time Reference="29"/>
+					</Event>
+					<Event Reference="C0T2R3">
+						<Duration>1</Duration>
+						<Time Reference="15"/>
+					</Event>
+					<Event Reference="C0T2R3">
+						<Duration>1</Duration>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C0T3R3">
+						<Duration>1</Duration>
+						<Time Reference="28"/>
+					</Event>
+					<Event Reference="C1T0R3">
+						<Duration>1</Duration>
+						<Time Reference="23"/>
+					</Event>
+					<Event Reference="C1T1R3">
+						<Duration>1</Duration>
+						<Time Reference="2"/>
+					</Event>
+					<Event Reference="C1T1R3">
+						<Duration>1</Duration>
+						<Time Reference="26"/>
+					</Event>
+					<Event Reference="C1T1R3">
+						<Duration>2</Duration>
+						<Time Reference="16"/>
+					</Event>
+					<Event Reference="C1T2R3">
+						<Duration>1</Duration>
+						<Time Reference="11"/>
+					</Event>
+					<Event Reference="C1T3R3">
+						<Duration>1</Duration>
+						<Time Reference="1"/>
+					</Event>
+					<Event Reference="C1T3R3">
+						<Duration>1</Duration>
+						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C1T3R3">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C1T3R3">
+						<Duration>1</Duration>
+						<Time Reference="27"/>
+					</Event>
+					<Event Reference="C2T0R3">
+						<Duration>1</Duration>
+						<Time Reference="20"/>
+					</Event>
+					<Event Reference="C2T0R3">
+						<Duration>2</Duration>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C2T1R3">
+						<Duration>1</Duration>
+						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C2T1R3">
+						<Duration>1</Duration>
+						<Time Reference="5"/>
+					</Event>
+					<Event Reference="C2T1R3">
+						<Duration>1</Duration>
+						<Time Reference="25"/>
+					</Event>
+					<Event Reference="C2T2R3">
+						<Duration>1</Duration>
+						<Time Reference="12"/>
+					</Event>
+					<Event Reference="C2T2R3">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C2T3R3">
+						<Duration>1</Duration>
+						<Time Reference="2"/>
+					</Event>
+					<Event Reference="C3T0R3">
+						<Duration>1</Duration>
+						<Time Reference="8"/>
+					</Event>
+					<Event Reference="C3T0R3">
+						<Duration>1</Duration>
+						<Time Reference="19"/>
+					</Event>
+					<Event Reference="C3T2R3">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C3T3R3">
+						<Duration>1</Duration>
+						<Time Reference="24"/>
+					</Event>
+				</Events>
 			</Solution>
 		</SolutionGroup>
 	</SolutionGroups>

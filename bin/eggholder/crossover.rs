@@ -2,6 +2,7 @@ use crate::chromosome::Chromosome;
 use rand::prelude::SliceRandom;
 use rand::Rng;
 
+#[allow(unused)]
 pub enum Crossover {
     InterchangeX2Coordinates,
     InterchangeAllCoordinates,

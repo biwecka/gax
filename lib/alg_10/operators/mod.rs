@@ -7,6 +7,7 @@ pub use crossover::*;
 pub use mutation::*;
 
 // Helper Functions ////////////////////////////////////////////////////////////
+#[allow(unused)]
 fn remove_duplicates<T: Clone + std::hash::Hash + Eq>(vec: &mut Vec<T>) {
     let mut seen = std::collections::HashSet::new();
     vec.retain(|x| seen.insert(x.clone()));

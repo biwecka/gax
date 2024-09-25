@@ -84,5 +84,6 @@ fixedbitset = "0.5.7"
 # unwrap_used = "forbid"
 # expect_used = "forbid"
 type_complexity = "allow"
+too_long_first_doc_paragraph = "allow"
 
 ################################################################################

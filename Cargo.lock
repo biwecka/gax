@@ -6847,16 +6847,7 @@ dependencies = [
 name = "solver"
 version = "0.1.0"
 dependencies = [
- "alg_1",
  "alg_10",
- "alg_2",
- "alg_3",
- "alg_4",
- "alg_5",
- "alg_6",
- "alg_7",
- "alg_8",
- "alg_9",
  "rand 0.8.5",
  "xhstt",
 ]

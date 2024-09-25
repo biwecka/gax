@@ -10,15 +10,15 @@ path = "main.rs"
 [dependencies]
 #> libs <#
 xhstt = { workspace = true }
-alg_1 = { workspace = true }
-alg_2 = { workspace = true }
-alg_3 = { workspace = true }
-alg_4 = { workspace = true }
-alg_5 = { workspace = true }
-alg_6 = { workspace = true }
-alg_7 = { workspace = true }
-alg_8 = { workspace = true }
-alg_9 = { workspace = true }
+# alg_1 = { workspace = true }
+# alg_2 = { workspace = true }
+# alg_3 = { workspace = true }
+# alg_4 = { workspace = true }
+# alg_5 = { workspace = true }
+# alg_6 = { workspace = true }
+# alg_7 = { workspace = true }
+# alg_8 = { workspace = true }
+# alg_9 = { workspace = true }
 alg_10 = { workspace = true }
 
 #> remote <#

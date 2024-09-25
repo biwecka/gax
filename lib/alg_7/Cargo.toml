@@ -15,7 +15,7 @@ default = [
     "ga/log_ov_dist",
     "ga/log_diversity",
     # "ga/log_cache_hits",
-    # "ga/log_runtimes",
+    "ga/log_runtimes",
 ]
 
 ga_log_dynamics = ["ga/log_dynamics"]

@@ -9,7 +9,7 @@ path = "lib.rs"
 [features]
 default = [
     # "cache",
-    "rerun_logger",
+    # "rerun_logger",
 
     # "log_pop_stats",
     # "log_ov_dist",
@@ -27,7 +27,7 @@ cache           = []
 # This feature enables logging to "Rerun". Enabling this feature some basic
 # metrics are automatically logged to "Rerun".
 # For logging more advanced data, see the features below.
-rerun_logger    = ["dep:rerun", "dep:colors-transform"]
+rerun_logger    = ["dep:colors-transform"] # "dep:rerun",
 
 # Log population statistics like population size, elite size, selection size
 # and number of distinct selections.
@@ -65,7 +65,7 @@ ndarray = { workspace = true }
 hashbrown = { workspace = true }
 simple_moving_average = { workspace = true }
 
-rerun = { workspace = true, optional = true }
+rerun = { workspace = true } #, optional = true }
 colors-transform = { workspace = true, optional = true }
 
 [lints]

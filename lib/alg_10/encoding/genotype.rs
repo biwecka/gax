@@ -66,14 +66,38 @@ pub struct EventGene {
     pub times: BitVec<u32, Lsb0>,
 
     // Bitvector that only stores the starting times of the event's sub-events.
-    start_times: BitVec<u32, Lsb0>,
+    pub start_times: BitVec<u32, Lsb0>,
 
     // List of (d, bitvector), where d represents a duration and the bitvector
     // stores only the starting times of sub-events with a duration of d.
     pub sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)>,
 }
 
+impl std::fmt::Display for EventGene {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "EventGene {{")?;
+
+        writeln!(f, "  Y_e   : {}", self.times)?;
+        writeln!(f, "  S_e   : {}", self.start_times)?;
+        writeln!(f, "  K_e,d : [")?;
+        for sub in &self.sub_event_start_times {
+            writeln!(f, "    {:>2} => {}", sub.0, sub.1)?;
+        }
+
+        writeln!(f, "  ]\n")?;
+        write!(f, "}}")
+    }
+}
+
 impl EventGene {
+    pub fn apply(&mut self, other: EventGene) {
+        self.times = other.times;
+        self.start_times = other.start_times;
+        self.sub_event_start_times = other.sub_event_start_times;
+    }
+
+    /// Function to create an event gene with a random time allocation (with a
+    /// fixed total duration).
     pub fn generate(duration: u8, ctx: &Context) -> Self {
         let mut times = bitvec![u32, Lsb0; 0; ctx.num_times];
         let mut start_times = bitvec![u32, Lsb0; 0; ctx.num_times];
@@ -148,6 +172,135 @@ impl EventGene {
 
         // Return
         e
+    }
+
+    /// Function to create an event gene from a given time allocation. This
+    /// works similar to `generate`. The only difference is, that `generate`
+    /// generates a random time allocation and this function is provided with
+    /// a desired time allocation.
+    pub fn from_time_allocation(times: BitVec<u32, Lsb0>) -> Self {
+        // Extract the number of time slots
+        let num_times = times.len();
+
+        // Declare variables
+        let mut start_times = bitvec![u32, Lsb0; 0; num_times];
+        let mut sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)> = vec![];
+
+        // >>> Calculate sub-event start time bitvectors <<<
+
+        // Group the time indices into groups of consecutive numbers.
+        let grouped_time_indices = group_consecutive_numbers(
+            times.iter_ones().collect::<Vec<usize>>(),
+        );
+
+        // Get a list of durations of the sub-events
+        let duration_set = HashSet::<usize>::from_iter(
+            grouped_time_indices.iter().map(|sub| sub.len()),
+        );
+        let mut durations: Vec<usize> = duration_set.into_iter().collect();
+
+        durations.sort();
+
+        for d in durations {
+            // Get all sub-events of duration d
+            let sub_events = grouped_time_indices
+                .iter()
+                .filter(|sub| sub.len() == d)
+                .collect::<Vec<_>>();
+
+            // Get the first index of each sub-event of duration d
+            let indices =
+                sub_events.iter().filter_map(|x| x.first()).collect::<Vec<_>>();
+
+            // Create bitvec
+            let mut bv = bitvec![u32, Lsb0; 0; num_times];
+            for i in indices {
+                bv.set(*i, true);
+            }
+
+            // Add to sub-event start times
+            sub_event_start_times.push((d, bv));
+        }
+
+        // >>> Calculate start times bitvector <<<
+        for (_, bv) in sub_event_start_times.iter() {
+            start_times |= bv;
+        }
+
+        // Create event gene
+        // let e = Self { times, start_times, sub_event_start_times };
+
+        // Check data correctness
+        // assert!(Self::check_rule_1(&e));
+        // assert!(Self::check_rule_2(&e));
+        // assert!(Self::check_rule_3(&e));
+        // assert!(Self::check_rule_4(&e));
+        // assert!(Self::check_rule_5(&e));
+        // assert!(Self::check_rule_6(&e));
+
+        // Return
+        // e
+        Self { times, start_times, sub_event_start_times }
+    }
+
+    /// Function to create an event gene from the given sub_event starting
+    /// times. The given `sub_events` parameter is essentially a list of
+    /// K_e,d vectors (the first value of the tuple specifies `d`, the second
+    /// value of the tuple is the actual vector).
+    pub fn from_sub_events(
+        sub_events: Vec<(usize, BitVec<u32, Lsb0>)>,
+    ) -> Self {
+        // Extract num_times
+        let num_times = match sub_events.first() {
+            Some(x) => x.1.len(),
+            None => unreachable!(),
+        };
+
+        // Make sure, all given values are of length `num_times`
+        for val in &sub_events {
+            if val.1.len() != num_times {
+                unreachable!();
+            }
+        }
+
+        // Declare variables
+        let mut times = bitvec![u32, Lsb0; 0; num_times];
+        let mut start_times = bitvec![u32, Lsb0; 0; num_times];
+        let mut sub_event_start_times: Vec<(usize, BitVec<u32, Lsb0>)> = vec![];
+
+        // >>> Copy given values as sub-event start times <<<
+        for val in sub_events {
+            sub_event_start_times.push(val.clone());
+        }
+
+        // >>> Calculate start_times bitvector <<<
+        for (_, bv) in sub_event_start_times.iter() {
+            start_times |= bv;
+        }
+
+        // >>> Calculate times bitvector <<<
+        for (d, k_ed) in sub_event_start_times.iter() {
+            for i in k_ed.iter_ones() {
+                for k in i..(i + d) {
+                    times.set(k, true);
+                }
+            }
+        }
+
+        // Create event gene
+        // let e = Self { times, start_times, sub_event_start_times };
+
+        // Check data correctness
+        // assert!(Self::check_rule_1(&e));
+        // assert!(Self::check_rule_2(&e));
+        // assert!(Self::check_rule_3(&e));
+        // assert!(Self::check_rule_4(&e));
+        // assert!(Self::check_rule_5(&e));
+        // assert!(Self::check_rule_6(&e));
+
+        // Return
+        // e
+        Self { times, start_times, sub_event_start_times }
     }
 
     /// Rule 1: Starting times must also be contained in time allocation.

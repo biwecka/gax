@@ -97,13 +97,17 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
         let mut total_cost = 0;
 
         for (constraint, indices) in &ctx.constraints {
+            #[allow(clippy::single_match)]
             match constraint {
-                Constraint::AssignTimeConstraint(params) => {
-                    let cost =
-                        constraints::assign_time(self, ctx, params, indices);
-                    total_cost += cost;
-                }
+                // The assign time constraint can be ignore, because the correct
+                // time assignmend is ensured through the encoding.
 
+                // Constraint::AssignTimeConstraint(params) => {
+                //     let cost =
+                //         constraints::assign_time(self, ctx, params, indices);
+                //     println!("assign time const = {cost}");
+                //     total_cost += cost;
+                // }
                 Constraint::AvoidClashesConstraint(params) => {
                     let cost =
                         constraints::avoid_clashes(self, ctx, params, indices);
@@ -116,7 +120,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
         }
 
         // Return
-        (total_cost, 0).into()
+        total_cost.into()
     }
 }
 

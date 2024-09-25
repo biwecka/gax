@@ -38,7 +38,7 @@ use hashbrown::HashMap;
 #[cfg(feature = "rerun_logger")]
 use tools::rerun_logger::RerunLogger;
 
-#[cfg(feature = "rerun_logger")]
+// #[cfg(feature = "rerun_logger")]
 use tools::rerun_logger::CustomLogger;
 
 // Macros //////////////////////////////////////////////////////////////////////

@@ -42,12 +42,12 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
         .set_selection(Select::RouletteWheel)
-        .set_crossover(Crossover::Uniform)
-        .set_mutation(Mutation::NormalDistributedRandom)
+        .set_crossover(Crossover::Trade(1))
+        .set_mutation(Mutation::MoveSingleTimeAlloc)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteRelative(0.01))
-        // .set_termination(Terminate::Generations(100))
-        .set_termination(Terminate::ObjectiveValue(0.into()))
+        .set_termination(Terminate::Generations(4_000))
+        // .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
     // Create algorithm and let it run!

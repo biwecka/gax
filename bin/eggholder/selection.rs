@@ -1,6 +1,7 @@
 use crate::chromosome::Chromosome;
 use rand::prelude::Distribution;
 
+#[allow(unused)]
 pub enum Selection {
     RouletteWheel,
     Tournament(usize),
