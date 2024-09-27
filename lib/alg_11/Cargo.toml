@@ -1,0 +1,46 @@
+[package]
+name = "alg_11"
+version = "0.0.0"
+edition = "2021"
+
+[features]
+default = [
+    # "ga_log_dynamics",
+
+    #>>> `ga` features <<<#
+    # "ga/cache",
+    # "ga/rerun_logger",
+
+    # "ga/log_pop_stats",
+    # "ga/log_ov_dist",
+    # "ga/log_diversity",
+    # "ga/log_cache_hits",
+    # "ga/log_runtimes",
+]
+
+ga_log_dynamics = ["ga/log_dynamics"]
+
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+#> lib
+bits = { workspace = true }
+xhstt = { workspace = true }
+ga = { workspace = true }
+
+#> remote
+rand = { workspace = true }
+rand_distr = { workspace = true }
+simple_moving_average = { workspace = true }
+
+# ndarray = { workspace = true }
+hashbrown = { workspace = true }
+
+# bitvec = { workspace = true }
+itertools = { workspace = true }
+
+
+[lints]
+workspace = true

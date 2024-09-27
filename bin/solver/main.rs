@@ -21,7 +21,8 @@ fn main() {
     // let solution_events = alg_7::run(instance.clone());
     // let solution_events = alg_8::run(instance.clone());
     // let solution_events = alg_9::run(instance.clone());
-    let solution_events = alg_10::run(instance.clone());
+    // let solution_events = alg_10::run(instance.clone());
+    let solution_events = alg_11::run(instance.clone());
 
     // Clone the original XHSTT instance
     let mut xhstt_solution = xhstt.clone();

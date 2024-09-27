@@ -20,8 +20,10 @@ alg_6               = { path = "lib/alg_6" }
 alg_7               = { path = "lib/alg_7" }
 alg_8               = { path = "lib/alg_8" }
 alg_9               = { path = "lib/alg_9" }
-alg_10               = { path = "lib/alg_10" }
+alg_10              = { path = "lib/alg_10" }
+alg_11              = { path = "lib/alg_11" }
 
+bits                = { path = "../bits-rs/bits" }
 ga                  = { path = "lib/ga" }
 xhstt               = { path = "lib/xhstt" }
 
