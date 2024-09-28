@@ -118,7 +118,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                         constraints::avoid_clashes(self, ctx, params, indices);
 
                     total_cost += cost;
-                },
+                }
 
                 // Constraint::AssignTimeConstraint(params) => {
                 //     let cost =
@@ -126,7 +126,6 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
 
                 //     total_cost += cost;
                 // },
-
                 _ => {}
             }
         }

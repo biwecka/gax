@@ -3,7 +3,7 @@ use itertools::Itertools;
 // use itertools::Itertools;
 use xhstt::db::constraints::{
     assign_time_constraint::AssignTimeConstraint,
-    avoid_clashes_constraint::AvoidClashesConstraint, Constraint
+    avoid_clashes_constraint::AvoidClashesConstraint, Constraint,
 };
 
 use super::{Context, Phenotype};

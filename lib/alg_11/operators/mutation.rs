@@ -25,7 +25,9 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
     ) {
         match self {
             Self::MoveSubEvent => move_sub_event(c, rate, rng, ctx),
-            Self::MoveSingleTimeAlloc => move_single_time_alloc(c, rate, rng, ctx),
+            Self::MoveSingleTimeAlloc => {
+                move_single_time_alloc(c, rate, rng, ctx)
+            }
             Self::None => {}
         }
     }
@@ -36,7 +38,7 @@ fn move_sub_event(
     c: &mut Chromosome,
     rate: f32,
     rng: &mut ThreadRng,
-    _ctx: &Context
+    _ctx: &Context,
 ) {
     // Iterate over all genes
     for bits in c.0.iter_mut() {
@@ -47,11 +49,11 @@ fn move_sub_event(
 
         // Select random sub event (duration)
         let (d, k_ed) = bits
-            .blocks()                       // Calculate sub events
+            .blocks() // Calculate sub events
             .into_iter()
             .enumerate()
-            .filter(|(_, b)| !b.is_zero())  // Remove durations with no events
-            .choose(rng)                    // Randomly choose a duration
+            .filter(|(_, b)| !b.is_zero()) // Remove durations with no events
+            .choose(rng) // Randomly choose a duration
             .unwrap();
 
         // Select random event (index)
@@ -73,7 +75,7 @@ fn move_single_time_alloc(
     c: &mut Chromosome,
     rate: f32,
     rng: &mut ThreadRng,
-    _ctx: &Context
+    _ctx: &Context,
 ) {
     // Iterate over all genes (events)
     for bits in c.0.iter_mut() {

@@ -11,10 +11,10 @@ mod operators;
 use encoding::{Chromosome, Context, Phenotype};
 use ga::{
     encoding::Phenotype as _,
-        process::{
-            rejection::Reject, replacement::Replace, selection::Select,
-            termination::Terminate,
-        },
+    process::{
+        rejection::Reject, replacement::Replace, selection::Select,
+        termination::Terminate,
+    },
 };
 use operators::{Crossover, Mutation};
 use xhstt::{
