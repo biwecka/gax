@@ -81,6 +81,7 @@ pub struct Algorithm<
     encoding: Encoding<Ov, Ctx, Ge, Ph>,
     params: Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     dynamics: Option<Dynamics<Ov, Ctx, Ge, T, Se, Cr, Mu, Re, Rp, Te, Dy>>,
+    #[allow(dead_code)]
     custom_logger: Option<Cl>,
 
     #[cfg(feature = "cache")]

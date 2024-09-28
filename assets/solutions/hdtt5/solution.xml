@@ -1,10 +1,10 @@
 <HighSchoolTimetableArchive>
 	<Instances>
-		<Instance Id="Artificialhdtt4_XHSTT2014A">
+		<Instance Id="Artificialhdtt5_XHSTT2014A">
 			<MetaData>
-				<Name>hdtt4</Name>
+				<Name>hdtt5</Name>
 				<Contributor>J E Beasley (conversion: Michael Pimmer)</Contributor>
-				<Date>February 2011</Date>
+				<Date>February 2011; 1298588795.78</Date>
 				<Country>Artificial</Country>
 				<Description>Datasets origin from the OR-Library, available at http://people.brunel.ac.uk/~mastjjb/jeb/orlib/tableinfo.html</Description>
 			</MetaData>
@@ -201,6 +201,13 @@
 						<ResourceGroup Reference="gr_Classes"/>
 					</ResourceGroups>
 				</Resource>
+				<Resource Id="C4">
+					<Name>C4</Name>
+					<ResourceType Reference="Class"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Classes"/>
+					</ResourceGroups>
+				</Resource>
 				<Resource Id="T0">
 					<Name>T0</Name>
 					<ResourceType Reference="Teacher"/>
@@ -224,6 +231,13 @@
 				</Resource>
 				<Resource Id="T3">
 					<Name>T3</Name>
+					<ResourceType Reference="Teacher"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Teachers"/>
+					</ResourceGroups>
+				</Resource>
+				<Resource Id="T4">
+					<Name>T4</Name>
 					<ResourceType Reference="Teacher"/>
 					<ResourceGroups>
 						<ResourceGroup Reference="gr_Teachers"/>
@@ -257,6 +271,13 @@
 						<ResourceGroup Reference="gr_Rooms"/>
 					</ResourceGroups>
 				</Resource>
+				<Resource Id="R4">
+					<Name>R4</Name>
+					<ResourceType Reference="Room"/>
+					<ResourceGroups>
+						<ResourceGroup Reference="gr_Rooms"/>
+					</ResourceGroups>
+				</Resource>
 			</Resources>
 			<Events>
 				<EventGroups>
@@ -266,7 +287,7 @@
 				</EventGroups>
 				<Event Id="C0T0R0">
 					<Name>C0T0R0</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
@@ -285,51 +306,9 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C0T1R0">
-					<Name>C0T1R0</Name>
-					<Duration>2</Duration>
-					<Resources>
-						<Resource Reference="C0">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T1">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R0">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
-				<Event Id="C0T2R0">
-					<Name>C0T2R0</Name>
-					<Duration>1</Duration>
-					<Resources>
-						<Resource Reference="C0">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T2">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R0">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
 				<Event Id="C0T3R0">
 					<Name>C0T3R0</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
@@ -348,15 +327,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C1T0R0">
-					<Name>C1T0R0</Name>
-					<Duration>1</Duration>
+				<Event Id="C0T4R0">
+					<Name>C0T4R0</Name>
+					<Duration>2</Duration>
 					<Resources>
-						<Resource Reference="C1">
+						<Resource Reference="C0">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T0">
+						<Resource Reference="T4">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -369,15 +348,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C1T1R0">
-					<Name>C1T1R0</Name>
-					<Duration>1</Duration>
+				<Event Id="C1T0R0">
+					<Name>C1T0R0</Name>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T1">
+						<Resource Reference="T0">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -413,7 +392,7 @@
 				</Event>
 				<Event Id="C1T3R0">
 					<Name>C1T3R0</Name>
-					<Duration>2</Duration>
+					<Duration>3</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
@@ -432,36 +411,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C2T0R0">
-					<Name>C2T0R0</Name>
+				<Event Id="C1T4R0">
+					<Name>C1T4R0</Name>
 					<Duration>1</Duration>
 					<Resources>
-						<Resource Reference="C2">
+						<Resource Reference="C1">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T0">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R0">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
-				<Event Id="C2T1R0">
-					<Name>C2T1R0</Name>
-					<Duration>1</Duration>
-					<Resources>
-						<Resource Reference="C2">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T1">
+						<Resource Reference="T4">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -497,7 +455,7 @@
 				</Event>
 				<Event Id="C2T3R0">
 					<Name>C2T3R0</Name>
-					<Duration>6</Duration>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C2">
 							<Role>Class</Role>
@@ -516,9 +474,30 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
+				<Event Id="C2T4R0">
+					<Name>C2T4R0</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C2">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R0">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
 				<Event Id="C3T0R0">
 					<Name>C3T0R0</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
@@ -581,7 +560,7 @@
 				</Event>
 				<Event Id="C3T3R0">
 					<Name>C3T3R0</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
@@ -600,9 +579,93 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
+				<Event Id="C4T1R0">
+					<Name>C4T1R0</Name>
+					<Duration>2</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R0">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T2R0">
+					<Name>C4T2R0</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T2">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R0">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T3R0">
+					<Name>C4T3R0</Name>
+					<Duration>4</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T3">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R0">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T4R0">
+					<Name>C4T4R0</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R0">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
 				<Event Id="C0T0R1">
 					<Name>C0T0R1</Name>
-					<Duration>2</Duration>
+					<Duration>4</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
@@ -621,30 +684,9 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C0T1R1">
-					<Name>C0T1R1</Name>
-					<Duration>5</Duration>
-					<Resources>
-						<Resource Reference="C0">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T1">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R1">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
 				<Event Id="C0T2R1">
 					<Name>C0T2R1</Name>
-					<Duration>1</Duration>
+					<Duration>3</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
@@ -665,7 +707,7 @@
 				</Event>
 				<Event Id="C0T3R1">
 					<Name>C0T3R1</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
@@ -684,9 +726,30 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
+				<Event Id="C0T4R1">
+					<Name>C0T4R1</Name>
+					<Duration>3</Duration>
+					<Resources>
+						<Resource Reference="C0">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R1">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
 				<Event Id="C1T1R1">
 					<Name>C1T1R1</Name>
-					<Duration>4</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
@@ -705,30 +768,9 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C1T2R1">
-					<Name>C1T2R1</Name>
-					<Duration>3</Duration>
-					<Resources>
-						<Resource Reference="C1">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T2">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R1">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
 				<Event Id="C1T3R1">
 					<Name>C1T3R1</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
@@ -747,15 +789,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C2T0R1">
-					<Name>C2T0R1</Name>
-					<Duration>1</Duration>
+				<Event Id="C1T4R1">
+					<Name>C1T4R1</Name>
+					<Duration>3</Duration>
 					<Resources>
-						<Resource Reference="C2">
+						<Resource Reference="C1">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T0">
+						<Resource Reference="T4">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -770,7 +812,7 @@
 				</Event>
 				<Event Id="C2T1R1">
 					<Name>C2T1R1</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C2">
 							<Role>Class</Role>
@@ -791,7 +833,7 @@
 				</Event>
 				<Event Id="C2T2R1">
 					<Name>C2T2R1</Name>
-					<Duration>1</Duration>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C2">
 							<Role>Class</Role>
@@ -810,9 +852,51 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
+				<Event Id="C2T3R1">
+					<Name>C2T3R1</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C2">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T3">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R1">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C2T4R1">
+					<Name>C2T4R1</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C2">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R1">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
 				<Event Id="C3T0R1">
 					<Name>C3T0R1</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
@@ -831,30 +915,9 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C3T1R1">
-					<Name>C3T1R1</Name>
-					<Duration>2</Duration>
-					<Resources>
-						<Resource Reference="C3">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T1">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R1">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
 				<Event Id="C3T2R1">
 					<Name>C3T2R1</Name>
-					<Duration>1</Duration>
+					<Duration>3</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
@@ -873,11 +936,53 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C3T3R1">
-					<Name>C3T3R1</Name>
+				<Event Id="C4T0R1">
+					<Name>C4T0R1</Name>
 					<Duration>2</Duration>
 					<Resources>
-						<Resource Reference="C3">
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T0">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R1">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T1R1">
+					<Name>C4T1R1</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R1">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T3R1">
+					<Name>C4T3R1</Name>
+					<Duration>2</Duration>
+					<Resources>
+						<Resource Reference="C4">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
@@ -917,7 +1022,7 @@
 				</Event>
 				<Event Id="C0T1R2">
 					<Name>C0T1R2</Name>
-					<Duration>1</Duration>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
@@ -936,15 +1041,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C0T2R2">
-					<Name>C0T2R2</Name>
-					<Duration>1</Duration>
+				<Event Id="C0T4R2">
+					<Name>C0T4R2</Name>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T2">
+						<Resource Reference="T4">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -957,15 +1062,36 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C0T3R2">
-					<Name>C0T3R2</Name>
-					<Duration>2</Duration>
+				<Event Id="C1T0R2">
+					<Name>C1T0R2</Name>
+					<Duration>3</Duration>
 					<Resources>
-						<Resource Reference="C0">
+						<Resource Reference="C1">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T3">
+						<Resource Reference="T0">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R2">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C1T1R2">
+					<Name>C1T1R2</Name>
+					<Duration>2</Duration>
+					<Resources>
+						<Resource Reference="C1">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -980,7 +1106,7 @@
 				</Event>
 				<Event Id="C1T2R2">
 					<Name>C1T2R2</Name>
-					<Duration>5</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
@@ -1001,7 +1127,7 @@
 				</Event>
 				<Event Id="C1T3R2">
 					<Name>C1T3R2</Name>
-					<Duration>1</Duration>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
@@ -1020,9 +1146,30 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
+				<Event Id="C1T4R2">
+					<Name>C1T4R2</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C1">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R2">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
 				<Event Id="C2T0R2">
 					<Name>C2T0R2</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C2">
 							<Role>Class</Role>
@@ -1041,30 +1188,9 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C2T1R2">
-					<Name>C2T1R2</Name>
-					<Duration>1</Duration>
-					<Resources>
-						<Resource Reference="C2">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T1">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R2">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
 				<Event Id="C2T2R2">
 					<Name>C2T2R2</Name>
-					<Duration>4</Duration>
+					<Duration>3</Duration>
 					<Resources>
 						<Resource Reference="C2">
 							<Role>Class</Role>
@@ -1104,9 +1230,30 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
+				<Event Id="C2T4R2">
+					<Name>C2T4R2</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C2">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R2">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
 				<Event Id="C3T0R2">
 					<Name>C3T0R2</Name>
-					<Duration>6</Duration>
+					<Duration>3</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
@@ -1125,15 +1272,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C3T1R2">
-					<Name>C3T1R2</Name>
-					<Duration>1</Duration>
+				<Event Id="C3T4R2">
+					<Name>C3T4R2</Name>
+					<Duration>3</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T1">
+						<Resource Reference="T4">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -1146,15 +1293,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C3T2R2">
-					<Name>C3T2R2</Name>
-					<Duration>2</Duration>
+				<Event Id="C4T0R2">
+					<Name>C4T0R2</Name>
+					<Duration>1</Duration>
 					<Resources>
-						<Resource Reference="C3">
+						<Resource Reference="C4">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T2">
+						<Resource Reference="T0">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -1167,11 +1314,11 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C3T3R2">
-					<Name>C3T3R2</Name>
+				<Event Id="C4T3R2">
+					<Name>C4T3R2</Name>
 					<Duration>1</Duration>
 					<Resources>
-						<Resource Reference="C3">
+						<Resource Reference="C4">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
@@ -1188,9 +1335,30 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
+				<Event Id="C4T4R2">
+					<Name>C4T4R2</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R2">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
 				<Event Id="C0T0R3">
 					<Name>C0T0R3</Name>
-					<Duration>3</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
@@ -1211,7 +1379,7 @@
 				</Event>
 				<Event Id="C0T1R3">
 					<Name>C0T1R3</Name>
-					<Duration>1</Duration>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
@@ -1230,57 +1398,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C0T2R3">
-					<Name>C0T2R3</Name>
-					<Duration>2</Duration>
-					<Resources>
-						<Resource Reference="C0">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T2">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R3">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
-				<Event Id="C0T3R3">
-					<Name>C0T3R3</Name>
+				<Event Id="C0T4R3">
+					<Name>C0T4R3</Name>
 					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C0">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T3">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R3">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
-				<Event Id="C1T0R3">
-					<Name>C1T0R3</Name>
-					<Duration>1</Duration>
-					<Resources>
-						<Resource Reference="C1">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T0">
+						<Resource Reference="T4">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -1295,7 +1421,7 @@
 				</Event>
 				<Event Id="C1T1R3">
 					<Name>C1T1R3</Name>
-					<Duration>4</Duration>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
@@ -1316,7 +1442,7 @@
 				</Event>
 				<Event Id="C1T2R3">
 					<Name>C1T2R3</Name>
-					<Duration>1</Duration>
+					<Duration>3</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
@@ -1337,7 +1463,7 @@
 				</Event>
 				<Event Id="C1T3R3">
 					<Name>C1T3R3</Name>
-					<Duration>4</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C1">
 							<Role>Class</Role>
@@ -1358,34 +1484,13 @@
 				</Event>
 				<Event Id="C2T0R3">
 					<Name>C2T0R3</Name>
-					<Duration>3</Duration>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C2">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
 						<Resource Reference="T0">
-							<Role>Teacher</Role>
-							<ResourceType Reference="Teacher"/>
-						</Resource>
-						<Resource Reference="R3">
-							<Role>Room</Role>
-							<ResourceType Reference="Room"/>
-						</Resource>
-					</Resources>
-					<EventGroups>
-						<EventGroup Reference="gr_AllEvents"/>
-					</EventGroups>
-				</Event>
-				<Event Id="C2T1R3">
-					<Name>C2T1R3</Name>
-					<Duration>3</Duration>
-					<Resources>
-						<Resource Reference="C2">
-							<Role>Class</Role>
-							<ResourceType Reference="Class"/>
-						</Resource>
-						<Resource Reference="T1">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -1419,15 +1524,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C2T3R3">
-					<Name>C2T3R3</Name>
-					<Duration>1</Duration>
+				<Event Id="C2T4R3">
+					<Name>C2T4R3</Name>
+					<Duration>4</Duration>
 					<Resources>
 						<Resource Reference="C2">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T3">
+						<Resource Reference="T4">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -1442,7 +1547,7 @@
 				</Event>
 				<Event Id="C3T0R3">
 					<Name>C3T0R3</Name>
-					<Duration>2</Duration>
+					<Duration>1</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
@@ -1461,15 +1566,15 @@
 						<EventGroup Reference="gr_AllEvents"/>
 					</EventGroups>
 				</Event>
-				<Event Id="C3T2R3">
-					<Name>C3T2R3</Name>
-					<Duration>1</Duration>
+				<Event Id="C3T1R3">
+					<Name>C3T1R3</Name>
+					<Duration>3</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
 							<ResourceType Reference="Class"/>
 						</Resource>
-						<Resource Reference="T2">
+						<Resource Reference="T1">
 							<Role>Teacher</Role>
 							<ResourceType Reference="Teacher"/>
 						</Resource>
@@ -1484,7 +1589,7 @@
 				</Event>
 				<Event Id="C3T3R3">
 					<Name>C3T3R3</Name>
-					<Duration>1</Duration>
+					<Duration>2</Duration>
 					<Resources>
 						<Resource Reference="C3">
 							<Role>Class</Role>
@@ -1495,6 +1600,531 @@
 							<ResourceType Reference="Teacher"/>
 						</Resource>
 						<Resource Reference="R3">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C3T4R3">
+					<Name>C3T4R3</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C3">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R3">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T0R3">
+					<Name>C4T0R3</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T0">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R3">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T1R3">
+					<Name>C4T1R3</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R3">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T3R3">
+					<Name>C4T3R3</Name>
+					<Duration>2</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T3">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R3">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T4R3">
+					<Name>C4T4R3</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R3">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C0T0R4">
+					<Name>C0T0R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C0">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T0">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C0T1R4">
+					<Name>C0T1R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C0">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C0T2R4">
+					<Name>C0T2R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C0">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T2">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C0T3R4">
+					<Name>C0T3R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C0">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T3">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C0T4R4">
+					<Name>C0T4R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C0">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C1T1R4">
+					<Name>C1T1R4</Name>
+					<Duration>3</Duration>
+					<Resources>
+						<Resource Reference="C1">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C2T0R4">
+					<Name>C2T0R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C2">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T0">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C2T1R4">
+					<Name>C2T1R4</Name>
+					<Duration>2</Duration>
+					<Resources>
+						<Resource Reference="C2">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C2T2R4">
+					<Name>C2T2R4</Name>
+					<Duration>3</Duration>
+					<Resources>
+						<Resource Reference="C2">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T2">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C2T3R4">
+					<Name>C2T3R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C2">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T3">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C3T0R4">
+					<Name>C3T0R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C3">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T0">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C3T1R4">
+					<Name>C3T1R4</Name>
+					<Duration>2</Duration>
+					<Resources>
+						<Resource Reference="C3">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C3T2R4">
+					<Name>C3T2R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C3">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T2">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C3T3R4">
+					<Name>C3T3R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C3">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T3">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C3T4R4">
+					<Name>C3T4R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C3">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T0R4">
+					<Name>C4T0R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T0">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T1R4">
+					<Name>C4T1R4</Name>
+					<Duration>3</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T1">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T2R4">
+					<Name>C4T2R4</Name>
+					<Duration>2</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T2">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T3R4">
+					<Name>C4T3R4</Name>
+					<Duration>2</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T3">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
+							<Role>Room</Role>
+							<ResourceType Reference="Room"/>
+						</Resource>
+					</Resources>
+					<EventGroups>
+						<EventGroup Reference="gr_AllEvents"/>
+					</EventGroups>
+				</Event>
+				<Event Id="C4T4R4">
+					<Name>C4T4R4</Name>
+					<Duration>1</Duration>
+					<Resources>
+						<Resource Reference="C4">
+							<Role>Class</Role>
+							<ResourceType Reference="Class"/>
+						</Resource>
+						<Resource Reference="T4">
+							<Role>Teacher</Role>
+							<ResourceType Reference="Teacher"/>
+						</Resource>
+						<Resource Reference="R4">
 							<Role>Room</Role>
 							<ResourceType Reference="Room"/>
 						</Resource>
@@ -1536,458 +2166,590 @@
 		<SolutionGroup Id="test_run">
 			<MetaData>
 				<Contributor>biwecka</Contributor>
-				<Date>2024-09-28T15:12:21.047865045+02:00</Date>
+				<Date>2024-09-28T14:43:45.754754677+02:00</Date>
 				<Description>GA for XHSTT</Description>
 			</MetaData>
-			<Solution Reference="Artificialhdtt4_XHSTT2014A">
+			<Solution Reference="Artificialhdtt5_XHSTT2014A">
 				<Events>
 					<Event Reference="C0T0R0">
 						<Duration>1</Duration>
-						<Time Reference="20"/>
-					</Event>
-					<Event Reference="C0T0R0">
-						<Duration>1</Duration>
-						<Time Reference="27"/>
-					</Event>
-					<Event Reference="C0T1R0">
-						<Duration>1</Duration>
-						<Time Reference="3"/>
-					</Event>
-					<Event Reference="C0T1R0">
-						<Duration>1</Duration>
-						<Time Reference="7"/>
-					</Event>
-					<Event Reference="C0T2R0">
-						<Duration>1</Duration>
-						<Time Reference="0"/>
+						<Time Reference="5"/>
 					</Event>
 					<Event Reference="C0T3R0">
 						<Duration>1</Duration>
-						<Time Reference="6"/>
+						<Time Reference="19"/>
 					</Event>
-					<Event Reference="C0T3R0">
+					<Event Reference="C0T4R0">
 						<Duration>1</Duration>
-						<Time Reference="16"/>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C0T4R0">
+						<Duration>1</Duration>
+						<Time Reference="15"/>
 					</Event>
 					<Event Reference="C1T0R0">
-						<Duration>1</Duration>
-						<Time Reference="8"/>
-					</Event>
-					<Event Reference="C1T1R0">
-						<Duration>1</Duration>
-						<Time Reference="21"/>
+						<Duration>2</Duration>
+						<Time Reference="1"/>
 					</Event>
 					<Event Reference="C1T2R0">
-						<Duration>1</Duration>
-						<Time Reference="10"/>
-					</Event>
-					<Event Reference="C1T3R0">
 						<Duration>1</Duration>
 						<Time Reference="12"/>
 					</Event>
 					<Event Reference="C1T3R0">
 						<Duration>1</Duration>
-						<Time Reference="29"/>
+						<Time Reference="4"/>
 					</Event>
-					<Event Reference="C2T0R0">
+					<Event Reference="C1T3R0">
 						<Duration>1</Duration>
-						<Time Reference="22"/>
+						<Time Reference="6"/>
 					</Event>
-					<Event Reference="C2T1R0">
-						<Duration>1</Duration>
-						<Time Reference="24"/>
-					</Event>
-					<Event Reference="C2T2R0">
+					<Event Reference="C1T3R0">
 						<Duration>1</Duration>
 						<Time Reference="25"/>
 					</Event>
-					<Event Reference="C2T3R0">
+					<Event Reference="C1T4R0">
 						<Duration>1</Duration>
-						<Time Reference="2"/>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C2T2R0">
+						<Duration>1</Duration>
+						<Time Reference="20"/>
 					</Event>
 					<Event Reference="C2T3R0">
 						<Duration>1</Duration>
-						<Time Reference="4"/>
+						<Time Reference="7"/>
 					</Event>
 					<Event Reference="C2T3R0">
 						<Duration>1</Duration>
-						<Time Reference="15"/>
+						<Time Reference="29"/>
 					</Event>
-					<Event Reference="C2T3R0">
+					<Event Reference="C2T4R0">
 						<Duration>1</Duration>
-						<Time Reference="19"/>
-					</Event>
-					<Event Reference="C2T3R0">
-						<Duration>2</Duration>
 						<Time Reference="10"/>
 					</Event>
 					<Event Reference="C3T0R0">
 						<Duration>1</Duration>
-						<Time Reference="1"/>
-					</Event>
-					<Event Reference="C3T0R0">
-						<Duration>1</Duration>
-						<Time Reference="15"/>
+						<Time Reference="28"/>
 					</Event>
 					<Event Reference="C3T1R0">
-						<Duration>1</Duration>
-						<Time Reference="13"/>
-					</Event>
-					<Event Reference="C3T1R0">
-						<Duration>1</Duration>
+						<Duration>2</Duration>
 						<Time Reference="26"/>
 					</Event>
 					<Event Reference="C3T2R0">
 						<Duration>1</Duration>
-						<Time Reference="9"/>
+						<Time Reference="2"/>
+					</Event>
+					<Event Reference="C3T2R0">
+						<Duration>1</Duration>
+						<Time Reference="8"/>
 					</Event>
 					<Event Reference="C3T2R0">
 						<Duration>1</Duration>
 						<Time Reference="14"/>
 					</Event>
-					<Event Reference="C3T2R0">
-						<Duration>1</Duration>
-						<Time Reference="23"/>
-					</Event>
 					<Event Reference="C3T3R0">
-						<Duration>2</Duration>
+						<Duration>1</Duration>
+						<Time Reference="1"/>
+					</Event>
+					<Event Reference="C4T1R0">
+						<Duration>1</Duration>
+						<Time Reference="14"/>
+					</Event>
+					<Event Reference="C4T1R0">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C4T2R0">
+						<Duration>1</Duration>
+						<Time Reference="17"/>
+					</Event>
+					<Event Reference="C4T3R0">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C4T3R0">
+						<Duration>1</Duration>
+						<Time Reference="11"/>
+					</Event>
+					<Event Reference="C4T3R0">
+						<Duration>1</Duration>
+						<Time Reference="13"/>
+					</Event>
+					<Event Reference="C4T3R0">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C4T4R0">
+						<Duration>1</Duration>
+						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C0T0R1">
+						<Duration>1</Duration>
+						<Time Reference="10"/>
+					</Event>
+					<Event Reference="C0T0R1">
+						<Duration>1</Duration>
 						<Time Reference="17"/>
 					</Event>
 					<Event Reference="C0T0R1">
-						<Duration>1</Duration>
-						<Time Reference="2"/>
-					</Event>
-					<Event Reference="C0T0R1">
-						<Duration>1</Duration>
-						<Time Reference="5"/>
-					</Event>
-					<Event Reference="C0T1R1">
-						<Duration>1</Duration>
-						<Time Reference="4"/>
-					</Event>
-					<Event Reference="C0T1R1">
-						<Duration>1</Duration>
-						<Time Reference="9"/>
-					</Event>
-					<Event Reference="C0T1R1">
-						<Duration>1</Duration>
-						<Time Reference="12"/>
-					</Event>
-					<Event Reference="C0T1R1">
 						<Duration>2</Duration>
-						<Time Reference="28"/>
+						<Time Reference="23"/>
 					</Event>
 					<Event Reference="C0T2R1">
 						<Duration>1</Duration>
 						<Time Reference="11"/>
 					</Event>
-					<Event Reference="C0T3R1">
-						<Duration>1</Duration>
-						<Time Reference="14"/>
-					</Event>
-					<Event Reference="C0T3R1">
-						<Duration>1</Duration>
-						<Time Reference="23"/>
-					</Event>
-					<Event Reference="C1T1R1">
-						<Duration>1</Duration>
-						<Time Reference="2"/>
-					</Event>
-					<Event Reference="C1T1R1">
-						<Duration>1</Duration>
-						<Time Reference="16"/>
-					</Event>
-					<Event Reference="C1T1R1">
-						<Duration>2</Duration>
-						<Time Reference="18"/>
-					</Event>
-					<Event Reference="C1T2R1">
-						<Duration>1</Duration>
-						<Time Reference="6"/>
-					</Event>
-					<Event Reference="C1T2R1">
-						<Duration>1</Duration>
-						<Time Reference="15"/>
-					</Event>
-					<Event Reference="C1T2R1">
-						<Duration>1</Duration>
-						<Time Reference="24"/>
-					</Event>
-					<Event Reference="C1T3R1">
-						<Duration>1</Duration>
-						<Time Reference="1"/>
-					</Event>
-					<Event Reference="C1T3R1">
-						<Duration>1</Duration>
-						<Time Reference="26"/>
-					</Event>
-					<Event Reference="C2T0R1">
-						<Duration>1</Duration>
-						<Time Reference="3"/>
-					</Event>
-					<Event Reference="C2T1R1">
-						<Duration>1</Duration>
-						<Time Reference="17"/>
-					</Event>
-					<Event Reference="C2T1R1">
-						<Duration>1</Duration>
-						<Time Reference="20"/>
-					</Event>
-					<Event Reference="C2T2R1">
+					<Event Reference="C0T2R1">
 						<Duration>1</Duration>
 						<Time Reference="13"/>
 					</Event>
-					<Event Reference="C3T0R1">
-						<Duration>1</Duration>
-						<Time Reference="7"/>
-					</Event>
-					<Event Reference="C3T0R1">
-						<Duration>1</Duration>
-						<Time Reference="25"/>
-					</Event>
-					<Event Reference="C3T1R1">
-						<Duration>1</Duration>
-						<Time Reference="0"/>
-					</Event>
-					<Event Reference="C3T1R1">
-						<Duration>1</Duration>
-						<Time Reference="22"/>
-					</Event>
-					<Event Reference="C3T2R1">
-						<Duration>1</Duration>
-						<Time Reference="27"/>
-					</Event>
-					<Event Reference="C3T3R1">
-						<Duration>1</Duration>
-						<Time Reference="8"/>
-					</Event>
-					<Event Reference="C3T3R1">
-						<Duration>1</Duration>
-						<Time Reference="21"/>
-					</Event>
-					<Event Reference="C0T0R2">
-						<Duration>1</Duration>
-						<Time Reference="13"/>
-					</Event>
-					<Event Reference="C0T0R2">
-						<Duration>1</Duration>
-						<Time Reference="19"/>
-					</Event>
-					<Event Reference="C0T1R2">
-						<Duration>1</Duration>
-						<Time Reference="1"/>
-					</Event>
-					<Event Reference="C0T2R2">
-						<Duration>1</Duration>
-						<Time Reference="18"/>
-					</Event>
-					<Event Reference="C0T3R2">
-						<Duration>1</Duration>
-						<Time Reference="22"/>
-					</Event>
-					<Event Reference="C0T3R2">
-						<Duration>1</Duration>
-						<Time Reference="25"/>
-					</Event>
-					<Event Reference="C1T2R2">
-						<Duration>1</Duration>
-						<Time Reference="17"/>
-					</Event>
-					<Event Reference="C1T2R2">
-						<Duration>1</Duration>
-						<Time Reference="22"/>
-					</Event>
-					<Event Reference="C1T2R2">
-						<Duration>1</Duration>
-						<Time Reference="29"/>
-					</Event>
-					<Event Reference="C1T2R2">
-						<Duration>2</Duration>
-						<Time Reference="3"/>
-					</Event>
-					<Event Reference="C1T3R2">
-						<Duration>1</Duration>
-						<Time Reference="0"/>
-					</Event>
-					<Event Reference="C2T0R2">
-						<Duration>1</Duration>
-						<Time Reference="14"/>
-					</Event>
-					<Event Reference="C2T0R2">
-						<Duration>1</Duration>
-						<Time Reference="21"/>
-					</Event>
-					<Event Reference="C2T1R2">
-						<Duration>1</Duration>
-						<Time Reference="27"/>
-					</Event>
-					<Event Reference="C2T2R2">
-						<Duration>1</Duration>
-						<Time Reference="16"/>
-					</Event>
-					<Event Reference="C2T2R2">
-						<Duration>1</Duration>
-						<Time Reference="26"/>
-					</Event>
-					<Event Reference="C2T2R2">
-						<Duration>2</Duration>
-						<Time Reference="7"/>
-					</Event>
-					<Event Reference="C2T3R2">
-						<Duration>1</Duration>
-						<Time Reference="9"/>
-					</Event>
-					<Event Reference="C3T0R2">
-						<Duration>1</Duration>
-						<Time Reference="6"/>
-					</Event>
-					<Event Reference="C3T0R2">
-						<Duration>1</Duration>
-						<Time Reference="11"/>
-					</Event>
-					<Event Reference="C3T0R2">
-						<Duration>1</Duration>
-						<Time Reference="16"/>
-					</Event>
-					<Event Reference="C3T0R2">
+					<Event Reference="C0T2R1">
 						<Duration>1</Duration>
 						<Time Reference="28"/>
 					</Event>
-					<Event Reference="C3T0R2">
-						<Duration>2</Duration>
-						<Time Reference="23"/>
-					</Event>
-					<Event Reference="C3T1R2">
-						<Duration>1</Duration>
-						<Time Reference="10"/>
-					</Event>
-					<Event Reference="C3T2R2">
-						<Duration>1</Duration>
-						<Time Reference="5"/>
-					</Event>
-					<Event Reference="C3T2R2">
+					<Event Reference="C0T3R1">
 						<Duration>1</Duration>
 						<Time Reference="12"/>
 					</Event>
-					<Event Reference="C3T3R2">
-						<Duration>1</Duration>
-						<Time Reference="20"/>
-					</Event>
-					<Event Reference="C0T0R3">
-						<Duration>1</Duration>
-						<Time Reference="10"/>
-					</Event>
-					<Event Reference="C0T0R3">
-						<Duration>1</Duration>
-						<Time Reference="17"/>
-					</Event>
-					<Event Reference="C0T0R3">
-						<Duration>1</Duration>
-						<Time Reference="26"/>
-					</Event>
-					<Event Reference="C0T1R3">
-						<Duration>1</Duration>
-						<Time Reference="15"/>
-					</Event>
-					<Event Reference="C0T2R3">
-						<Duration>1</Duration>
-						<Time Reference="19"/>
-					</Event>
-					<Event Reference="C0T2R3">
-						<Duration>1</Duration>
-						<Time Reference="21"/>
-					</Event>
-					<Event Reference="C0T3R3">
-						<Duration>1</Duration>
-						<Time Reference="24"/>
-					</Event>
-					<Event Reference="C1T0R3">
-						<Duration>1</Duration>
-						<Time Reference="9"/>
-					</Event>
-					<Event Reference="C1T1R3">
-						<Duration>1</Duration>
-						<Time Reference="8"/>
-					</Event>
-					<Event Reference="C1T1R3">
-						<Duration>1</Duration>
-						<Time Reference="11"/>
-					</Event>
-					<Event Reference="C1T1R3">
-						<Duration>1</Duration>
-						<Time Reference="14"/>
-					</Event>
-					<Event Reference="C1T1R3">
-						<Duration>1</Duration>
-						<Time Reference="25"/>
-					</Event>
-					<Event Reference="C1T2R3">
-						<Duration>1</Duration>
-						<Time Reference="20"/>
-					</Event>
-					<Event Reference="C1T3R3">
-						<Duration>1</Duration>
-						<Time Reference="7"/>
-					</Event>
-					<Event Reference="C1T3R3">
-						<Duration>1</Duration>
-						<Time Reference="13"/>
-					</Event>
-					<Event Reference="C1T3R3">
-						<Duration>2</Duration>
-						<Time Reference="27"/>
-					</Event>
-					<Event Reference="C2T0R3">
-						<Duration>1</Duration>
-						<Time Reference="0"/>
-					</Event>
-					<Event Reference="C2T0R3">
-						<Duration>1</Duration>
-						<Time Reference="12"/>
-					</Event>
-					<Event Reference="C2T0R3">
-						<Duration>1</Duration>
-						<Time Reference="18"/>
-					</Event>
-					<Event Reference="C2T1R3">
-						<Duration>1</Duration>
-						<Time Reference="6"/>
-					</Event>
-					<Event Reference="C2T1R3">
-						<Duration>1</Duration>
-						<Time Reference="23"/>
-					</Event>
-					<Event Reference="C2T1R3">
-						<Duration>1</Duration>
-						<Time Reference="29"/>
-					</Event>
-					<Event Reference="C2T2R3">
+					<Event Reference="C0T4R1">
 						<Duration>1</Duration>
 						<Time Reference="1"/>
 					</Event>
-					<Event Reference="C2T2R3">
+					<Event Reference="C0T4R1">
 						<Duration>1</Duration>
-						<Time Reference="28"/>
+						<Time Reference="6"/>
 					</Event>
-					<Event Reference="C2T3R3">
+					<Event Reference="C0T4R1">
 						<Duration>1</Duration>
-						<Time Reference="5"/>
+						<Time Reference="20"/>
 					</Event>
-					<Event Reference="C3T0R3">
+					<Event Reference="C1T1R1">
 						<Duration>1</Duration>
 						<Time Reference="4"/>
 					</Event>
-					<Event Reference="C3T0R3">
+					<Event Reference="C1T3R1">
+						<Duration>1</Duration>
+						<Time Reference="5"/>
+					</Event>
+					<Event Reference="C1T4R1">
+						<Duration>1</Duration>
+						<Time Reference="7"/>
+					</Event>
+					<Event Reference="C1T4R1">
+						<Duration>1</Duration>
+						<Time Reference="19"/>
+					</Event>
+					<Event Reference="C1T4R1">
 						<Duration>1</Duration>
 						<Time Reference="29"/>
 					</Event>
-					<Event Reference="C3T2R3">
+					<Event Reference="C2T1R1">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C2T2R1">
+						<Duration>1</Duration>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C2T2R1">
+						<Duration>1</Duration>
+						<Time Reference="25"/>
+					</Event>
+					<Event Reference="C2T3R1">
+						<Duration>1</Duration>
+						<Time Reference="26"/>
+					</Event>
+					<Event Reference="C2T4R1">
+						<Duration>1</Duration>
+						<Time Reference="8"/>
+					</Event>
+					<Event Reference="C3T0R1">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C3T2R1">
+						<Duration>1</Duration>
+						<Time Reference="15"/>
+					</Event>
+					<Event Reference="C3T2R1">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C3T2R1">
+						<Duration>1</Duration>
+						<Time Reference="23"/>
+					</Event>
+					<Event Reference="C4T0R1">
+						<Duration>1</Duration>
+						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C4T0R1">
+						<Duration>1</Duration>
+						<Time Reference="27"/>
+					</Event>
+					<Event Reference="C4T1R1">
+						<Duration>1</Duration>
+						<Time Reference="16"/>
+					</Event>
+					<Event Reference="C4T3R1">
 						<Duration>1</Duration>
 						<Time Reference="2"/>
+					</Event>
+					<Event Reference="C4T3R1">
+						<Duration>1</Duration>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C0T0R2">
+						<Duration>1</Duration>
+						<Time Reference="7"/>
+					</Event>
+					<Event Reference="C0T0R2">
+						<Duration>1</Duration>
+						<Time Reference="20"/>
+					</Event>
+					<Event Reference="C0T1R2">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C0T1R2">
+						<Duration>1</Duration>
+						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C0T4R2">
+						<Duration>1</Duration>
+						<Time Reference="2"/>
+					</Event>
+					<Event Reference="C0T4R2">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C1T0R2">
+						<Duration>1</Duration>
+						<Time Reference="8"/>
+					</Event>
+					<Event Reference="C1T0R2">
+						<Duration>2</Duration>
+						<Time Reference="15"/>
+					</Event>
+					<Event Reference="C1T1R2">
+						<Duration>1</Duration>
+						<Time Reference="10"/>
+					</Event>
+					<Event Reference="C1T1R2">
+						<Duration>1</Duration>
+						<Time Reference="13"/>
+					</Event>
+					<Event Reference="C1T2R2">
+						<Duration>1</Duration>
+						<Time Reference="26"/>
+					</Event>
+					<Event Reference="C1T3R2">
+						<Duration>1</Duration>
+						<Time Reference="14"/>
+					</Event>
+					<Event Reference="C1T3R2">
+						<Duration>1</Duration>
+						<Time Reference="28"/>
+					</Event>
+					<Event Reference="C1T4R2">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C2T0R2">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C2T2R2">
+						<Duration>1</Duration>
+						<Time Reference="1"/>
+					</Event>
+					<Event Reference="C2T2R2">
+						<Duration>1</Duration>
+						<Time Reference="12"/>
+					</Event>
+					<Event Reference="C2T2R2">
+						<Duration>1</Duration>
+						<Time Reference="19"/>
+					</Event>
+					<Event Reference="C2T3R2">
+						<Duration>1</Duration>
+						<Time Reference="27"/>
+					</Event>
+					<Event Reference="C2T4R2">
+						<Duration>1</Duration>
+						<Time Reference="23"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="4"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C3T0R2">
+						<Duration>1</Duration>
+						<Time Reference="29"/>
+					</Event>
+					<Event Reference="C3T4R2">
+						<Duration>1</Duration>
+						<Time Reference="11"/>
+					</Event>
+					<Event Reference="C3T4R2">
+						<Duration>1</Duration>
+						<Time Reference="17"/>
+					</Event>
+					<Event Reference="C3T4R2">
+						<Duration>1</Duration>
+						<Time Reference="24"/>
+					</Event>
+					<Event Reference="C4T0R2">
+						<Duration>1</Duration>
+						<Time Reference="25"/>
+					</Event>
+					<Event Reference="C4T3R2">
+						<Duration>1</Duration>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C4T4R2">
+						<Duration>1</Duration>
+						<Time Reference="5"/>
+					</Event>
+					<Event Reference="C0T0R3">
+						<Duration>1</Duration>
+						<Time Reference="29"/>
+					</Event>
+					<Event Reference="C0T1R3">
+						<Duration>1</Duration>
+						<Time Reference="8"/>
+					</Event>
+					<Event Reference="C0T1R3">
+						<Duration>1</Duration>
+						<Time Reference="25"/>
+					</Event>
+					<Event Reference="C0T4R3">
+						<Duration>1</Duration>
+						<Time Reference="26"/>
+					</Event>
+					<Event Reference="C1T1R3">
+						<Duration>1</Duration>
+						<Time Reference="17"/>
+					</Event>
+					<Event Reference="C1T1R3">
+						<Duration>1</Duration>
+						<Time Reference="23"/>
+					</Event>
+					<Event Reference="C1T2R3">
+						<Duration>1</Duration>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C1T2R3">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C1T2R3">
+						<Duration>1</Duration>
+						<Time Reference="27"/>
+					</Event>
+					<Event Reference="C1T3R3">
+						<Duration>1</Duration>
+						<Time Reference="20"/>
+					</Event>
+					<Event Reference="C2T0R3">
+						<Duration>1</Duration>
+						<Time Reference="6"/>
+					</Event>
+					<Event Reference="C2T0R3">
+						<Duration>1</Duration>
+						<Time Reference="11"/>
+					</Event>
+					<Event Reference="C2T2R3">
+						<Duration>1</Duration>
+						<Time Reference="0"/>
+					</Event>
+					<Event Reference="C2T2R3">
+						<Duration>1</Duration>
+						<Time Reference="16"/>
+					</Event>
+					<Event Reference="C2T4R3">
+						<Duration>1</Duration>
+						<Time Reference="4"/>
+					</Event>
+					<Event Reference="C2T4R3">
+						<Duration>1</Duration>
+						<Time Reference="28"/>
+					</Event>
+					<Event Reference="C2T4R3">
+						<Duration>2</Duration>
+						<Time Reference="13"/>
+					</Event>
+					<Event Reference="C3T0R3">
+						<Duration>1</Duration>
+						<Time Reference="19"/>
+					</Event>
+					<Event Reference="C3T1R3">
+						<Duration>1</Duration>
+						<Time Reference="5"/>
+					</Event>
+					<Event Reference="C3T1R3">
+						<Duration>1</Duration>
+						<Time Reference="7"/>
+					</Event>
+					<Event Reference="C3T1R3">
+						<Duration>1</Duration>
+						<Time Reference="12"/>
 					</Event>
 					<Event Reference="C3T3R3">
 						<Duration>1</Duration>
 						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C3T3R3">
+						<Duration>1</Duration>
+						<Time Reference="10"/>
+					</Event>
+					<Event Reference="C3T4R3">
+						<Duration>1</Duration>
+						<Time Reference="16"/>
+					</Event>
+					<Event Reference="C4T0R3">
+						<Duration>1</Duration>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C4T1R3">
+						<Duration>1</Duration>
+						<Time Reference="1"/>
+					</Event>
+					<Event Reference="C4T3R3">
+						<Duration>1</Duration>
+						<Time Reference="15"/>
+					</Event>
+					<Event Reference="C4T3R3">
+						<Duration>1</Duration>
+						<Time Reference="24"/>
+					</Event>
+					<Event Reference="C4T4R3">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C0T0R4">
+						<Duration>1</Duration>
+						<Time Reference="14"/>
+					</Event>
+					<Event Reference="C0T1R4">
+						<Duration>1</Duration>
+						<Time Reference="22"/>
+					</Event>
+					<Event Reference="C0T2R4">
+						<Duration>1</Duration>
+						<Time Reference="4"/>
+					</Event>
+					<Event Reference="C0T3R4">
+						<Duration>1</Duration>
+						<Time Reference="16"/>
+					</Event>
+					<Event Reference="C0T4R4">
+						<Duration>1</Duration>
+						<Time Reference="27"/>
+					</Event>
+					<Event Reference="C1T1R4">
+						<Duration>1</Duration>
+						<Time Reference="11"/>
+					</Event>
+					<Event Reference="C1T1R4">
+						<Duration>1</Duration>
+						<Time Reference="21"/>
+					</Event>
+					<Event Reference="C1T1R4">
+						<Duration>1</Duration>
+						<Time Reference="24"/>
+					</Event>
+					<Event Reference="C2T0R4">
+						<Duration>1</Duration>
+						<Time Reference="9"/>
+					</Event>
+					<Event Reference="C2T1R4">
+						<Duration>1</Duration>
+						<Time Reference="2"/>
+					</Event>
+					<Event Reference="C2T1R4">
+						<Duration>1</Duration>
+						<Time Reference="15"/>
+					</Event>
+					<Event Reference="C2T2R4">
+						<Duration>1</Duration>
+						<Time Reference="3"/>
+					</Event>
+					<Event Reference="C2T2R4">
+						<Duration>1</Duration>
+						<Time Reference="5"/>
+					</Event>
+					<Event Reference="C2T2R4">
+						<Duration>1</Duration>
+						<Time Reference="24"/>
+					</Event>
+					<Event Reference="C2T3R4">
+						<Duration>1</Duration>
+						<Time Reference="17"/>
+					</Event>
+					<Event Reference="C3T0R4">
+						<Duration>1</Duration>
+						<Time Reference="13"/>
+					</Event>
+					<Event Reference="C3T1R4">
+						<Duration>1</Duration>
+						<Time Reference="20"/>
+					</Event>
+					<Event Reference="C3T1R4">
+						<Duration>1</Duration>
+						<Time Reference="28"/>
+					</Event>
+					<Event Reference="C3T2R4">
+						<Duration>1</Duration>
+						<Time Reference="6"/>
+					</Event>
+					<Event Reference="C3T3R4">
+						<Duration>1</Duration>
+						<Time Reference="18"/>
+					</Event>
+					<Event Reference="C3T4R4">
+						<Duration>1</Duration>
+						<Time Reference="25"/>
+					</Event>
+					<Event Reference="C4T0R4">
+						<Duration>1</Duration>
+						<Time Reference="26"/>
+					</Event>
+					<Event Reference="C4T1R4">
+						<Duration>1</Duration>
+						<Time Reference="6"/>
+					</Event>
+					<Event Reference="C4T1R4">
+						<Duration>1</Duration>
+						<Time Reference="19"/>
+					</Event>
+					<Event Reference="C4T1R4">
+						<Duration>1</Duration>
+						<Time Reference="29"/>
+					</Event>
+					<Event Reference="C4T2R4">
+						<Duration>1</Duration>
+						<Time Reference="7"/>
+					</Event>
+					<Event Reference="C4T2R4">
+						<Duration>1</Duration>
+						<Time Reference="10"/>
+					</Event>
+					<Event Reference="C4T3R4">
+						<Duration>1</Duration>
+						<Time Reference="8"/>
+					</Event>
+					<Event Reference="C4T3R4">
+						<Duration>1</Duration>
+						<Time Reference="23"/>
+					</Event>
+					<Event Reference="C4T4R4">
+						<Duration>1</Duration>
+						<Time Reference="12"/>
 					</Event>
 				</Events>
 			</Solution>

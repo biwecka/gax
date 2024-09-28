@@ -2,8 +2,8 @@ use itertools::Itertools;
 // Imports /////////////////////////////////////////////////////////////////////
 // use itertools::Itertools;
 use xhstt::db::constraints::{
-    // assign_time_constraint::AssignTimeConstraint,
-    avoid_clashes_constraint::AvoidClashesConstraint, Constraint,
+    assign_time_constraint::AssignTimeConstraint,
+    avoid_clashes_constraint::AvoidClashesConstraint, Constraint
 };
 
 use super::{Context, Phenotype};
@@ -34,6 +34,31 @@ pub fn pre_calc(db: &xhstt::db::Database) -> Vec<(Constraint, Vec<usize>)> {
 
 // Constraint Cost Functions ///////////////////////////////////////////////////
 
+#[allow(unused)]
+pub fn assign_time_constraint(
+    phenotype: &Phenotype,
+    ctx: &Context,
+    params: &AssignTimeConstraint,
+    event_idxs: &[usize], // E_spec
+) -> usize {
+    let deviation: usize = event_idxs
+        .iter()
+        .map(|event_idx| {
+            // Get time allocation
+            let bits = phenotype.times[*event_idx];
+            let allocations = bits.ones().count();
+
+            // Get desired duration
+            let duration = ctx.durations[*event_idx] as usize;
+
+            duration - allocations
+        })
+        .sum();
+
+    // Calc cost and return
+    (params.weight as usize) * params.cost_function.calc(deviation)
+}
+
 pub fn avoid_clashes(
     phenotype: &Phenotype,
     _ctx: &Context,
@@ -50,6 +75,7 @@ pub fn avoid_clashes(
             let e1 = x[1] as usize;
 
             let res = phenotype.times[e0] & phenotype.times[e1];
+
             deviation += res.ones().count();
         }
 
@@ -59,6 +85,5 @@ pub fn avoid_clashes(
     // Calc cost and return
     (params.weight as usize) * params.cost_function.calc(deviation)
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////

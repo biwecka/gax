@@ -1,5 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use bits::Bits32;
+use bits::{Bits32, Bits64};
 use xhstt::{
     db::constraints::Constraint,
     parser::solution_groups::solution::events::{Event, TimeRef},
@@ -16,7 +16,7 @@ pub struct Phenotype {
     // Resources matrix:
     // - the outer vector represents the resources
     // - the inner "bits" represent which event the resource is allocated to
-    pub resources: Vec<Bits32>,
+    pub resources: Vec<Bits64>,
 }
 
 impl Phenotype {
@@ -26,16 +26,14 @@ impl Phenotype {
 
         // Create resource vector of bitvectors
         let mut resources =
-            vec![Bits32::new(ctx.num_events as u32, 0); ctx.num_resources];
-
+            vec![Bits64::new(ctx.num_events as u64, 0); ctx.num_resources];
 
         // Fill resource 2D vector (matrix)
         for (event_idx, event) in db.events().iter().enumerate() {
             for resource in &event.allocated_resources {
                 let resource_idx = db.resource_id_to_idx(&resource.id);
 
-
-                resources[resource_idx].set(event_idx as u32);
+                resources[resource_idx].set(event_idx as u64);
             }
         }
 
@@ -66,12 +64,14 @@ impl Phenotype {
                 .iter()
                 .enumerate()
                 .filter_map(|(length, bits)| {
-                    if bits.is_zero() { return None; }
+                    if bits.is_zero() {
+                        return None;
+                    }
 
-                    Some(bits
-                        .ones()
-                        .map(|x| (length, x))
-                        .collect::<Vec<(_, _)>>()
+                    Some(
+                        bits.ones()
+                            .map(|x| (length, x))
+                            .collect::<Vec<(_, _)>>(),
                     )
                 })
                 .flatten()
@@ -85,11 +85,10 @@ impl Phenotype {
                     reference: event.id.0.clone(),
                     duration: Some(duration as u32),
                     resources: None,
-                    time: Some(TimeRef { reference: time.id.0.clone() })
+                    time: Some(TimeRef { reference: time.id.0.clone() }),
                 })
             }
         }
-
 
         // Return
         events
@@ -120,6 +119,13 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
 
                     total_cost += cost;
                 },
+
+                // Constraint::AssignTimeConstraint(params) => {
+                //     let cost =
+                //         constraints::assign_time_constraint(self, ctx, params, indices);
+
+                //     total_cost += cost;
+                // },
 
                 _ => {}
             }

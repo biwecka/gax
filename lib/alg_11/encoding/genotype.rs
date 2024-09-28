@@ -1,8 +1,8 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use std::ops::AddAssign;
 use bits::Bits32;
 use hashbrown::HashMap;
 use rand_distr::Distribution;
+use std::ops::AddAssign;
 
 use super::Context;
 
@@ -60,20 +60,26 @@ impl Gene for Bits32 {
 
         // Generate `duration` amount of random indices in (0..num_times).
         let mut indices: Vec<u32> = Vec::with_capacity(duration as usize);
-        for _ in 0..duration {
-            indices.push(ctx.rand_time.sample(&mut rng));
+
+        // Ensure that the indices are UNIQUE. This is very important and makes
+        // the encoding always fulfill the "AssignTimeConstraint" !!!
+        while indices.len() < duration as usize {
+            let index = ctx.rand_time.sample(&mut rng);
+
+            if !indices.contains(&index) {
+                indices.push(index);
+            }
         }
 
         // Create bits32
         let mut bits = Bits32::new(ctx.num_times as u32, 0);
-        for i in indices {
-            bits.set(i);
+        for i in &indices {
+            bits.set(*i);
         }
 
         // Return
         bits
     }
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////

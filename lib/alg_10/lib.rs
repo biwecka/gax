@@ -1,6 +1,9 @@
 //! Algorithm V10:
 //! - implements bitvector encoding (by Demirovic and Musilu)
 //!
+//! Caution !!!
+//! >>> THIS ALGORITHM HAS AN UNRESOLVED BUG IN THE COST CALCULATION <<<
+//!
 
 // Modules /////////////////////////////////////////////////////////////////////
 // mod dynamics;
