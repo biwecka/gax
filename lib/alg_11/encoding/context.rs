@@ -23,7 +23,7 @@ pub struct Context {
     pub constraints: Vec<(Constraint, Vec<usize>)>,
 
     // /// Random number generator for event indices
-    // pub rand_event: Uniform<usize>,
+    pub rand_event: Uniform<usize>,
 
     // pub gauss_sd: f32, // standard deviation
     // pub gauss_rand_event: Normal<f32>,
@@ -44,7 +44,7 @@ impl Context {
 
         let constraints = super::constraints::pre_calc(db);
 
-        // let rand_event = Uniform::<usize>::new(0, num_events);
+        let rand_event = Uniform::<usize>::new(0, num_events);
         let rand_time = Uniform::<u32>::new(0, num_times as u32);
 
         // let gauss_sd: f32 = 1.;
@@ -56,7 +56,7 @@ impl Context {
             num_resources,
             constraints,
             durations,
-            // rand_event,
+            rand_event,
             rand_time,
             // gauss_sd,
             // gauss_rand_event,

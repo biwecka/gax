@@ -1,6 +1,7 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::encoding::{Chromosome, Context};
 use rand::{rngs::ThreadRng, seq::IteratorRandom, Rng};
+use rand_distr::Distribution;
 
 // Mutation ////////////////////////////////////////////////////////////////////
 
@@ -12,6 +13,10 @@ pub enum Mutation {
     /// Move single time allocation
     MoveSingleTimeAlloc,
 
+    /// Trade single time allocation
+    Trade,
+
+    /// No mutation.
     None,
 }
 
@@ -27,8 +32,9 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
             Self::MoveSubEvent => move_sub_event(c, rate, rng, ctx),
             Self::MoveSingleTimeAlloc => {
                 move_single_time_alloc(c, rate, rng, ctx)
-            }
-            Self::None => {}
+            },
+            Self::Trade => trade(c, rate, rng, ctx),
+            Self::None => {},
         }
     }
 }
@@ -92,6 +98,64 @@ fn move_single_time_alloc(
 
         bits.unset(alloc);
         bits.set(free);
+    }
+}
+
+fn trade(
+    c: &mut Chromosome,
+    rate: f32,
+    rng: &mut ThreadRng,
+    ctx: &Context,
+) {
+    // Iterate over all genes (events)
+    for i0 in 0..c.0.len() {
+        // Decide wether to mutate or not
+        if rng.gen::<f32>() > rate {
+            continue;
+        }
+
+        // Randomly choose a trade partner (index)
+        let i1 = ctx.rand_event.sample(rng);
+
+        // Copy the time allocations of the indexed bits
+        let mut b0 = c.0[i0];
+        let mut b1 = c.0[i1];
+
+        // >>> TRADE CALCULATIONS <<<
+        // Negate both
+        let b0_inv = !b0;
+        let b1_inv = !b1;
+
+        // Calc possible trades from 0 to 1
+        let trade_0_to_1 = b0 & b1_inv;
+
+        // Calc possible trades from 1 to 0
+        let trade_1_to_0 = b1 & b0_inv;
+
+        // Get trade indices
+        let ti_0_to_1 = match trade_0_to_1.ones().choose(rng) {
+            Some(i) => i,
+            None => continue,
+        };
+
+        let ti_1_to_0 = match trade_1_to_0.ones().choose(rng) {
+            Some(i) => i,
+            None => continue,
+        };
+
+        // Perform trade from 0 to 1
+        b0.unset(ti_0_to_1);
+        b1.set(ti_0_to_1);
+
+        // Perform trade from 1 to 0
+        b1.unset(ti_1_to_0);
+        b0.set(ti_1_to_0);
+
+        // >>> TRADE - END <<<
+
+        // Apply the changed bits to the chromosome again
+        c.0[i0] = b0;
+        c.0[i1] = b1;
     }
 }
 
