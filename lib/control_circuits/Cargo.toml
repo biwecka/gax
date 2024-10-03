@@ -1,0 +1,14 @@
+[package]
+name = "control_circuits"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+path = "lib.rs"
+
+[features]
+
+[dependencies]
+
+[lints]
+workspace = true

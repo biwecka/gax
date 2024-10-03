@@ -52,9 +52,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .build();
 
     let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-        .set(vec![
-            Dynamic::MutationRateCos(0.01, 0.1, 0.001)
-        ])
+        .set(vec![Dynamic::MutationRateCos(0.01, 0.1, 0.001)])
         .build();
 
     // Create algorithm and let it run!

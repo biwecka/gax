@@ -2,10 +2,10 @@
 [workspace]
 resolver = "2"
 members = [
-    "bin/*",
-    "lib/*",
-
     "archive/*",
+    "bin/*",
+    "examples/*",
+    "lib/*",
 ]
 
 # exclude = [""]
@@ -24,6 +24,7 @@ alg_10              = { path = "lib/alg_10" }
 alg_11              = { path = "lib/alg_11" }
 
 bits                = { path = "../bits-rs/bits" }
+control_circuits    = { path = "lib/control_circuits" }
 ga                  = { path = "lib/ga" }
 xhstt               = { path = "lib/xhstt" }
 

@@ -72,7 +72,7 @@ impl
         _context: &mut Context,
     ) {
         match self {
-            Dynamic::MutationRateCos(_, _, _) => {},
+            Dynamic::MutationRateCos(_, _, _) => {}
         }
     }
 
@@ -171,8 +171,7 @@ fn mutation_rate_cos(
 
     // Calculate mutation rate
     // let mutation_rate = (reference + (a * (k * x).cos())).clamp(0.001, 0.999);
-    let mutation_rate =
-        (reference + (a * (k * x).sin())).clamp(0.001, 0.1);
+    let mutation_rate = (reference + (a * (k * x).sin())).clamp(0.001, 0.1);
 
     // Set mutation rate
     parameters.mutation_rate = mutation_rate;

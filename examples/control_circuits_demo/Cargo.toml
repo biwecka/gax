@@ -1,0 +1,18 @@
+[package]
+name = "control_circuits_demo"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "control_circuits_demo"
+path = "main.rs"
+
+[dependencies]
+#> libs <#
+control_circuits = { workspace = true }
+
+#> remote <#
+rerun = { workspace = true }
+
+[lints]
+workspace = true

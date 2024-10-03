@@ -32,9 +32,9 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
             Self::MoveSubEvent => move_sub_event(c, rate, rng, ctx),
             Self::MoveSingleTimeAlloc => {
                 move_single_time_alloc(c, rate, rng, ctx)
-            },
+            }
             Self::Trade => trade(c, rate, rng, ctx),
-            Self::None => {},
+            Self::None => {}
         }
     }
 }
@@ -101,12 +101,7 @@ fn move_single_time_alloc(
     }
 }
 
-fn trade(
-    c: &mut Chromosome,
-    rate: f32,
-    rng: &mut ThreadRng,
-    ctx: &Context,
-) {
+fn trade(c: &mut Chromosome, rate: f32, rng: &mut ThreadRng, ctx: &Context) {
     // Iterate over all genes (events)
     for i0 in 0..c.0.len() {
         // Decide wether to mutate or not
