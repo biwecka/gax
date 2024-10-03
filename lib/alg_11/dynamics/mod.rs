@@ -77,8 +77,8 @@ impl
         _context: &mut Context,
     ) {
         match self {
-            Self::MutationRateCos(_, _, _) => {},
-            Self::GaussRandomTime(_) => {},
+            Self::MutationRateCos(_, _, _) => {}
+            Self::GaussRandomTime(_) => {}
         }
     }
 
@@ -131,7 +131,7 @@ impl
                     #[cfg(feature = "ga_log_dynamics")]
                     rerun_logger,
                 );
-            },
+            }
 
             Self::GaussRandomTime(tsr) => {
                 gauss_random_time(*tsr, rtd, parameters, context, rerun_logger);
@@ -208,7 +208,7 @@ fn gauss_random_time(
         Terminate<Cost>,
     >,
 
-    parameters: &mut ga::parameters::Parameters<
+    _parameters: &mut ga::parameters::Parameters<
         Cost,
         Context,
         Chromosome,
@@ -237,14 +237,14 @@ fn gauss_random_time(
 
         // Apply the standard deviation to the random number generator in the
         // context.
-        context.gauss_rand_time = Normal::<f32>::new(0., context.gauss_rand_time_sd)
-            .unwrap();
+        context.gauss_rand_time =
+            Normal::<f32>::new(0., context.gauss_rand_time_sd).unwrap();
 
         // Reset the standard deviation if it passes a certain threshold.
         if context.gauss_rand_time_sd > context.num_times as f32 * 1.4 {
             context.gauss_rand_time_sd = 1.;
-            context.gauss_rand_time = Normal::<f32>::new(0., context.gauss_rand_time_sd)
-            .unwrap();
+            context.gauss_rand_time =
+                Normal::<f32>::new(0., context.gauss_rand_time_sd).unwrap();
         }
     }
 
@@ -252,13 +252,15 @@ fn gauss_random_time(
     // improved.
     if rtd.success {
         context.gauss_rand_time_sd = 1.;
-        Normal::<f32>::new(0., context.gauss_rand_time_sd)
-            .unwrap();
+        Normal::<f32>::new(0., context.gauss_rand_time_sd).unwrap();
     }
 
     #[cfg(feature = "ga_log_dynamics")]
     {
-        rerun_logger.log_mutation_std_deviation(rtd.generation, context.gauss_rand_time_sd);
+        rerun_logger.log_mutation_std_deviation(
+            rtd.generation,
+            context.gauss_rand_time_sd,
+        );
     };
 }
 

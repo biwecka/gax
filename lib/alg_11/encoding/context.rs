@@ -48,8 +48,8 @@ impl Context {
         let rand_time = Uniform::<u32>::new(0, num_times as u32);
 
         let gauss_rand_time_sd = 1.;
-        let gauss_rand_time = Normal::<f32>::new(0., gauss_rand_time_sd)
-            .unwrap();
+        let gauss_rand_time =
+            Normal::<f32>::new(0., gauss_rand_time_sd).unwrap();
 
         Self {
             num_times,

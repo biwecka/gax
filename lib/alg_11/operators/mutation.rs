@@ -37,10 +37,10 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
             Self::MoveSubEvent => move_sub_event(c, rate, rng, ctx),
             Self::MoveSingleTimeAlloc => {
                 move_single_time_alloc(c, rate, rng, ctx)
-            },
+            }
             Self::GaussMoveSingleTimeAlloc => {
                 gauss_move_single_time_alloc(c, rate, rng, ctx);
-            },
+            }
             Self::Trade => trade(c, rate, rng, ctx),
             Self::None => {}
         }
@@ -133,10 +133,10 @@ fn gauss_move_single_time_alloc(
         let mut new_index = alloc as i32 + offset;
         let mut counter = 0;
 
-        while offset == 0 ||
-            new_index < 0 ||
-            new_index >= ctx.num_times as i32 ||
-            !free.contains(&(new_index as u32))
+        while offset == 0
+            || new_index < 0
+            || new_index >= ctx.num_times as i32
+            || !free.contains(&(new_index as u32))
         {
             offset = ctx.gauss_rand_time.sample(rng).round() as i32;
             new_index = alloc as i32 + offset;

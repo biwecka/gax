@@ -23,22 +23,39 @@ fn main() {
         //     1.5
         // }
 
-        if t < 10 { 0.1 }
-        else if t < 50 { 0.15 }
-        else if t < 100 { 0.2 }
-        else if t < 130 { 0.1 }
-        else if t < 150 { 0.12 }
-        else if t < 200 { 0.4 }
-        else if t < 225 { 0.6 }
-        else if t < 250 { 0.8 }
-        else if t < 300 { 1.0 }
-        else if t < 330 { 2.0 }
-        else if t < 360 { 2.6 }
-        else if t < 400 { 3.0 }
-        else if t < 500 { 4.0 }
-        else if t < 550 { 4.5 }
-        else if t < 600 { 6.5 }
-        else { 10. }
+        if t < 10 {
+            0.1
+        } else if t < 50 {
+            0.15
+        } else if t < 100 {
+            0.2
+        } else if t < 130 {
+            0.1
+        } else if t < 150 {
+            0.12
+        } else if t < 200 {
+            0.4
+        } else if t < 225 {
+            0.6
+        } else if t < 250 {
+            0.8
+        } else if t < 300 {
+            1.0
+        } else if t < 330 {
+            2.0
+        } else if t < 360 {
+            2.6
+        } else if t < 400 {
+            3.0
+        } else if t < 500 {
+            4.0
+        } else if t < 550 {
+            4.5
+        } else if t < 600 {
+            6.5
+        } else {
+            10.
+        }
     };
 
     for t in 0..800 {
