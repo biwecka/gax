@@ -13,6 +13,11 @@ pub enum Mutation {
     /// Move single time allocation
     MoveSingleTimeAlloc,
 
+    /// Same as `MoveSingleTimeAlloc`, but this version utilizes a gaussian
+    /// normal distribution as probability-density-function for the random
+    /// number generator.
+    GaussMoveSingleTimeAlloc,
+
     /// Trade single time allocation
     Trade,
 
@@ -32,7 +37,10 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
             Self::MoveSubEvent => move_sub_event(c, rate, rng, ctx),
             Self::MoveSingleTimeAlloc => {
                 move_single_time_alloc(c, rate, rng, ctx)
-            }
+            },
+            Self::GaussMoveSingleTimeAlloc => {
+                gauss_move_single_time_alloc(c, rate, rng, ctx);
+            },
             Self::Trade => trade(c, rate, rng, ctx),
             Self::None => {}
         }
@@ -98,6 +106,51 @@ fn move_single_time_alloc(
 
         bits.unset(alloc);
         bits.set(free);
+    }
+}
+
+fn gauss_move_single_time_alloc(
+    c: &mut Chromosome,
+    rate: f32,
+    rng: &mut ThreadRng,
+    ctx: &Context,
+) {
+    // Iterate over all genes (events)
+    'outer: for bits in c.0.iter_mut() {
+        // Decide wether to mutate or not
+        if rng.gen::<f32>() > rate {
+            continue;
+        }
+
+        // Get random time allocation
+        let alloc = bits.ones().choose(rng).unwrap();
+
+        // Calculate free time slots
+        let free = bits.zeros().collect::<Vec<_>>();
+
+        // Calculate the destination index.
+        let mut offset = ctx.gauss_rand_time.sample(rng).round() as i32;
+        let mut new_index = alloc as i32 + offset;
+        let mut counter = 0;
+
+        while offset == 0 ||
+            new_index < 0 ||
+            new_index >= ctx.num_times as i32 ||
+            !free.contains(&(new_index as u32))
+        {
+            offset = ctx.gauss_rand_time.sample(rng).round() as i32;
+            new_index = alloc as i32 + offset;
+
+            counter += 1;
+
+            if counter > 10 {
+                continue 'outer;
+            }
+        }
+
+        // Move time allocation
+        bits.unset(alloc);
+        bits.set(new_index as u32);
     }
 }
 
