@@ -31,6 +31,11 @@ pub enum Dynamic {
     /// generator. Parameters:
     /// 1) f32      target success rate
     GaussRandomTime(f32),
+
+    /// Normal distributed random event when using `ctx.gauss_rand_event` number
+    /// generator. Parameters:
+    /// 1) f32      target success rate
+    GaussRandomEvent(f32),
 }
 
 impl
@@ -79,6 +84,7 @@ impl
         match self {
             Self::MutationRateCos(_, _, _) => {}
             Self::GaussRandomTime(_) => {}
+            Self::GaussRandomEvent(_) => {}
         }
     }
 
@@ -135,6 +141,16 @@ impl
 
             Self::GaussRandomTime(tsr) => {
                 gauss_random_time(*tsr, rtd, parameters, context, rerun_logger);
+            }
+
+            Self::GaussRandomEvent(tsr) => {
+                gauss_random_event(
+                    *tsr,
+                    rtd,
+                    parameters,
+                    context,
+                    rerun_logger,
+                );
             }
         }
     }
@@ -260,6 +276,78 @@ fn gauss_random_time(
         rerun_logger.log_mutation_std_deviation(
             rtd.generation,
             context.gauss_rand_time_sd,
+        );
+    };
+}
+
+fn gauss_random_event(
+    target_success_rate: f32,
+
+    rtd: &RuntimeData<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    _parameters: &mut ga::parameters::Parameters<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    context: &mut Context,
+
+    #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
+) {
+    if rtd.success_rate_pt1 < target_success_rate {
+        // Calc diff (this is always positive because of the `if` condition)
+        let diff = target_success_rate - rtd.success_rate_pt1;
+
+        // Multiply factor to get the summand
+        let summand = 2. * diff; // * (0.1 * diff);
+
+        // Add the summand to the mutation's standard deviation
+        context.gauss_rand_event_sd += summand;
+
+        // Apply the standard deviation to the random number generator in the
+        // context.
+        context.gauss_rand_event =
+            Normal::<f32>::new(0., context.gauss_rand_event_sd).unwrap();
+
+        // Reset the standard deviation if it passes a certain threshold.
+        if context.gauss_rand_event_sd > context.num_events as f32 * 1.4 {
+            context.gauss_rand_event_sd = 1.;
+            context.gauss_rand_event =
+                Normal::<f32>::new(0., context.gauss_rand_event_sd).unwrap();
+        }
+    }
+
+    // Reset the standard deviation every time the overall best solution was
+    // improved.
+    if rtd.success {
+        context.gauss_rand_event_sd = 1.;
+        Normal::<f32>::new(0., context.gauss_rand_event_sd).unwrap();
+    }
+
+    #[cfg(feature = "ga_log_dynamics")]
+    {
+        rerun_logger.log_mutation_std_deviation(
+            rtd.generation,
+            context.gauss_rand_event_sd,
         );
     };
 }

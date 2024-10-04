@@ -41,10 +41,10 @@ pub fn run(instance: Instance) -> Vec<Event> {
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
         .set_population_size(1_000)
         .set_crossover_rate(None)
-        .set_mutation_rate(0.01)
+        .set_mutation_rate(0.015)
         .set_selection(Select::RouletteWheel)
         .set_crossover(Crossover::Trade(1))
-        .set_mutation(Mutation::Trade)
+        .set_mutation(Mutation::GaussTrade)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteAbsolute(1))
         // .set_termination(Terminate::Generations(50_000))
@@ -53,8 +53,9 @@ pub fn run(instance: Instance) -> Vec<Event> {
 
     let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
         .set(vec![
-            Dynamic::MutationRateCos(0.01, 0.1, 0.001),
-            // Dynamic::GaussRandomTime(0.01),
+            // Dynamic::MutationRateCos(0.01, 0.1, 0.001),
+            // Dynamic::GaussRandomTime(0.01),  // for GaussMoveSingleTimeAlloc
+            Dynamic::GaussRandomEvent(0.01), // for GaussTrade
         ])
         .build();
 

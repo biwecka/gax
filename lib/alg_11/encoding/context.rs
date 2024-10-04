@@ -22,13 +22,15 @@ pub struct Context {
     /// Constraints (with pre-calculated affected IDs)
     pub constraints: Vec<(Constraint, Vec<usize>)>,
 
-    // /// Random number generator for event indices
-    pub rand_event: Uniform<usize>,
-
-    // Random number generator for time indices
+    /// Random number generator for time indices
     pub rand_time: Uniform<u32>,
     pub gauss_rand_time: Normal<f32>,
     pub gauss_rand_time_sd: f32,
+
+    /// Random number generator for event indices
+    pub rand_event: Uniform<usize>,
+    pub gauss_rand_event: Normal<f32>,
+    pub gauss_rand_event_sd: f32,
 }
 
 impl ga::encoding::Context for Context {}
@@ -51,6 +53,10 @@ impl Context {
         let gauss_rand_time =
             Normal::<f32>::new(0., gauss_rand_time_sd).unwrap();
 
+        let gauss_rand_event_sd = 1.;
+        let gauss_rand_event =
+            Normal::<f32>::new(0., gauss_rand_event_sd).unwrap();
+
         Self {
             num_times,
             num_events,
@@ -61,6 +67,8 @@ impl Context {
             rand_time,
             gauss_rand_time,
             gauss_rand_time_sd,
+            gauss_rand_event,
+            gauss_rand_event_sd,
         }
     }
 }
