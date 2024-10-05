@@ -42,7 +42,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_population_size(1_000)
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
-        .set_selection(Select::RouletteWheel)
+        .set_selection(Select::Tournament(10))
         .set_crossover(Crossover::Trade(1))
         .set_mutation(Mutation::Trade)
         .set_rejection(Reject::None)

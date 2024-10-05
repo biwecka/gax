@@ -410,7 +410,7 @@ fn target_mean_by_variable_mutation_rate(
     #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
 ) {
     let min_deviation = 1.08;
-    let max_deviation = 2.00;
+    let max_deviation = 4.00;
 
     let cos = (0.000_100 * rtd.generation as f64).cos().powi(2);
 
@@ -430,7 +430,7 @@ fn target_mean_by_variable_mutation_rate(
     // Update mutation rate
     parameters.mutation_rate += context.pt2.get_output() as f32;
 
-    parameters.mutation_rate = parameters.mutation_rate.clamp(0.000_565, 0.017);
+    parameters.mutation_rate = parameters.mutation_rate.clamp(0.000_565, 0.05); //0.017);
 
     #[cfg(feature = "ga_log_dynamics")]
     {
