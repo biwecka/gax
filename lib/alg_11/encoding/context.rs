@@ -1,4 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
+use control_circuits::PT2;
 use rand::distributions::Uniform;
 use rand_distr::Normal;
 use xhstt::db::constraints::Constraint;
@@ -31,6 +32,9 @@ pub struct Context {
     pub rand_event: Uniform<usize>,
     pub gauss_rand_event: Normal<f32>,
     pub gauss_rand_event_sd: f32,
+
+    /// PT2 control circuit
+    pub pt2: PT2,
 }
 
 impl ga::encoding::Context for Context {}
@@ -57,6 +61,8 @@ impl Context {
         let gauss_rand_event =
             Normal::<f32>::new(0., gauss_rand_event_sd).unwrap();
 
+        let pt2 = PT2::new(1., 1., 0.4, 1., 1.);
+
         Self {
             num_times,
             num_events,
@@ -69,6 +75,7 @@ impl Context {
             gauss_rand_time_sd,
             gauss_rand_event,
             gauss_rand_event_sd,
+            pt2,
         }
     }
 }

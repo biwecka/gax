@@ -1,4 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
+use control_circuits::PT2;
 use ga::{
     process::{
         rejection::Reject, replacement::Replace, selection::Select,
@@ -36,6 +37,16 @@ pub enum Dynamic {
     /// generator. Parameters:
     /// 1) f32      target success rate
     GaussRandomEvent(f32),
+
+    /// Variable mutation rate which is controlled by the current mean objective
+    /// value and how it compares to a given target mean objective value.
+    /// The target mean objective value is given as a deviation (in percent)
+    /// from the current best objective value.
+    ///
+    /// Parameters:
+    /// 1) Deviation from current best (e.g. 1.10 for +10%)
+    /// 2) Gain of the PT2 block (= amplification)
+    TargetMeanByVariableMutationRate(f64, f64),
 }
 
 impl
@@ -79,12 +90,15 @@ impl
             Replace,
             Terminate<Cost>,
         >,
-        _context: &mut Context,
+        context: &mut Context,
     ) {
         match self {
             Self::MutationRateCos(_, _, _) => {}
             Self::GaussRandomTime(_) => {}
             Self::GaussRandomEvent(_) => {}
+            Self::TargetMeanByVariableMutationRate(_, gain) => {
+                context.pt2 = PT2::new(1., 1., 0.4, *gain, 1.);
+            }
         }
     }
 
@@ -146,6 +160,16 @@ impl
             Self::GaussRandomEvent(tsr) => {
                 gauss_random_event(
                     *tsr,
+                    rtd,
+                    parameters,
+                    context,
+                    rerun_logger,
+                );
+            }
+
+            Self::TargetMeanByVariableMutationRate(target_mean, _) => {
+                target_mean_by_variable_mutation_rate(
+                    *target_mean,
                     rtd,
                     parameters,
                     context,
@@ -349,6 +373,69 @@ fn gauss_random_event(
             rtd.generation,
             context.gauss_rand_event_sd,
         );
+    };
+}
+
+fn target_mean_by_variable_mutation_rate(
+    target_mean_deviation: f64,
+
+    rtd: &RuntimeData<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    parameters: &mut ga::parameters::Parameters<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    context: &mut Context,
+
+    #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
+) {
+    let min_deviation = 1.08;
+    let max_deviation = 2.00;
+
+    let cos = (0.000_100 * rtd.generation as f64).cos().powi(2);
+
+    let target_mean_deviation =
+        (max_deviation - min_deviation) * cos + min_deviation;
+
+    // Calculate the target mean objective value
+    let current_best: usize = rtd.current_best.clone().into();
+    let target = current_best as f64 * target_mean_deviation;
+
+    // Calculate control error: target - current mean
+    let error = target - rtd.current_mean as f64;
+
+    // Update PT2 with error
+    context.pt2.update(error);
+
+    // Update mutation rate
+    parameters.mutation_rate += context.pt2.get_output() as f32;
+
+    parameters.mutation_rate = parameters.mutation_rate.clamp(0.000_565, 0.017);
+
+    #[cfg(feature = "ga_log_dynamics")]
+    {
+        rerun_logger
+            .log_mutation_rate(rtd.generation, parameters.mutation_rate);
     };
 }
 
