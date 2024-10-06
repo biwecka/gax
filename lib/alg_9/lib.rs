@@ -48,7 +48,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_population_size(1_000)
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
-        .set_selection(Select::LinearRank)
+        .set_selection(Select::LinearRank(2.))
         .set_crossover(Crossover::VariableSinglePoint)
         .set_mutation(Mutation::GaussSwap)
         .set_rejection(Reject::None)

@@ -42,12 +42,12 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_population_size(1_000)
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
-        .set_selection(Select::Tournament(10))
+        .set_selection(Select::LinearRank(1.6))
         .set_crossover(Crossover::Trade(1))
         .set_mutation(Mutation::Trade)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteAbsolute(1))
-        // .set_termination(Terminate::Generations(50_000))
+        // .set_termination(Terminate::Generations(20_000))
         .set_termination(Terminate::ObjectiveValue(0.into()))
         .build();
 
