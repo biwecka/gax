@@ -19,6 +19,10 @@ pub enum Terminate<Ov: ObjectiveValue> {
     /// Stop the GA if the best individual's fitness is as good or better as
     /// the provided fitness value.
     ObjectiveValue(Ov),
+
+    /// Stop after max amount of generations or after reaching the target
+    /// objective value.
+    GenOrOv(usize, Ov),
 }
 
 impl<Ov: ObjectiveValue> Termination<Ov> for Terminate<Ov> {
@@ -29,6 +33,10 @@ impl<Ov: ObjectiveValue> Termination<Ov> for Terminate<Ov> {
             }
 
             Self::ObjectiveValue(target) => *current_best <= *target,
+
+            Self::GenOrOv(gen_limit, target) => {
+                generation_num >= *gen_limit || current_best <= target
+            }
         }
     }
 }

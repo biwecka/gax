@@ -45,6 +45,7 @@ pub struct RuntimeData<
 
     /// True, when the current generation improved on the best solution.
     pub success: bool,
+    pub last_success: usize,
 
     /// Moving average calculated by a PT1-lowpass filter function.
     pub success_rate_pt1: f32,
@@ -122,6 +123,7 @@ impl<
             population_diversity_distribution: vec![],
 
             success: false,
+            last_success: 0,
             success_rate_pt1: 0.,
             success_rate_sma: SumTreeSMA::new(),
 
@@ -170,6 +172,7 @@ impl<
                         crate::utils::pt1(self.success_rate_pt1, 1., 100.);
 
                     self.success = true;
+                    self.last_success = self.generation;
                 } else {
                     self.success_rate_sma.add_sample(0.);
 

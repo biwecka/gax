@@ -42,13 +42,13 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_population_size(1_000)
         .set_crossover_rate(None)
         .set_mutation_rate(0.01)
-        .set_selection(Select::LinearRank(1.6))
+        .set_selection(Select::LinearRank(1.0))
+        // .set_selection(Select::RouletteWheel)
         .set_crossover(Crossover::Trade(1))
         .set_mutation(Mutation::Trade)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteAbsolute(1))
-        // .set_termination(Terminate::Generations(20_000))
-        .set_termination(Terminate::ObjectiveValue(0.into()))
+        .set_termination(Terminate::GenOrOv(500_000, 0.into()))
         .build();
 
     let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
@@ -56,7 +56,9 @@ pub fn run(instance: Instance) -> Vec<Event> {
             // Dynamic::MutationRateCos(0.01, 0.1, 0.001),
             // Dynamic::GaussRandomTime(0.01),  // for GaussMoveSingleTimeAlloc
             // Dynamic::GaussRandomEvent(0.01), // for GaussTrade
-            Dynamic::TargetMeanByVariableMutationRate(1.2, 0.005_000),
+            // Dynamic::TargetMeanByVariableMutationRate(1.2, 0.005_000),
+            Dynamic::IncreasingLinearRankSelectionPressure,
+            Dynamic::RotatingMutationMethods,
         ])
         .build();
 

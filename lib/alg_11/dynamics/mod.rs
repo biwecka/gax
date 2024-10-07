@@ -47,6 +47,12 @@ pub enum Dynamic {
     /// 1) Deviation from current best (e.g. 1.10 for +10%)
     /// 2) Gain of the PT2 block (= amplification)
     TargetMeanByVariableMutationRate(f64, f64),
+
+    /// Increasing linear rank selection pressure
+    IncreasingLinearRankSelectionPressure,
+
+    /// RotatingMutationMethods
+    RotatingMutationMethods,
 }
 
 impl
@@ -99,6 +105,8 @@ impl
             Self::TargetMeanByVariableMutationRate(_, gain) => {
                 context.pt2 = PT2::new(1., 1., 0.4, *gain, 1.);
             }
+            Self::IncreasingLinearRankSelectionPressure => {}
+            Self::RotatingMutationMethods => {}
         }
     }
 
@@ -170,6 +178,24 @@ impl
             Self::TargetMeanByVariableMutationRate(target_mean, _) => {
                 target_mean_by_variable_mutation_rate(
                     *target_mean,
+                    rtd,
+                    parameters,
+                    context,
+                    rerun_logger,
+                );
+            }
+
+            Self::IncreasingLinearRankSelectionPressure => {
+                increasing_linear_rank_selection_pressure(
+                    rtd,
+                    parameters,
+                    context,
+                    rerun_logger,
+                );
+            }
+
+            Self::RotatingMutationMethods => {
+                rotating_mutation_methods(
                     rtd,
                     parameters,
                     context,
@@ -377,7 +403,7 @@ fn gauss_random_event(
 }
 
 fn target_mean_by_variable_mutation_rate(
-    target_mean_deviation: f64,
+    _target_mean_deviation: f64,
 
     rtd: &RuntimeData<
         Cost,
@@ -437,6 +463,121 @@ fn target_mean_by_variable_mutation_rate(
         rerun_logger
             .log_mutation_rate(rtd.generation, parameters.mutation_rate);
     };
+}
+
+fn increasing_linear_rank_selection_pressure(
+    rtd: &RuntimeData<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    parameters: &mut ga::parameters::Parameters<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    _context: &mut Context,
+
+    #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
+) {
+    // This dynamic obviously only works if the "LinearRank" selection method
+    // is used. Therefore, the selection method is checked and the selection
+    // pressure is extracted as mutable reference.
+    if let Select::LinearRank(selection_pressure) = &mut parameters.selection {
+        let no_improvement = rtd.generation - rtd.last_success;
+
+        if no_improvement != 0 && no_improvement % 100 == 0 {
+            if *selection_pressure <= 2.0 - 0.01 {
+                *selection_pressure += 0.01;
+            }
+        }
+
+        if *selection_pressure >= 1.999 && no_improvement > 5_000 {
+            *selection_pressure = 1.0;
+        }
+
+        #[cfg(feature = "ga_log_dynamics")]
+        {
+            rerun_logger.log_mutation_rate(rtd.generation, *selection_pressure);
+        };
+    }
+}
+
+fn rotating_mutation_methods(
+    rtd: &RuntimeData<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    parameters: &mut ga::parameters::Parameters<
+        Cost,
+        Context,
+        Chromosome,
+        Crossover,
+        Mutation,
+        usize,
+        Select,
+        Reject,
+        Replace,
+        Terminate<Cost>,
+    >,
+
+    _context: &mut Context,
+
+    #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
+) {
+    if rtd.generation % 1_000 != 0 {
+        return;
+    }
+
+    // match parameters.mutation {
+    //     Mutation::Trade => {
+    //         parameters.mutation = Mutation::MoveSubEvent;
+    //     },
+    //     Mutation::MoveSubEvent => {
+    //         parameters.mutation = Mutation::MoveSingleTimeAlloc;
+    //     },
+    //     Mutation::MoveSingleTimeAlloc => {
+    //         parameters.mutation = Mutation::Trade;
+    //     },
+    //     _ => {}
+    // }
+
+    match parameters.mutation {
+        Mutation::GaussMoveSingleTimeAlloc => {
+            parameters.mutation = Mutation::GaussTrade;
+        }
+
+        Mutation::GaussTrade => {
+            parameters.mutation = Mutation::GaussMoveSingleTimeAlloc;
+        }
+
+        _ => {}
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
