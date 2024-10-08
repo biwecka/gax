@@ -41,9 +41,8 @@ pub fn run(instance: Instance) -> Vec<Event> {
     let parameters = ga::parameters::Builder::for_encoding(&encoding)
         .set_population_size(1_000)
         .set_crossover_rate(None)
-        .set_mutation_rate(0.01)
-        .set_selection(Select::LinearRank(1.0))
-        // .set_selection(Select::RouletteWheel)
+        .set_mutation_rate(0.015)
+        .set_selection(Select::LinearRank(1.4))
         .set_crossover(Crossover::Trade(1))
         .set_mutation(Mutation::Trade)
         .set_rejection(Reject::None)
@@ -57,8 +56,9 @@ pub fn run(instance: Instance) -> Vec<Event> {
             // Dynamic::GaussRandomTime(0.01),  // for GaussMoveSingleTimeAlloc
             // Dynamic::GaussRandomEvent(0.01), // for GaussTrade
             // Dynamic::TargetMeanByVariableMutationRate(1.2, 0.005_000),
-            Dynamic::IncreasingLinearRankSelectionPressure,
-            Dynamic::RotatingMutationMethods,
+            // Dynamic::IncreasingLinearRankSelectionPressure,
+            // Dynamic::RotatingMutationMethods,
+            Dynamic::StateMachine,
         ])
         .build();
 
