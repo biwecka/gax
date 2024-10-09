@@ -10,6 +10,10 @@
 //! - Cost = 0 (in the first generation; multiple times in a row; something must
 //!   have been messed up with the random number generator or something, but
 //!   the results were valid based on HSEval)
+//!
+//! - Cost = 0 (after learning that it's allowed to split up events of duration
+//!            > 1 into multiple sub-events)
+//!
 
 // Modules /////////////////////////////////////////////////////////////////////
 mod dynamics;
