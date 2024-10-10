@@ -1,0 +1,22 @@
+[package]
+name = "bits_vs_bitvec"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "bits_vs_bitvec"
+path = "main.rs"
+
+[[bench]]
+name = "bench"
+harness = false
+
+[dependencies]
+bits = { workspace = true }
+bitvec = { workspace = true }
+
+[dev-dependencies]
+criterion = { workspace = true }
+
+[lints]
+workspace = true

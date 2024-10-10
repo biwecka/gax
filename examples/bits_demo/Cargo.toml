@@ -1,0 +1,15 @@
+[package]
+name = "bits_demo"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "bits_demo"
+path = "main.rs"
+
+
+[dependencies]
+bits = { workspace = true }
+
+[lints]
+workspace = true

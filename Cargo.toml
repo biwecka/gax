@@ -23,7 +23,7 @@ alg_9               = { path = "lib/alg_9" }
 alg_10              = { path = "lib/alg_10" }
 alg_11              = { path = "lib/alg_11" }
 
-bits                = { path = "../bits-rs/bits" }
+bits                = { path = "lib/bits" }
 control_circuits    = { path = "lib/control_circuits" }
 ga                  = { path = "lib/ga" }
 xhstt               = { path = "lib/xhstt" }
@@ -78,14 +78,17 @@ bitvec = "1.0.1"
 bitvec_simd = "0.20.5"
 fixedbitset = "0.5.7"
 
+# Benchmarks
+criterion = { version = "0.5", features = ["html_reports"] }
+
 ################################################################################
 # Clippy Configuration
 [workspace.lints.rust]
-# unsafe_code = "forbid"
+unsafe_code = "forbid"
 
 [workspace.lints.clippy]
-# unwrap_used = "forbid"
-# expect_used = "forbid"
+unwrap_used = "forbid"
+expect_used = "forbid"
 type_complexity = "allow"
 too_long_first_doc_paragraph = "allow"
 
