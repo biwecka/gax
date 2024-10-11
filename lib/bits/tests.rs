@@ -1,6 +1,28 @@
 use crate::{Bits32, Bits8};
 
 #[test]
+fn from_arr_0() {
+    let a = Bits8::from_arr(6, &[1, 0, 0, 1, 1, 0]);
+
+    let mut b = Bits8::new(6, 0);
+    b.set(1);
+    b.set(2);
+    b.set(5);
+
+    assert_eq!(a, b);
+}
+
+#[test]
+fn from_arr_1() {
+    let a = Bits8::from_arr(4, &[1, 0]);
+
+    let mut b = Bits8::new(4, 0);
+    b.set(1);
+
+    assert_eq!(a, b);
+}
+
+#[test]
 fn length_mask() {
     let b = Bits8::new(3, 0b0000_1101);
 

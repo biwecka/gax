@@ -5,6 +5,10 @@
 #![feature(unbounded_shifts)]
 
 // Modules /////////////////////////////////////////////////////////////////////
+pub mod cols;
+pub mod matrix;
+pub mod rows;
+
 mod generator;
 
 #[cfg(test)]

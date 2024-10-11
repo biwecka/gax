@@ -67,6 +67,30 @@ macro_rules! generate_bits {
                 Self { len, len_mask, data: value & len_mask }
             }
 
+            /// Construct bits struct from a vector of bits
+            pub fn from_arr(len: $ty, bits: &[$ty]) -> Self {
+                assert!(bits.len() as $ty <= len);
+                assert!(!bits.iter().any(|x| *x >= 2));
+
+                // Create "empty" bits struct
+                let mut result = Self::new(len, 0);
+
+                // Populate data
+                for (i, val) in bits.iter().rev().enumerate() {
+                    if *val == 1 {
+                        result.set(i as $ty);
+                    }
+                }
+
+                // Return
+                result
+            }
+
+            /// Get length.
+            pub fn len(&self) -> $ty {
+                self.len
+            }
+
             /// Set the bit at the given index to `1`.
             #[inline]
             pub fn set(&mut self, index: $ty) {
@@ -391,6 +415,18 @@ macro_rules! generate_bits {
             }
         }
 
+        // Bits |= Bits
+        impl std::ops::BitOrAssign for $name {
+            #[inline]
+            fn bitor_assign(&mut self, rhs: Self) {
+                // Ensure both objects have the same length
+                assert_eq!(self.len, rhs.len);
+
+                // Perform operation
+                self.data |= rhs.data;
+            }
+        }
+
         // Bits | u8
         impl std::ops::BitOr<$ty> for $name {
             type Output = Self;
@@ -405,6 +441,18 @@ macro_rules! generate_bits {
 
                 // Return
                 self
+            }
+        }
+
+        // Bits |= u8
+        impl std::ops::BitOrAssign<$ty> for $name {
+            #[inline]
+            fn bitor_assign(&mut self, rhs: $ty) {
+                // Perform operation
+                self.data |= rhs;
+
+                // Apply length mask
+                self.data &= self.len_mask;
             }
         }
 
@@ -425,6 +473,18 @@ macro_rules! generate_bits {
             }
         }
 
+        // Bits &= Bits
+        impl std::ops::BitAndAssign for $name {
+            #[inline]
+            fn bitand_assign(&mut self, rhs: Self) {
+                // Ensure both objects have the same length
+                assert_eq!(self.len, rhs.len);
+
+                // Perform operation
+                self.data &= rhs.data;
+            }
+        }
+
         // Bits & u8
         impl std::ops::BitAnd<$ty> for $name {
             type Output = Self;
@@ -441,6 +501,77 @@ macro_rules! generate_bits {
                 self
             }
         }
+
+        // Bits &= u8
+        impl std::ops::BitAndAssign<$ty> for $name {
+            #[inline]
+            fn bitand_assign(&mut self, rhs: $ty) {
+                // Perform operation
+                self.data &= rhs;
+
+                // Apply length mask
+                self.data &= self.len_mask;
+            }
+        }
+
+        // Bits ^ Bits (XOR)
+        impl std::ops::BitXor for $name {
+            type Output = Self;
+
+            #[inline]
+            fn bitxor(mut self, rhs: Self) -> Self::Output {
+                // Ensure both objects have the same length
+                assert_eq!(self.len, rhs.len);
+
+                // Perform operation
+                self.data ^= rhs.data;
+
+                // Return
+                self
+            }
+        }
+
+        // Bits ^= Bits (XOR assign)
+        impl std::ops::BitXorAssign for $name {
+            #[inline]
+            fn bitxor_assign(&mut self, rhs: Self) {
+                // Ensure both objects have the same length
+                assert_eq!(self.len, rhs.len);
+
+                // Perform operation
+                self.data ^= rhs.data;
+            }
+        }
+
+        // Bits ^ u8 (XOR)
+        impl std::ops::BitXor<$ty> for $name {
+            type Output = Self;
+
+            #[inline]
+            fn bitxor(mut self, rhs: $ty) -> Self::Output {
+                // Perform operation
+                self.data ^= rhs;
+
+                // Apply length mask
+                self.data &= self.len_mask;
+
+                // Return
+                self
+            }
+        }
+
+        // Bits ^= u8 (XOR assign)
+        impl std::ops::BitXorAssign<$ty> for $name {
+            #[inline]
+            fn bitxor_assign(&mut self, rhs: $ty) {
+                // Perform operation
+                self.data ^= rhs;
+
+                // Apply length mask
+                self.data &= self.len_mask;
+            }
+        }
+
 
         // Bits << u8
         impl std::ops::Shl<$ty> for $name {

@@ -1,8 +1,42 @@
 #![feature(unbounded_shifts)]
 
-use bits::Bits8;
+use bits::{matrix::BitsMatrix8x16, rows::BitRows8, Bits16, Bits8};
 
 fn main() {
+    let mut m = BitsMatrix8x16::new(4, 8);
+    m.set_row(1, Bits16::new(8, 9));
+    m.set_col(6, Bits8::new(4, 15));
+
+    println!("{m}");
+
+    // // Print rows
+    // for r in m.rows() {
+    //     println!("{r}");
+    // }
+
+    // // Print cols
+    // let mut rows: Vec<String> = vec![];
+    // for r in (0..m.num_rows()).rev() {
+    //     let mut row: Vec<String> = vec![];
+    //     for (ci, c) in m.cols().iter().enumerate() {
+    //         if ci > 0 && ci % 4 == 0 {
+    //             row.push(" ".into());
+    //         }
+
+    //         if c.get(r) {
+    //             row.push("1".into());
+    //         } else {
+    //             row.push("0".into());
+    //         }
+    //     }
+
+    //     rows.push(row.join(""));
+    // }
+    // println!("{}", rows.join("\n"));
+}
+
+
+fn main2() {
     let b0 = Bits8::new(8, 0b1011_1011);
     println!("{b0}");
     // println!("ones     = {:?}", b0.ones().collect::<Vec<_>>());
