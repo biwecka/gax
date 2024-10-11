@@ -22,6 +22,7 @@ alg_8               = { path = "lib/alg_8" }
 alg_9               = { path = "lib/alg_9" }
 alg_10              = { path = "lib/alg_10" }
 alg_11              = { path = "lib/alg_11" }
+alg_12              = { path = "lib/alg_12" }
 
 bits                = { path = "lib/bits" }
 control_circuits    = { path = "lib/control_circuits" }

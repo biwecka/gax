@@ -172,11 +172,7 @@ impl RerunLogger {
     }
 
     #[cfg(feature = "log_dynamics")]
-    pub fn log_text(
-        &self,
-        generation: usize,
-        text: &str
-    ) {
+    pub fn log_text(&self, generation: usize, text: &str) {
         self.rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
         let _ = self.rec.log("log", &rerun::TextLog::new(text));

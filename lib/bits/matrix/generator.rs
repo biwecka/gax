@@ -9,7 +9,7 @@ macro_rules! generate_matrix {
             row_base: $row_base:ty,
         }
     ) => {
-        #[derive(Debug)]
+        #[derive(Clone, Debug)]
         $vis struct $name {
             row_data: Vec<$row_ty>,
             col_data: Vec<$col_ty>,

@@ -1,6 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use crate::{Bits16, Bits8};
 use crate::matrix::BitsMatrix8x16;
+use crate::{Bits16, Bits8};
 
 // Basic Tests /////////////////////////////////////////////////////////////////
 #[test]
@@ -87,55 +87,25 @@ fn set_values_and_retrieve_rows_and_columns() {
     );
 
     // Check columns
-    assert_eq!(
-        m.col(0),
-        &Bits8::from_arr(6, &[0, 0, 0, 0, 0, 0]),
-    );
+    assert_eq!(m.col(0), &Bits8::from_arr(6, &[0, 0, 0, 0, 0, 0]),);
 
-    assert_eq!(
-        m.col(1),
-        &Bits8::from_arr(6, &[0, 0, 0, 0, 1, 0]),
-    );
+    assert_eq!(m.col(1), &Bits8::from_arr(6, &[0, 0, 0, 0, 1, 0]),);
 
-    assert_eq!(
-        m.col(2),
-        &Bits8::from_arr(6, &[1, 0, 0, 0, 1, 0]),
-    );
+    assert_eq!(m.col(2), &Bits8::from_arr(6, &[1, 0, 0, 0, 1, 0]),);
 
-    assert_eq!(
-        m.col(3),
-        &Bits8::from_arr(6, &[0, 1, 0, 0, 0, 0]),
-    );
+    assert_eq!(m.col(3), &Bits8::from_arr(6, &[0, 1, 0, 0, 0, 0]),);
 
-    assert_eq!(
-        m.col(4),
-        &Bits8::from_arr(6, &[0, 0, 0, 0, 0, 1]),
-    );
+    assert_eq!(m.col(4), &Bits8::from_arr(6, &[0, 0, 0, 0, 0, 1]),);
 
-    assert_eq!(
-        m.col(5),
-        &Bits8::from_arr(6, &[0, 0, 1, 0, 0, 0]),
-    );
+    assert_eq!(m.col(5), &Bits8::from_arr(6, &[0, 0, 1, 0, 0, 0]),);
 
-    assert_eq!(
-        m.col(6),
-        &Bits8::from_arr(6, &[1, 0, 0, 0, 0, 1]),
-    );
+    assert_eq!(m.col(6), &Bits8::from_arr(6, &[1, 0, 0, 0, 0, 1]),);
 
-    assert_eq!(
-        m.col(7),
-        &Bits8::from_arr(6, &[0, 0, 0, 0, 1, 0]),
-    );
+    assert_eq!(m.col(7), &Bits8::from_arr(6, &[0, 0, 0, 0, 1, 0]),);
 
-    assert_eq!(
-        m.col(8),
-        &Bits8::from_arr(6, &[0, 0, 0, 1, 0, 0]),
-    );
+    assert_eq!(m.col(8), &Bits8::from_arr(6, &[0, 0, 0, 1, 0, 0]),);
 
-    assert_eq!(
-        m.col(9),
-        &Bits8::from_arr(6, &[1, 0, 0, 0, 0, 0]),
-    );
+    assert_eq!(m.col(9), &Bits8::from_arr(6, &[1, 0, 0, 0, 0, 0]),);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

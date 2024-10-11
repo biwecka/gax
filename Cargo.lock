@@ -170,6 +170,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "alg_12"
+version = "0.0.0"
+dependencies = [
+ "bits",
+ "control_circuits",
+ "ga",
+ "hashbrown 0.14.5",
+ "itertools 0.13.0",
+ "rand 0.8.5",
+ "rand_distr",
+ "simple_moving_average",
+ "xhstt",
+]
+
+[[package]]
 name = "alg_2"
 version = "0.0.0"
 dependencies = [
@@ -6975,7 +6990,7 @@ dependencies = [
 name = "solver"
 version = "0.1.0"
 dependencies = [
- "alg_11",
+ "alg_12",
  "rand 0.8.5",
  "xhstt",
 ]

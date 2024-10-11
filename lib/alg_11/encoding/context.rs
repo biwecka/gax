@@ -44,7 +44,7 @@ pub struct Context {
 pub struct StateMachine {
     pub last_state_change: usize,
     pub focus_without_success: usize,
-    pub state: State
+    pub state: State,
 }
 
 #[derive(Clone, Default, Debug)]

@@ -621,10 +621,10 @@ fn state_machine(
 ) {
     // Update counter in state
     // if rtd.success {
-        // context.state_machine.last_state_change = 0;
+    // context.state_machine.last_state_change = 0;
 
     // } else {
-        context.state_machine.last_state_change += 1;
+    context.state_machine.last_state_change += 1;
     // }
 
     // State changes
@@ -649,11 +649,11 @@ fn state_machine(
                 {
                     rerun_logger.log_text(
                         rtd.generation,
-                        &format!("{:?}", context.state_machine)
+                        &format!("{:?}", context.state_machine),
                     );
                 };
             }
-        },
+        }
 
         State::Focus => {
             // After 5_000 generations, switch to focus state
@@ -671,11 +671,11 @@ fn state_machine(
                 {
                     rerun_logger.log_text(
                         rtd.generation,
-                        &format!("{:?}", context.state_machine)
+                        &format!("{:?}", context.state_machine),
                     );
                 };
             }
-        },
+        }
 
         State::Finish => {
             // After 3_000 generations, switch to focus state
@@ -696,7 +696,6 @@ fn state_machine(
                 if context.state_machine.focus_without_success >= 4 {
                     parameters.replacement = Replace::Full;
                     context.state_machine.focus_without_success = 0;
-
                 } else {
                     context.state_machine.focus_without_success += 1;
                 }
@@ -705,11 +704,11 @@ fn state_machine(
                 {
                     rerun_logger.log_text(
                         rtd.generation,
-                        &format!("{:?}", context.state_machine)
+                        &format!("{:?}", context.state_machine),
                     );
                 };
             }
-        },
+        }
     }
 }
 

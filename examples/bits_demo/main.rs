@@ -35,7 +35,6 @@ fn main() {
     // println!("{}", rows.join("\n"));
 }
 
-
 fn main2() {
     let b0 = Bits8::new(8, 0b1011_1011);
     println!("{b0}");
