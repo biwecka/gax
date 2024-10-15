@@ -10,6 +10,12 @@ pub enum Crossover {
 }
 
 impl ga::operators::Crossover<Context, Chromosome> for Crossover {
+    fn identifier(&self) -> String {
+        match self {
+            Self::VariableSinglePoint => "var-s-pt".into(),
+        }
+    }
+
     fn exec(
         &self,
         parent_0: &Chromosome,

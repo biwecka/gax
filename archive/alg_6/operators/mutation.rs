@@ -16,6 +16,13 @@ pub enum Mutation {
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
+    fn identifier(&self) -> String {
+        match self {
+            Self::UniformRandom => "uni-rand".into(),
+            Self::NormalDistributedRandom => "gauss-rand".into(),
+        }
+    }
+
     fn exec(
         &self,
         chromosome: &mut Chromosome,

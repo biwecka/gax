@@ -28,6 +28,8 @@ pub trait Crossover<Ctx: Context, Ge: Genotype<Ctx>>: Send + Sync {
         rng: &mut ThreadRng,
         context: &Ctx,
     ) -> (Ge, Ge);
+
+    fn identifier(&self) -> String;
 }
 
 // Mutation ////////////////////////////////////////////////////////////////////
@@ -51,6 +53,8 @@ pub trait Mutation<Ctx: Context, Ge: Genotype<Ctx>>: Send + Sync {
         rng: &mut ThreadRng,
         context: &Ctx,
     );
+
+    fn identifier(&self) -> String;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

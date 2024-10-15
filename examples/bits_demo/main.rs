@@ -1,6 +1,6 @@
 #![feature(unbounded_shifts)]
 
-use bits::{matrix::BitsMatrix8x16, rows::BitRows8, Bits16, Bits8};
+use bits::{matrix::BitsMatrix8x16, Bits16, Bits8};
 
 fn main() {
     let mut m = BitsMatrix8x16::new(4, 8);
@@ -33,25 +33,6 @@ fn main() {
     //     rows.push(row.join(""));
     // }
     // println!("{}", rows.join("\n"));
-}
-
-fn main2() {
-    let b0 = Bits8::new(8, 0b1011_1011);
-    println!("{b0}");
-    // println!("ones     = {:?}", b0.ones().collect::<Vec<_>>());
-    // println!("zeros    = {:?}", b0.zeros().collect::<Vec<_>>());
-    // println!("group(3) = {:?}", b0.groups(3).collect::<Vec<_>>());
-    // println!("group(2) = {:?}", b0.groups(2).collect::<Vec<_>>());
-    // println!("group(1) = {:?}", b0.groups(1).collect::<Vec<_>>());
-
-    let blocks = b0.blocks();
-    for (d, bits) in blocks.iter().enumerate() {
-        if bits.is_zero() {
-            continue;
-        }
-
-        println!("d={d} | {bits}");
-    }
 }
 
 #[derive(Copy, Clone)]

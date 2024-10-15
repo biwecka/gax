@@ -6,6 +6,7 @@ target/
 rustc-*.txt
 
 # Miscellaneous ################################################################
+.env
 
 # Log files
 *.log

@@ -2,7 +2,6 @@
 // use crate::encoding::{Context, Genotype, ObjectiveValue};
 
 // Trait ///////////////////////////////////////////////////////////////////////
-
 /// This trait is usually implemented by enums, which represent a set of
 /// rejection methods. The rejection methods are executed after crossover and
 /// mutation are finished, to ensure certain features in the offspring
@@ -17,6 +16,8 @@ pub trait Replacement<T>: Send + Sync {
     fn selection_size(&self, population_size: usize) -> (usize, usize);
 
     fn exec(&self, population: &mut Vec<T>, offspring: Vec<T>);
+
+    fn identifier(&self) -> String;
 }
 
 // Implementation //////////////////////////////////////////////////////////////
@@ -69,6 +70,14 @@ impl<T> Replacement<T> for Replace {
 
         // Mutate the population
         population.splice(elite_size.., offspring);
+    }
+
+    fn identifier(&self) -> String {
+        match self {
+            Self::Full => "full".into(),
+            Self::EliteAbsolute(n) => format!("elite-abs-{n}"),
+            Self::EliteRelative(x) => format!("elite-rel-{:.4}", x),
+        }
     }
 }
 

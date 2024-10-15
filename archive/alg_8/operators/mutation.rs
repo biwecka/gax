@@ -14,6 +14,13 @@ pub enum Mutation {
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
+    fn identifier(&self) -> String {
+        match self {
+            Self::UniformSwap => "uni-sw".into(),
+            Self::GaussSwap => "gauss-sw".into(),
+        }
+    }
+
     fn exec(
         &self,
         chromosome: &mut Chromosome,

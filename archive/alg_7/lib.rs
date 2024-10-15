@@ -63,7 +63,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_mutation_rate(0.01)
         .set_selection(Select::Tournament(10))
         .set_crossover(Crossover::Ordered)
-        .set_mutation(Mutation::NormalSwap)
+        .set_mutation(Mutation::GaussSwap)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteRelative(0.01))
         .set_termination(Terminate::ObjectiveValue(0.into()))
@@ -87,10 +87,10 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_custom_logger::<()>(None)
         .build();
 
-    let results = alg.run();
+    let report = alg.run();
 
     // Get the best result and convert it to a list of solution events.
-    let best: &Chromosome = &results.first().unwrap().0;
+    let best: &Chromosome = &report.population.first().unwrap().0;
     let timetable: Phenotype = ph.derive(best, &ctx);
 
     timetable.to_solution_events(&db, &ctx)

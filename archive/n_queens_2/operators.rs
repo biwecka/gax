@@ -19,6 +19,13 @@ pub enum Crossover {
 }
 
 impl ga::operators::Crossover<Context, Chromosome> for Crossover {
+    fn identifier(&self) -> String {
+        match self {
+            Self::VariableSinglePoint => "var-s-pt".into(),
+            Self::VariableNPoint(n) => format!("var-{n}-pt"),
+        }
+    }
+
     fn exec(
         &self,
         parent_0: &Chromosome,
@@ -66,6 +73,12 @@ pub enum Mutation {
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
+    fn identifier(&self) -> String {
+        match self {
+            Self::RandomValue => "rand-val".into(),
+        }
+    }
+
     fn exec(
         &self,
         chromosome: &mut Chromosome,

@@ -64,6 +64,8 @@ pub trait Dynamic<
         // Logger
         #[cfg(feature = "log_dynamics")] rerun_logger: &RerunLogger,
     );
+
+    fn identifier(&self) -> String;
 }
 
 impl<
@@ -102,6 +104,10 @@ impl<
         // Logger
         #[cfg(feature = "log_dynamics")] _rerun_logger: &RerunLogger,
     ) {
+    }
+
+    fn identifier(&self) -> String {
+        "".into()
     }
 }
 

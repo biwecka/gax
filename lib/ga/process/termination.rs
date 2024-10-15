@@ -9,6 +9,9 @@ use crate::encoding::ObjectiveValue;
 ///
 pub trait Termination<Ov: ObjectiveValue>: Send + Sync {
     fn stop(&self, generation_num: usize, current_best: &Ov) -> bool;
+
+    fn identifier(&self) -> String;
+    fn max_generations(&self) -> Option<usize>;
 }
 
 // Implementation //////////////////////////////////////////////////////////////
@@ -37,6 +40,22 @@ impl<Ov: ObjectiveValue> Termination<Ov> for Terminate<Ov> {
             Self::GenOrOv(gen_limit, target) => {
                 generation_num >= *gen_limit || current_best <= target
             }
+        }
+    }
+
+    fn identifier(&self) -> String {
+        match self {
+            Self::Generations(n) => format!("gen-{n}"),
+            Self::ObjectiveValue(ov) => format!("ov-{}", ov.to_usize()),
+            Self::GenOrOv(g, ov) => format!("g-{}-ov-{}", g, ov.to_usize()),
+        }
+    }
+
+    fn max_generations(&self) -> Option<usize> {
+        match self {
+            Self::Generations(g) => Some(*g),
+            Self::ObjectiveValue(_) => None,
+            Self::GenOrOv(g, _) => Some(*g),
         }
     }
 }

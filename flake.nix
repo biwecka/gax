@@ -98,8 +98,11 @@
                 # Runtime dependencies
                 buildInputs = with pkgs;
                 [
-                    freetype
-                    fontconfig
+                    openssl         # needed for `git2`
+                    libz
+
+                    freetype        # for plots
+                    fontconfig      # for plots
                 ];
 
                 ################################################################
@@ -110,6 +113,10 @@
                     inherit nativeBuildInputs buildInputs;
 
                     LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
+                        # Dependencies of `git2`
+                        openssl
+                        libz
+
                         # Dependencies of "plotters"
                         freetype
                         fontconfig

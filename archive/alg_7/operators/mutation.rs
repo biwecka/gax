@@ -10,10 +10,17 @@ pub enum Mutation {
     UniformSwap,
 
     // Non-uniform random values based on normal-distribution.
-    NormalSwap,
+    GaussSwap,
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
+    fn identifier(&self) -> String {
+        match self {
+            Self::UniformSwap => "uni-sw".into(),
+            Self::GaussSwap => "gauss-sw".into(),
+        }
+    }
+
     fn exec(
         &self,
         chromosome: &mut Chromosome,
@@ -31,7 +38,7 @@ impl ga::operators::Mutation<Context, Chromosome> for Mutation {
                 )
             }
 
-            Mutation::NormalSwap => ga::operators::mutation::swap_normal_dist(
+            Mutation::GaussSwap => ga::operators::mutation::swap_normal_dist(
                 chromosome.as_mut_slice(),
                 rate,
                 &ctx.rand_event,

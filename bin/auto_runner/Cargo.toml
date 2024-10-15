@@ -1,0 +1,36 @@
+[package]
+name = "auto_runner"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "auto_runner"
+path = "main.rs"
+
+[dependencies]
+#> libs <#
+xhstt = { workspace = true }
+# alg_1 = { workspace = true }
+# alg_2 = { workspace = true }
+# alg_3 = { workspace = true }
+# alg_4 = { workspace = true }
+# alg_5 = { workspace = true }
+# alg_6 = { workspace = true }
+# alg_7 = { workspace = true }
+# alg_8 = { workspace = true }
+# alg_9 = { workspace = true }
+# alg_10 = { workspace = true }
+# alg_11 = { workspace = true }
+alg_12 = { workspace = true }
+
+#> remote <#
+git2 = { workspace = true }
+dotenvy = { workspace = true }
+thiserror = { workspace = true }
+csv = { workspace = true }
+serde = { workspace = true }
+pushover = { workspace = true }
+ctrlc = { workspace = true }
+
+[lints]
+workspace = true

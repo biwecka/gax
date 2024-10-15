@@ -1,7 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use bits::matrix::{BitsMatrix32x128, BitsMatrix32x64};
+use bits::matrix::BitsMatrix32x128;
 use itertools::Itertools;
-use rand::seq::SliceRandom;
 use xhstt::{
     db::constraints::Constraint,
     parser::solution_groups::solution::events::{Event, TimeRef},

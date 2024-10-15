@@ -99,6 +99,50 @@ impl Archives {
     pub fn all_xml() -> Vec<String> {
         enum_iterator::all::<Archives>().map(|x| x.xml()).collect()
     }
+
+    pub fn name(&self) -> &'static str {
+        match self {
+            Self::X2014(val) => match val {
+                X2014::AuBg98 => "AU-BG-98",
+                X2014::AuSa96 => "AU-SA-96",
+                X2014::AuTe99 => "AU-TE-99",
+                X2014::BrSa00 => "BR-SA-00",
+                X2014::BrSm00 => "BR-SM-00",
+                X2014::BrSn00 => "BR-SN-00",
+                X2014::DkFg12 => "DK-FG-12",
+                X2014::DkHg12 => "DK-HG-12",
+                X2014::DkVg09 => "DK-VG-09",
+                X2014::EsSS08 => "ES-SS-08",
+                X2014::FiMp06 => "FI-MP-06",
+                X2014::FiPb98 => "FI-PB-98",
+                X2014::FiWp06 => "FI-WP-06",
+                X2014::GrH197 => "GR-H1-97",
+                X2014::GrP310 => "GR-P3-10",
+                X2014::GrPa08 => "GR-PA-08",
+                X2014::ItI496 => "IT-I4-96",
+                X2014::KsPr11 => "KS-PR-11",
+                X2014::NlKp03 => "NL-KP-03",
+                X2014::NlKp05 => "NL-KP-05",
+                X2014::NlKp09 => "NL-KP-09",
+                X2014::UkSp06 => "UK-SP-06",
+                X2014::UsWs09 => "US-WS-09",
+                X2014::ZaLw09 => "ZA-LW-09",
+                X2014::ZaWd09 => "ZA-WD-09",
+            },
+
+            Self::X2014a(val) => match val {
+                X2014a::Abramson15 => "Abramson15",
+                X2014a::All11 => "All11",
+                X2014a::All15 => "All15",
+                X2014a::Hdtt4 => "Hdtt4",
+                X2014a::Hdtt5 => "Hdtt5",
+                X2014a::Hdtt6 => "Hdtt6",
+                X2014a::Hdtt7 => "Hdtt7",
+                X2014a::Hdtt8 => "Hdtt8",
+                X2014a::Sudoku4x4 => "Sudoku4x4",
+            },
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

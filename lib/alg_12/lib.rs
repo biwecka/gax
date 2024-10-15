@@ -4,8 +4,9 @@
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
+pub mod auto_run;
 mod encoding;
-mod operators;
+pub mod operators;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use encoding::{Chromosome, Context, Phenotype};
@@ -63,10 +64,85 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_custom_logger::<()>(None)
         .build();
 
-    let results = alg.run();
+    let report = alg.run();
 
     // Get the best result and convert it to a list of solution events.
-    let best: &Chromosome = &results.first().unwrap().0;
+    let best: &Chromosome = &report.population.first().unwrap().0;
+    let timetable: Phenotype = ph.derive(best, &ctx);
+
+    timetable.to_solution_events(&db, &ctx)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+pub struct AutoRunParameters {
+    pub population_size: usize,
+    pub mutation_rate: f32,
+    pub selection: ga::process::selection::Select,
+    pub crossover: crate::operators::Crossover,
+    pub mutation: crate::operators::Mutation,
+    pub replacement: ga::process::replacement::Replace,
+}
+
+pub fn auto_run(
+    instance: Instance,
+    params: AutoRunParameters,
+    dynamics: Option<Vec<()>>,
+) -> Vec<Event> {
+    // Create an XHSTT database of the problem instance
+    let db = Database::init(&instance).unwrap();
+
+    // Initialize context and phenotype
+    let ctx = Context::init(&db);
+    let ph = Phenotype::blueprint(&db, &ctx);
+
+    // Create encoding and parameters
+    let encoding = ga::encoding::Builder::new()
+        .set_context(ctx.clone())
+        .set_phenotype(ph.clone())
+        .build();
+
+    let parameters = ga::parameters::Builder::for_encoding(&encoding)
+        .set_population_size(params.population_size)
+        .set_crossover_rate(None)
+        .set_mutation_rate(params.mutation_rate)
+        .set_selection(params.selection)
+        .set_crossover(params.crossover)
+        .set_mutation(params.mutation)
+        .set_rejection(Reject::None)
+        .set_replacement(params.replacement)
+        .set_termination(Terminate::GenOrOv(10_000, 0.into()))
+        .build();
+
+    // Create algorithm and let it run!
+    let alg = match dynamics {
+        Some(d) => {
+            #[allow(unused)]
+            let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+                .set(d)
+                .build();
+
+            #[allow(unreachable_code)]
+            ga::Builder::new()
+                .set_encoding(encoding)
+                .set_parameters(parameters)
+                .set_dynamics(todo!("dynamics"))
+                .set_custom_logger::<()>(None)
+                .build()
+        }
+
+        None => ga::Builder::new()
+            .set_encoding(encoding)
+            .set_parameters(parameters)
+            .set_dynamics::<()>(None)
+            .set_custom_logger::<()>(None)
+            .build(),
+    };
+
+    let report = alg.run();
+
+    // Get the best result and convert it to a list of solution events.
+    let best: &Chromosome = &report.population.first().unwrap().0;
     let timetable: Phenotype = ph.derive(best, &ctx);
 
     timetable.to_solution_events(&db, &ctx)

@@ -26,6 +26,8 @@ pub trait Selection<
         amount: usize,
         individuals: &'a [(Ge, Ov)],
     ) -> (Vec<&'a (Ge, Ov)>, usize);
+
+    fn identifier(&self) -> String;
 }
 
 // Implementation //////////////////////////////////////////////////////////////
@@ -53,6 +55,15 @@ impl<Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>>
             Self::Tournament(n) => tournament_usize(*n, amount, individuals),
             Self::Random => random_usize(amount, individuals),
             Self::LinearRank(sp) => linear_rank_usize(*sp, amount, individuals),
+        }
+    }
+
+    fn identifier(&self) -> String {
+        match self {
+            Self::RouletteWheel => "roulette".into(),
+            Self::Tournament(n) => format!("tourn-{n}"),
+            Self::Random => "rand".into(),
+            Self::LinearRank(x) => format!("linrank-{:.2}", x),
         }
     }
 }

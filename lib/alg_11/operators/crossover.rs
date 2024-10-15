@@ -19,6 +19,13 @@ pub enum Crossover {
 }
 
 impl ga::operators::Crossover<Context, Chromosome> for Crossover {
+    fn identifier(&self) -> String {
+        match self {
+            Self::Uniform => "uni".into(),
+            Self::Trade(n) => format!("trd-{n}"),
+        }
+    }
+
     fn exec(
         &self,
         parent_0: &Chromosome,

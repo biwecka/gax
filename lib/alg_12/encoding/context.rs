@@ -1,8 +1,5 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use bits::{
-    matrix::{BitsMatrix32x128, BitsMatrix64x128},
-    Bits128,
-};
+use bits::{matrix::BitsMatrix32x128, Bits128};
 use rand_distr::{Normal, Uniform};
 use xhstt::db::constraints::Constraint;
 

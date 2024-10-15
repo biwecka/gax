@@ -1,3 +1,5 @@
+use std::fmt::format;
+
 // Imports /////////////////////////////////////////////////////////////////////
 use control_circuits::PT2;
 use ga::{
@@ -72,6 +74,22 @@ impl
         Terminate<Cost>,
     > for Dynamic
 {
+    fn identifier(&self) -> String {
+        match self {
+            Self::MutationRateCos(a, b, c) => format!("mr-cos-{a}-{b}-{c}"),
+            Self::GaussRandomTime(a) => format!("gauss-time-{a}"),
+            Self::GaussRandomEvent(a) => format!("gauss-evnt-{a}"),
+            Self::TargetMeanByVariableMutationRate(a, b) => {
+                format!("target-mean-var-mr-{a}-{b}")
+            }
+            Self::IncreasingLinearRankSelectionPressure => {
+                format!("linrk-inc-sel-pressure")
+            }
+            Self::RotatingMutationMethods => format!("rot-mu-methods"),
+            Self::StateMachine => format!("state-machine"),
+        }
+    }
+
     fn setup(
         &self,
         // Output
@@ -556,7 +574,9 @@ fn rotating_mutation_methods(
 
     _context: &mut Context,
 
-    #[cfg(feature = "ga_log_dynamics")] rerun_logger: &RerunLogger,
+    #[allow(unused)]
+    #[cfg(feature = "ga_log_dynamics")]
+    rerun_logger: &RerunLogger,
 ) {
     if rtd.generation % 1_000 != 0 {
         return;

@@ -14,13 +14,6 @@ default-members = [ "bin/solver" ]
 ################################################################################
 [workspace.dependencies]
 #> lib
-alg_2               = { path = "lib/alg_2" }
-alg_3               = { path = "lib/alg_3" }
-alg_6               = { path = "lib/alg_6" }
-alg_7               = { path = "lib/alg_7" }
-alg_8               = { path = "lib/alg_8" }
-alg_9               = { path = "lib/alg_9" }
-alg_10              = { path = "lib/alg_10" }
 alg_11              = { path = "lib/alg_11" }
 alg_12              = { path = "lib/alg_12" }
 
@@ -30,8 +23,15 @@ ga                  = { path = "lib/ga" }
 xhstt               = { path = "lib/xhstt" }
 
 alg_1               = { path = "archive/alg_1" }
+alg_2               = { path = "lib/alg_2" }
+alg_3               = { path = "lib/alg_3" }
 alg_4               = { path = "archive/alg_4" }
 alg_5               = { path = "archive/alg_5" }
+alg_6               = { path = "lib/alg_6" }
+alg_7               = { path = "lib/alg_7" }
+alg_8               = { path = "lib/alg_8" }
+alg_9               = { path = "lib/alg_9" }
+alg_10              = { path = "lib/alg_10" }
 n_queens            = { path = "archive/n_queens" }
 n_queens_2          = { path = "archive/n_queens_2" }
 plot_utils          = { path = "archive/plot_utils"}
@@ -81,6 +81,27 @@ fixedbitset = "0.5.7"
 
 # Benchmarks
 criterion = { version = "0.5", features = ["html_reports"] }
+
+# Git
+git2 = { version = "0.19.0", default-features = false, features = ["https"] }
+
+# Dotenv (to load .env file)
+dotenvy = "0.15.7"
+
+# Errorhandling
+thiserror = "1.0.64"
+
+# CSV
+csv = "1.3.0"
+
+# Serde
+serde = { version = "1.0.210", features = ["derive"] }
+
+# Pushover
+pushover = "0.4.0"
+
+# Ctrl+C for gracefully stopping the auto runner 
+ctrlc = "3.4.5"
 
 ################################################################################
 # Clippy Configuration

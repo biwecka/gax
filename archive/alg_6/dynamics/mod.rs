@@ -60,6 +60,10 @@ impl
         Terminate<Cost>,
     > for Dynamic
 {
+    fn identifier(&self) -> String {
+        todo!()
+    }
+
     fn setup(
         &self,
         // Output

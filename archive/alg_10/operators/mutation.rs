@@ -17,6 +17,14 @@ pub enum Mutation {
 }
 
 impl ga::operators::Mutation<Context, Chromosome> for Mutation {
+    fn identifier(&self) -> String {
+        match self {
+            Self::MoveSubEvent => "mv-sub".into(),
+            Self::MoveSingleTimeAlloc => "mv-time".into(),
+            Self::None => "none".into(),
+        }
+    }
+
     fn exec(
         &self,
         chromosome: &mut Chromosome,
