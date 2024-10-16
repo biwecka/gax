@@ -65,11 +65,9 @@ impl Phenotype {
             for (i, val) in column.iter().enumerate() {
                 if *val == 1 {
                     tmp.push(i);
-                } else {
-                    if !tmp.is_empty() {
-                        sub_events.push(tmp);
-                        tmp = vec![];
-                    }
+                } else if !tmp.is_empty() {
+                    sub_events.push(tmp);
+                    tmp = vec![];
                 }
             }
 

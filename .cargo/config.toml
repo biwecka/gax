@@ -33,7 +33,7 @@ wcw = "watch -q -c -x cw"           # watch check workspace
 
 
 # Misc
-clp = "clippy --all-targets --all-features -- -D warnings"
+clp = "clippy --all --all-targets --all-features -- -D warnings"
 docw= "doc --workspace --no-deps"
 wdoc= ["watch", "-q", "-c", "-x", "doc --workspace --no-deps"]
 

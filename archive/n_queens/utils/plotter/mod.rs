@@ -41,7 +41,7 @@ impl Plotter {
 
     pub fn start(mut self) {
         // Draw-Loop
-        while let Some(_) = draw_piston_window(&mut self.window, |b| {
+        while draw_piston_window(&mut self.window, |b| {
             // Create drawing area
             let root = b.into_drawing_area();
             root.fill(&WHITE)?;
@@ -89,6 +89,8 @@ impl Plotter {
             // Refresh UI
             root.present()?;
             Ok(())
-        }) {}
+        })
+        .is_some()
+        {}
     }
 }

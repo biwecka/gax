@@ -101,7 +101,6 @@ impl Context {
 
         // Pre-calculate the resource relation vectors
         let resource_relations: Vec<Bits128> = (0..num_events)
-            .into_iter()
             .map(|event_idx| {
                 // Get resources related to the current event
                 let resource_indices = resources.col(event_idx as u128).ones();
@@ -111,7 +110,7 @@ impl Context {
 
                 // Iterate resource indices and "OR" them onto the `rr` vector.
                 for i in resource_indices {
-                    rr |= *resources.row(i as u32);
+                    rr |= *resources.row(i);
                 }
 
                 // Unset the bit of the current event

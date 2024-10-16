@@ -6,7 +6,6 @@ use ga::{
     },
     runtime_data::RuntimeData,
 };
-use simple_moving_average::SMA;
 
 use crate::{
     encoding::{Chromosome, Context, Cost},

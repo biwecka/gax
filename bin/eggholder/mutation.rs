@@ -36,6 +36,7 @@ impl Mutation {
                 let mut offset = normal_dist.sample(&mut rng);
                 let mut x0_new = c.x0() + offset as f64;
 
+                #[allow(clippy::manual_range_contains)]
                 while x0_new < -512. || x0_new > 512. {
                     offset = normal_dist.sample(&mut rng);
                     x0_new = c.x0() + offset as f64;
@@ -46,6 +47,7 @@ impl Mutation {
                 let mut offset = normal_dist.sample(&mut rng);
                 let mut x1_new = c.x1() + offset as f64;
 
+                #[allow(clippy::manual_range_contains)]
                 while x1_new < -512. || x1_new > 512. {
                     offset = normal_dist.sample(&mut rng);
                     x1_new = c.x1() + offset as f64;

@@ -85,15 +85,19 @@ impl RerunLogger {
             rtd.generation,
             rtd.best.to_usize(),
             rtd.worst.to_usize(),
-            rtd.mean,
         );
 
-        success_rates(
+        objective_value_dist(
             &self.rec,
             rtd.generation,
-            rtd.success_rate_pt1,
-            // rtd.success_rate_sma.get_average(),
+            rtd.mean,
+            rtd.median,
+            rtd.std_dev,
         );
+
+        population_diversity(&self.rec, rtd.generation, rtd.diversity);
+
+        success_rates(&self.rec, rtd.generation, rtd.success_rate_pt1);
 
         #[cfg(feature = "log_pop_stats")]
         {
@@ -106,24 +110,6 @@ impl RerunLogger {
                 rtd.distinct_selections,
             );
         };
-
-        // #[cfg(feature = "log_ov_dist")]
-        // {
-        //     objective_value_distribution(
-        //         &self.rec,
-        //         rtd.generation,
-        //         rtd.objective_value_distribution.clone(),
-        //     );
-        // };
-
-        // #[cfg(feature = "log_diversity")]
-        // {
-        //     population_diversity(
-        //         &self.rec,
-        //         rtd.generation,
-        //         rtd.population_diversity_distribution.clone(),
-        //     );
-        // };
 
         #[cfg(feature = "log_cache_hits")]
         {
@@ -182,15 +168,25 @@ fn objective_values(
     generation: usize,
     curr_best: usize,
     curr_worst: usize,
-    curr_mean: f64,
 ) {
     rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
-    let _ = rec.log("objective_value/best", &Scalar::new(curr_best as f64));
+    let _ = rec.log("ov/best", &Scalar::new(curr_best as f64));
+    let _ = rec.log("ov/worst", &Scalar::new(curr_worst as f64));
+}
 
-    let _ = rec.log("objective_value/worst", &Scalar::new(curr_worst as f64));
+fn objective_value_dist(
+    rec: &RecordingStream,
+    generation: usize,
+    mean: f64,
+    median: f64,
+    std_dev: f64,
+) {
+    rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
-    let _ = rec.log("objective_value/mean", &Scalar::new(curr_mean));
+    let _ = rec.log("ov_dist/mean", &Scalar::new(mean));
+    let _ = rec.log("ov_dist/median", &Scalar::new(median));
+    let _ = rec.log("ov_dist/std_dev", &Scalar::new(std_dev));
 }
 
 /// Log the success rate (multiple values because of different calculation
@@ -199,8 +195,6 @@ fn success_rates(rec: &RecordingStream, generation: usize, pt1: f32) {
     rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
     let _ = rec.log("success_rate/pt1", &Scalar::new(pt1 as f64));
-
-    // let _ = rec.log("success_rate/sma", &Scalar::new(sma as f64));
 }
 
 /// Log population statistics: total size, elite size, distinct selections,
@@ -217,57 +211,56 @@ fn population_stats(
     rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
     let _ = rec.log("pop/size", &Scalar::new(population_size as f64));
-
     let _ = rec.log("pop/elite", &Scalar::new(elite as f64));
-
     let _ = rec.log("pop/selections", &Scalar::new(selections as f64));
-
     let _ = rec.log(
         "pop/distinct_selections",
         &Scalar::new(distinct_selections as f64),
     );
 }
 
-/// Log objective value distribution
-fn objective_value_distribution(
-    rec: &RecordingStream,
-    generation: usize,
-    mut distribution: Vec<usize>,
-) {
-    // Fill array to next 100
-    let target = ((distribution.len() / 100) + 1) * 100;
-    let diff = target - distribution.len();
-    distribution.extend(vec![0; diff]);
+// /// Log objective value distribution
+// fn objective_value_distribution(
+//     rec: &RecordingStream,
+//     generation: usize,
+//     mut distribution: Vec<usize>,
+// ) {
+//     // Fill array to next 100
+//     let target = ((distribution.len() / 100) + 1) * 100;
+//     let diff = target - distribution.len();
+//     distribution.extend(vec![0; diff]);
 
-    rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
+//     rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
-    let _ = rec.log(
-        "pop/ov",
-        &BarChart::new(
-            distribution.into_iter().map(|x| x as u64).collect::<Vec<_>>(),
-        ),
-    );
-}
+//     let _ = rec.log(
+//         "pop/ov",
+//         &BarChart::new(
+//             distribution.into_iter().map(|x| x as u64).collect::<Vec<_>>(),
+//         ),
+//     );
+// }
 
 /// Log population diversity
 fn population_diversity(
     rec: &RecordingStream,
     generation: usize,
-    mut distribution: Vec<usize>,
+    normalized_shannon_entropy: f64,
 ) {
-    // Fill array to next 100
-    let target = ((distribution.len() / 100) + 1) * 100;
-    let diff = target - distribution.len();
-    distribution.extend(vec![0; diff]);
+    // // Fill array to next 100
+    // let target = ((distribution.len() / 100) + 1) * 100;
+    // let diff = target - distribution.len();
+    // distribution.extend(vec![0; diff]);
+
+    // let _ = rec.log(
+    //     "pop/diversity",
+    //     &BarChart::new(
+    //         distribution.into_iter().map(|x| x as u64).collect::<Vec<_>>(),
+    //     ),
+    // );
 
     rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
-
-    let _ = rec.log(
-        "pop/diversity",
-        &BarChart::new(
-            distribution.into_iter().map(|x| x as u64).collect::<Vec<_>>(),
-        ),
-    );
+    let _ =
+        rec.log("diversity/entropy", &Scalar::new(normalized_shannon_entropy));
 }
 
 /// Log cache hits (and misses)

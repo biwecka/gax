@@ -3,7 +3,7 @@ use rerun::{RecordingStream, RecordingStreamBuilder, Scalar};
 
 use crate::{chromosome::Chromosome, eggholder};
 
-const GENERATION_TIME_SEQ: &'static str = "generation";
+const GENERATION_TIME_SEQ: &str = "generation";
 
 pub struct Logger {
     rec: RecordingStream,

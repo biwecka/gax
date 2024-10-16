@@ -1,4 +1,4 @@
-use std::{cmp::Ordering, usize};
+use std::cmp::Ordering;
 
 use plotters::{coord::Shift, prelude::*};
 use plotters_piston::PistonBackend;
@@ -45,7 +45,7 @@ pub fn objective_value_chart(
                 // Dimensions
                 vec![(x, y), (x + 10, y)],
                 // Color
-                &Palette99::pick(0),
+                Palette99::pick(0),
             )
         });
 
@@ -57,13 +57,13 @@ pub fn objective_value_chart(
                 2,
                 &Palette99::pick(0),
                 &|c, s, st| {
-                    return EmptyElement::at(c)
+                    EmptyElement::at(c)
                         + Circle::new((0, 0), s, st.filled())
                         + Text::new(
                             format!("{}", x),
                             (0, -20),
                             ("sans", 14).into_font(),
-                        );
+                        )
                 },
             ))
             .unwrap();
@@ -88,7 +88,7 @@ pub fn objective_value_chart(
                 // Dimensions
                 vec![(x, y), (x + 10, y)],
                 // Color
-                &Palette99::pick(0),
+                Palette99::pick(0),
             )
         });
 
@@ -100,13 +100,13 @@ pub fn objective_value_chart(
                 2,
                 &Palette99::pick(0),
                 &|c, s, st| {
-                    return EmptyElement::at(c)
+                    EmptyElement::at(c)
                         + Circle::new((0, 0), s, st.filled())
                         + Text::new(
                             format!("{}", x),
                             (0, -20),
                             ("sans", 14).into_font(),
-                        );
+                        )
                 },
             ))
             .unwrap();
@@ -165,13 +165,13 @@ pub fn population_size_chart(
                 2,
                 &Palette99::pick(0),
                 &|c, s, st| {
-                    return EmptyElement::at(c)
+                    EmptyElement::at(c)
                         + Circle::new((0, 0), s, st.filled())
                         + Text::new(
                             format!("{}", x),
                             (0, -20),
                             ("sans", 14).into_font(),
-                        );
+                        )
                 },
             ))
             .unwrap();
@@ -277,7 +277,7 @@ pub fn selection_differential_chart(
                 // Dimensions
                 vec![(x, y), (x + 10, y)],
                 // Color
-                &Palette99::pick(0),
+                Palette99::pick(0),
             )
         });
 

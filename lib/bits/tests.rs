@@ -32,8 +32,6 @@ fn length_mask() {
 #[test]
 fn max_length() {
     let _b = Bits8::new(8, 0b1001_0101);
-
-    assert!(true);
 }
 
 #[test]

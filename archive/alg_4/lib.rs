@@ -50,11 +50,10 @@ pub fn times_by_events(
 
 #[derive(Clone, Debug)]
 pub struct Problem {
-    /// Time allocation vector.
-    /// This vector assigns times to events by index: f(event_idx) -> time_idx.
-    /// Time indices are in [0; 30), therefore u8 is sufficient.
+    // Time allocation vector.
+    // This vector assigns times to events by index: f(event_idx) -> time_idx.
+    // Time indices are in [0; 30), therefore u8 is sufficient.
     //  times: Vec<u8>,
-
     /// Resource allocation matrix.
     /// This matrix contains true and false values for every event-resource-
     /// combination, representing if a resource is assigned to an event.

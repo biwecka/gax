@@ -10,7 +10,7 @@ use error::Error;
 use git::Git;
 use log::Logger;
 
-use pushover::{requests::message::SendMessage, API};
+// use pushover::{requests::message::SendMessage, API};
 use std::sync::{
     atomic::{AtomicBool, Ordering},
     Arc,

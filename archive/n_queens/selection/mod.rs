@@ -28,10 +28,10 @@ impl Selection {
 }
 
 // Implementations /////////////////////////////////////////////////////////////
-fn roulette_wheel<'a>(
+fn roulette_wheel(
     amount: usize,
-    individuals: &'a [(Genotype, Cost)],
-) -> (Vec<&'a (Genotype, Cost)>, usize) {
+    individuals: &[(Genotype, Cost)],
+) -> (Vec<&(Genotype, Cost)>, usize) {
     // Extract cost
     let costs: Vec<usize> = individuals.iter().map(|(_, c)| *c).collect();
 
@@ -119,10 +119,10 @@ fn tournament<'a>(
     (selection, selected_indices.len())
 }
 
-fn random<'a>(
+fn random(
     amount: usize,
-    individuals: &'a [(Genotype, Cost)],
-) -> (Vec<&'a (Genotype, Cost)>, usize) {
+    individuals: &[(Genotype, Cost)],
+) -> (Vec<&(Genotype, Cost)>, usize) {
     let mut selection: Vec<&(Genotype, Cost)> = vec![];
     let mut selected_indices = HashSet::<usize>::new();
     let mut rng = rand::thread_rng();
@@ -139,10 +139,10 @@ fn random<'a>(
     (selection, selected_indices.len())
 }
 
-fn linear_rank<'a>(
+fn linear_rank(
     amount: usize,
-    individuals: &'a [(Genotype, Cost)],
-) -> (Vec<&'a (Genotype, Cost)>, usize) {
+    individuals: &[(Genotype, Cost)],
+) -> (Vec<&(Genotype, Cost)>, usize) {
     // Get population size
     let pop_size = individuals.len();
 

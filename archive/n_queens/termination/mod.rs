@@ -24,17 +24,9 @@ impl Termination {
 }
 
 fn generations(max: usize, generation_num: usize) -> bool {
-    if generation_num >= max {
-        true
-    } else {
-        false
-    }
+    generation_num >= max
 }
 
 fn objective_value(threshold: Cost, stats: &Stats) -> bool {
-    if *stats.best.last().unwrap() <= threshold {
-        true
-    } else {
-        false
-    }
+    *stats.best.last().unwrap() <= threshold
 }

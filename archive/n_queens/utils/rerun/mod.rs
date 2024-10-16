@@ -5,7 +5,7 @@ use ndarray::Array2;
 use std::ops::AddAssign;
 
 // Constants ///////////////////////////////////////////////////////////////////
-const GENERATION_TIME_SEQ: &'static str = "generation";
+const GENERATION_TIME_SEQ: &str = "generation";
 
 // Structs /////////////////////////////////////////////////////////////////////
 pub struct Logger {

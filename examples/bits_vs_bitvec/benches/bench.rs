@@ -43,7 +43,8 @@ pub fn criterion_benchmark(c: &mut Criterion) {
 
     c.bench_function("bitvec <<", |b| {
         b.iter(|| {
-            black_box(bitvec.shift_left(1));
+            bitvec.shift_left(1);
+            black_box(&bitvec);
         })
     });
 }

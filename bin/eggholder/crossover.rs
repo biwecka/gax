@@ -34,7 +34,7 @@ impl Crossover {
                     return (p0.to_owned(), p1.to_owned());
                 }
 
-                let mut coordinates = vec![p0.x0(), p0.x1(), p1.x0(), p1.x1()];
+                let mut coordinates = [p0.x0(), p0.x1(), p1.x0(), p1.x1()];
                 coordinates.shuffle(&mut rng);
 
                 let child0 = (coordinates[0], coordinates[1]).into();

@@ -128,8 +128,8 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                 // Evaluate the time group one time slot after the other.
                 for time_idx in &time_group {
                     // Get allocation of this time
-                    let time_allocation = new.times.row(*time_idx as u32);
-                    let blocked = new.blocked.row(*time_idx as u32);
+                    let time_allocation = new.times.row(*time_idx);
+                    let blocked = new.blocked.row(*time_idx);
 
                     // Check if the time_allocation and the resource_relation
                     // have any time slots in common. If so, the time group
@@ -166,13 +166,13 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
 
             // Times matrix
             for time_idx in best {
-                new.times.set(*time_idx as u32, *event_idx as u128);
+                new.times.set(*time_idx, *event_idx as u128);
             }
 
             // Blocked matrix
             for time_idx in best {
                 // Get current row
-                let mut tmp = *new.blocked.row(*time_idx as u32);
+                let mut tmp = *new.blocked.row(*time_idx);
 
                 // "Or" it with the resource_relation vector. This is possible,
                 // because the resource_relation vectors don't contain the
@@ -180,7 +180,7 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
                 tmp |= resource_relation;
 
                 // Update the row in the matrix
-                new.blocked.set_row(*time_idx as u32, tmp);
+                new.blocked.set_row(*time_idx, tmp);
             }
         }
 

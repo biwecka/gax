@@ -10,7 +10,7 @@ pub enum Rejection {
 }
 
 impl Rejection {
-    pub fn exec<'a>(
+    pub fn exec(
         &self,
         parent0: (Genotype, Cost),
         parent1: (Genotype, Cost),

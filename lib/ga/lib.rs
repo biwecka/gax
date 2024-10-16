@@ -15,7 +15,7 @@ pub mod tools;
 // Re-Exports //////////////////////////////////////////////////////////////////
 pub use builder::*;
 
-use report::Report;
+use report::{Report, ReportLog};
 #[cfg(feature = "rerun_logger")]
 pub use rerun;
 
@@ -118,8 +118,7 @@ impl<
     pub fn run(mut self) -> Report<Ov, Ctx, Ge> {
         // Create empty report
         let log_size = self.params.termination.max_generations().unwrap_or(0);
-
-        let mut report = Report::<Ov, Ctx, Ge>::new_with_log_capacity(log_size);
+        let mut report_log: Vec<ReportLog> = Vec::with_capacity(log_size);
 
         // Start runtime measurement
         let total_runtime_start = std::time::Instant::now();
@@ -376,6 +375,18 @@ impl<
                 self.runtimes = vec![];
             }
 
+            // Update report log
+            report_log.push(ReportLog {
+                generation: rtd.generation,
+                best: rtd.best.to_usize(),
+                worst: rtd.worst.to_usize(),
+                mean: rtd.mean,
+                median: rtd.median,
+                std_dev: rtd.std_dev,
+                variance: rtd.variance,
+                diversity: rtd.diversity,
+            });
+
             // Log (to 'rerun' or 'console')
             #[cfg(feature = "rerun_logger")]
             {
@@ -440,10 +451,10 @@ impl<
         let total_runtime = total_runtime_start.elapsed().as_secs() as usize;
 
         // Finalize the report
-        report.population = population;
-        report.runtime = total_runtime;
+        // report.population = population;
+        // report.runtime = total_runtime;
 
-        report.parameter_identifier = {
+        let parameter_identifier = {
             let parts = [
                 // Population: P1000
                 format!("P:{}", self.params.population_size),
@@ -464,12 +475,20 @@ impl<
             parts.join("_")
         };
 
-        report.dynamics_identifier = self.dynamics.map(|ds| {
+        let dynamics_identifier = self.dynamics.map(|ds| {
             ds.list.iter().map(|d| d.identifier()).collect::<Vec<_>>().join("_")
         });
 
         // Return
-        report
+        Report {
+            population,
+            log: report_log,
+            runtime: total_runtime,
+            parameter_identifier,
+            dynamics_identifier,
+
+            ctx: std::marker::PhantomData,
+        }
     }
 }
 

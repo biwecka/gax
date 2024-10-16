@@ -1,5 +1,3 @@
-use std::fmt::format;
-
 // Imports /////////////////////////////////////////////////////////////////////
 use control_circuits::PT2;
 use ga::{
@@ -83,10 +81,10 @@ impl
                 format!("target-mean-var-mr-{a}-{b}")
             }
             Self::IncreasingLinearRankSelectionPressure => {
-                format!("linrk-inc-sel-pressure")
+                "linrk-inc-sel-pressure".into()
             }
-            Self::RotatingMutationMethods => format!("rot-mu-methods"),
-            Self::StateMachine => format!("state-machine"),
+            Self::RotatingMutationMethods => "rot-mu-methods".into(),
+            Self::StateMachine => "state-machine".into(),
         }
     }
 
@@ -528,10 +526,11 @@ fn increasing_linear_rank_selection_pressure(
     if let Select::LinearRank(selection_pressure) = &mut parameters.selection {
         let no_improvement = rtd.generation - rtd.last_success;
 
-        if no_improvement != 0 && no_improvement % 100 == 0 {
-            if *selection_pressure <= 2.0 - 0.01 {
-                *selection_pressure += 0.01;
-            }
+        if no_improvement != 0
+            && no_improvement % 100 == 0
+            && *selection_pressure <= 2.0 - 0.01
+        {
+            *selection_pressure += 0.01;
         }
 
         if *selection_pressure >= 1.999 && no_improvement > 5_000 {

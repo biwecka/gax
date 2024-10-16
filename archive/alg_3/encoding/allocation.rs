@@ -357,7 +357,7 @@ mod test {
         matrix.set(1, 2, false);
         matrix.set(1, 3, true);
 
-        matrix.set_row(1, &vec![false, false, true, false]);
+        matrix.set_row(1, &[false, false, true, false]);
 
         assert_eq!(matrix.get_row(1), vec![false, false, true, false]);
     }

@@ -20,18 +20,22 @@ where
     pub parameter_identifier: String,
     pub dynamics_identifier: Option<String>,
 
-    ctx: PhantomData<Ctx>,
+    pub log: Vec<ReportLog>,
+
+    pub ctx: PhantomData<Ctx>,
 }
 
-impl<Ov, Ctx, Ge> Report<Ov, Ctx, Ge>
-where
-    Ov: ObjectiveValue,
-    Ctx: Context,
-    Ge: Genotype<Ctx>,
-{
-    pub fn new_with_log_capacity(log_capacity: usize) -> Self {
-        todo!()
-    }
+pub struct ReportLog {
+    pub generation: usize,
+    pub best: usize,
+    pub worst: usize,
+
+    pub mean: f64,
+    pub median: f64,
+    pub variance: f64,
+    pub std_dev: f64,
+
+    pub diversity: f64,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
