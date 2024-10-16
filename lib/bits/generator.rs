@@ -91,6 +91,11 @@ macro_rules! generate_bits {
                 self.len
             }
 
+            /// Is empty method
+            pub fn is_empty(&self) -> bool {
+                self.len == 0
+            }
+
             /// Set the bit at the given index to `1`.
             #[inline]
             pub fn set(&mut self, index: $ty) {

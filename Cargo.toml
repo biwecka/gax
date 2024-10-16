@@ -20,6 +20,7 @@ alg_12              = { path = "lib/alg_12" }
 bits                = { path = "lib/bits" }
 control_circuits    = { path = "lib/control_circuits" }
 ga                  = { path = "lib/ga" }
+shannon_entropy     = { path = "lib/shannon_entropy" }
 xhstt               = { path = "lib/xhstt" }
 
 alg_1               = { path = "archive/alg_1" }
@@ -45,6 +46,7 @@ rayon = "1.10.0"
 
 ndarray = { version = "0.16.0", features = ["rayon"] }
 ndarray-stats = { version = "0.5.1" }
+statrs = "0.17.1"
 
 hashbrown = "0.14.5"
 indexmap = "2.2.6"
@@ -109,8 +111,8 @@ ctrlc = "3.4.5"
 unsafe_code = "forbid"
 
 [workspace.lints.clippy]
-unwrap_used = "forbid"
-expect_used = "forbid"
+# unwrap_used = "forbid"
+# expect_used = "forbid"
 type_complexity = "allow"
 too_long_first_doc_paragraph = "allow"
 

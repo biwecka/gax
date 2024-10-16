@@ -8,7 +8,9 @@ use crate::{
         termination::Termination,
     },
 };
-use simple_moving_average::{SumTreeSMA, SMA};
+
+use shannon_entropy::normalized_shannon_entropy;
+use statrs::statistics::{Data, Distribution, Median};
 
 // Runtime Data ////////////////////////////////////////////////////////////////
 pub struct RuntimeData<
@@ -25,23 +27,21 @@ pub struct RuntimeData<
 > {
     pub generation: usize,
     pub population_size: usize,
-    pub current_best: Ov,
-    pub current_worst: Ov,
-    pub current_mean: f32,
-
     pub elite: usize,
+
+    pub best: Ov,
+    pub worst: Ov,
+    pub mean: f64,
+    pub median: f64,
+    pub variance: f64,
+    pub std_dev: f64,
+    pub diversity: f64,
+
     pub selection_corrected: usize,
     pub distinct_selections: usize,
-    pub offspring_mean: f32,
+    // pub offspring_mean: f32,
     pub cache_hits: usize,
-
     pub execution_times: Vec<u128>,
-
-    #[cfg(feature = "log_ov_dist")]
-    pub objective_value_distribution: Vec<usize>,
-
-    #[cfg(feature = "log_diversity")]
-    pub population_diversity_distribution: Vec<usize>,
 
     /// True, when the current generation improved on the best solution.
     pub success: bool,
@@ -49,9 +49,6 @@ pub struct RuntimeData<
 
     /// Moving average calculated by a PT1-lowpass filter function.
     pub success_rate_pt1: f32,
-
-    /// Moving average calculated by a "simple moving average" algorithm.
-    pub success_rate_sma: SumTreeSMA<f32, f32, 100>,
 
     // PhantomData
     objective_value: std::marker::PhantomData<Ov>,
@@ -83,49 +80,52 @@ impl<
         initial_population: &[(Ge, Ov)],
         _params: &Parameters<Ov, Ctx, Ge, Cr, Mu, T, Se, Re, Rp, Te>,
     ) -> Self {
-        // Calculate data
+        // Set initial generation
         let generation = 0;
+
+        // Population size
         let population_size = initial_population.len();
-        let current_best = match initial_population.first() {
-            Some(x) => x.clone().1,
-            None => unreachable!(),
-        };
-        let current_worst = match initial_population.last() {
-            Some(x) => x.clone().1,
-            None => unreachable!(),
-        };
-        let current_mean: f32 = Ov::calc_average(
-            &initial_population
-                .iter()
-                .map(|(_, ov)| ov.clone())
-                .collect::<Vec<_>>(),
-        );
+
+        // Population stats
+        let best = initial_population.first().unwrap().1.clone();
+        let worst = initial_population.last().unwrap().1.clone();
+
+        let objective_values =
+            initial_population.iter().map(|(_, ov)| ov.to_usize());
+
+        let diversity = normalized_shannon_entropy(objective_values.clone());
+
+        let objective_values_f64 =
+            objective_values.into_iter().map(|x| x as f64).collect::<Vec<_>>();
+
+        let dataset = Data::new(objective_values_f64);
+        let mean = dataset.mean().unwrap_or(0.);
+        let median = dataset.median();
+        let variance = dataset.variance().unwrap_or(0.);
+        let std_dev = dataset.std_dev().unwrap_or(0.);
 
         Self {
             generation,
             population_size,
-            current_best,
-            current_worst,
-            current_mean,
-
             elite: 0,
+
+            best,
+            worst,
+            mean,
+            median,
+            variance,
+            std_dev,
+            diversity,
+
             selection_corrected: 0,
             distinct_selections: 0,
-            offspring_mean: 0.,
+
             cache_hits: 0,
-
             execution_times: vec![],
-
-            #[cfg(feature = "log_ov_dist")]
-            objective_value_distribution: vec![],
-
-            #[cfg(feature = "log_diversity")]
-            population_diversity_distribution: vec![],
 
             success: false,
             last_success: 0,
             success_rate_pt1: 0.,
-            success_rate_sma: SumTreeSMA::new(),
 
             objective_value: std::marker::PhantomData,
             context: std::marker::PhantomData,
@@ -150,80 +150,56 @@ impl<
         elite: usize,
         selection_corrected: usize,
         distinct_selections: usize,
-        offspring_mean: f32,
         cache_hits: usize,
     ) {
-        // Pre-calculate filtered list with objective values only
-        let objective_values =
-            population.iter().map(|(_, ov)| ov.clone()).collect::<Vec<_>>();
+        self.selection_corrected = selection_corrected;
+        self.distinct_selections = distinct_selections;
 
         // Update population size
         self.population_size = population.len();
 
         // Update current best and re-calculate success rates
-        self.current_best = match population.first() {
-            Some(x) => {
-                let new_best = &x.1;
+        self.best = {
+            let new_best = population.first().unwrap().1.clone();
 
-                if x.1 < self.current_best {
-                    self.success_rate_sma.add_sample(1.);
+            if new_best < self.best {
+                self.success_rate_pt1 =
+                    crate::utils::pt1(self.success_rate_pt1, 1., 100.);
 
-                    self.success_rate_pt1 =
-                        crate::utils::pt1(self.success_rate_pt1, 1., 100.);
+                self.success = true;
+                self.last_success = self.generation;
+            } else {
+                self.success_rate_pt1 =
+                    crate::utils::pt1(self.success_rate_pt1, 0., 100.);
 
-                    self.success = true;
-                    self.last_success = self.generation;
-                } else {
-                    self.success_rate_sma.add_sample(0.);
-
-                    self.success_rate_pt1 =
-                        crate::utils::pt1(self.success_rate_pt1, 0., 100.);
-
-                    self.success = false;
-                }
-
-                new_best.clone()
+                self.success = false;
             }
-            None => unreachable!(),
+
+            new_best
         };
 
         // Update current worst
-        self.current_worst = match population.last() {
-            Some(x) => x.clone().1,
-            None => unreachable!(),
-        };
+        self.worst = population.last().unwrap().1.clone();
 
-        // Update current mean
-        self.current_mean = Ov::calc_average(&objective_values);
+        // Update diversity, mean, meadian, variance and std_dev.
+        let objective_values = population.iter().map(|(_, ov)| ov.to_usize());
+
+        self.diversity = normalized_shannon_entropy(objective_values.clone());
+
+        let objective_values_f64 =
+            objective_values.into_iter().map(|x| x as f64).collect::<Vec<_>>();
+
+        let dataset = Data::new(objective_values_f64);
+        self.mean = dataset.mean().unwrap_or(0.);
+        self.median = dataset.median();
+        self.variance = dataset.variance().unwrap_or(0.);
+        self.std_dev = dataset.std_dev().unwrap_or(0.);
 
         // Update elite
         self.elite = elite;
 
-        // Update number of selected individuals
-        self.selection_corrected = selection_corrected;
-
-        // Update number of distinct selected individuals
-        self.distinct_selections = distinct_selections;
-
-        // Update offspring mean objective value
-        self.offspring_mean = offspring_mean;
-
         // Update cache hits
         self.cache_hits = cache_hits;
-
-        // Calculate objective value distribution
-        #[cfg(feature = "log_ov_dist")]
-        {
-            self.objective_value_distribution =
-                Ov::calc_distribution(&objective_values);
-        };
-
-        // Calculate population diversity
-        #[cfg(feature = "log_diversity")]
-        {
-            self.population_diversity_distribution =
-                Ge::calc_diversity(population);
-        };
     }
 
     #[cfg(feature = "log_runtimes")]

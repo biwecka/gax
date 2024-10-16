@@ -12,8 +12,6 @@ default = [
     "ga/rerun_logger",
 
     "ga/log_pop_stats",
-    "ga/log_ov_dist",
-    "ga/log_diversity",
     # "ga/log_cache_hits",
     "ga/log_runtimes",
 ]

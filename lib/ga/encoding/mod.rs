@@ -19,6 +19,7 @@ use std::{fmt::Debug, hash::Hash};
 pub trait ObjectiveValue:
     Clone + Debug + PartialEq + Eq + PartialOrd + Ord + Send + Sync + Hash
 {
+    #[deprecated]
     fn calc_average(values: &[Self]) -> f32;
 
     /// This function calculates the objective value distribution for the passed
@@ -29,6 +30,7 @@ pub trait ObjectiveValue:
     /// In the resulting array the INDEX represents the OBJECTIVE VALUE,
     /// and the value at an index represents the amount of times this objecive
     /// value occured.
+    #[deprecated]
     fn calc_distribution(values: &[Self]) -> Vec<usize>;
 
     fn to_usize(&self) -> usize;
@@ -68,6 +70,7 @@ pub trait Genotype<Ctx: Context>:
     /// Afterwards they are sorted by their fitness and returned.
     /// Therefore `result[i]` should contain the amount of times, the fittest
     /// chromosome occured.
+    #[deprecated]
     fn calc_diversity<Ov: ObjectiveValue>(
         population: &[(Self, Ov)],
     ) -> Vec<usize>;

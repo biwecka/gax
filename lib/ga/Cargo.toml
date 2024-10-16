@@ -35,10 +35,10 @@ log_pop_stats   = ["rerun_logger"]
 
 # Log the distribution of objective values throughout the population as
 # histrogram.
-log_ov_dist     = ["rerun_logger"]
+# log_ov_dist     = ["rerun_logger"]
 
 # Log the diversity (amount of equal chromosomes) as histogram.
-log_diversity   = ["rerun_logger"]
+# log_diversity   = ["rerun_logger"]
 
 # Log cache hits and misses (this feature automatically enables the cache
 # feature).
@@ -62,8 +62,10 @@ rand = { workspace = true }
 rand_distr = { workspace = true }
 rayon = { workspace = true }
 ndarray = { workspace = true }
+statrs = { workspace = true }
 hashbrown = { workspace = true }
-simple_moving_average = { workspace = true }
+shannon_entropy = { workspace = true }
+# simple_moving_average = { workspace = true }
 
 rerun = { workspace = true } #, optional = true }
 colors-transform = { workspace = true, optional = true }

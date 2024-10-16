@@ -117,10 +117,7 @@ impl<
 {
     pub fn run(mut self) -> Report<Ov, Ctx, Ge> {
         // Create empty report
-        let log_size = match self.params.termination.max_generations() {
-            Some(x) => x,
-            None => 0,
-        };
+        let log_size = self.params.termination.max_generations().unwrap_or(0);
 
         let mut report = Report::<Ov, Ctx, Ge>::new_with_log_capacity(log_size);
 
@@ -189,7 +186,7 @@ impl<
         };
 
         // Start loop
-        while !self.params.termination.stop(rtd.generation, &rtd.current_best) {
+        while !self.params.termination.stop(rtd.generation, &rtd.best) {
             // Increment generation counter
             rtd.inc_generation();
 
@@ -330,12 +327,12 @@ impl<
             measure_runtime_end!(self);
 
             // Calculate the average mean objective value of the offspring
-            measure_runtime_start!(self);
-            let offspring_mean: f32 = Ov::calc_average(
-                &offspring.iter().map(|(_, ov)| ov.clone()).collect::<Vec<_>>(),
-            );
+            // measure_runtime_start!(self);
+            // let offspring_mean: f32 = Ov::calc_average(
+            //     &offspring.iter().map(|(_, ov)| ov.clone()).collect::<Vec<_>>(),
+            // );
 
-            measure_runtime_end!(self);
+            // measure_runtime_end!(self);
 
             // Replace (population must be sorted; offspring is not).
             measure_runtime_start!(self);
@@ -367,7 +364,7 @@ impl<
                 self.params.replacement.elite_size(self.params.population_size),
                 selection_size_corrected,
                 distinct_selections,
-                offspring_mean,
+                // offspring_mean,
                 cache_hits,
             );
 
@@ -399,9 +396,9 @@ impl<
                 println!(
                     "[{:>7}] best:{:>4} mean: {:>4.2} worst:{:>4}",
                     rtd.generation,
-                    rtd.current_best.to_usize(),
-                    rtd.current_mean,
-                    rtd.current_worst.to_usize(),
+                    rtd.best.to_usize(),
+                    rtd.mean,
+                    rtd.worst.to_usize(),
                 );
             };
 
@@ -436,11 +433,7 @@ impl<
         // Print result to console
         println!(
             "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",
-            rtd.generation,
-            rtd.current_best,
-            rtd.current_mean,
-            rtd.current_worst,
-            rtd.cache_hits,
+            rtd.generation, rtd.best, rtd.mean, rtd.worst, rtd.cache_hits,
         );
 
         // Stop runtime measurement (total runtime)
@@ -451,7 +444,7 @@ impl<
         report.runtime = total_runtime;
 
         report.parameter_identifier = {
-            let parts = vec![
+            let parts = [
                 // Population: P1000
                 format!("P:{}", self.params.population_size),
                 // Mutation Rate: MR0.0100

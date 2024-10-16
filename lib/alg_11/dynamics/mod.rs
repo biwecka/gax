@@ -470,11 +470,11 @@ fn target_mean_by_variable_mutation_rate(
         (max_deviation - min_deviation) * cos + min_deviation;
 
     // Calculate the target mean objective value
-    let current_best: usize = rtd.current_best.clone().into();
+    let current_best: usize = rtd.best.clone().into();
     let target = current_best as f64 * target_mean_deviation;
 
     // Calculate control error: target - current mean
-    let error = target - rtd.current_mean as f64;
+    let error = target - rtd.mean;
 
     // Update PT2 with error
     context.pt2.update(error);

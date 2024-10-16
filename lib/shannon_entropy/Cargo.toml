@@ -1,0 +1,16 @@
+[package]
+name = "shannon_entropy"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+path = "lib.rs"
+
+[features]
+
+[dependencies]
+#> remote
+hashbrown = { workspace = true }
+
+[lints]
+workspace = true

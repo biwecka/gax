@@ -96,11 +96,6 @@ impl
                 // Initialize success rate (pt1)
                 rtd.success_rate_pt1 = *target_success_rate;
 
-                // Initialize success rate (sma)
-                for _ in 0..1_000 {
-                    rtd.success_rate_sma.add_sample(*target_success_rate);
-                }
-
                 // Apply default standard deviation
                 context.gauss_sd = *def_std_deviation;
                 context.gauss_rand_event =

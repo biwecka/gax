@@ -8,15 +8,11 @@ use crate::{
     },
     runtime_data::RuntimeData,
 };
-use simple_moving_average::SMA;
+// use simple_moving_average::SMA;
 
 use rerun::{RecordingStream, RecordingStreamBuilder, Scalar};
 
-#[cfg(any(
-    feature = "log_ov_dist",
-    feature = "log_diversity",
-    feature = "log_runtimes"
-))]
+#[cfg(feature = "log_runtimes")]
 use rerun::BarChart;
 
 // Constants ///////////////////////////////////////////////////////////////////
@@ -87,17 +83,16 @@ impl RerunLogger {
         objective_values(
             &self.rec,
             rtd.generation,
-            rtd.current_best.to_usize(),
-            rtd.current_worst.to_usize(),
-            rtd.current_mean as f64,
-            rtd.offspring_mean as f64,
+            rtd.best.to_usize(),
+            rtd.worst.to_usize(),
+            rtd.mean,
         );
 
         success_rates(
             &self.rec,
             rtd.generation,
             rtd.success_rate_pt1,
-            rtd.success_rate_sma.get_average(),
+            // rtd.success_rate_sma.get_average(),
         );
 
         #[cfg(feature = "log_pop_stats")]
@@ -112,23 +107,23 @@ impl RerunLogger {
             );
         };
 
-        #[cfg(feature = "log_ov_dist")]
-        {
-            objective_value_distribution(
-                &self.rec,
-                rtd.generation,
-                rtd.objective_value_distribution.clone(),
-            );
-        };
+        // #[cfg(feature = "log_ov_dist")]
+        // {
+        //     objective_value_distribution(
+        //         &self.rec,
+        //         rtd.generation,
+        //         rtd.objective_value_distribution.clone(),
+        //     );
+        // };
 
-        #[cfg(feature = "log_diversity")]
-        {
-            population_diversity(
-                &self.rec,
-                rtd.generation,
-                rtd.population_diversity_distribution.clone(),
-            );
-        };
+        // #[cfg(feature = "log_diversity")]
+        // {
+        //     population_diversity(
+        //         &self.rec,
+        //         rtd.generation,
+        //         rtd.population_diversity_distribution.clone(),
+        //     );
+        // };
 
         #[cfg(feature = "log_cache_hits")]
         {
@@ -188,7 +183,6 @@ fn objective_values(
     curr_best: usize,
     curr_worst: usize,
     curr_mean: f64,
-    offspring_mean: f64,
 ) {
     rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
@@ -197,19 +191,16 @@ fn objective_values(
     let _ = rec.log("objective_value/worst", &Scalar::new(curr_worst as f64));
 
     let _ = rec.log("objective_value/mean", &Scalar::new(curr_mean));
-
-    let _ =
-        rec.log("objective_value/offspring_mean", &Scalar::new(offspring_mean));
 }
 
 /// Log the success rate (multiple values because of different calculation
 /// methods).
-fn success_rates(rec: &RecordingStream, generation: usize, pt1: f32, sma: f32) {
+fn success_rates(rec: &RecordingStream, generation: usize, pt1: f32) {
     rec.set_time_sequence(GENERATION_TIME_SEQ, generation as u32);
 
     let _ = rec.log("success_rate/pt1", &Scalar::new(pt1 as f64));
 
-    let _ = rec.log("success_rate/sma", &Scalar::new(sma as f64));
+    // let _ = rec.log("success_rate/sma", &Scalar::new(sma as f64));
 }
 
 /// Log population statistics: total size, elite size, distinct selections,
@@ -238,7 +229,6 @@ fn population_stats(
 }
 
 /// Log objective value distribution
-#[cfg(feature = "log_ov_dist")]
 fn objective_value_distribution(
     rec: &RecordingStream,
     generation: usize,
@@ -260,7 +250,6 @@ fn objective_value_distribution(
 }
 
 /// Log population diversity
-#[cfg(feature = "log_diversity")]
 fn population_diversity(
     rec: &RecordingStream,
     generation: usize,
