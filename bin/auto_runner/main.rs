@@ -23,6 +23,10 @@ fn main() -> Result<(), Error> {
     let log = Logger::new(&env);
     let git = Git::open_repo(&env)?;
 
+    let x = chrono::Utc::now().to_rfc3339();
+    println!("{x}");
+
+
     // Setup graceful stop
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
@@ -36,7 +40,7 @@ fn main() -> Result<(), Error> {
     // Auto Runner Loop
     while running.load(Ordering::SeqCst) {
         println!("Running...");
-        std::thread::sleep(std::time::Duration::from_secs(10));
+        std::thread::sleep(std::time::Duration::from_secs(4));
         println!("DONE\n");
     }
 

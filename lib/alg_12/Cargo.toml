@@ -5,16 +5,19 @@ edition = "2021"
 
 [features]
 default = [
-    "ga_log_dynamics",
+    "ga_no_stdout_log",
+
+    # "ga_log_dynamics",
 
     #>>> `ga` features <<<#
     # "ga/cache",
-    "ga/rerun_logger",
-    "ga/log_pop_stats",
+    # "ga/rerun_logger",
+    # "ga/log_pop_stats",
     # "ga/log_cache_hits",
-    "ga/log_runtimes",
+    # "ga/log_runtimes",
 ]
 
+ga_no_stdout_log = ["ga/no_stdout_log"]
 ga_log_dynamics = ["ga/log_dynamics"]
 
 

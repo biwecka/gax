@@ -24,6 +24,9 @@ default = [
 # cache allows skipping the evaluation of the chromosome.
 cache           = []
 
+# This feature disables console logs during the algorithm execution.
+no_stdout_log   = []
+
 # This feature enables logging to "Rerun". Enabling this feature some basic
 # metrics are automatically logged to "Rerun".
 # For logging more advanced data, see the features below.

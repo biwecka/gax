@@ -31,6 +31,7 @@ csv = { workspace = true }
 serde = { workspace = true }
 pushover = { workspace = true }
 ctrlc = { workspace = true }
+chrono = { workspace = true }
 
 [lints]
 workspace = true

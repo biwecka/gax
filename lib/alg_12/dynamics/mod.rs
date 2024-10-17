@@ -110,16 +110,21 @@ impl ga::dynamics::Dynamic<Cost, Context, Chromosome, Crossover, Mutation, usize
     ) {
         match self {
             Self::MutRateCos(dmr, a, w, mm) => mut_rate_cos::exec(
-                rtd, parameters, context, rerun_logger, *dmr, *a, *w, *mm
+                rtd, parameters, context,
+                #[cfg(feature = "ga_log_dynamics")] rerun_logger,
+                *dmr, *a, *w, *mm
             ),
 
             Self::GaussRandEvent(tsr) => gauss_rand_event::exec(
-                rtd, parameters, context, rerun_logger, *tsr
+                rtd, parameters, context,
+                #[cfg(feature = "ga_log_dynamics")] rerun_logger,
+                *tsr
             ),
 
             Self::VarMutRateTargetMeanSin(avg_dv, _, a, w) =>
                 var_mut_rate_target_mean_sin::exec(
-                    rtd, parameters, context, rerun_logger,
+                    rtd, parameters, context,
+                    #[cfg(feature = "ga_log_dynamics")] rerun_logger,
                     *avg_dv, *a, *w
                 ),
 
@@ -127,12 +132,14 @@ impl ga::dynamics::Dynamic<Cost, Context, Chromosome, Crossover, Mutation, usize
                 step_gen, step_val, max_sp, reset
             ) =>
                 inc_lin_rnk_sel_pressure::exec(
-                    rtd, parameters, context, rerun_logger,
+                    rtd, parameters, context,
+                    #[cfg(feature = "ga_log_dynamics")] rerun_logger,
                     *step_gen, *step_val, *max_sp, *reset
                 ),
 
             Self::StateMachine => state_machine::exec(
-                rtd, parameters, context, rerun_logger
+                rtd, parameters, context,
+                #[cfg(feature = "ga_log_dynamics")] rerun_logger
             ),
         }
     }

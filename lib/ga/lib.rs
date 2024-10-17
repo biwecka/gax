@@ -413,7 +413,10 @@ impl<
                 );
             };
 
-            #[cfg(not(feature = "rerun_logger"))]
+            #[cfg(all(
+                not(feature = "rerun_logger"),
+                not(feature = "no_stdout_log"),
+            ))]
             {
                 // Print some more information, if the "rerun_logger" feature
                 // is NOT enabled.
