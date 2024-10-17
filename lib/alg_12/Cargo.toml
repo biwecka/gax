@@ -5,7 +5,7 @@ edition = "2021"
 
 [features]
 default = [
-    # "ga_log_dynamics",
+    "ga_log_dynamics",
 
     #>>> `ga` features <<<#
     # "ga/cache",

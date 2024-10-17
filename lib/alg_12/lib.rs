@@ -4,23 +4,31 @@
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
+/// The dynamics module must be public for the auto-runner to construct the
+/// algorithm's configuration.
+pub mod dynamics;
+
+/// Encoding module.
 mod encoding;
+
+/// The operators module must also be public for the auto-runner to construct
+/// the algorithm's configuration.
 pub mod operators;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use encoding::{Chromosome, Context, Phenotype};
 use ga::{
-    encoding::Phenotype as _,
-    process::{
+    encoding::Phenotype as _, process::{
         rejection::Reject, replacement::Replace, selection::Select,
         termination::Terminate,
-    },
+    }
 };
 use operators::{Crossover, Mutation};
 use xhstt::{
     db::Database,
     parser::{instances::Instance, solution_groups::solution::events::Event},
 };
+use dynamics::Dynamic;
 
 // Function ////////////////////////////////////////////////////////////////////
 pub fn run(instance: Instance) -> Vec<Event> {
@@ -49,17 +57,18 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_termination(Terminate::GenOrOv(10_000, 0.into()))
         .build();
 
-    // let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-    //     .set(vec![
-    //         todo!()
-    //     ])
-    //     .build();
+    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+        .set(vec![
+            Dynamic::MutRateCos(0.01, 0.01, 1000, Some((0.004, 10.))),
+            // Dynamic::GaussRandEvent(0.01),
+        ])
+        .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        .set_dynamics::<()>(None)
+        .set_dynamics(Some(dynamics))
         .set_custom_logger::<()>(None)
         .build();
 

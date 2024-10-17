@@ -3,9 +3,17 @@
 //!
 
 // Modules /////////////////////////////////////////////////////////////////////
-mod dynamics;
+
+/// The dynamics module must be public for the auto-runner to construct the
+/// algorithm's configuration.
+pub mod dynamics;
+
+/// Encoding module.
 mod encoding;
-mod operators;
+
+/// The operators module must also be public for the auto-runner to construct
+/// the algorithm's configuration.
+pub mod operators;
 
 use dynamics::Dynamic;
 // Imports /////////////////////////////////////////////////////////////////////

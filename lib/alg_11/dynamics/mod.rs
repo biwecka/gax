@@ -8,7 +8,6 @@ use ga::{
     runtime_data::RuntimeData,
 };
 use rand_distr::Normal;
-// use simple_moving_average::SMA;
 
 use crate::{
     encoding::{Chromosome, Context, Cost, State},
@@ -29,12 +28,14 @@ pub enum Dynamic {
     MutationRateCos(f32, f32, f32),
 
     /// Normal distributed random time when using `ctx.gauss_rand_time` number
-    /// generator. Parameters:
+    /// generator. Used in `Mutation::MoveSingleTimeAlloc`.
+    /// Parameters:
     /// 1) f32      target success rate
     GaussRandomTime(f32),
 
     /// Normal distributed random event when using `ctx.gauss_rand_event` number
-    /// generator. Parameters:
+    /// generator. Used in `Mutation::Trade`.
+    /// Parameters:
     /// 1) f32      target success rate
     GaussRandomEvent(f32),
 
@@ -46,10 +47,10 @@ pub enum Dynamic {
     /// Parameters:
     /// 1) Deviation from current best (e.g. 1.10 for +10%)
     /// 2) Gain of the PT2 block (= amplification)
-    TargetMeanByVariableMutationRate(f64, f64),
+    VarMutRateTargetMeanCos(f64, f64),
 
     /// Increasing linear rank selection pressure
-    IncreasingLinearRankSelectionPressure,
+    IncLinearRankSelectionPressure,
 
     /// RotatingMutationMethods
     RotatingMutationMethods,
@@ -74,14 +75,14 @@ impl
 {
     fn identifier(&self) -> String {
         match self {
-            Self::MutationRateCos(a, b, c) => format!("mr-cos-{a}-{b}-{c}"),
-            Self::GaussRandomTime(a) => format!("gauss-time-{a}"),
-            Self::GaussRandomEvent(a) => format!("gauss-evnt-{a}"),
-            Self::TargetMeanByVariableMutationRate(a, b) => {
-                format!("target-mean-var-mr-{a}-{b}")
+            Self::MutationRateCos(a, b, c) => format!("mut-rate-cos-{a}-{b}-{c}"),
+            Self::GaussRandomTime(a) => format!("gauss-rnd-time-{a}"),
+            Self::GaussRandomEvent(a) => format!("gauss-rnd-evnt-{a}"),
+            Self::VarMutRateTargetMeanCos(a, b) => {
+                format!("ctrl-mean-mr-{a}-{b}")
             }
-            Self::IncreasingLinearRankSelectionPressure => {
-                "linrk-inc-sel-pressure".into()
+            Self::IncLinearRankSelectionPressure => {
+                "inc-linrk-sel-pressure".into()
             }
             Self::RotatingMutationMethods => "rot-mu-methods".into(),
             Self::StateMachine => "state-machine".into(),
@@ -121,10 +122,10 @@ impl
             Self::MutationRateCos(_, _, _) => {}
             Self::GaussRandomTime(_) => {}
             Self::GaussRandomEvent(_) => {}
-            Self::TargetMeanByVariableMutationRate(_, gain) => {
+            Self::VarMutRateTargetMeanCos(_, gain) => {
                 context.pt2 = PT2::new(1., 1., 0.4, *gain, 1.);
             }
-            Self::IncreasingLinearRankSelectionPressure => {}
+            Self::IncLinearRankSelectionPressure => {}
             Self::RotatingMutationMethods => {}
             Self::StateMachine => {}
         }
@@ -195,8 +196,8 @@ impl
                 );
             }
 
-            Self::TargetMeanByVariableMutationRate(target_mean, _) => {
-                target_mean_by_variable_mutation_rate(
+            Self::VarMutRateTargetMeanCos(target_mean, _) => {
+                variable_mut_rate_target_mean_cos(
                     *target_mean,
                     rtd,
                     parameters,
@@ -205,7 +206,7 @@ impl
                 );
             }
 
-            Self::IncreasingLinearRankSelectionPressure => {
+            Self::IncLinearRankSelectionPressure => {
                 increasing_linear_rank_selection_pressure(
                     rtd,
                     parameters,
@@ -392,26 +393,24 @@ fn gauss_random_event(
         let diff = target_success_rate - rtd.success_rate_pt1;
 
         // Multiply factor to get the summand
-        let summand = 2. * diff; // * (0.1 * diff);
+        // let summand = 2. * diff; // * (0.1 * diff);
 
         // Add the summand to the mutation's standard deviation
-        context.gauss_rand_event_sd += summand;
+        context.gauss_rand_event_sd += diff;
 
-        // Apply the standard deviation to the random number generator in the
-        // context.
+        // Apply the std_dev to the random number generator in the context.
         context.gauss_rand_event =
             Normal::<f32>::new(0., context.gauss_rand_event_sd).unwrap();
 
         // Reset the standard deviation if it passes a certain threshold.
-        if context.gauss_rand_event_sd > context.num_events as f32 * 1.4 {
+        if context.gauss_rand_event_sd > context.num_events as f32 * 1.5 {
             context.gauss_rand_event_sd = 1.;
             context.gauss_rand_event =
                 Normal::<f32>::new(0., context.gauss_rand_event_sd).unwrap();
         }
     }
 
-    // Reset the standard deviation every time the overall best solution was
-    // improved.
+    // Reset the std_dev every time the overall best solution was improved.
     if rtd.success {
         context.gauss_rand_event_sd = 1.;
         Normal::<f32>::new(0., context.gauss_rand_event_sd).unwrap();
@@ -426,7 +425,7 @@ fn gauss_random_event(
     };
 }
 
-fn target_mean_by_variable_mutation_rate(
+fn variable_mut_rate_target_mean_cos(
     _target_mean_deviation: f64,
 
     rtd: &RuntimeData<
