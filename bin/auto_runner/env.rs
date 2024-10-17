@@ -1,6 +1,7 @@
 use crate::error::Error;
 
 static PLOTS_REPO: &str = "PLOTS_REPO";
+static DATA_DIR: &str = "DATA_DIR";
 static GIT_USERNAME: &str = "GIT_USERNAME";
 static GIT_PASSWORD: &str = "GIT_PASSWORD";
 static PUSHOVER_API_KEY: &str = "PUSHOVER_API_KEY";
@@ -8,6 +9,7 @@ static PUSHOVER_USER_KEY: &str = "PUSHOVER_USER_KEY";
 
 pub struct Env {
     pub plots_repo: String,
+    pub data_dir: String,
     pub git_username: String,
     pub git_password: String,
     pub pushover_api: String,
@@ -20,6 +22,9 @@ impl Env {
 
         let plots_repo =
             std::env::var(PLOTS_REPO).map_err(|_| Error::EnvVar(PLOTS_REPO))?;
+
+        let data_dir =
+            std::env::var(DATA_DIR).map_err(|_| Error::EnvVar(DATA_DIR))?;
 
         let git_username = std::env::var(GIT_USERNAME)
             .map_err(|_| Error::EnvVar(GIT_USERNAME))?;
@@ -35,6 +40,7 @@ impl Env {
 
         Ok(Self {
             plots_repo,
+            data_dir,
             git_username,
             git_password,
             pushover_api,

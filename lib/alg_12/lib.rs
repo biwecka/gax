@@ -17,13 +17,13 @@ pub mod operators;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use dynamics::Dynamic;
-use encoding::{Chromosome, Context, Phenotype};
+use encoding::{Chromosome, Context, Cost, Phenotype};
 use ga::{
     encoding::Phenotype as _,
     process::{
         rejection::Reject, replacement::Replace, selection::Select,
         termination::Terminate,
-    },
+    }, report::Report,
 };
 use operators::{Crossover, Mutation};
 use xhstt::{
@@ -58,18 +58,18 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_termination(Terminate::GenOrOv(10_000, 0.into()))
         .build();
 
-    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-        .set(vec![
-            Dynamic::MutRateCos(0.01, 0.01, 1000, Some((0.004, 10.))),
-            // Dynamic::GaussRandEvent(0.01),
-        ])
-        .build();
+    // let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+    //     .set(vec![
+    //         // Dynamic::MutRateCos(0.01, 0.01, 1000, Some((0.004, 10.))),
+    //         // Dynamic::GaussRandEvent(0.01),
+    //     ])
+    //     .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        .set_dynamics(Some(dynamics))
+        .set_dynamics::<()>(None)
         .set_custom_logger::<()>(None)
         .build();
 
@@ -83,7 +83,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-
+#[derive(Clone)]
 pub struct AutoRunParameters {
     pub population_size: usize,
     pub mutation_rate: f32,
@@ -96,8 +96,8 @@ pub struct AutoRunParameters {
 pub fn auto_run(
     instance: Instance,
     params: AutoRunParameters,
-    dynamics: Option<Vec<()>>,
-) -> Vec<Event> {
+    dynamics: Option<Vec<Dynamic>>,
+) -> (Vec<Event>, Report<Cost, Context, Chromosome>) {
     // Create an XHSTT database of the problem instance
     let db = Database::init(&instance).unwrap();
 
@@ -124,37 +124,40 @@ pub fn auto_run(
         .build();
 
     // Create algorithm and let it run!
-    let alg = match dynamics {
+    let report = match dynamics {
         Some(d) => {
-            #[allow(unused)]
             let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
                 .set(d)
                 .build();
 
-            #[allow(unreachable_code)]
-            ga::Builder::new()
+            let alg = ga::Builder::new()
                 .set_encoding(encoding)
                 .set_parameters(parameters)
-                .set_dynamics(todo!("dynamics"))
+                .set_dynamics(Some(dynamics))
                 .set_custom_logger::<()>(None)
-                .build()
+                .build();
+
+            alg.run()
+        },
+
+        None => {
+            let alg = ga::Builder::new()
+                .set_encoding(encoding)
+                .set_parameters(parameters)
+                .set_dynamics::<()>(None)
+                .set_custom_logger::<()>(None)
+                .build();
+
+            alg.run()
         }
-
-        None => ga::Builder::new()
-            .set_encoding(encoding)
-            .set_parameters(parameters)
-            .set_dynamics::<()>(None)
-            .set_custom_logger::<()>(None)
-            .build(),
     };
-
-    let report = alg.run();
 
     // Get the best result and convert it to a list of solution events.
     let best: &Chromosome = &report.population.first().unwrap().0;
     let timetable: Phenotype = ph.derive(best, &ctx);
 
-    timetable.to_solution_events(&db, &ctx)
+    // Return solution events and report
+    (timetable.to_solution_events(&db, &ctx), report)
 }
 
 ////////////////////////////////////////////////////////////////////////////////

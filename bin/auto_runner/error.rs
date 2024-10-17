@@ -14,4 +14,7 @@ pub enum Error {
 
     #[error("Pushover: {0}")]
     Pushover(#[from] pushover::Error),
+
+    #[error("IO Error: {0}")]
+    IO(String),
 }

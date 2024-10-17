@@ -3,8 +3,8 @@ use crate::encoding::{Chromosome, Context};
 use rand::rngs::ThreadRng;
 
 // Mutation ////////////////////////////////////////////////////////////////////
-
 #[allow(unused)]
+#[derive(Clone)]
 pub enum Mutation {
     /// Swaps to random genes.
     UniformSwap,

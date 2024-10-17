@@ -25,6 +25,7 @@ use ga::tools::rerun_logger::RerunLogger;
 
 // Dynamic Enum ////////////////////////////////////////////////////////////////
 #[allow(unused)]
+#[derive(Clone)]
 pub enum Dynamic {
     /// Variable mutation rate in form of a cosine function.  
     ///   

@@ -5,6 +5,7 @@ use crate::encoding::{Chromosome, Context};
 
 // Crossover ///////////////////////////////////////////////////////////////////
 #[allow(unused)]
+#[derive(Clone)]
 pub enum Crossover {
     /// Variable single-point crossover takes one argument:
     VariableSinglePoint,
@@ -23,8 +24,8 @@ pub enum Crossover {
 impl ga::operators::Crossover<Context, Chromosome> for Crossover {
     fn identifier(&self) -> String {
         match self {
-            Self::VariableSinglePoint => "var-s-pt".into(),
-            Self::VariableNPoint(n) => format!("var-{n}-pt"),
+            Self::VariableSinglePoint => "vspt".into(),
+            Self::VariableNPoint(n) => format!("v{n}pt"),
             Self::Pmx => "pmx".into(),
             Self::Ordered => "ord".into(),
         }

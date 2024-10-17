@@ -31,6 +31,7 @@ pub trait Selection<
 }
 
 // Implementation //////////////////////////////////////////////////////////////
+#[derive(Clone)]
 pub enum Select {
     RouletteWheel,
     Tournament(usize),
@@ -60,10 +61,10 @@ impl<Ov: ObjectiveValue + Into<usize>, Ctx: Context, Ge: Genotype<Ctx>>
 
     fn identifier(&self) -> String {
         match self {
-            Self::RouletteWheel => "roulette".into(),
-            Self::Tournament(n) => format!("tourn-{n}"),
-            Self::Random => "rand".into(),
-            Self::LinearRank(x) => format!("linrank-{:.2}", x),
+            Self::RouletteWheel => "rltt".into(),
+            Self::Tournament(n) => format!("trn-{n}"),
+            Self::Random => "rnd".into(),
+            Self::LinearRank(x) => format!("lnrnk-{:.2}", x),
         }
     }
 }

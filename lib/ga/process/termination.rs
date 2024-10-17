@@ -45,7 +45,7 @@ impl<Ov: ObjectiveValue> Termination<Ov> for Terminate<Ov> {
 
     fn identifier(&self) -> String {
         match self {
-            Self::Generations(n) => format!("gen-{n}"),
+            Self::Generations(n) => format!("g-{n}"),
             Self::ObjectiveValue(ov) => format!("ov-{}", ov.to_usize()),
             Self::GenOrOv(g, ov) => format!("g-{}-ov-{}", g, ov.to_usize()),
         }

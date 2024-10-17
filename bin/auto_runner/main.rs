@@ -3,12 +3,14 @@ mod env;
 mod error;
 mod git;
 mod log;
+mod executor;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use env::Env;
 use error::Error;
 use git::Git;
 use log::Logger;
+use executor::ExecutorAlg12;
 
 // use pushover::{requests::message::SendMessage, API};
 use std::sync::{
@@ -17,14 +19,11 @@ use std::sync::{
 };
 
 // Main ////////////////////////////////////////////////////////////////////////
-fn main() -> Result<(), Error> {
+fn main() {
     // Load environment variables, initialize logger and open git repo.
-    let env = Env::load()?;
+    let env = Env::load().unwrap();
     let log = Logger::new(&env);
-    let git = Git::open_repo(&env)?;
-
-    let x = chrono::Utc::now().to_rfc3339();
-    println!("{x}");
+    let git = Git::open_repo(&env).unwrap();
 
     // Setup graceful stop
     let running = Arc::new(AtomicBool::new(true));
@@ -34,17 +33,19 @@ fn main() -> Result<(), Error> {
     ctrlc::set_handler(move || {
         println!(": Ctrl+C pressed! Gracefully stopping...");
         r.store(false, Ordering::SeqCst); // Set the flag to false
-    })?;
+    }).unwrap();
 
-    // Auto Runner Loop
+    // Initialize executor and run auto-runner loop.
+    let mut exec = ExecutorAlg12::new(env, &log, git);
+
     while running.load(Ordering::SeqCst) {
-        println!("Running...");
-        std::thread::sleep(std::time::Duration::from_secs(4));
-        println!("DONE\n");
-    }
+        let result = exec.run_next();
 
-    // Exit
-    Ok(())
+        if let Err(e) = result {
+            log.err(&format!("{e}"));
+            break;
+        }
+    }
 }
 
 #[allow(unused)]

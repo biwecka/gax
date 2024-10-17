@@ -90,6 +90,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+#[derive(Clone)]
 pub struct AutoRunParameters {
     pub population_size: usize,
     pub mutation_rate: f32,
@@ -102,7 +103,7 @@ pub struct AutoRunParameters {
 pub fn auto_run(
     instance: Instance,
     params: AutoRunParameters,
-    dynamics: Option<Vec<()>>,
+    dynamics: Option<Vec<Dynamic>>,
 ) -> Vec<Event> {
     // Create an XHSTT database of the problem instance
     let db = Database::init(&instance).unwrap();
@@ -129,29 +130,34 @@ pub fn auto_run(
         .set_termination(Terminate::GenOrOv(500_000, 0.into()))
         .build();
 
-    let alg = match dynamics {
+    // Create algorithm and let it run!
+    let report = match dynamics {
         Some(d) => {
             let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
                 .set(d)
                 .build();
 
-            ga::Builder::new()
+            let alg = ga::Builder::new()
                 .set_encoding(encoding)
                 .set_parameters(parameters)
                 .set_dynamics(Some(dynamics))
                 .set_custom_logger::<()>(None)
-                .build()
+                .build();
+
+            alg.run()
+        },
+
+        None => {
+            let alg = ga::Builder::new()
+                .set_encoding(encoding)
+                .set_parameters(parameters)
+                .set_dynamics::<()>(None)
+                .set_custom_logger::<()>(None)
+                .build();
+
+            alg.run()
         }
-
-        None => ga::Builder::new()
-            .set_encoding(encoding)
-            .set_parameters(parameters)
-            .set_dynamics::<()>(None)
-            .set_custom_logger::<()>(None)
-            .build(),
     };
-
-    let report = alg.run();
 
     // Get the best result and convert it to a list of solution events.
     let best: &Chromosome = &report.population.first().unwrap().0;

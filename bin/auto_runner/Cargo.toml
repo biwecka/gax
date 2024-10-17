@@ -9,6 +9,7 @@ path = "main.rs"
 
 [dependencies]
 #> libs <#
+ga = { workspace = true }
 xhstt = { workspace = true }
 # alg_1 = { workspace = true }
 # alg_2 = { workspace = true }

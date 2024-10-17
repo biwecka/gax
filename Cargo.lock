@@ -666,6 +666,7 @@ dependencies = [
  "csv",
  "ctrlc",
  "dotenvy",
+ "ga",
  "git2",
  "pushover",
  "serde",

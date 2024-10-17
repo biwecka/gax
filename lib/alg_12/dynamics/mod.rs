@@ -16,6 +16,7 @@ use ga::process::{
 };
 
 // Dynamic Enum ////////////////////////////////////////////////////////////////
+#[derive(Clone)]
 pub enum Dynamic {
     /// Variable mutation rate in form of a cosine function.  
     ///   

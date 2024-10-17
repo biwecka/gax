@@ -14,6 +14,10 @@ impl Logger {
 
         Self { pushover }
     }
+
+    pub fn err(&self, s: &str) {
+        self.pushover.send("Error", s, true);
+    }
 }
 
 // Pushover ////////////////////////////////////////////////////////////////////

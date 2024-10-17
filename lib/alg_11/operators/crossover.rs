@@ -7,6 +7,7 @@ use crate::encoding::{Chromosome, Context};
 
 // Crossover ///////////////////////////////////////////////////////////////////
 #[allow(unused)]
+#[derive(Clone)]
 pub enum Crossover {
     /// Uniform crossover simply exchanges genes (single Bit32 structs) between
     /// chromosomes at the same position.
@@ -22,7 +23,7 @@ impl ga::operators::Crossover<Context, Chromosome> for Crossover {
     fn identifier(&self) -> String {
         match self {
             Self::Uniform => "uni".into(),
-            Self::Trade(n) => format!("trd-{n}"),
+            Self::Trade(n) => format!("trd{n}"),
         }
     }
 

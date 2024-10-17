@@ -21,6 +21,7 @@ pub trait Replacement<T>: Send + Sync {
 }
 
 // Implementation //////////////////////////////////////////////////////////////
+#[derive(Clone)]
 pub enum Replace {
     /// No elitism, full replacement of the current population with the
     /// offspring/children.
@@ -75,8 +76,8 @@ impl<T> Replacement<T> for Replace {
     fn identifier(&self) -> String {
         match self {
             Self::Full => "full".into(),
-            Self::EliteAbsolute(n) => format!("elite-abs-{n}"),
-            Self::EliteRelative(x) => format!("elite-rel-{:.4}", x),
+            Self::EliteAbsolute(n) => format!("eli-abs-{n}"),
+            Self::EliteRelative(x) => format!("eli-rel-{:.4}", x),
         }
     }
 }
