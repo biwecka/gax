@@ -2,38 +2,57 @@
 mod mut_rate_cos;
 mod gauss_rand_event;
 mod var_mut_rate_target_mean_sin;
+mod inc_lin_rnk_sel_pressure;
+mod state_machine;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::{encoding::{Chromosome, Context, Cost}, operators::{Crossover, Mutation}};
-use ga::{process::{rejection::Reject, replacement::Replace, selection::Select, termination::Terminate}, rerun::external::arrow2::array::DaysMsArray};
+use ga::process::{rejection::Reject, replacement::Replace, selection::Select, termination::Terminate};
 
 // Dynamic Enum ////////////////////////////////////////////////////////////////
 pub enum Dynamic {
     /// Variable mutation rate in form of a cosine function.  
-    ///
-    /// Parameters:
+    ///   
+    /// Parameters:  
     /// 1) default mutation rate (y-axis shift)
     /// 2) amplitude (maximum change of the mutation rate in both directions)
     /// 3) wavelength (in generations)
     /// 4) optional min & max values (for a hard cutoff)
     MutRateCos(f32, f32, usize, Option<(f32, f32)>),
 
-    /// Variable standard distribution (std_dev) for the normal distribution in
-    /// the `Context` struct (-> `ctx.gauss_rand_time`).
+    /// Variable standard deviation (std_dev) for the normal distribution in
+    /// the `Context` struct (-> `ctx.gauss_rand_event`).
     /// This can be used in combination with `Mutation::GaussSwap`.  
-    ///
-    /// Parameters:
+    ///   
+    /// Parameters:  
     /// 1) target success rate
     GaussRandEvent(f32),
 
     /// Variable mutation rate which is chosen dynamically to reach the given
     /// variable target mean objective value in the population. The target mean
-    /// is variable in form of a cosine function.
-    ///
-    /// Parameters
-    /// 1) deviation from the current best (e.g. 1.10 for +10%)
+    /// is variable in form of a cosine function.  
+    ///   
+    /// Parameters:  
+    /// 1) average deviation from the current best (e.g. 1.10 for +10%)
     /// 2) gain of the PT2 block (= amplification)
-    VarMutRateTargetMeanSin(f64, f64),
+    /// 3) amplitude of the deviation change (sine-function)
+    /// 4) wavelength (in generations)
+    VarMutRateTargetMeanSin(f64, f64, f32, usize),
+
+    /// Increase selection pressure by modifying the linear rank parameter,
+    /// if for a certain amount of generations the best solution didn't change.
+    /// This dynamic automatically sets the linear rank selection as selection
+    /// method!  
+    ///   
+    /// Parameters:  
+    /// 1) amount of generations to pass before another STEP is made
+    /// 2) step in selection pressure value
+    /// 3) max selection pressure
+    /// 4) maximum amount of generations at max selection pressure
+    IncLinearRankSelectionPressure(usize, f32, f32, usize),
+
+    /// State Machine
+    StateMachine,
 }
 
 #[rustfmt::skip]
@@ -46,8 +65,13 @@ impl ga::dynamics::Dynamic<Cost, Context, Chromosome, Crossover, Mutation, usize
             Self::GaussRandEvent(x) =>
                 format!("gauss-rnd-evnt-{x}"),
 
-            Self::VarMutRateTargetMeanSin(a, b) =>
-                format!("var-mut-rate-target-mean-sin-{a}-{b}"),
+            Self::VarMutRateTargetMeanSin(a, b, c, d) =>
+                format!("var-mut-rate-target-mean-sin-{a}-{b}-{c}-{d}"),
+
+            Self::IncLinearRankSelectionPressure(a, b, c, d) =>
+                format!("inc-lin-rnk-sel-pressure-{a}-{b}-{c}-{d}"),
+
+            Self::StateMachine => "state-machine".into(),
         }
     }
 
@@ -64,8 +88,16 @@ impl ga::dynamics::Dynamic<Cost, Context, Chromosome, Crossover, Mutation, usize
             Self::GaussRandEvent(_) =>
                 gauss_rand_event::setup(rtd, parameters, context),
 
-            Self::VarMutRateTargetMeanSin(_, _) =>
-                var_mut_rate_target_mean_sin::setup(rtd, parameters, context),
+            Self::VarMutRateTargetMeanSin(_, g, _, _) =>
+                var_mut_rate_target_mean_sin::setup(
+                    rtd, parameters, context, *g
+                ),
+
+            Self::IncLinearRankSelectionPressure(_, _, _, _) =>
+                inc_lin_rnk_sel_pressure::setup(rtd, parameters, context),
+
+            Self::StateMachine =>
+                state_machine::setup(rtd, parameters, context),
         }
     }
 
@@ -85,10 +117,23 @@ impl ga::dynamics::Dynamic<Cost, Context, Chromosome, Crossover, Mutation, usize
                 rtd, parameters, context, rerun_logger, *tsr
             ),
 
-            Self::VarMutRateTargetMeanSin(_, _) =>
+            Self::VarMutRateTargetMeanSin(avg_dv, _, a, w) =>
                 var_mut_rate_target_mean_sin::exec(
-                    rtd, parameters, context, rerun_logger
+                    rtd, parameters, context, rerun_logger,
+                    *avg_dv, *a, *w
                 ),
+
+            Self::IncLinearRankSelectionPressure(
+                step_gen, step_val, max_sp, reset
+            ) =>
+                inc_lin_rnk_sel_pressure::exec(
+                    rtd, parameters, context, rerun_logger,
+                    *step_gen, *step_val, *max_sp, *reset
+                ),
+
+            Self::StateMachine => state_machine::exec(
+                rtd, parameters, context, rerun_logger
+            ),
         }
     }
 }

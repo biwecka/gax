@@ -40,21 +40,6 @@ pub struct Context {
     pub state_machine: StateMachine,
 }
 
-#[derive(Clone, Default, Debug)]
-pub struct StateMachine {
-    pub last_state_change: usize,
-    pub focus_without_success: usize,
-    pub state: State,
-}
-
-#[derive(Clone, Default, Debug)]
-pub enum State {
-    #[default]
-    Broad,
-    Focus,
-    Finish,
-}
-
 impl ga::encoding::Context for Context {}
 
 impl Context {
@@ -101,4 +86,21 @@ impl Context {
     }
 }
 
+// State Machine ///////////////////////////////////////////////////////////////
+#[derive(Clone, Default, Debug)]
+pub struct StateMachine {
+    pub last_state_change: usize,
+    pub focus_without_success: usize,
+    pub state: State
+}
+
+#[derive(Clone, Default, Debug)]
+pub enum State {
+    #[default]
+    Broad,
+    Focus,
+    Finish,
+}
+
 ////////////////////////////////////////////////////////////////////////////////
+

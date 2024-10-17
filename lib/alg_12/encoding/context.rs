@@ -1,5 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use bits::{matrix::BitsMatrix32x128, Bits128};
+use control_circuits::PT2;
 use rand_distr::{Normal, Uniform};
 use xhstt::db::constraints::Constraint;
 
@@ -43,27 +44,13 @@ pub struct Context {
     pub rand_event: Uniform<u8>,
     pub gauss_rand_event: Normal<f32>,
     pub gauss_rand_event_sd: f32,
-    // /// PT2 control circuit
-    // pub pt2: PT2,
 
-    // /// State machine (for the `StateMachine` dynamic)
-    // pub state_machine: StateMachine,
+    /// PT2 control circuit
+    pub pt2: PT2,
+
+    /// State machine (for the `StateMachine` dynamic)
+    pub state_machine: StateMachine,
 }
-
-// #[derive(Clone, Default, Debug)]
-// pub struct StateMachine {
-//     pub last_state_change: usize,
-//     pub focus_without_success: usize,
-//     pub state: State
-// }
-
-// #[derive(Clone, Default, Debug)]
-// pub enum State {
-//     #[default]
-//     Broad,
-//     Focus,
-//     Finish,
-// }
 
 impl ga::encoding::Context for Context {}
 
@@ -133,9 +120,9 @@ impl Context {
         let gauss_rand_event =
             Normal::<f32>::new(0., gauss_rand_event_sd).unwrap();
 
-        // let pt2 = PT2::new(1., 1., 0.4, 1., 1.);
+        let pt2 = PT2::new(1., 1., 0.4, 1., 1.);
 
-        // let state_machine = StateMachine::default();
+        let state_machine = StateMachine::default();
 
         // Return
         Self {
@@ -153,10 +140,27 @@ impl Context {
             // gauss_rand_time_sd,
             gauss_rand_event,
             gauss_rand_event_sd,
-            // pt2,
-            // state_machine,
+
+            pt2,
+            state_machine,
         }
     }
+}
+
+// State Machine ///////////////////////////////////////////////////////////////
+#[derive(Clone, Default, Debug)]
+pub struct StateMachine {
+    pub last_state_change: usize,
+    pub focus_without_success: usize,
+    pub state: State
+}
+
+#[derive(Clone, Default, Debug)]
+pub enum State {
+    #[default]
+    Broad,
+    Focus,
+    Finish,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
