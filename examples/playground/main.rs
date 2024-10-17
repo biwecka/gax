@@ -152,16 +152,16 @@ pub struct EventGene {
 
 impl std::fmt::Display for EventGene {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "EventGene {{\n")?;
+        writeln!(f, "EventGene {{")?;
 
-        write!(f, "  Y_e   : {}\n", self.times)?;
-        write!(f, "  S_e   : {}\n", self.start_times)?;
-        write!(f, "  K_e,d : [\n")?;
+        writeln!(f, "  Y_e   : {}", self.times)?;
+        writeln!(f, "  S_e   : {}", self.start_times)?;
+        writeln!(f, "  K_e,d : [")?;
         for sub in &self.sub_event_start_times {
-            write!(f, "    {:>2} => {}\n", sub.0, sub.1)?;
+            writeln!(f, "    {:>2} => {}", sub.0, sub.1)?;
         }
 
-        write!(f, "  ]\n")?;
+        writeln!(f, "  ]")?;
         write!(f, "}}")
     }
 }
@@ -244,6 +244,7 @@ impl EventGene {
         e
     }
 
+    #[allow(clippy::result_unit_err)]
     pub fn from_time_allocation(times: BitVec<u32, Lsb0>) -> Result<Self, ()> {
         // Extract the number of time slots
         let num_times = times.len();
@@ -308,6 +309,7 @@ impl EventGene {
         Ok(e)
     }
 
+    #[allow(clippy::result_unit_err)]
     pub fn from_sub_events(
         sub_events: Vec<(usize, BitVec<u32, Lsb0>)>,
     ) -> Result<Self, ()> {

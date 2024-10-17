@@ -420,9 +420,9 @@ impl<
                 println!(
                     "[{}] best = {:?}, mean = {}, worst = {:?}, cache-hits = {}",
                     rtd.generation,
-                    rtd.current_best,
-                    rtd.current_mean,
-                    rtd.current_worst,
+                    rtd.best,
+                    rtd.mean,
+                    rtd.worst,
                     rtd.cache_hits,
                 );
             };
