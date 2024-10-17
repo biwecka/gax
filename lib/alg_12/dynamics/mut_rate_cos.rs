@@ -1,16 +1,18 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use crate::{encoding::{Chromosome, Context, Cost}, operators::{Crossover, Mutation}};
+use crate::{
+    encoding::{Chromosome, Context, Cost},
+    operators::{Crossover, Mutation},
+};
 use ga::{
-    process::{rejection::Reject, replacement::Replace, selection::Select, termination::Terminate},
+    process::{
+        rejection::Reject, replacement::Replace, selection::Select,
+        termination::Terminate,
+    },
     runtime_data::RuntimeData,
 };
 
 #[cfg(feature = "ga_log_dynamics")]
-use ga::{
-    tools::rerun_logger::RerunLogger,
-    rerun::external::arrow2::array::DaysMsArray,
-};
-
+use ga::tools::rerun_logger::RerunLogger;
 // Functions ///////////////////////////////////////////////////////////////////
 #[rustfmt::skip]
 pub fn setup(
@@ -25,6 +27,7 @@ pub fn setup(
 }
 
 #[rustfmt::skip]
+#[allow(clippy::too_many_arguments)]
 pub fn exec(
     rtd: &RuntimeData<Cost,Context,Chromosome,Crossover,Mutation,usize,Select,Reject,Replace,Terminate<Cost>,>,
     parameters: &mut ga::parameters::Parameters<Cost,Context,Chromosome,Crossover,Mutation,usize,Select,Reject,Replace,Terminate<Cost>>,

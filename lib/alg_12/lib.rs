@@ -16,19 +16,20 @@ mod encoding;
 pub mod operators;
 
 // Imports /////////////////////////////////////////////////////////////////////
+use dynamics::Dynamic;
 use encoding::{Chromosome, Context, Phenotype};
 use ga::{
-    encoding::Phenotype as _, process::{
+    encoding::Phenotype as _,
+    process::{
         rejection::Reject, replacement::Replace, selection::Select,
         termination::Terminate,
-    }
+    },
 };
 use operators::{Crossover, Mutation};
 use xhstt::{
     db::Database,
     parser::{instances::Instance, solution_groups::solution::events::Event},
 };
-use dynamics::Dynamic;
 
 // Function ////////////////////////////////////////////////////////////////////
 pub fn run(instance: Instance) -> Vec<Event> {

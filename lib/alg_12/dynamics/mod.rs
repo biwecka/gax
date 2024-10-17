@@ -1,13 +1,19 @@
 // Modules /////////////////////////////////////////////////////////////////////
-mod mut_rate_cos;
 mod gauss_rand_event;
-mod var_mut_rate_target_mean_sin;
 mod inc_lin_rnk_sel_pressure;
+mod mut_rate_cos;
 mod state_machine;
+mod var_mut_rate_target_mean_sin;
 
 // Imports /////////////////////////////////////////////////////////////////////
-use crate::{encoding::{Chromosome, Context, Cost}, operators::{Crossover, Mutation}};
-use ga::process::{rejection::Reject, replacement::Replace, selection::Select, termination::Terminate};
+use crate::{
+    encoding::{Chromosome, Context, Cost},
+    operators::{Crossover, Mutation},
+};
+use ga::process::{
+    rejection::Reject, replacement::Replace, selection::Select,
+    termination::Terminate,
+};
 
 // Dynamic Enum ////////////////////////////////////////////////////////////////
 pub enum Dynamic {

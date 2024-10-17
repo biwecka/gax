@@ -1,10 +1,10 @@
 // Modules /////////////////////////////////////////////////////////////////////
-mod mut_rate_cos;
-mod gauss_rand_time;
 mod gauss_rand_event;
-mod var_mut_rate_target_mean_sin;
+mod gauss_rand_time;
 mod inc_lin_rnk_sel_pressure;
+mod mut_rate_cos;
 mod state_machine;
+mod var_mut_rate_target_mean_sin;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use ga::{

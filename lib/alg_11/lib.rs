@@ -141,7 +141,7 @@ pub fn auto_run(
                 .set_dynamics(Some(dynamics))
                 .set_custom_logger::<()>(None)
                 .build()
-        },
+        }
 
         None => ga::Builder::new()
             .set_encoding(encoding)

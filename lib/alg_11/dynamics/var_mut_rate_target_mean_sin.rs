@@ -1,17 +1,20 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use crate::{encoding::{Chromosome, Context, Cost}, operators::{Crossover, Mutation}};
+use crate::{
+    encoding::{Chromosome, Context, Cost},
+    operators::{Crossover, Mutation},
+};
 use control_circuits::PT2;
 use ga::{
-    process::{rejection::Reject, replacement::Replace, selection::Select, termination::Terminate},
-    runtime_data::RuntimeData,
     encoding::ObjectiveValue,
+    process::{
+        rejection::Reject, replacement::Replace, selection::Select,
+        termination::Terminate,
+    },
+    runtime_data::RuntimeData,
 };
 
 #[cfg(feature = "ga_log_dynamics")]
-use ga::{
-    tools::rerun_logger::RerunLogger,
-    rerun::external::arrow2::array::DaysMsArray,
-};
+use ga::tools::rerun_logger::RerunLogger;
 
 // Functions ///////////////////////////////////////////////////////////////////
 #[rustfmt::skip]

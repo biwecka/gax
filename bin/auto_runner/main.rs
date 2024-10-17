@@ -26,7 +26,6 @@ fn main() -> Result<(), Error> {
     let x = chrono::Utc::now().to_rfc3339();
     println!("{x}");
 
-
     // Setup graceful stop
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();

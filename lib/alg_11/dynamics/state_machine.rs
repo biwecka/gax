@@ -1,15 +1,18 @@
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::{
     encoding::{Chromosome, Context, Cost, State},
-    operators::{Crossover, Mutation}
+    operators::{Crossover, Mutation},
 };
 use ga::{
     process::{
         rejection::Reject, replacement::Replace, selection::Select,
-        termination::Terminate
+        termination::Terminate,
     },
-    runtime_data::RuntimeData, tools::rerun_logger::RerunLogger
+    runtime_data::RuntimeData,
 };
+
+#[cfg(feature = "ga_log_dynamics")]
+use ga::tools::rerun_logger::RerunLogger;
 
 // Functions ///////////////////////////////////////////////////////////////////
 #[rustfmt::skip]
@@ -30,6 +33,7 @@ pub fn setup(
 
 #[rustfmt::skip]
 pub fn exec(
+    #[allow(unused)]
     rtd: &RuntimeData<Cost,Context,Chromosome,Crossover,Mutation,usize,Select,Reject,Replace,Terminate<Cost>,>,
     parameters: &mut ga::parameters::Parameters<Cost,Context,Chromosome,Crossover,Mutation,usize,Select,Reject,Replace,Terminate<Cost>>,
     context: &mut Context,
