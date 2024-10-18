@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error("Git operation failed: {0}")]
@@ -17,4 +19,19 @@ pub enum Error {
 
     #[error("IO Error: {0}")]
     IO(String),
+
+    #[error("Existing and new param.csv don't match: {0}")]
+    ParamCsvNotMatching(PathBuf),
+
+    #[error("Error @ params.csv: {0}")]
+    ParamsCsv(String),
+
+    #[error("Error @ general.csv: {0}")]
+    GeneralCsv(String),
+
+    #[error("Error @ generations.csv: {0}")]
+    GenerationsCsv(String),
+
+    #[error("Error @ solution.xml: {0}")]
+    SolutionXml(String),
 }

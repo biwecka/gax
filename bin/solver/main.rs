@@ -12,18 +12,16 @@ fn main() {
     // Extract problem instance
     let instance = xhstt.instance().expect("No problem instance found.");
 
+    // Get current time (UTC) and start measuring time
+    let time = chrono::Utc::now().to_rfc3339();
+    let start = std::time::Instant::now();
+
     // Execute algorithm
-    // let solution_events = alg_2::run(instance.clone());
-    // let solution_events = alg_3::run(instance.clone());
-    // let solution_events = alg_4::run(instance.clone());
-    // let solution_events = alg_5::run(instance.clone());
-    // let solution_events = alg_6::run(instance.clone());
-    // let solution_events = alg_7::run(instance.clone());
-    // let solution_events = alg_8::run(instance.clone());
-    // let solution_events = alg_9::run(instance.clone());
-    // let solution_events = alg_10::run(instance.clone());
     // let solution_events = alg_11::run(instance.clone());
     let solution_events = alg_12::run(instance.clone());
+
+    // Stop time
+    let runtime = start.elapsed().as_secs();
 
     // Clone the original XHSTT instance
     let mut xhstt_solution = xhstt.clone();
@@ -32,9 +30,10 @@ fn main() {
     // group.
     let solution = xhstt::tools::create_solution(
         &instance.id,
-        "test_run",
+        &format!("run_{}", time),
         "biwecka",
-        "GA for XHSTT",
+        "GAX (GA for XHSTT)",
+        Some(runtime as usize),
         solution_events,
     );
 
@@ -53,7 +52,7 @@ fn main() {
     // Write result
     let _ = xhstt::tools::write_xhstt(
         &xhstt_solution,
-        &format!("./assets/solutions/{dir}/solution.xml"),
+        format!("./assets/solutions/{dir}/solution.xml"),
     );
 }
 

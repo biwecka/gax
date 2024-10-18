@@ -7519,6 +7519,7 @@ name = "solver"
 version = "0.1.0"
 dependencies = [
  "alg_12",
+ "chrono",
  "rand",
  "xhstt",
 ]

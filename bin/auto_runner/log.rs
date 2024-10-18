@@ -16,7 +16,11 @@ impl Logger {
     }
 
     pub fn err(&self, s: &str) {
-        self.pushover.send("Error", s, true);
+        self.pushover.send("Error", s, true).expect("Pushover send message");
+    }
+
+    pub fn success(&self, s: &str) {
+        self.pushover.send("Success", s, false).expect("Pushover send message");
     }
 }
 

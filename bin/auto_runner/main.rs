@@ -1,16 +1,16 @@
 // Modules /////////////////////////////////////////////////////////////////////
 mod env;
 mod error;
+mod executor;
 mod git;
 mod log;
-mod executor;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use env::Env;
 use error::Error;
+use executor::ExecutorAlg12;
 use git::Git;
 use log::Logger;
-use executor::ExecutorAlg12;
 
 // use pushover::{requests::message::SendMessage, API};
 use std::sync::{
@@ -33,42 +33,41 @@ fn main() {
     ctrlc::set_handler(move || {
         println!(": Ctrl+C pressed! Gracefully stopping...");
         r.store(false, Ordering::SeqCst); // Set the flag to false
-    }).unwrap();
+    })
+    .unwrap();
 
     // Initialize executor and run auto-runner loop.
-    let mut exec = ExecutorAlg12::new(env, &log, git);
+    let mut exec = ExecutorAlg12::new(env);
 
     while running.load(Ordering::SeqCst) {
+        // Execute algorithm
         let result = exec.run_next();
 
+        // If error -> log and exit
         if let Err(e) = result {
             log.err(&format!("{e}"));
             break;
         }
+
+        // Commit changes and push "plots" repo
+        let upload = git_upload_data(&git);
+        if let Err(e) = upload {
+            log.err(&format!("{e}"));
+        }
+
+        // Log success
+        log.success("Execution finished");
     }
 }
 
-#[allow(unused)]
-fn csv() {
-    #[derive(serde::Serialize)]
-    struct Data {
-        a: i32,
-        b: f32,
-        // c: Vec<i32>,
-    }
+fn git_upload_data(git: &Git) -> Result<(), Error> {
+    git.fetch()?;
+    git.rebase()?;
+    git.add_all()?;
+    git.commit()?;
+    git.push()?;
 
-    let mut wtr = csv::WriterBuilder::new()
-        .delimiter(b';')
-        .from_writer(std::io::stdout());
-
-    wtr.serialize(Data {
-        a: 1,
-        b: 2.4,
-        // c: vec![1,2,3]
-    })
-    .unwrap();
-
-    wtr.flush().unwrap();
+    Ok(())
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -3,6 +3,7 @@ use crate::encoding::{Context, Genotype, ObjectiveValue};
 use std::marker::PhantomData;
 
 // Report //////////////////////////////////////////////////////////////////////
+#[derive(Clone)]
 pub struct Report<Ov, Ctx, Ge>
 where
     Ov: ObjectiveValue,
@@ -13,6 +14,8 @@ where
     /// ascendingly, so that the best solution is the FIRST chromosome in the
     /// list.
     pub population: Vec<(Ge, Ov)>,
+
+    pub generation: usize,
 
     /// Total runtime of the algorithm in SECONDS.
     pub runtime: usize,
@@ -25,6 +28,7 @@ where
     pub ctx: PhantomData<Ctx>,
 }
 
+#[derive(Clone)]
 pub struct ReportLog {
     pub generation: usize,
     pub best: usize,

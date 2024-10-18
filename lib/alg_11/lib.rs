@@ -145,7 +145,7 @@ pub fn auto_run(
                 .build();
 
             alg.run()
-        },
+        }
 
         None => {
             let alg = ga::Builder::new()

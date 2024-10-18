@@ -9,7 +9,7 @@
 pub mod dynamics;
 
 /// Encoding module.
-mod encoding;
+pub mod encoding;
 
 /// The operators module must also be public for the auto-runner to construct
 /// the algorithm's configuration.
@@ -23,7 +23,8 @@ use ga::{
     process::{
         rejection::Reject, replacement::Replace, selection::Select,
         termination::Terminate,
-    }, report::Report,
+    },
+    report::Report,
 };
 use operators::{Crossover, Mutation};
 use xhstt::{
@@ -138,7 +139,7 @@ pub fn auto_run(
                 .build();
 
             alg.run()
-        },
+        }
 
         None => {
             let alg = ga::Builder::new()

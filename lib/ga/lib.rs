@@ -482,9 +482,12 @@ impl<
             ds.list.iter().map(|d| d.identifier()).collect::<Vec<_>>().join("_")
         });
 
+        let generation = rtd.generation;
+
         // Return
         Report {
             population,
+            generation,
             log: report_log,
             runtime: total_runtime,
             parameter_identifier,

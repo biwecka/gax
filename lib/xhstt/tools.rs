@@ -1,3 +1,5 @@
+use std::path::Path;
+
 // Imports /////////////////////////////////////////////////////////////////////
 use crate::parser::{
     solution_groups::{
@@ -52,6 +54,7 @@ pub fn create_solution(
     solution_id: &str,
     contributor: &str,
     description: &str,
+    runtime: Option<usize>, // in seconds
     solution_events: Vec<Event>,
 ) -> SolutionGroups {
     let date = chrono::Local::now().to_rfc3339();
@@ -70,14 +73,18 @@ pub fn create_solution(
             solutions: vec![Solution {
                 reference: instance_id.to_owned(),
                 description: None,
-                running_time: None,
+                running_time: runtime
+                    .map(|s| format!("{}m {}s", s / 60, s % 60)),
                 events: Some(Events { list: solution_events }),
             }],
         }],
     }
 }
 
-pub fn write_xhstt(xhstt: &XhsttArchive, path: &str) -> std::io::Result<()> {
+pub fn write_xhstt(
+    xhstt: &XhsttArchive,
+    path: impl AsRef<Path>,
+) -> std::io::Result<()> {
     let xml = xhstt_to_xml_string(xhstt);
     let formatted_xml = format_xml(&xml);
 
