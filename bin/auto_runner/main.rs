@@ -57,6 +57,9 @@ fn main() {
 
         // Log success
         log.success("Execution finished");
+
+        // Wait a minute for the laptop to cool down
+        std::thread::sleep(std::time::Duration::from_secs(60));
     }
 }
 
