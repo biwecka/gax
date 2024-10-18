@@ -121,7 +121,7 @@ pub fn auto_run(
         .set_mutation(params.mutation)
         .set_rejection(Reject::None)
         .set_replacement(params.replacement)
-        .set_termination(Terminate::GenOrOv(10_000, 0.into()))
+        .set_termination(Terminate::GenOrOv(100_000, 0.into()))
         .build();
 
     // Create algorithm and let it run!

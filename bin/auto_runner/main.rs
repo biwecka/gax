@@ -1,14 +1,14 @@
 // Modules /////////////////////////////////////////////////////////////////////
 mod env;
 mod error;
-mod executor;
+mod executor_alg_12;
 mod git;
 mod log;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use env::Env;
 use error::Error;
-use executor::ExecutorAlg12;
+use executor_alg_12::ExecutorAlg12;
 use git::Git;
 use log::Logger;
 
