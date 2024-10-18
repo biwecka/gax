@@ -14,6 +14,7 @@ pub struct Config {
 }
 
 // Configurations //////////////////////////////////////////////////////////////
+#[rustfmt::skip]
 pub fn configs() -> Vec<Config> {
     vec![
         // >>> Try out all selection methods with VarSPt+UniSw <<<<<<<<<<<<<<<<<
