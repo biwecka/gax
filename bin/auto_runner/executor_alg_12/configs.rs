@@ -557,6 +557,80 @@ pub fn configs() -> Vec<Config> {
             ]),
         },
 
+
+        // >>> Check if VarSPt is better with dynamic <<<<<<<<<<<<<<<<<<<<<<<<<<
+
+        // Mu(0.01) | Roulette | VarSPt | UniSw | El(1)
+        //
+        // -> dyn: MutRateCos(0.01, 0.005, 200, None)
+        Config {
+            params: AutoRunParameters {
+                population_size: 1_000,
+                mutation_rate: 0.01,
+                selection: Select::RouletteWheel,
+                crossover: Crossover::VariableSinglePoint,
+                mutation: Mutation::UniformSwap,
+                replacement: Replace::EliteAbsolute(1),
+            },
+
+            dynamics: Some(vec![
+                Dynamic::MutRateCos(0.01, 0.005, 200, None)
+            ])
+        },
+
+        // Mu(0.01) | Roulette | VarSPt | UniSw | El(1)
+        //
+        // -> dyn: VarMutRateTargetMeanSin(1.10, 1., 0.05, 200)
+        Config {
+            params: AutoRunParameters {
+                population_size: 1_000,
+                mutation_rate: 0.01,
+                selection: Select::RouletteWheel,
+                crossover: Crossover::VariableSinglePoint,
+                mutation: Mutation::UniformSwap,
+                replacement: Replace::EliteAbsolute(1),
+            },
+
+            dynamics: Some(vec![
+                Dynamic::VarMutRateTargetMeanSin(1.10, 1., 0.05, 200)
+            ])
+        },
+
+        // Mu(0.01) | Roulette | VarSPt | UniSw | El(1)
+        //
+        // -> dyn: IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
+        Config {
+            params: AutoRunParameters {
+                population_size: 1_000,
+                mutation_rate: 0.01,
+                selection: Select::RouletteWheel,
+                crossover: Crossover::VariableSinglePoint,
+                mutation: Mutation::UniformSwap,
+                replacement: Replace::EliteAbsolute(1),
+            },
+
+            dynamics: Some(vec![
+                Dynamic::IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
+            ])
+        },
+
+        // Mu(0.01) | Roulette | VarSPt | UniSw | El(1)
+        //
+        // -> dyn: StateMachine
+        Config {
+            params: AutoRunParameters {
+                population_size: 1_000,
+                mutation_rate: 0.01,
+                selection: Select::RouletteWheel,
+                crossover: Crossover::VariableSinglePoint,
+                mutation: Mutation::UniformSwap,
+                replacement: Replace::EliteAbsolute(1),
+            },
+
+            dynamics: Some(vec![
+                Dynamic::StateMachine
+            ])
+        },
     ]
 }
 
