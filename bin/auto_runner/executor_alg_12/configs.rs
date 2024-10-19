@@ -483,33 +483,14 @@ pub fn configs() -> Vec<Config> {
             ]),
         },
 
-
-        // Mu(0.01) | Tournament(8) | Ordered | UniSw | El(1)
+        // Mu(0.01) | LinRnk(1.0) | Ordered | UniSw | El(1)
         //
         // -> dyn: IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
         Config {
             params: AutoRunParameters {
                 population_size: 1_000,
                 mutation_rate: 0.01,
-                selection: Select::Tournament(8),
-                crossover: Crossover::Ordered,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
-
-            dynamics: Some(vec![
-                Dynamic::IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
-            ]),
-        },
-
-        // Mu(0.01) | LinRnk(1.5) | Ordered | UniSw | El(1)
-        //
-        // -> dyn: IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::LinearRank(1.5),
+                selection: Select::LinearRank(1.0),
                 crossover: Crossover::Ordered,
                 mutation: Mutation::UniformSwap,
                 replacement: Replace::EliteAbsolute(1),
@@ -582,14 +563,14 @@ pub fn configs() -> Vec<Config> {
             ])
         },
 
-        // Mu(0.01) | Roulette | VarSPt | UniSw | El(1)
+        // Mu(0.01) | LinRnk(1.0) | VarSPt | UniSw | El(1)
         //
         // -> dyn: IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
         Config {
             params: AutoRunParameters {
                 population_size: 1_000,
                 mutation_rate: 0.01,
-                selection: Select::RouletteWheel,
+                selection: Select::LinearRank(1.0),
                 crossover: Crossover::VariableSinglePoint,
                 mutation: Mutation::UniformSwap,
                 replacement: Replace::EliteAbsolute(1),
