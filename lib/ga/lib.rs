@@ -120,6 +120,36 @@ impl<
         let log_size = self.params.termination.max_generations().unwrap_or(0);
         let mut report_log: Vec<ReportLog> = Vec::with_capacity(log_size);
 
+        // Define parameter identifier before the algorithm starts, because if
+        // dynamics modify those parameters, the configurations cannot be
+        // grouped correctly afterwards.
+        let parameter_identifier = {
+            let parts = [
+                // Population: P1000
+                format!("P:{}", self.params.population_size),
+                // Mutation Rate: MR0.0100
+                format!("MR:{:.4}", self.params.mutation_rate),
+                // Selection: SE...
+                format!("SE:{}", self.params.selection.identifier()),
+                // Crossover: CX...
+                format!("CX:{}", self.params.crossover.identifier()),
+                // Mutation: MU...
+                format!("MU:{}", self.params.mutation.identifier()),
+                // Replace: RE...
+                format!("RE:{}", self.params.replacement.identifier()),
+                // Termination: TE...
+                format!("TE:{}", self.params.termination.identifier()),
+            ];
+
+            parts.join("_")
+        };
+
+        // The same goes for the dynamics identifier. See `parameter_identifier`
+        // for explanation (above).
+        let dynamics_identifier = self.dynamics.as_ref().map(|ds| {
+            ds.list.iter().map(|d| d.identifier()).collect::<Vec<_>>().join("_")
+        });
+
         // Start runtime measurement
         let total_runtime_start = std::time::Instant::now();
 
@@ -453,41 +483,10 @@ impl<
         // Stop runtime measurement (total runtime)
         let total_runtime = total_runtime_start.elapsed().as_secs() as usize;
 
-        // Finalize the report
-        // report.population = population;
-        // report.runtime = total_runtime;
-
-        let parameter_identifier = {
-            let parts = [
-                // Population: P1000
-                format!("P:{}", self.params.population_size),
-                // Mutation Rate: MR0.0100
-                format!("MR:{:.4}", self.params.mutation_rate),
-                // Selection: SE...
-                format!("SE:{}", self.params.selection.identifier()),
-                // Crossover: CX...
-                format!("CX:{}", self.params.crossover.identifier()),
-                // Mutation: MU...
-                format!("MU:{}", self.params.mutation.identifier()),
-                // Replace: RE...
-                format!("RE:{}", self.params.replacement.identifier()),
-                // Termination: TE...
-                format!("TE:{}", self.params.termination.identifier()),
-            ];
-
-            parts.join("_")
-        };
-
-        let dynamics_identifier = self.dynamics.map(|ds| {
-            ds.list.iter().map(|d| d.identifier()).collect::<Vec<_>>().join("_")
-        });
-
-        let generation = rtd.generation;
-
-        // Return
+        // Create report and return
         Report {
             population,
-            generation,
+            generation: rtd.generation,
             log: report_log,
             runtime: total_runtime,
             parameter_identifier,
