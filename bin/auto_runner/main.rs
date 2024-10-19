@@ -46,6 +46,7 @@ fn main() {
         // If error -> log and exit
         if let Err(e) = result {
             log.err(&format!("{e}"));
+            println!("[ERR] {e}");
             break;
         }
 
@@ -53,6 +54,7 @@ fn main() {
         let upload = git_upload_data(&git);
         if let Err(e) = upload {
             log.err(&format!("{e}"));
+            println!("[ERR] {e}");
         }
 
         // Log success

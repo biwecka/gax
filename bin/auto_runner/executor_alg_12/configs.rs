@@ -52,7 +52,7 @@ pub fn configs() -> Vec<Config> {
             params: AutoRunParameters {
                 population_size: 1_000,
                 mutation_rate: 0.01,
-                selection: Select::Tournament(4),
+                selection: Select::Tournament(8),
                 crossover: Crossover::VariableSinglePoint,
                 mutation: Mutation::UniformSwap,
                 replacement: Replace::EliteAbsolute(1),
@@ -80,7 +80,7 @@ pub fn configs() -> Vec<Config> {
             params: AutoRunParameters {
                 population_size: 1_000,
                 mutation_rate: 0.01,
-                selection: Select::LinearRank(2.0),
+                selection: Select::LinearRank(1.5),
                 crossover: Crossover::VariableSinglePoint,
                 mutation: Mutation::UniformSwap,
                 replacement: Replace::EliteAbsolute(1),
@@ -125,7 +125,7 @@ pub fn configs() -> Vec<Config> {
             params: AutoRunParameters {
                 population_size: 1_000,
                 mutation_rate: 0.01,
-                selection: Select::Tournament(4),
+                selection: Select::Tournament(8),
                 crossover: Crossover::Pmx,
                 mutation: Mutation::UniformSwap,
                 replacement: Replace::EliteAbsolute(1),
@@ -153,7 +153,7 @@ pub fn configs() -> Vec<Config> {
             params: AutoRunParameters {
                 population_size: 1_000,
                 mutation_rate: 0.01,
-                selection: Select::LinearRank(2.0),
+                selection: Select::LinearRank(1.5),
                 crossover: Crossover::Pmx,
                 mutation: Mutation::UniformSwap,
                 replacement: Replace::EliteAbsolute(1),
@@ -198,7 +198,7 @@ pub fn configs() -> Vec<Config> {
             params: AutoRunParameters {
                 population_size: 1_000,
                 mutation_rate: 0.01,
-                selection: Select::Tournament(4),
+                selection: Select::Tournament(8),
                 crossover: Crossover::Ordered,
                 mutation: Mutation::UniformSwap,
                 replacement: Replace::EliteAbsolute(1),
@@ -226,7 +226,7 @@ pub fn configs() -> Vec<Config> {
             params: AutoRunParameters {
                 population_size: 1_000,
                 mutation_rate: 0.01,
-                selection: Select::LinearRank(2.0),
+                selection: Select::LinearRank(1.5),
                 crossover: Crossover::Ordered,
                 mutation: Mutation::UniformSwap,
                 replacement: Replace::EliteAbsolute(1),

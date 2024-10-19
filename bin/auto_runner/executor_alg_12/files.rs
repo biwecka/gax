@@ -75,6 +75,11 @@ impl FilesHelper {
                 })?;
 
             if content.trim() != existing.trim() {
+                println!("existing:\n{}", existing.trim());
+                println!("new:\n{}", content.trim());
+
+                println!("path: {:?}", params_csv_path);
+
                 return Err(Error::ParamCsvNotMatching(
                     params_csv_path.clone(),
                 ));
