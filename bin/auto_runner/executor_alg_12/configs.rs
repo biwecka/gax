@@ -521,35 +521,21 @@ pub fn configs() -> Vec<Config> {
         },
 
 
-        // Mu(0.01) | Tournament(8) | Ordered | UniSw | El(1)
+        // Mu(0.015) | LinRnk(1.4) | Pmx | UniSw | Full
+        //
+        // The state machine dynamic overwrites the parameters anyways in its
+        // setup function. Because of that, the state machine dynamic cannot
+        // be tested with other parameters (as it overwrites them anyways).
         //
         // -> dyn: StateMachine
         Config {
             params: AutoRunParameters {
                 population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::Tournament(8),
-                crossover: Crossover::Ordered,
+                mutation_rate: 0.015,
+                selection: Select::LinearRank(1.4),
+                crossover: Crossover::Pmx,
                 mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
-
-            dynamics: Some(vec![
-                Dynamic::StateMachine
-            ]),
-        },
-
-        // Mu(0.01) | LinRnk(1.5) | Ordered | UniSw | El(1)
-        //
-        // -> dyn: StateMachine
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::LinearRank(1.5),
-                crossover: Crossover::Ordered,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
+                replacement: Replace::Full,
             },
 
             dynamics: Some(vec![
@@ -611,24 +597,6 @@ pub fn configs() -> Vec<Config> {
 
             dynamics: Some(vec![
                 Dynamic::IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
-            ])
-        },
-
-        // Mu(0.01) | Roulette | VarSPt | UniSw | El(1)
-        //
-        // -> dyn: StateMachine
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::RouletteWheel,
-                crossover: Crossover::VariableSinglePoint,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
-
-            dynamics: Some(vec![
-                Dynamic::StateMachine
             ])
         },
     ]
