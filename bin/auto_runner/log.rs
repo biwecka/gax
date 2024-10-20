@@ -16,11 +16,39 @@ impl Logger {
     }
 
     pub fn err(&self, s: &str) {
-        self.pushover.send("Error", s, true).expect("Pushover send message");
+        // Try to send Push-Notification
+        let mut res = self.pushover.send("Error", s, true);
+
+        // Retry-Counter
+        let mut counter = 0;
+
+        // If senting the notification didn't work, try again.
+        // -> every 10 seconds for a total of 10 minutes
+        while res.is_err() && counter <= 60 {
+            println!("[WRN] Retrying to send Push-Notification");
+            std::thread::sleep(std::time::Duration::from_secs(10));
+
+            res = self.pushover.send("Error", s, true);
+            counter += 1;
+        }
     }
 
     pub fn success(&self, s: &str) {
-        self.pushover.send("Success", s, false).expect("Pushover send message");
+        // Try to send Push-Notification
+        let mut res = self.pushover.send("Success", s, false);
+
+        // Retry-Counter
+        let mut counter = 0;
+
+        // If senting the notification didn't work, try again.
+        // -> every 10 seconds for a total of 10 minutes
+        while res.is_err() && counter <= 60 {
+            println!("[WRN] Retrying to send Push-Notification");
+            std::thread::sleep(std::time::Duration::from_secs(10));
+
+            res = self.pushover.send("Success", s, false);
+            counter += 1;
+        }
     }
 }
 

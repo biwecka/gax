@@ -28,7 +28,7 @@ impl ExecutorAlg12 {
         assert!(!instances.is_empty());
 
         let configs = configs::configs();
-        let next_config = 0;
+        let next_config = 33;
         assert!(!configs.is_empty());
 
         Self { env, instances, next_instance, configs, next_config }
