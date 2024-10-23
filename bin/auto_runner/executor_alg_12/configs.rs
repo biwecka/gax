@@ -135,18 +135,18 @@ pub fn configs() -> Vec<Config> {
         },
 
         // Mu(0.01) | LinRnk(2.0) | Pmx | UniSw | El(1)
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::LinearRank(2.0),
-                crossover: Crossover::Pmx,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
+        // Config {
+        //     params: AutoRunParameters {
+        //         population_size: 1_000,
+        //         mutation_rate: 0.01,
+        //         selection: Select::LinearRank(2.0),
+        //         crossover: Crossover::Pmx,
+        //         mutation: Mutation::UniformSwap,
+        //         replacement: Replace::EliteAbsolute(1),
+        //     },
 
-            dynamics: None,
-        },
+        //     dynamics: None,
+        // },
 
         // Mu(0.01) | LinRnk(1.5) | Pmx | UniSw | El(1)
         // Config {
@@ -180,18 +180,18 @@ pub fn configs() -> Vec<Config> {
         // },
 
         // Mu(0.01) | Tournament(4) | Ordered | UniSw | El(1)
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::Tournament(4),
-                crossover: Crossover::Ordered,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
+        // Config {
+        //     params: AutoRunParameters {
+        //         population_size: 1_000,
+        //         mutation_rate: 0.01,
+        //         selection: Select::Tournament(4),
+        //         crossover: Crossover::Ordered,
+        //         mutation: Mutation::UniformSwap,
+        //         replacement: Replace::EliteAbsolute(1),
+        //     },
 
-            dynamics: None,
-        },
+        //     dynamics: None,
+        // },
 
         // Mu(0.01) | Tournament(8) | Ordered | UniSw | El(1)
         Config {
@@ -295,18 +295,18 @@ pub fn configs() -> Vec<Config> {
         // },
 
         // Mu(0.01) | LinRnk(1.5) | Pmx | GaussSw | El(1)
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::LinearRank(1.5),
-                crossover: Crossover::Pmx,
-                mutation: Mutation::GaussSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
+        // Config {
+        //     params: AutoRunParameters {
+        //         population_size: 1_000,
+        //         mutation_rate: 0.01,
+        //         selection: Select::LinearRank(1.5),
+        //         crossover: Crossover::Pmx,
+        //         mutation: Mutation::GaussSwap,
+        //         replacement: Replace::EliteAbsolute(1),
+        //     },
 
-            dynamics: None,
-        },
+        //     dynamics: None,
+        // },
 
 
 
@@ -468,38 +468,38 @@ pub fn configs() -> Vec<Config> {
         // Mu(0.01) | LinRnk(1.5) | Ordered | UniSw | El(1)
         //
         // -> dyn: VarMutRateTargetMeanSin(1.10, 1., 0.05, 200)
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::LinearRank(1.5),
-                crossover: Crossover::Ordered,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
+        // Config {
+        //     params: AutoRunParameters {
+        //         population_size: 1_000,
+        //         mutation_rate: 0.01,
+        //         selection: Select::LinearRank(1.5),
+        //         crossover: Crossover::Ordered,
+        //         mutation: Mutation::UniformSwap,
+        //         replacement: Replace::EliteAbsolute(1),
+        //     },
 
-            dynamics: Some(vec![
-                Dynamic::VarMutRateTargetMeanSin(1.10, 1., 0.05, 200)
-            ]),
-        },
+        //     dynamics: Some(vec![
+        //         Dynamic::VarMutRateTargetMeanSin(1.10, 1., 0.05, 200)
+        //     ]),
+        // },
 
         // Mu(0.01) | LinRnk(1.0) | Ordered | UniSw | El(1)
         //
         // -> dyn: IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::LinearRank(1.0),
-                crossover: Crossover::Ordered,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
+        // Config {
+        //     params: AutoRunParameters {
+        //         population_size: 1_000,
+        //         mutation_rate: 0.01,
+        //         selection: Select::LinearRank(1.0),
+        //         crossover: Crossover::Ordered,
+        //         mutation: Mutation::UniformSwap,
+        //         replacement: Replace::EliteAbsolute(1),
+        //     },
 
-            dynamics: Some(vec![
-                Dynamic::IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
-            ]),
-        },
+        //     dynamics: Some(vec![
+        //         Dynamic::IncLinearRankSelectionPressure(20, 0.01, 2.5, 2_000)
+        //     ]),
+        // },
 
 
         // Mu(0.015) | LinRnk(1.4) | Pmx | UniSw | Full
@@ -509,20 +509,20 @@ pub fn configs() -> Vec<Config> {
         // be tested with other parameters (as it overwrites them anyways).
         //
         // -> dyn: StateMachine
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.015,
-                selection: Select::LinearRank(1.4),
-                crossover: Crossover::Pmx,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::Full,
-            },
+        // Config {
+        //     params: AutoRunParameters {
+        //         population_size: 1_000,
+        //         mutation_rate: 0.015,
+        //         selection: Select::LinearRank(1.4),
+        //         crossover: Crossover::Pmx,
+        //         mutation: Mutation::UniformSwap,
+        //         replacement: Replace::Full,
+        //     },
 
-            dynamics: Some(vec![
-                Dynamic::StateMachine
-            ]),
-        },
+        //     dynamics: Some(vec![
+        //         Dynamic::StateMachine
+        //     ]),
+        // },
 
 
         // >>> Check if VarSPt is better with dynamic <<<<<<<<<<<<<<<<<<<<<<<<<<
