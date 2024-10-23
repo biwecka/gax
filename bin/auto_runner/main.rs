@@ -61,7 +61,7 @@ fn main() {
         log.success("Execution finished");
 
         // Wait some time for the computer to cool down
-        std::thread::sleep(std::time::Duration::from_secs(20));
+        std::thread::sleep(std::time::Duration::from_secs(2));
         println!();
     }
 }
