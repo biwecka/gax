@@ -9,7 +9,7 @@
 pub mod dynamics;
 
 /// Encoding module.
-mod encoding;
+pub mod encoding;
 
 /// The operators module must also be public for the auto-runner to construct
 /// the algorithm's configuration.
@@ -17,13 +17,14 @@ pub mod operators;
 
 use dynamics::Dynamic;
 // Imports /////////////////////////////////////////////////////////////////////
-use encoding::{Chromosome, Context, Phenotype};
+use encoding::{Chromosome, Context, Cost, Phenotype};
 use ga::{
     encoding::Phenotype as _,
     process::{
         rejection::Reject, replacement::Replace, selection::Select,
         termination::Terminate,
     },
+    report::Report,
 };
 use operators::{Crossover, Mutation};
 use xhstt::{
@@ -104,7 +105,7 @@ pub fn auto_run(
     instance: Instance,
     params: AutoRunParameters,
     dynamics: Option<Vec<Dynamic>>,
-) -> Vec<Event> {
+) -> (Vec<Event>, Report<Cost, Context, Chromosome>) {
     // Create an XHSTT database of the problem instance
     let db = Database::init(&instance).unwrap();
 
@@ -163,7 +164,7 @@ pub fn auto_run(
     let best: &Chromosome = &report.population.first().unwrap().0;
     let timetable: Phenotype = ph.derive(best, &ctx);
 
-    timetable.to_solution_events(&db, &ctx)
+    (timetable.to_solution_events(&db, &ctx), report)
 }
 
 ////////////////////////////////////////////////////////////////////////////////

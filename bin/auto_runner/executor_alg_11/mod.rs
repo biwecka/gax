@@ -10,7 +10,7 @@ use files::FilesHelper;
 use xhstt::parser::{instances::Instance, XhsttArchive};
 
 // Executor ////////////////////////////////////////////////////////////////////
-pub struct ExecutorAlg12 {
+pub struct ExecutorAlg11 {
     env: Env,
     // log: &'a Logger,
     // git: Git,
@@ -21,7 +21,7 @@ pub struct ExecutorAlg12 {
     next_config: usize,
 }
 
-impl ExecutorAlg12 {
+impl ExecutorAlg11 {
     pub fn new(env: Env) -> Self {
         let instances = instances::instances();
         let next_instance = 0;
@@ -48,7 +48,7 @@ impl ExecutorAlg12 {
         );
 
         // Execute algorithm
-        let (events, report) = alg_12::auto_run(
+        let (events, report) = alg_11::auto_run(
             i.1.clone(),
             cfg.clone().params,
             cfg.clone().dynamics,

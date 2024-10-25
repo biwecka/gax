@@ -1,14 +1,15 @@
 // Modules /////////////////////////////////////////////////////////////////////
 mod env;
 mod error;
-mod executor_alg_12;
+mod executor_alg_11;
+// mod executor_alg_12;
 mod git;
 mod log;
 
 // Imports /////////////////////////////////////////////////////////////////////
 use env::Env;
 use error::Error;
-use executor_alg_12::ExecutorAlg12;
+use executor_alg_11::ExecutorAlg11;
 use git::Git;
 use log::Logger;
 
@@ -37,7 +38,7 @@ fn main() {
     .unwrap();
 
     // Initialize executor and run auto-runner loop.
-    let mut exec = ExecutorAlg12::new(env);
+    let mut exec = ExecutorAlg11::new(env);
 
     while running.load(Ordering::SeqCst) {
         // Execute algorithm

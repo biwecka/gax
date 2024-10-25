@@ -661,6 +661,7 @@ dependencies = [
 name = "auto_runner"
 version = "0.1.0"
 dependencies = [
+ "alg_11",
  "alg_12",
  "chrono",
  "csv",

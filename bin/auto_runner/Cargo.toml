@@ -21,7 +21,7 @@ xhstt = { workspace = true }
 # alg_8 = { workspace = true }
 # alg_9 = { workspace = true }
 # alg_10 = { workspace = true }
-# alg_11 = { workspace = true }
+alg_11 = { workspace = true }
 alg_12 = { workspace = true }
 
 #> remote <#
