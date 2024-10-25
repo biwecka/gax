@@ -43,7 +43,7 @@ impl ExecutorAlg11 {
         let cfg = self.configs[self.next_config].clone();
 
         println!(
-            "[{}] alg_12 (inst={}, cfg={})",
+            "[{}] alg_11 (inst={}, cfg={})",
             time, i.1.metadata.name, self.next_config
         );
 
@@ -58,7 +58,7 @@ impl ExecutorAlg11 {
         let fh = FilesHelper::new(
             &self.env.data_dir,
             &i.1.metadata.name,
-            "alg_12",
+            "alg_11",
             &report.parameter_identifier,
             &report.dynamics_identifier,
             &time,
