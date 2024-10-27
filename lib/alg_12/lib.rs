@@ -56,21 +56,23 @@ pub fn run(instance: Instance) -> Vec<Event> {
         .set_mutation(Mutation::GaussSwap)
         .set_rejection(Reject::None)
         .set_replacement(Replace::EliteAbsolute(10))
-        .set_termination(Terminate::GenOrOv(10_000, 0.into()))
+        .set_termination(Terminate::GenOrOv(100_000, 0.into()))
         .build();
 
-    // let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
-    //     .set(vec![
-    //         // Dynamic::MutRateCos(0.01, 0.01, 1000, Some((0.004, 10.))),
-    //         // Dynamic::GaussRandEvent(0.01),
-    //     ])
-    //     .build();
+    let dynamics = ga::dynamics::Builder::for_parameters(&parameters)
+        .set(vec![
+            // Dynamic::MutRateCos(0.01, 0.01, 1000, Some((0.004, 10.))),
+            // Dynamic::GaussRandEvent(0.01),
+            // Dynamic::StateMachine,
+            Dynamic::VarMutRateTargetMeanSin(3.00, 0.001, 1.5, 1_000)
+        ])
+        .build();
 
     // Create algorithm and let it run!
     let alg = ga::Builder::new()
         .set_encoding(encoding)
         .set_parameters(parameters)
-        .set_dynamics::<()>(None)
+        .set_dynamics(Some(dynamics))
         .set_custom_logger::<()>(None)
         .build();
 

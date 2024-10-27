@@ -44,7 +44,7 @@ pub fn exec(
 
     // Add this value to the average deviation and ensure that the minimum
     // deviation (minimum target mean) is 1% from the current best.
-    let deviation = (avg_deviation + cos_val as f64).min(1.01);
+    let deviation = (avg_deviation + cos_val as f64).max(1.01);
 
 
     // Get current best and calculate target mean
