@@ -64,7 +64,7 @@ pub fn run(instance: Instance) -> Vec<Event> {
             // Dynamic::MutRateCos(0.01, 0.01, 1000, Some((0.004, 10.))),
             // Dynamic::GaussRandEvent(0.01),
             // Dynamic::StateMachine,
-            Dynamic::VarMutRateTargetMeanSin(3.00, 0.001, 1.5, 1_000)
+            Dynamic::VarMutRateTargetMeanSin(3.00, 0.001, 1.5, 1_000),
         ])
         .build();
 
