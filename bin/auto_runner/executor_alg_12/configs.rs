@@ -468,20 +468,20 @@ pub fn configs() -> Vec<Config> {
         // Mu(0.01) | LinRnk(1.5) | Ordered | UniSw | El(1)
         //
         // -> dyn: VarMutRateTargetMeanSin(1.80, 1., 0.60, 1_000)
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::LinearRank(1.5),
-                crossover: Crossover::Ordered,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
+        // Config {
+        //     params: AutoRunParameters {
+        //         population_size: 1_000,
+        //         mutation_rate: 0.01,
+        //         selection: Select::LinearRank(1.5),
+        //         crossover: Crossover::Ordered,
+        //         mutation: Mutation::UniformSwap,
+        //         replacement: Replace::EliteAbsolute(1),
+        //     },
 
-            dynamics: Some(vec![
-                Dynamic::VarMutRateTargetMeanSin(1.80, 1., 0.60, 1_000)
-            ]),
-        },
+        //     dynamics: Some(vec![
+        //         Dynamic::VarMutRateTargetMeanSin(1.80, 1., 0.60, 1_000)
+        //     ]),
+        // },
 
         // Mu(0.01) | LinRnk(1.0) | Ordered | UniSw | El(1)
         //
@@ -548,20 +548,20 @@ pub fn configs() -> Vec<Config> {
         // Mu(0.01) | Roulette | VarSPt | UniSw | El(1)
         //
         // -> dyn: VarMutRateTargetMeanSin(1.80, 1., 0.60, 1_000)
-        Config {
-            params: AutoRunParameters {
-                population_size: 1_000,
-                mutation_rate: 0.01,
-                selection: Select::RouletteWheel,
-                crossover: Crossover::VariableSinglePoint,
-                mutation: Mutation::UniformSwap,
-                replacement: Replace::EliteAbsolute(1),
-            },
+        // Config {
+        //     params: AutoRunParameters {
+        //         population_size: 1_000,
+        //         mutation_rate: 0.01,
+        //         selection: Select::RouletteWheel,
+        //         crossover: Crossover::VariableSinglePoint,
+        //         mutation: Mutation::UniformSwap,
+        //         replacement: Replace::EliteAbsolute(1),
+        //     },
 
-            dynamics: Some(vec![
-                Dynamic::VarMutRateTargetMeanSin(1.80, 1., 0.60, 1_000)
-            ])
-        },
+        //     dynamics: Some(vec![
+        //         Dynamic::VarMutRateTargetMeanSin(1.80, 1., 0.60, 1_000)
+        //     ])
+        // },
 
         // Mu(0.01) | LinRnk(1.0) | VarSPt | UniSw | El(1)
         //
