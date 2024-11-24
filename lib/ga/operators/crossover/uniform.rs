@@ -3,7 +3,7 @@ use rand::{rngs::ThreadRng, Rng};
 
 // Function ////////////////////////////////////////////////////////////////////
 
-/// Multi point crossover. If a crossover rate of 100% is desired, use `None`
+/// Uniform crossover. If a crossover rate of 100% is desired, use `None`
 /// as parameter for the `rate`. This will skip the random number sampling.
 pub fn uniform<'a, T>(
     a: &'a [T],

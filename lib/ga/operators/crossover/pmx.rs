@@ -4,7 +4,7 @@ use rand::{prelude::SliceRandom, rngs::ThreadRng, Rng};
 use std::hash::Hash;
 
 // Function ////////////////////////////////////////////////////////////////////
-/// Ordered Crossover. If a crossover rate of 100% is desired, use `None`
+/// PMX Crossover. If a crossover rate of 100% is desired, use `None`
 /// as parameter for the `rate`. This will skip the random number sampling.
 pub fn pmx<'a, T: Eq + Hash>(
     a: &'a [T],
