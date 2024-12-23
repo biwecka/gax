@@ -23,7 +23,6 @@ pub struct Data {
     days: HashMap<DayId, Day>,
     time_groups: HashMap<TimeGroupId, TimeGroup>,
     times: IndexMap<TimeId, Time>,
-    // times: Vec<Time>,
 
     // Resources
     resource_types: HashMap<ResourceTypeId, ResourceType>,
@@ -51,7 +50,6 @@ pub struct Indices {
     pub resource_type_2_resource_groups:
         HashMap<ResourceTypeId, Vec<ResourceGroupId>>,
     pub resource_type_2_resources: HashMap<ResourceTypeId, Vec<ResourceId>>,
-
     pub resource_2_events: HashMap<ResourceId, Vec<EventId>>,
 
     // Events

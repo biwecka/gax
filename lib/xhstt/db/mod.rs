@@ -2,7 +2,6 @@
 pub mod constraints;
 pub mod events;
 pub mod resources;
-pub mod stats;
 pub mod times;
 
 // Imports /////////////////////////////////////////////////////////////////////
@@ -17,7 +16,6 @@ use resources::{
     resource_group::{ResourceGroup, ResourceGroupId},
     resource_type::{ResourceType, ResourceTypeId},
 };
-use stats::Stats;
 use times::{
     day::{Day, DayId},
     time::{Time, TimeId},
@@ -298,10 +296,6 @@ impl Database {
         } else {
             Err(report)
         }
-    }
-
-    pub fn stats(&self) -> Stats {
-        Stats::new(self)
     }
 }
 
