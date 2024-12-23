@@ -17,7 +17,6 @@ fn main() {
     let start = std::time::Instant::now();
 
     // Execute algorithm
-    // let solution_events = alg_11::run(instance.clone());
     let solution_events = alg_12::run(instance.clone());
 
     // Stop time

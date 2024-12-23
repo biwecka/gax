@@ -1,233 +1,138 @@
-# XHSTT Genetic Algorithm
+# GAX - Genetic Algorithms for XHSTT
+This repository contains all the genetic algorithms and auxiliary crates I
+developed for my master's thesis with the title:
+> **Development of a self-parameterizing Genetic Algorithm:**
+> A Case Study on High School Timetabling
 
-## XHSTT Problem Instances
-Timetabling problems in the XHSTT XML format can be downloaded
-[here](https://www.utwente.nl/en/eemcs/dmmp/hstt/archives/).
+The **main** crates in this repo are:
+-   `bin/solver`: Binary used for executing any XHSTT solving algorithm on a
+    given problem instance. The used algorithm and problem instance must be
+    configured in `main.rs`.
+-   `bin/auto_runner`: Binary to execute `alg_11` or `alg_12` with
+    given configurations in an infinite loop - perfect for capturing a lot
+    of data about the algorithms.
+-   `lib/alg_11`: A XHSTT solver with *direct* encoding.
+-   `lib/alg_12`: A XHSTT solver with *indirect* encoding.
 
-Files are available as collections (containing multiple problem instances)
-and as single-instance files. Currently, single-instance files are preferred,
-as they also come with the known solutions.
 
-To get started with implementing a scheduler, the artificial problem instances
-have been chosen, so it's not needed to implement a whole lot of constraints.
+Furthermore, this repo contains the following crates:
+-   `lib/ga`: Framework for developing genetic algorithms in Rust.
+-   `lib/xhstt`: Library to read and write XHSTT `xml` files and query their
+    included datastructures
+-   `lib/bits`: High performance bit vector libraray.
+-   `bin/eggholder`: Demo of self-parameterization on eggholder function.
+-   and many more...
 
-# XHSTT
-## Datastructure
+
+## Repository Structure
 ```sh
-HighSchoolTimetableArchive [+Id]
-    + MetaData
-        Name
-        Contributor
-        Date
-        Description
-        + Remarks
-
-    + Instances
-        * Instance [Id]
-            MetaData
-                Name
-                Contributor
-                Date
-                Country
-                Description
-                + Remarks
-
-            Times
-                + TimeGroups
-                    * Week [Id]
-                        Name
-                        # + TimeGroup ???
-
-                    * Day [Id]
-                        Name
-                        # + TimeGroup ???
-
-                    * TimeGroup [Id]
-                        Name
-
-                * Time [Id]
-                    Name
-                    + Week [Reference]
-                    + Day [Reference]
-                    + TimeGroups
-                        * TimeGroup [Reference]
-
-            Resources
-                + ResourceTypes
-                    * ResourceType [Id]
-                        Name
-
-                + ResourceGroups
-                    * ResourceGroup [Id]
-                        Name
-                        ResourceType [Reference]
-
-                * Resource [Id]
-                    Name
-                    ResourceType [Reference]
-                    + ResourceGroups
-                        * ResourceGroup [Reference]
-
-            Events
-                + EventGroups
-                    * Course [Id]
-                        Name
-                        # + EventGroup ??? (similar to week, day and timegroup)
-
-                    * EventGroup [Id]
-                        Name
-
-                * Event [Id] [+Color]
-                    Name
-                    Duration (int >= 1)
-                    + Workload
-                    + Course [Reference]
-                    + Time [Reference]
-                    + Resources
-                        * Resource [+Reference]
-                            + Role (body = value)
-                            + ResourceType [Reference] (not documented well)
-                            + Workload
-
-                    + ResourceGroups
-                        * ResourceGroup [Reference]
-
-                    + EventGroups
-                        * EventGroup [Reference]
-
-            Constraints
-                Name
-                Required
-                ...
-
-                AppliesTo (events; both)
-                    + EventGroups
-                        * EventGroup [Reference]
-
-                    + Events
-                        * Event [Reference]
-
-                AppliesTo (events; groups only)
-                    EventGroups
-                        * EventGroup [Reference]
-
-
-                AppliesTo (events; pairs)
-                    EventPairs
-                        * EventPair
-                            FirstEvent [Reference]
-                            SecondEvent [Reference]
-                            + MinSeparation
-                            + MaxSeparation
-
-                AppliesTo (resources; both)
-                    + ResourceGroups
-                        * ResourceGroup [Reference]
-
-                    + Resources
-                        * Resource [Reference]
-
-    + SolutionGroups
-        * SolutionGroup [Id]
-            MetaData
-                Contributor
-                Date
-                Description
-                + Publication
-                + Remarks
-
-            * Solution [Reference]
-                + Description
-                + RunningTime
-                + Events
-                    * Event [Reference]
-                        + Duration
-                        + Time [Reference]
-                        + Ressources
-                            * Resource [Reference]
-                                Role
-                + Report
-                    InfeasibilityValue
-                    ObjectiveValue
-                    + Resources
-                        * Resource [Reference]
-                            * Constraint [Reference]
-                                Cost
-                                + Description
-                    + Events
-                        * Event [Reference]
-                            * Constraint [Reference]
-                                Cost
-                                + Description
-
-                    + EventGroups
-                        * EventGroup [Reference]
-                            * Constraint [Reference]
-                                Cost
-                                + Description
-
+archive             # Old attempts of developing a genetic algorithms.
+assets              # XHSTT instance (XML files) and calculated solutions.
+bin/                # Binaries
+├── solver
+├── auto_runner
+└── ...
+docs                # Markdown documentation
+examples/           # Examples
+├── bits_demo       # Showcase of the `bits` library.
+└── ...
+lib/                # Libraries
+├── alg_11          # GA with direct encoding
+├── alg_12          # GA with indirect encoding
+├── ga              # GA framework
+├── xhstt           # Library for reading, writing and querying XHSTT instances
+├── bits            # High-performance bit vector library.
+└── ...
 ```
 
-## Instances
-|               | Times | Needs Resource assignment | Needs Class assignment    |
-|---------------|-------|---------------------------|---------------------------|
-| **XHSTT2014** |       |                           |                           |
-| AU-BG-98      |    40 | yes                       | no                        |
-| AU-SA-96      |    60 | yes                       | no                        |
-| AU-TE-99      |    30 | yes                       | no                        |
-| BR-SA-00      |    25 | no                        | no                        |
-| BR-SM-00      |    25 | no                        | no                        |
-| BR-SN-00      |    25 | no                        | no                        |
-| DK-FG-12      |    50 | yes                       | no                        |
-| DK-HG-12      |    50 | yes                       | no                        |
-| DK-VG-09      |    60 | yes                       | no                        |
-| ES-SS-08      |    35 | yes                       | no                        |
-| FI-MP-06      |    35 | no                        | no                        |
-| FI-PB-98      |    40 | no                        | no                        |
-| FI-WP-06      |    35 | no                        | no                        |
-| GR-H1-97      |    35 | no                        | no                        |
-| GR-P3-10      |    35 | no                        | no                        |
-| GR-PA-08      |    35 | no                        | no                        |
-| IT-I4-96      |    36 | no                        | no                        |
-| KS-PR-11      |    62 | no                        | no                        |
-| NL-KP-03      |    38 | yes                       | no                        |
-| NL-KP-05      |    37 | yes                       | no                        |
-| NL-KP-09      |    38 | yes                       | no                        |
-| UK-SP-06      |    25 | yes                       | no                        |
-| US-WS-09      |   100 | yes                       | no                        |
-| ZA-LW-09      |   148 | no                        | no                        |
-| ZA-WD-09      |   42  | no                        | no                        |
-|               |       |                           |                           |
-| **XHSTT2014A**|       |                           |                           |
-| Abramson15    |    30 | no                        | no                        |
-| All11         |   121 | no                        | no                        |
-| All15         |   225 | no                        | no                        |
-| hdtt4         |    30 | no                        | no                        |
-| hdtt5         |    30 | no                        | no                        |
-| hdtt6         |    30 | no                        | no                        |
-| hdtt7         |    30 | no                        | no                        |
-| hdtt8         |    30 | no                        | no                        |
-| Sudoku4x4     |     4 | no                        | no                        |
+<!-- Usage ----------------------------------------------------------------- -->
+# Usage
+## Using the `solver`
+To run any of the contained algorithms follow these steps:
+1.  Select a XHSTT problem instance by modifying the following line:
+    ```rust
+    // bin/solver/main.rs
+    fn main() {
+        let selection = Archives::X2014a(X2014a::Hdtt4);
+        ...
+    }
+    ```
+
+2.  Choose an algorithm:
+    1.  Add its dependency to `bin/solver/Cargo.toml` like so:
+        ```toml
+        [dependencies]
+        alg_12 = { workspace = true }
+        ```
+
+    2.  Use the algorithm to solve the problem by editing the following line:
+        ```rust
+        // bin/solver/main.rs
+        fn main() {
+            ...
+            let solution_events = alg_12::run(instance.clone());
+            ...
+        }
+        ```
+
+3.  Run the solver with the following command: `cargo rr solver`
+    (alias for `cargo run --release -p solver`)
 
 
+## Using the `auto_runner`
+The auto runner binary does not only execute a selected algorithm over and
+over again, with multiple configurations, it also **write**s the captured data
+**to another git repository** and automatically **commits and pushes** the
+changes whenever it writes new data to disk. Moreover the auto runner
+integrates the "Pushover" notification service, to be notified on a phone if
+an error occurs.
+
+To use the auto runner, the following steps are needed:
+1.  Choose an algorithm (`alg_11` or `alg_12`):
+    1.  Enable the correct executor module:
+        ```rust
+        // bin/auto_runner/main.rs
+        mod executor_alg_12;
+        use executor_alg_12::ExecutorAlg12;
+        ```
+
+    2.  Use the imported algorithm executor:
+        ```rust
+        // bin/auto_runner/main.rs
+        fn main() {
+            ...
+            let mut exec = ExecutorAlg12::new(env);
+            ...
+        }
+        ```
+
+2.  Define algorithm configurations in
+    `bin/auto_runner/executor_alg_12/configs.rs`
+    (or `executor_alg_11/configs.rs` respectively).
+
+3.  Create a `.env` file in the repository root and configure the following
+    environment variables:
+    ```sh
+    PLOTS_REPO=<path/to/data/repo>
+    DATA_DIR=<path/to/data/directory/in/the/data/repo>
+    GIT_USERNAME=<git username>
+    GIT_PASSWORD=<git password>
+
+    PUSHOVER_API_KEY=<pushover api key>
+    PUSHOVER_USER_KEY=<pushover user key>
+    ```
+
+4.  `cargo rr auto_runner` starts the auto runner
+
+5.  Pressing `Ctrl`+`C` stops the auto runner gracefully, by waiting for the
+    current algorithm execution to terminate, writing, committing and pushing
+    its result and finally stopping the auto runner execution.
 
 
+<!-- Documentation --------------------------------------------------------- -->
+# Documentation
+For technical documentation and implementation insights check out the
+markdown documentation [here](./docs/main.md).
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- ----------------------------------------------------------------------- -->
