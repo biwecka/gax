@@ -1,4 +1,16 @@
-// Modules /////////////////////////////////////////////////////////////////////
+//! The `solver` binary combines functionality provided by the library crates
+//! in this repository, to "pull everything together" and actually attempt
+//! solving a XHSTT problem instance.
+//!
+//! First of all, the `xhstt` library is used, as it provides a set of XHSTT
+//! instances as raw XML and functions to parse this XML.
+//!
+//! Afterwards, the solver uses an imported algorithm (like `alg_12`) to
+//! execute an algorithm on the selected problem instance.
+//!
+//! For writing solutions to disk, the `xhstt` library is again used to
+//! correctly format the solution returned by the algorithm and convert it to
+//! valid XHSTT XML.
 
 // Imports /////////////////////////////////////////////////////////////////////
 use xhstt::xml::{Archives, X2014a};
