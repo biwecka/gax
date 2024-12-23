@@ -59,7 +59,7 @@ fn main() {
 
     let elite_size = 10;
     let selection = Selection::Tournament(10);
-    let crossover = Crossover::InterchangeX2Coordinates;
+    let crossover = Crossover::InterchangeX1Coordinates;
     let mutation = Mutation::RandomGauss;
 
     let mut succes_rate = 0.1;

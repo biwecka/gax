@@ -1,10 +1,16 @@
+// Imports /////////////////////////////////////////////////////////////////////
 use colors_transform::Color;
 use rerun::{RecordingStream, RecordingStreamBuilder, Scalar};
 
 use crate::{chromosome::Chromosome, eggholder};
 
+// Constants ///////////////////////////////////////////////////////////////////
 const GENERATION_TIME_SEQ: &str = "generation";
 
+// Logger //////////////////////////////////////////////////////////////////////
+/// This struct provides functionality for logging the current population to
+/// "rerun". Rerun enables the real-time 2D-visualization of the eggholder
+/// function in combination with the current population.
 pub struct Logger {
     rec: RecordingStream,
 }
@@ -17,6 +23,7 @@ impl std::default::Default for Logger {
 }
 
 impl Logger {
+    /// Function for initially drawing the eggholder function to "rerun".
     pub fn draw_eggholder_function(&self) {
         self.rec.set_time_sequence(GENERATION_TIME_SEQ, 0);
 
@@ -58,6 +65,7 @@ impl Logger {
             .unwrap();
     }
 
+    /// Method to log and draw the population to "rerun" on every generation.
     pub fn draw_population(
         &self,
         generation: usize,
@@ -87,6 +95,7 @@ impl Logger {
             .unwrap();
     }
 
+    /// Log the current success rate to "rerun".
     pub fn log_success_rate(
         &self,
         generation: usize,
@@ -104,3 +113,5 @@ impl Logger {
         let _ = self.rec.log("mutation/std_dev", &Scalar::new(std_dev as f64));
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////

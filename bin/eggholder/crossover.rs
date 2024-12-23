@@ -1,14 +1,24 @@
+// Imports /////////////////////////////////////////////////////////////////////
 use crate::chromosome::Chromosome;
 use rand::prelude::SliceRandom;
 use rand::Rng;
 
+// Crossover Operations ////////////////////////////////////////////////////////
 #[allow(unused)]
 pub enum Crossover {
-    InterchangeX2Coordinates,
+    /// Crossover method which simply swaps the `x1` values of the parents to
+    /// yield the children.
+    InterchangeX1Coordinates,
+
+    /// This crossover method takes all four coordinates and distributes them
+    /// randomly to the children, which may insert x0 values as x1 and vice
+    /// versa.
     InterchangeAllCoordinates,
 }
 
 impl Crossover {
+    /// Execute the crossover method, which is specified by the [`Crossover`]
+    /// variant.
     pub fn exec(
         &self,
         p0: &Chromosome,
@@ -16,7 +26,7 @@ impl Crossover {
         rate: f32,
     ) -> (Chromosome, Chromosome) {
         match self {
-            Crossover::InterchangeX2Coordinates => {
+            Crossover::InterchangeX1Coordinates => {
                 let mut rng = rand::thread_rng();
                 if rng.gen::<f32>() > rate {
                     return (p0.to_owned(), p1.to_owned());

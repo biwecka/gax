@@ -1,10 +1,16 @@
+// Imports /////////////////////////////////////////////////////////////////////
 use rand::{distributions::Uniform, prelude::Distribution, Rng};
-
 use crate::chromosome::Chromosome;
 
+// Mutation ////////////////////////////////////////////////////////////////////
+/// Mutation methods implemented for the genetic algorithm, for minimizing the
+/// eggholder function.
 #[allow(unused)]
 pub enum Mutation {
+    /// Uniform mutation.
     RandomUniform,
+
+    /// Normal-distributed mutation.
     RandomGauss,
 }
 
@@ -57,3 +63,5 @@ impl Mutation {
         }
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////

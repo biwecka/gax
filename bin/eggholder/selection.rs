@@ -1,9 +1,16 @@
+// Imports /////////////////////////////////////////////////////////////////////
 use crate::chromosome::Chromosome;
 use rand::prelude::Distribution;
 
+// Selection ///////////////////////////////////////////////////////////////////
+/// Enum that unifies all selection methods implemented for the eggholder
+/// genetic algorithm.
 #[allow(unused)]
 pub enum Selection {
+    /// Roulette wheel selection.
     RouletteWheel,
+
+    /// n-Tournament selection.
     Tournament(usize),
 }
 
@@ -25,6 +32,8 @@ impl Selection {
     }
 }
 
+// Private Methods /////////////////////////////////////////////////////////////
+/// Implementation of the roulette wheel selection.
 fn roulette_wheel_usize(
     amount: usize,
     individuals: &[(Chromosome, f64)],
@@ -87,6 +96,7 @@ fn roulette_wheel_usize(
     selection //, selected_indices.len())
 }
 
+/// Implementation of the n-tournament selection.
 fn tournament_usize(
     tournament_size: usize,
     amount: usize,
@@ -119,3 +129,5 @@ fn tournament_usize(
     // Return
     selection
 }
+
+////////////////////////////////////////////////////////////////////////////////
