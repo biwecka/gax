@@ -1,3 +1,4 @@
+// PT1 control circuit, commonly used as lowpass-filter.
 pub struct PT1 {
     t: f64,  // Time constant T
     k: f64,  // Gain

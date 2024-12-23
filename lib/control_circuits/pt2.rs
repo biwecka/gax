@@ -1,4 +1,4 @@
-// Structure to represent the PT2 control circuit
+/// Represents a PT2 control circuit.
 #[derive(Clone)]
 pub struct PT2 {
     /// Time Constant T1:
