@@ -1,5 +1,8 @@
+// Imports /////////////////////////////////////////////////////////////////////
 use std::path::PathBuf;
 
+// Error ///////////////////////////////////////////////////////////////////////
+/// Error type unifying all errors that can occur in the auto runner.
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error("Git operation failed: {0}")]
@@ -35,3 +38,5 @@ pub enum Error {
     #[error("Error @ solution.xml: {0}")]
     SolutionXml(String),
 }
+
+////////////////////////////////////////////////////////////////////////////////

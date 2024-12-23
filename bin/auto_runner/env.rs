@@ -1,5 +1,7 @@
+// Imports /////////////////////////////////////////////////////////////////////
 use crate::error::Error;
 
+// Constants ///////////////////////////////////////////////////////////////////
 static PLOTS_REPO: &str = "PLOTS_REPO";
 static DATA_DIR: &str = "DATA_DIR";
 static GIT_USERNAME: &str = "GIT_USERNAME";
@@ -7,6 +9,9 @@ static GIT_PASSWORD: &str = "GIT_PASSWORD";
 static PUSHOVER_API_KEY: &str = "PUSHOVER_API_KEY";
 static PUSHOVER_USER_KEY: &str = "PUSHOVER_USER_KEY";
 
+// Environment /////////////////////////////////////////////////////////////////
+/// Struct which loads, stores and provides all external configurations needed
+/// for the auto runner from the environment variables.
 pub struct Env {
     pub plots_repo: String,
     pub data_dir: String,
@@ -17,6 +22,7 @@ pub struct Env {
 }
 
 impl Env {
+    /// Load environment variables and create an [`Env`] instance.
     pub fn load() -> Result<Self, Error> {
         dotenvy::dotenv()?;
 
@@ -48,3 +54,5 @@ impl Env {
         })
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////

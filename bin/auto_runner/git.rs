@@ -1,9 +1,13 @@
+// Imports /////////////////////////////////////////////////////////////////////
 use git2::{
     Cred, IndexAddOption, PushOptions, RemoteCallbacks, Repository, Signature,
 };
 
 use crate::{env::Env, error::Error};
 
+// Git /////////////////////////////////////////////////////////////////////////
+/// This struct provides the functionality of executing a limited set of
+/// git commands for managing a git repository.
 pub struct Git {
     repo: Repository,
     username: String,
@@ -12,6 +16,8 @@ pub struct Git {
 
 #[allow(unused)]
 impl Git {
+    /// Open a git repository located at the `plots_repo` variable provided
+    /// by [`Env`].
     pub fn open_repo(env: &Env) -> Result<Git, Error> {
         let repo = Repository::open(env.plots_repo.clone())?;
         let username = env.git_username.clone();
@@ -20,12 +26,14 @@ impl Git {
         Ok(Self { repo, username, password })
     }
 
+    /// Execute `git fetch origin main`.
     pub fn fetch(&self) -> Result<(), Error> {
         self.repo.find_remote("origin")?.fetch(&["main"], None, None)?;
 
         Ok(())
     }
 
+    /// Execute a git rebase command.
     pub fn rebase(&self) -> Result<(), Error> {
         // Prepare rebase
         let local_commit = {
@@ -65,6 +73,7 @@ impl Git {
         Ok(())
     }
 
+    /// Execute `git add .`.
     pub fn add_all(&self) -> Result<(), Error> {
         let mut staging_area = self.repo.index()?;
         staging_area.add_all(["."].iter(), IndexAddOption::DEFAULT, None)?;
@@ -75,6 +84,7 @@ impl Git {
         Ok(())
     }
 
+    /// Execute `git commit -m "Add data"`.
     pub fn commit(&self) -> Result<(), Error> {
         // Get the staging area (index).
         let mut index = self.repo.index()?;
@@ -106,6 +116,7 @@ impl Git {
         Ok(())
     }
 
+    /// Execute `git push origin main`.
     pub fn push(&self) -> Result<(), Error> {
         // Get remote
         let mut remote = self.repo.find_remote("origin")?;
@@ -125,3 +136,5 @@ impl Git {
         Ok(())
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////

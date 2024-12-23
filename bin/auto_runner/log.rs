@@ -2,11 +2,14 @@
 use crate::{env::Env, error::Error};
 
 // Logger //////////////////////////////////////////////////////////////////////
+/// Custom logging functionality for the use-case of the auto runner.
 pub struct Logger {
     pushover: Pushover,
 }
 
 impl Logger {
+    /// Create a new logger, which requires the [`Env`] struct to provide
+    /// credentials for [`Pushover`].
     pub fn new(env: &Env) -> Self {
         // Initialize pushover
         let pushover =
@@ -15,6 +18,7 @@ impl Logger {
         Self { pushover }
     }
 
+    /// Log an error event.
     pub fn err(&self, s: &str) {
         // Try to send Push-Notification
         let mut res = self.pushover.send("Error", s, true);
@@ -33,6 +37,7 @@ impl Logger {
         }
     }
 
+    /// Log a success event.
     pub fn success(&self, s: &str) {
         // Try to send Push-Notification
         let mut res = self.pushover.send("Success", s, false);
@@ -53,6 +58,8 @@ impl Logger {
 }
 
 // Pushover ////////////////////////////////////////////////////////////////////
+/// This struct provides a thin wrapper around the `pushover` create, to only
+/// only the functionality needed in this use-case.
 struct Pushover {
     api_key: String,
     user_key: String,
@@ -61,12 +68,14 @@ struct Pushover {
 }
 
 impl Pushover {
+    /// Create a new `Pushover` wrapper.
     fn new(api_key: String, user_key: String) -> Self {
         let api = pushover::API::new();
 
         Self { api_key, user_key, api }
     }
 
+    /// Send a push-notification with the given parameters.
     fn send(&self, title: &str, body: &str, error: bool) -> Result<(), Error> {
         // Create message
         let mut msg = pushover::requests::message::SendMessage::new(

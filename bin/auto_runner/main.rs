@@ -69,6 +69,8 @@ fn main() {
     }
 }
 
+/// Function that executes the necessary git commands (in the given git repo)
+/// to upload local changes to the remote branch.
 fn git_upload_data(git: &Git) -> Result<(), Error> {
     git.fetch()?;
     git.rebase()?;
