@@ -2,6 +2,11 @@
 use hashbrown::HashMap;
 
 // Functions ///////////////////////////////////////////////////////////////////
+/// Function to calculate the normalized Shannon entropy for the given iterator.
+/// The calculation is thereby based on the commonly known Shannon entropy
+/// (see https://en.wikipedia.org/wiki/Entropy_(information_theory)), and
+/// complemented by a normalization step which divides the Shannon entropy
+/// by the maximum possible entropy of the given data.
 pub fn normalized_shannon_entropy<T>(data: impl Iterator<Item = T>) -> f64
 where
     T: std::cmp::Eq + std::hash::Hash,
