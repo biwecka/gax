@@ -1,3 +1,30 @@
+//! The `bits` library crate provides high-performance bit vector and bit
+//! matrix implementations, which combine a feature-rich API with common
+//! methods as well as higher level functionality, without compromising on
+//! performance.
+//!
+//! The set of structs this crate exposes follows a certain naming scheme:
+//! -   Bit Vectors:
+//!     -   `Bits8`     : bit vector with up to 8 bits
+//!     -   `Bits16`    : bit vector with up to 16 bits
+//!     -   `Bits32`    : bit vector with up to 32 bits
+//!     -   ...
+//!     -   `Bits128`   : bit vector with up to 128 bits
+//! 
+//! -   Bit Matrices:
+//!     -   `BitsMatrix8x8`
+//!     -   `BitsMatrix8x16`
+//!     -   ...
+//!     -   `BitsMatrix8x128`
+//!     -   `BitsMatrix16x8`
+//!     -   `BitsMatrix16x16`
+//!     -   ...
+//!     -   `BitsMatrix128x128`
+//!
+//! Example uses of these bit vectors and bit matrices can be found in
+//! `tests.rs`.
+
+
 // In the constructor of the generated "bits structs" (e.g. Bits8, Bits32)
 // the function `unbounded_shl` is used, which is only available on nightly
 // Rust at the time of writing this. To enable this functionality the feature
