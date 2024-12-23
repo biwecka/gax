@@ -1,9 +1,14 @@
-# GAX - Genetic Algorithms for XHSTT
+# 🧬 GAX - Genetic Algorithms for XHSTT 🧬
 This repository contains all the genetic algorithms and auxiliary crates I
 developed for my master's thesis with the title:
 > **Development of a self-parameterizing Genetic Algorithm:**
 > A Case Study on High School Timetabling
 
+Check out all my repositories related to this topic:
+[🇧🧬 Genetic Algoritms for XHSTT](https://github.com/stars/biwecka/lists/genetic-alg-for-xhstt)
+
+
+## Repository Overview
 The **main** crates in this repo are:
 -   `bin/solver`: Binary used for executing any XHSTT solving algorithm on a
     given problem instance. The used algorithm and problem instance must be
@@ -81,11 +86,17 @@ To run any of the contained algorithms follow these steps:
 
 ## Using the `auto_runner`
 The auto runner binary does not only execute a selected algorithm over and
-over again, with multiple configurations, it also **write**s the captured data
+over again, with multiple configurations, it also **writes** the captured data
 **to another git repository** and automatically **commits and pushes** the
-changes whenever it writes new data to disk. Moreover the auto runner
-integrates the "Pushover" notification service, to be notified on a phone if
-an error occurs.
+changes whenever it writes new data to disk.
+In my thesis I used the [GAX Plots](https://github.com/biwecka/gax-plots)
+repository to store and plot all data collected by the auto runner executions.
+*Feel free to take inspiration from this repo when collecting your own*
+*algorithm execution data or forking the repo to extend its datasets.*
+
+Moreover the auto runner integrates the "Pushover" notification service, to be
+notified on a phone if an error occurs, which comes in very handy for letting
+the auto runner execute algorithms unsupervised for a long time.
 
 To use the auto runner, the following steps are needed:
 1.  Choose an algorithm (`alg_11` or `alg_12`):
@@ -113,13 +124,13 @@ To use the auto runner, the following steps are needed:
 3.  Create a `.env` file in the repository root and configure the following
     environment variables:
     ```sh
-    PLOTS_REPO=<path/to/data/repo>
-    DATA_DIR=<path/to/data/directory/in/the/data/repo>
-    GIT_USERNAME=<git username>
-    GIT_PASSWORD=<git password>
+    PLOTS_REPO=/absolute/path/to/gax-plots/repo
+    DATA_DIR=/absolute/path/to/gax-plots/repo/data
+    GIT_USERNAME=john_doe
+    GIT_PASSWORD=password_or_access_token
 
-    PUSHOVER_API_KEY=<pushover api key>
-    PUSHOVER_USER_KEY=<pushover user key>
+    PUSHOVER_API_KEY=app_api_key
+    PUSHOVER_USER_KEY=user_key
     ```
 
 4.  `cargo rr auto_runner` starts the auto runner
