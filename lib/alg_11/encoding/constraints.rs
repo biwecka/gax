@@ -1,6 +1,5 @@
-use itertools::Itertools;
 // Imports /////////////////////////////////////////////////////////////////////
-// use itertools::Itertools;
+use itertools::Itertools;
 use xhstt::db::constraints::{
     assign_time_constraint::AssignTimeConstraint,
     avoid_clashes_constraint::AvoidClashesConstraint, Constraint,
@@ -78,8 +77,6 @@ pub fn avoid_clashes(
 
             deviation += res.ones().count();
         }
-
-        // TODO: try alternative with aggregate mask of seen values.
     }
 
     // Calc cost and return

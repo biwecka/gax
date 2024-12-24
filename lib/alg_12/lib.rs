@@ -1,7 +1,13 @@
 //! Algorithm V12:
-//! - updated version of "alg_7" which now uses my own "bits" crate for working
-//!   with bits (vectors and matrices).
+//! This algorithm uses an indirect encoding scheme, where the genotype
+//! (chromosome) only consists of a list of events (permutation encoding).
+//! This lists represents an order, in which these events must be scheduled.
+//! The scheduling process (in the order given by the chromosome) is then
+//! handled by a heuristic algorithm, to actually yield a timetable (phenotype).
 //!
+//! This algorithm `alg_12` is an updated version of `archive/alg_7`, which now
+//! uses the `bits` crate for increased performance when dealing with bit
+//! vectors and matrices.
 
 // Modules /////////////////////////////////////////////////////////////////////
 /// The dynamics module must be public for the auto-runner to construct the

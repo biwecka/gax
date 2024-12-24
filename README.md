@@ -83,6 +83,12 @@ To run any of the contained algorithms follow these steps:
 3.  Run the solver with the following command: `cargo rr solver`
     (alias for `cargo run --release -p solver`)
 
+4.  Optionally, if you want to get real-time insights into the algorithm's
+    execution, update the algorithm's dependency entry in
+    `bin/solver/Cargo.toml` to enable the desired features.
+    Alternatively, the desired features can also be added as *defaults* in the
+    respective algorithm's `Cargo.toml`.
+
 
 ## Using the `auto_runner`
 The auto runner binary does not only execute a selected algorithm over and

@@ -1,6 +1,11 @@
 //! This module contains multiple struct definitions, which represent different
 //! parts of an XHSTT XML file. The root thereby is [`XhsttArchive`], which
 //! combines all the other data structures as sub-structs.
+//!
+//! **Attention:** This module currently has the limitation, to only parse
+//! the `AssignTimeConstraint` and `AvoidClashesConstraint` constraints.
+//! Implementing the support for more constraint types, those would simply need
+//! to be defined in this file: `xhstt/parser/instances/constraints.rs`.
 
 // Modules /////////////////////////////////////////////////////////////////////
 pub mod instances;
@@ -148,6 +153,5 @@ pub struct Stats {
 
     pub predefined_event_times: usize,
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////

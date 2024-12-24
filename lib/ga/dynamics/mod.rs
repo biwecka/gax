@@ -59,7 +59,6 @@ pub trait Dynamic<
     fn identifier(&self) -> String;
 }
 
-
 /// Implementation of the `Dynamic` trait for the unit type `()`. This allows
 /// the user to specify no dynamic when building the algorithm, by using
 /// the following line:

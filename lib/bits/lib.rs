@@ -10,7 +10,7 @@
 //!     -   `Bits32`    : bit vector with up to 32 bits
 //!     -   ...
 //!     -   `Bits128`   : bit vector with up to 128 bits
-//! 
+//!
 //! -   Bit Matrices:
 //!     -   `BitsMatrix8x8`
 //!     -   `BitsMatrix8x16`
@@ -23,7 +23,6 @@
 //!
 //! Example uses of these bit vectors and bit matrices can be found in
 //! `tests.rs`.
-
 
 // In the constructor of the generated "bits structs" (e.g. Bits8, Bits32)
 // the function `unbounded_shl` is used, which is only available on nightly

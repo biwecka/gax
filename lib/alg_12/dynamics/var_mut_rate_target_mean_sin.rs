@@ -15,6 +15,7 @@ use ga::{
 
 #[cfg(feature = "ga_log_dynamics")]
 use ga::tools::rerun_logger::RerunLogger;
+
 // Functions ///////////////////////////////////////////////////////////////////
 #[rustfmt::skip]
 pub fn setup(

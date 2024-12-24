@@ -223,8 +223,35 @@ check out the implementations in `alg_11` and `alg_12`. They can be found
 -   here `lib/alg_12/dynamics/mod.rs`.
 
 ### Logging with Rerun
+Most features of this crate (listed and described [here](#crate-features))
+evolve around logging functionality. This mostly involves the use of an
+external log collector and visualization tool called Rerun
+(see their [Website](https://rerun.io/)).
 
-### Custom Logger
+If you use the `flake.nix` as development environment, rerun is automatically
+made available through nix. Otherwise, you'll need to install Rerun on your
+machine.
+
+The logging functionality is provided by [`tools::rerun_logger::RerunLogger`].
+This logger struct provides functionality for connecting to the Rerun
+log collector (which is embedded in the Rerun desktop application) and logging
+a variety of metrics. These logs are sent to Rerun after each generation,
+enabling *real-time* insights into the algorithms execution and behavior.
+
+### Custom Rerun Logger
+Similarly to the rerun logger embedded into the framework, it's also possible
+to pass a custom rerun logger implementation to the algorithm execution.
+For this, it's only necessary to implement the
+[`tools::rerun_logger::CustomLogger`] trait and pass an instance of the custom
+logger to the algorithm like that:
+```rust ,ignore
+let alg = ga::Builder::new()
+    .set_encoding(encoding)
+    .set_parameters(parameters)
+    .set_dynamics(Some(dynamics))
+    .set_custom_logger(Some(custom_logger)) // <-- custom logger
+    .build();
+```
 
 
 ---

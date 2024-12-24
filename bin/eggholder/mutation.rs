@@ -1,6 +1,6 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use rand::{distributions::Uniform, prelude::Distribution, Rng};
 use crate::chromosome::Chromosome;
+use rand::{distributions::Uniform, prelude::Distribution, Rng};
 
 // Mutation ////////////////////////////////////////////////////////////////////
 /// Mutation methods implemented for the genetic algorithm, for minimizing the

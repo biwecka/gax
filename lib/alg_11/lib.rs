@@ -1,6 +1,16 @@
 //! Algorithm V11:
-//! - implements bitvector encoding (by Demirovic and Musilu)
+//! This algorithm uses a direct encoding scheme, where the genotype contains
+//! list of bit vectors (effectively a matrix), which represents the time slot
+//! allocations for each event in the problem instance.
 //!
+//! This encoding was originally inspired by the paper "Modeling high school
+//! timetabling with bitvectors" (by Emir Demirović and Nysret Musliu).
+//! During my own implementation of this encoding I quickly realized, that I
+//! did not need the data structure they described, because their's is aimed
+//! at SMT solvers.
+//! Therefore, I stripped down their bit vector encoding, until only one
+//! bit vector was left, which then created the foundation for the direct
+//! encoding approach used in this genetic algorithm.
 
 // Modules /////////////////////////////////////////////////////////////////////
 

@@ -1,10 +1,10 @@
 // Imports /////////////////////////////////////////////////////////////////////
-use rand::{distributions::Uniform, prelude::Distribution};
 use crate::eggholder;
+use rand::{distributions::Uniform, prelude::Distribution};
 
 // Chromosome //////////////////////////////////////////////////////////////////
 /// The chromosome only contains two values, which represent the input
-/// variables - x1 and x2 - of the eggholder function. 
+/// variables - x1 and x2 - of the eggholder function.
 #[derive(Clone, Debug)]
 pub struct Chromosome(f64, f64);
 

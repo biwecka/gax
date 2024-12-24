@@ -122,8 +122,9 @@ impl ga::encoding::Phenotype<Cost, Context, Chromosome> for Phenotype {
 
                 // Constraint::AssignTimeConstraint(params) => {
                 //     let cost =
-                //         constraints::assign_time_constraint(self, ctx, params, indices);
-
+                //         constraints::assign_time_constraint(
+                //            self, ctx, params, indices
+                //         );
                 //     total_cost += cost;
                 // },
                 _ => {}
