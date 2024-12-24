@@ -24,6 +24,14 @@ use times::{
 };
 
 // Database ////////////////////////////////////////////////////////////////////
+/// The database struct is initialized from a XHSTT problem instance and
+/// represents all the information from this instance in one central struct,
+/// which provides methods to query each part of that data.
+///
+/// Querying the data of a XHSTT problem instance is crucial for calculating
+/// the dimensions of lists or matrices, when initializing the encoding for
+/// a genetic algorithm, or ensuring the problem instance complies with certain
+/// pre-conditions, the algorithm relies on.
 pub struct Database {
     // Times Data //////////////////////////////////////////////////////////////
     weeks: Vec<Week>,
@@ -51,6 +59,7 @@ pub struct Database {
 }
 
 impl Database {
+    /// Initialize the [`Database`] from the given XHSTT problem instance.
     pub fn init(
         instance: &crate::parser::instances::Instance,
     ) -> Result<Self, Vec<String>> {
@@ -163,6 +172,16 @@ impl Database {
         Ok(db)
     }
 
+    /// Perform a check on all references contained in the XHSTT problem
+    /// description.
+    /// References are usually ID values, which refer to other entities of
+    /// the problem instance description (e.g., times referring to time groups
+    /// they belong to).
+    ///
+    /// This function returns `Ok(())`, if all references are valid.
+    /// Otherwise, the function will return `Err(Vec<String>)` which contains
+    /// a list of errors which will indicate which data's references have not
+    /// been found in the problem instance.
     fn check_references(&self) -> Result<(), Vec<String>> {
         // Collect used references
         let mut week_ids = vec![];
