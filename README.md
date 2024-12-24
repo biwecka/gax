@@ -83,7 +83,13 @@ To run any of the contained algorithms follow these steps:
 3.  Run the solver with the following command: `cargo rr solver`
     (alias for `cargo run --release -p solver`)
 
-4.  Optionally, if you want to get real-time insights into the algorithm's
+4.  Verify the solution: Running the `solver` binary will output a
+    `solution.xml` file in the `assets/solutions/<problem instance name>/`
+    directory. The cost of the solution in this file can be calculated by using
+    the [HSEval High School Timetable Evaluator](http://jeffreykingston.id.au/cgi-bin/hseval.cgi).
+    This enables the "official" validation of the algorithm's solutions.
+
+5.  Optionally, if you want to get real-time insights into the algorithm's
     execution, update the algorithm's dependency entry in
     `bin/solver/Cargo.toml` to enable the desired features.
     Alternatively, the desired features can also be added as *defaults* in the

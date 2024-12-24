@@ -75,8 +75,7 @@ pub fn create_solution(
             solutions: vec![Solution {
                 reference: instance_id.to_owned(),
                 description: None,
-                running_time: runtime
-                    .map(|s| format!("{}m {}s", s / 60, s % 60)),
+                running_time: runtime.map(|s| format!("{}",s)),
                 events: Some(Events { list: solution_events }),
             }],
         }],
