@@ -11,7 +11,7 @@ use rand::rngs::ThreadRng;
 /// This trait is usually implemented by enums, which represent a set of
 /// crossover methods.
 /// As the crossover operation depends on the genotype, no default
-/// implementation can be provided. Although the [`crate::utils::crossover`]
+/// implementation can be provided. Although the [`crate::operators::crossover`]
 /// provides some helpful implementations for commonly used datatypes.
 ///
 /// You might notice, that the parameters to the exec function only contain
@@ -37,7 +37,7 @@ pub trait Crossover<Ctx: Context, Ge: Genotype<Ctx>>: Send + Sync {
 /// This trait is usually implemented by enums, which represent a set of
 /// mutation methods. Just like the crossover operathor, the mutation operator
 /// also depends on the genotype, therefore no default implementation can be
-/// provided. But the [`crate::utils::crossover`] provides some helpful
+/// provided. But the [`crate::operators::crossover`] provides some helpful
 /// implementations for commonly used datatypes.
 ///
 /// You might notice, that the parameters to the exec function only the

@@ -94,7 +94,7 @@ the framework, because they heavily depend on the data structure of the
 encoding.
 
 Therefore, the framework provides the traits
-[`ga::operators::Crossover`] and [`ga::operators::Mutation] which need to
+[`operators::Crossover`] and [`operators::Mutation] which need to
 be implemented possibly by an enum, which unifies all supported crossover
 (or mutation operators respectively).
 
@@ -112,7 +112,7 @@ The prebuild operators are:
 -   Mutation
     -   Random                  [`operators::mutation::randomize_single_dist`]
         and                     [`operators::mutation::randomize_multi_dist`]
-    -   Swap (multiple variants) [`operators::mutation::swap_*`]
+    -   Swap (multiple variants) `operators::mutation::swap_*`
 
 ### Preparing the Algorithm
 With the above traits implemented, we can start assembling the encoding,
@@ -180,7 +180,7 @@ Executing the algorithm is now as easy as calling one function:
 ```rust ,ignore
 let report = alg.run();
 ```
-After the algorithm terminates it returns a [`ga::report::Report`] which
+After the algorithm terminates it returns a [`report::Report`] which
 contains not only the individuals of the final generation (incl. their
 objective values), but also metrics collected during the runtime of the
 algorithm as well as a detailed `log`, containing information about each

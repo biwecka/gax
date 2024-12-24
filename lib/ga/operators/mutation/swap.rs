@@ -4,12 +4,8 @@ use rand_distr::Distribution;
 
 // Functions ///////////////////////////////////////////////////////////////////
 
-/// Randomizes the genes based on a single random number distribution, which
+/// Swaps the genes based on a single random number distribution, which
 /// is passed as parameter and creates valid gene values for all genes.
-///
-/// Genes may have different value ranges. For this case check out the
-/// [`randomize_multi_dist`] functions.
-///
 pub fn swap_uniform_dist<D: rand::distributions::Distribution<usize>>(
     chromosome: &mut [usize],
     rate: f32,

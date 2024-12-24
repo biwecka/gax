@@ -142,8 +142,13 @@ To use the auto runner, the following steps are needed:
 
 <!-- Documentation --------------------------------------------------------- -->
 # Documentation
-For technical documentation and implementation insights check out the
-markdown documentation [here](./docs/main.md).
+For technical documentation and implementation insights check out the following
+markdown files:
+1.  [XHSTT](./xhstt/main.md)
+2.  [Genetic Algorithm Framework (`ga` Library-Crate)](../lib/ga/README.md)
+
+Crates which are not listed here, contain Rust-Doc documentation which can
+be rendered in browsed by executing `cargo doc --workspace --no-deps --open`.
 
 
 <!-- ----------------------------------------------------------------------- -->

@@ -457,7 +457,7 @@ impl EventGene {
     }
 
     /// Rule 6: If an event has a sub-event of duration d starting at i
-    /// (-> K_e,d[i] = 1), make sure that no other starting time can be set
+    /// (-> K_e,d\[i\] = 1), make sure that no other starting time can be set
     /// within the duration of that sub-event.
     fn check_rule_6(e: &Self) -> bool {
         // Function to calculate the helper vector.
