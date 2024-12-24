@@ -59,10 +59,10 @@ enum-iterator = "2.1.0"
 structstruck = "0.4.1"
 
 # alg_4
-genevo = "0.7"
+# genevo = "0.7"
 
 # alg_5
-oxigen = "2.2.2"
+# oxigen = "2.2.2"
 
 # data log
 rerun = "0.13.0"

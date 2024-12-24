@@ -3,6 +3,7 @@ use super::{ResourceGroupId, ResourceId, ResourceTypeId, TimeId};
 
 // Course //////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct CourseId(pub String);
 
 impl From<String> for CourseId {
@@ -17,6 +18,7 @@ impl From<&str> for CourseId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct Course {
     pub id: CourseId,
     pub name: String,
@@ -33,6 +35,7 @@ impl From<crate::parser::instances::events::Course> for Course {
 
 // Course //////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct EventGroupId(pub String);
 
 impl From<String> for EventGroupId {
@@ -47,6 +50,7 @@ impl From<&str> for EventGroupId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct EventGroup {
     pub id: EventGroupId,
     pub name: String,
@@ -63,6 +67,7 @@ impl From<crate::parser::instances::events::EventGroup> for EventGroup {
 
 // Event ///////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct EventId(pub String);
 
 impl From<String> for EventId {
@@ -77,6 +82,7 @@ impl From<&str> for EventId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct Event {
     pub id: EventId,
     pub color: Option<String>,
@@ -171,6 +177,7 @@ impl From<crate::parser::instances::events::Event> for Event {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AssignedResource {
     pub id: ResourceId,
     pub role: Option<String>,
@@ -178,6 +185,7 @@ pub struct AssignedResource {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AbsentResource {
     pub role: String,
     pub resource_type: ResourceTypeId,

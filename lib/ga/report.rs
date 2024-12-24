@@ -3,6 +3,11 @@ use crate::encoding::{Context, Genotype, ObjectiveValue};
 use std::marker::PhantomData;
 
 // Report //////////////////////////////////////////////////////////////////////
+/// This struct represents the return value of the algorithm and therefore
+/// contains not only all individuals of the final generation (including their
+/// objective values), but also valuable metrics and a detailed log of all
+/// generations, which can be used in post-analyzation of each algorithm
+/// execution.
 #[derive(Clone)]
 pub struct Report<Ov, Ctx, Ge>
 where

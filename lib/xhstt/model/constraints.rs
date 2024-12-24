@@ -5,6 +5,7 @@ use crate::parser::instances::constraints::Constraint as ParserConstraint;
 // Constraints /////////////////////////////////////////////////////////////////
 structstruck::strike!(
     #[strikethrough[derive(Clone, Debug)]]
+    #[strikethrough[deprecated]]
     pub enum Constraint {
         AssignResourceConstraint(pub struct {}),
 
@@ -126,6 +127,7 @@ impl From<crate::parser::instances::constraints::Constraint> for Constraint {
 
 // ... Events and Event Groups
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AppliesToEventsAndGroups {
     pub event_groups: Vec<EventGroupId>,
     pub events: Vec<EventId>,
@@ -160,6 +162,7 @@ impl From<crate::parser::instances::constraints::AppliesToEventsAndGroups>
 
 // ... Event Groups
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AppliesToEventGroups {
     pub event_groups: Vec<EventGroupId>,
 }
@@ -184,6 +187,7 @@ impl From<crate::parser::instances::constraints::AppliesToEventGroups>
 // ... Event Pairs
 structstruck::strike!(
     #[strikethrough[derive(Clone, Debug)]]
+    #[strikethrough[deprecated]]
     pub struct AppliesToEventPairs {
         pub event_pairs: Vec<pub struct EventPair {
             pub first_event: EventId,
@@ -221,6 +225,7 @@ impl From<crate::parser::instances::constraints::EventPair> for EventPair {
 
 // ... Resources and Groups
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AppliesToResourcesAndGroups {
     pub resource_groups: Vec<ResourceGroupId>,
     pub resources: Vec<ResourceId>,
@@ -255,6 +260,7 @@ impl From<crate::parser::instances::constraints::AppliesToResourcesAndGroups>
 
 // Cost Function ///////////////////////////////////////////////////////////////
 #[derive(Clone, Debug)]
+#[deprecated]
 pub enum CostFunction {
     Linear,
     Quadratic,

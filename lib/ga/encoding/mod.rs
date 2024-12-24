@@ -52,7 +52,9 @@ pub trait Context: Send + Sync {}
 
 // Genotype ////////////////////////////////////////////////////////////////////
 
-/// TODO: docs
+/// The genotype trait should be implemented for data structures that represent
+/// the genotype of an encoding. The trait definition primarily contains a
+/// method definition, which enables the framework to initialize a population.
 pub trait Genotype<Ctx: Context>:
     Clone + Debug + PartialEq + Eq + Send + Sync + Hash
 {
@@ -78,8 +80,10 @@ pub trait Genotype<Ctx: Context>:
 
 // Phenotype ///////////////////////////////////////////////////////////////////
 
-/// TODO: docs
-/// TODO: type-state pattern
+/// The phenotype trait should be implemented for data structures that
+/// represent the phenotype of an encoding. The trait definition contains
+/// methods for deriving a phenotype from a given phenotype, as well as
+/// evaluating the phenotype.
 pub trait Phenotype<Ov: ObjectiveValue, Ctx: Context, Ge: Genotype<Ctx>>:
     Clone + Debug + Send + Sync
 {

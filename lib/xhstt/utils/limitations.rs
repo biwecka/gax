@@ -1,3 +1,11 @@
+//! This module contains functions which perform certain check on a given
+//! database. These checks can be used to check/assert pre-conditions of a
+//! XHSTT-solving algorithm.
+//!
+//! For example: If an algorithm can only handle events with a duration of 1,
+//! the [`only_duration_of_1`] function can be used to check if this condition
+//! is met by the problem instance that is passed into the algorithm.
+
 // Helper Functions ////////////////////////////////////////////////////////////
 pub fn only_time_allocation_needed(db: &crate::db::Database) -> bool {
     for event in db.events() {

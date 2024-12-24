@@ -1,5 +1,6 @@
 // Week ////////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct WeekId(pub String);
 impl From<String> for WeekId {
     fn from(value: String) -> Self {
@@ -13,6 +14,7 @@ impl From<&str> for WeekId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct Week {
     pub id: WeekId,
     pub name: String,
@@ -29,6 +31,7 @@ impl From<crate::parser::instances::times::Week> for Week {
 
 // Day /////////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct DayId(pub String);
 impl From<String> for DayId {
     fn from(value: String) -> Self {
@@ -42,6 +45,7 @@ impl From<&str> for DayId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct Day {
     pub id: DayId,
     pub name: String,
@@ -58,6 +62,7 @@ impl From<crate::parser::instances::times::Day> for Day {
 
 // Time Group //////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct TimeGroupId(pub String);
 impl From<String> for TimeGroupId {
     fn from(value: String) -> Self {
@@ -71,6 +76,7 @@ impl From<&str> for TimeGroupId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct TimeGroup {
     pub id: TimeGroupId,
     pub name: String,
@@ -87,6 +93,7 @@ impl From<crate::parser::instances::times::TimeGroup> for TimeGroup {
 
 // Time ////////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct TimeId(pub String);
 impl From<String> for TimeId {
     fn from(value: String) -> Self {
@@ -100,6 +107,7 @@ impl From<&str> for TimeId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct Time {
     pub id: TimeId,
     pub name: String,

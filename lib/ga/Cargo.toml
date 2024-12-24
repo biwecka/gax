@@ -68,7 +68,6 @@ ndarray = { workspace = true }
 statrs = { workspace = true }
 hashbrown = { workspace = true }
 shannon_entropy = { workspace = true }
-# simple_moving_average = { workspace = true }
 
 rerun = { workspace = true } #, optional = true }
 colors-transform = { workspace = true, optional = true }

@@ -1,5 +1,6 @@
 // Resource Type ///////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct ResourceTypeId(pub String);
 pub type ResourceTypeRef = ResourceTypeId;
 
@@ -15,6 +16,7 @@ impl From<&str> for ResourceTypeId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct ResourceType {
     pub id: ResourceTypeId,
     pub name: String,
@@ -31,6 +33,7 @@ impl From<crate::parser::instances::resources::ResourceType> for ResourceType {
 
 // Resource Group //////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct ResourceGroupId(pub String);
 pub type ResourceGroupRef = ResourceGroupId;
 
@@ -46,6 +49,7 @@ impl From<&str> for ResourceGroupId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct ResourceGroup {
     pub id: ResourceGroupId,
     pub name: String,
@@ -68,6 +72,7 @@ impl From<crate::parser::instances::resources::ResourceGroup>
 
 // Resource ////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[deprecated]
 pub struct ResourceId(pub String);
 pub type ResourceRef = ResourceId;
 
@@ -83,6 +88,7 @@ impl From<&str> for ResourceId {
 }
 
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct Resource {
     pub id: ResourceId,
     pub name: String,

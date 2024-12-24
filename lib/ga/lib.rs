@@ -1,4 +1,4 @@
-// #![feature(let_chains)]
+#![doc = include_str!("README.md")]
 
 // Modules /////////////////////////////////////////////////////////////////////
 pub mod encoding;

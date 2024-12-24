@@ -1,6 +1,6 @@
+// Imports /////////////////////////////////////////////////////////////////////
 use std::path::Path;
 
-// Imports /////////////////////////////////////////////////////////////////////
 use crate::parser::{
     solution_groups::{
         metadata::MetaData,
@@ -21,7 +21,7 @@ pub fn xhstt_to_xml_string(xhstt: &XhsttArchive) -> String {
         .unwrap()
 }
 
-/// Format XML
+/// Format the given XML string (pretty-printing).
 pub fn format_xml(xml: &str) -> String {
     match xmltree::Element::parse(xml.as_bytes()) {
         Ok(element) => {
@@ -49,6 +49,8 @@ pub fn format_xml(xml: &str) -> String {
     }
 }
 
+/// Assemble the [`SolutionGroups`] data structure from a list of [`Event`]s
+/// and the additionally provided information (e.g. instance_id, etc.).
 pub fn create_solution(
     instance_id: &str,
     solution_id: &str,
@@ -81,6 +83,11 @@ pub fn create_solution(
     }
 }
 
+/// This function writes the XHSTT archive given as parameter to disk by
+/// performing the following steps:
+/// 1.  Convert [`XhsttArchive`] to an XML string
+/// 2.  Format the XML string (pretty-print).
+/// 3.  Write formatted XML to disk.
 pub fn write_xhstt(
     xhstt: &XhsttArchive,
     path: impl AsRef<Path>,

@@ -21,16 +21,7 @@ use crate::tools::rerun_logger::RerunLogger;
 // Crossover ///////////////////////////////////////////////////////////////////
 
 /// This trait is usually implemented by enums, which represent a set of
-/// crossover methods.
-/// As the crossover operation depends on the genotype, no default
-/// implementation can be provided. Although the [`crate::utils::crossover`]
-/// provides some helpful implementations for commonly used datatypes.
-///
-/// You might notice, that the parameters to the exec function only contain
-/// the "parent" chromosomes, without any parameter for the crossover rate.
-/// This is because the crossover rate should be defined with the crossover
-/// method and should therefore be part of the crossover method (e.g. a
-/// parameter for an enum variant which represents one crossover method).
+/// self-parameterization methods.
 pub trait Dynamic<
     Ov: ObjectiveValue + Into<T>,
     Ctx: Context,
@@ -68,6 +59,18 @@ pub trait Dynamic<
     fn identifier(&self) -> String;
 }
 
+
+/// Implementation of the `Dynamic` trait for the unit type `()`. This allows
+/// the user to specify no dynamic when building the algorithm, by using
+/// the following line:
+/// ```rust ,ignore
+/// let alg = ga::Builder::new()
+///     .set_encoding(encoding)
+///     .set_parameters(parameters)
+///     .set_dynamics::<()>(None)       // <-- this line
+///     .set_custom_logger::<()>(None)
+///     .build();
+/// ```
 impl<
         Ov: ObjectiveValue + Into<T>,
         Ctx: Context,

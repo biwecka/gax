@@ -1,3 +1,13 @@
+//! This module embeds all 2014 and 2014-A XHSTT problem instances provided
+//! by the University of Twente into this library. They can simply be loaded
+//! as shown below:
+//! ```rust ,ignore
+//! use xhstt::xml::{Archives, X2014a};
+//! fn main() {
+//!     let xml: String = Archives::X2014a(X2014a::Hdtt4).xml();
+//! }
+//! ```
+
 // Helper Macro ////////////////////////////////////////////////////////////////
 macro_rules! load_asset {
     ($file:expr) => {
@@ -52,6 +62,7 @@ structstruck::strike!(
 );
 
 impl Archives {
+    /// Get the raw XHSTT XML string of this problem instance.
     pub fn xml(&self) -> String {
         match self {
             Self::X2014(val) => match val {
@@ -96,6 +107,7 @@ impl Archives {
         }
     }
 
+    /// Returns the XHSTT XML strings of all available problem instances.
     pub fn all_xml() -> Vec<String> {
         enum_iterator::all::<Archives>().map(|x| x.xml()).collect()
     }

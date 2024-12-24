@@ -1,3 +1,22 @@
+//! This module contains a **deprecated** data structure, which represents the
+//! timetabling information contained in a XHSTT instance. The root of this
+//! data structure is the [`Data`] struct, which contains multiple hash maps
+//! that contain all sorts of timetabling data and relations of that data.
+//!
+//! ## Where was it used?
+//! This data structure was used in the first couple of algorithms developed
+//! for my master's thesis. These algorithms have been deprecated and moved
+//! to the `archive` directory in the root of the repository.
+//!
+//! ## Why is it deprecated?
+//! Because the algorithms (e.g. `alg_1` and `alg_2`) have been deprecated
+//! themselves, this data structure is not actively needed in any of the
+//! current algorithms anymore. It has been **replaced by** the
+//! [`crate::db::Database`].
+//!
+
+#![allow(deprecated)]
+
 // Modules /////////////////////////////////////////////////////////////////////
 pub mod constraints;
 pub mod events;
@@ -13,10 +32,9 @@ use events::*;
 use resources::*;
 use times::*;
 
-// Structs /////////////////////////////////////////////////////////////////////
-
 // Data ////////////////////////////////////////////////////////////////////////
 #[derive(Clone, Debug, Default)]
+#[deprecated]
 pub struct Data {
     // Times
     weeks: HashMap<WeekId, Week>,
@@ -39,6 +57,7 @@ pub struct Data {
 }
 
 #[derive(Clone, Debug, Default)]
+#[deprecated]
 pub struct Indices {
     // Times
     pub week_2_times: HashMap<WeekId, Vec<TimeId>>,

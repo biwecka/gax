@@ -7,6 +7,9 @@ pub mod utils;
 pub mod xml;
 
 // Functions ///////////////////////////////////////////////////////////////////
+
+/// Parse the given string as XHSTT XML archive.  
+/// **Attention:** Function *panics* on error.
 pub fn parse(xml: &str) -> parser::XhsttArchive {
     quick_xml::de::from_str(xml).unwrap()
 }
