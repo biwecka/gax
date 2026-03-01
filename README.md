@@ -5,7 +5,7 @@ developed for my master's thesis with the title:
 > A Case Study on High School Timetabling
 
 Check out all my repositories related to this topic:
-[🇧🧬 Genetic Algoritms for XHSTT](https://github.com/stars/biwecka/lists/genetic-alg-for-xhstt)
+[🧬 Genetic Algoritms for XHSTT](https://github.com/stars/biwecka/lists/genetic-alg-for-xhstt)
 
 
 ## Repository Overview
